@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DeliveryMapper">
+
+	<select id="list">
+		SELECT 
+		    D.DELIVERY_NO
+		    , M.ID
+		    , M.NICK
+		    , S.DELIVERY_STATUS
+		FROM DELIVERY D
+		JOIN DELIVERY_STATUS S ON S.DELIVERY_STATUS_NO = D.DELIVERY_STATUS_NO
+		JOIN ORDERS O ON O.ORDER_NO = D.ORDER_NO
+		JOIN MEMBER M ON M.MEMBER_NO = O.MEMBER_NO
+		ORDER BY DELIVERY_NO DESC
+	</select>
+	
+	<select id="detail">
+	SELECT 
+	    D.DELIVERY_NO
+	    , M.ID
+	    , M.NAME
+	    , M.NICK
+	    , M.TEL
+	    , D.ADDRESS_NO
+	    , TO_CHAR (D.DELIVERY_START_DATE, 'YYYY-MM-DD') AS START_DATE
+	    , TO_CHAR (D.DELIVERY_FINISH_DATE, 'YYYY-MM-DD') AS FINISH_DATE
+	    , S.DELIVERY_STATUS
+	FROM DELIVERY D
+	JOIN DELIVERY_STATUS S ON S.DELIVERY_STATUS_NO = D.DELIVERY_STATUS_NO
+	JOIN ORDERS O ON O.ORDER_NO = D.ORDER_NO
+	JOIN MEMBER M ON M.MEMBER_NO = O.MEMBER_NO
+	WHERE D.DELIVERY_NO = #{deliveryNo}
+	</select>
+	
+	<update id="status">
+	UPDATE DELIVERY SET DELIVERY_STATUS_NO = #{deliveryStatusNo}
+	WHERE DELIVERY_NO = #{deliveryNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

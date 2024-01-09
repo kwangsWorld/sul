@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CsBoardMapper">
+
+	<select id="list">
+	SELECT 
+	    Q_NO
+	    , Q_TITLE
+	    , TO_CHAR (Q_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+	    , A_YN
+	FROM CUSTOMER_CENTER
+	ORDER BY Q_NO DESC
+	</select>
+	
+	<select id="detail">
+	SELECT 
+	    C.Q_NO
+	    , M.NICK
+	    , TO_CHAR (C.Q_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+	    , A_CONTENT
+	    , TO_CHAR (C.A_DATE, 'YYYY-MM-DD') AS ANSWER_DATE
+	FROM CUSTOMER_CENTER C
+	JOIN MEMBER M ON C.MEMBER_NO = M.MEMBER_NO
+	WHERE C.Q_NO = #{qNo}
+	</select>
+	
+	<insert id="question">
+	INSERT INTO CUSTOMER_CENTER (Q_NO, MEMBER_NO, Q_TITLE, Q_CONTENT) 
+	VALUES(SEQ_Q_NO.NEXTVAL, #{qNo}, #{qTitle}, #{qContent})
+	</insert>
+	
+	<update id="answer">
+	UPDATE CUSTOMER_CENTER 
+	SET ADMIN_NO = #{adminNo}, A_CONTENT = #{aContent}
+	WHERE Q_NO = #{qNo}
+	</update>
+	
+
+</mapper>
