@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+
+	<select id="list" resultType="com.sul.app.product.vo.ProductVo">
+	SELECT 
+		P.NAME
+		, P.PRICE
+		, P.IMAGE
+		, P.DEL_YN
+		, R.RATING  
+	FROM PRODUCT P
+	JOIN ORDERS O ON P.PRODUCT_NO = O.PRODUCT_NO
+	JOIN ORDERS_LIST OL ON O.ORDER_NO = OL.ORDER_NO
+	JOIN REVIEW R ON OL.ORDER_LIST_NO = R.ORDER_LIST_NO
+	AND P.DEL_YN = 'N'
+	ORDER BY P.ENROLL_DATE DESC
+	</select>
+	
+	<select id="listByCategory" resultType="com.sul.app.product.vo.ProductVo">
+	
+	</select>
+	
+	
+</mapper>
