@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AddressMapper">
+
+	<insert id="plus">
+	INSERT INTO 
+	ADDRESS (ADDRESS_NO, ADDRESS, DEL_YN, MEMBER_NO) 
+	VALUES 
+	(SEQ_ADDRESS_NO.NEXTVAL, #{address}, 'N', #{memberNo});
+	</insert>
+	
+	<update id="delete">
+		UPDATE ADDRESS
+			SET DEL_YN = 'Y'
+		WHERE ADDRESS_NO = #{adressNo}
+	</update>
+</mapper>

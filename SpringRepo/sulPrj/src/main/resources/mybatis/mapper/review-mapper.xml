@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+
+	<insert id="write">
+		INSERT INTO REVIEW 
+		(REVIEW_NO, CONTENT, ENROLL_DATE, IMG, MEMBER_NO, RATING, ORDER_NO) 
+		VALUES (SEQ_REVIEW_NO.NEXTVAL, #{content}, #{enrollDate}, #{img}, #{memberNo}, #{rating}, #{orderNo})
+	</insert>
+</mapper>
