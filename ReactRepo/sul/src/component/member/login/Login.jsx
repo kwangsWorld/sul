@@ -1,10 +1,12 @@
 import React from 'react';
+import { Route, Routes} from 'react-router-dom';
+import JoinEmail from './component/member/login/JoinEmail';
 
 const Login = () => {
     return (
-        <div>
-            
-        </div>
+        <Routes>
+            <Route path='/joinEmail' element={<JoinEmail />} />
+        </Routes>
     );
 };
 

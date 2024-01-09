@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CcommtMapper">
+
+	<insert id= "insert">
+		INSERT INTO COMMUNITY_COMMT 
+		(COMMUNITY_COMMT_NO, CONTENT, DEL_YN, ENROLL_DATE, COMMUNITY_NO) 
+		VALUES 
+		(SEQ_COMMUNITY_COMMT_NO.NEXTVAL, #{content}, 'N', #{enrollDate}, #{communityNo})
+	</insert>
+	
+	<update id="delete">
+		UPDATE COMMUNITY_COMMT
+		SET DEL_YN = 'Y' WHERE COMMT_NO = #{commtNo}
+	</update>
+</mapper>

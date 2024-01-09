@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommunityMapper">
+
+	<insert id="insert">
+		INSERT INTO COMMUNITY 
+		(COMMUNITY_NO, TITLE, CONTENT, ENROLL_DATE, DEL_YN, IMG, MEMBER_NO, COMMUNITY_CATEGORY_NO) 
+		VALUES 
+		(SEQ_COMMUNITY_NO.NEXTVAL, #{title}, #{content}, #{enrollDate}, 'N', #{img}, #{memberNo}, #{communityCategoryNo})
+	</insert>
+	
+	<select id="list" resultType="com.sul.app.community.vo.CommunityVo">
+	SELECT C.COMMUNITY_NO, C.TITLE, C.CONTENT, C.ENROLL_DATE, C.DEL_YN, M.NICK, T.NAME
+	FROM COMMUNITY C
+	JOIN MEMBER M ON C.MEMBER_NO = M.MEMBER_NO
+	JOIN COMMUNITY_COMMT N ON C.COMMUNITY_NO = N.COMMUNITY_NO
+	JOIN COMMUNITY_CATEGORY T ON C.COMMUNITY_CATEGORY_NO = T.COMMUNITY_CATEGORY_NO
+	WHERE C.DEL_YN = 'N'
+	AND T.COMMNITY_CATEGORY_NO = #{communityCategoryNo}
+	</select>
+	
+	<select id="detail" resultType="com.sul.app.community.vo.CommunityVo">
+		SELECT C.COMMUNITY_NO, C.TITLE, C.CONTENT, C.ENROLL_DATE, C.DEL_YN, C.IMG, M.NICK, N.CONTENT, T.NAME
+		FROM COMMUNITY C
+		JOIN MEMBER M ON C.MEMBER_NO = M.MEMBER_NO
+		JOIN COMMUNITY_COMMT N ON C.COMMUNITY_NO = N.COMMUNITY_NO
+		JOIN COMMUNITY_CATEGORY T ON C.COMMUNITY_CATEGORY_NO = T.COMMUNITY_CATEGORY_NO
+		WHERE C.COMMUNITY_NO = #{communityCategoryNo}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+		AND C.DEL_YN = 'N'
+	</select>
+	
+	<update id="delete">
+		UPDATE COMMUNITY SET DEL_YN = 'Y' 
+		WHERE COMMUNITY_NO = #{communityNo} AND MEMBER_NO = #{memberNo}
+	</update>
+	
+	<update id="edit">
+		UPDATE COMMUNITY 
+		SET 
+		<trim prefixOverrides=",">
+			<if test="title != null and title != '' ">
+				TITLE = #{title} 
+			</if>
+			<if test="content != null and content != '' ">
+				, CONTENT = #{content} 			
+			</if>
+		</trim>
+		, MODIFY_DATE = SYSDATE 
+		WHERE COMMUNITY_NO = #{communityNo} 
+		AND DEL_YN = 'N'
+	</update>
+	
+</mapper>
