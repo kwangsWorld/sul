@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,7 +35,7 @@ public class MemberController {
 	
 	//회원가입
 	@PostMapping("join")
-	public Map<String, String> join(MemberVo vo) throws Exception {
+	public Map<String, String> join(@RequestBody MemberVo vo) throws Exception {
 		
 		Thread.sleep(3000);
 		
@@ -52,7 +53,7 @@ public class MemberController {
 	
 	//로그인
 	@PostMapping("login")
-	public Map<String, Object> login(MemberVo vo, HttpSession session) throws Exception {
+	public Map<String, Object> login(@RequestBody MemberVo vo) throws Exception {
 		
 		MemberVo loginMember = service.login(vo);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -68,46 +69,36 @@ public class MemberController {
 	
 	//회원정보 수정
 	@PostMapping("edit")
-	public String edit(MemberVo vo) throws Exception{
+	public Map<String, Object> edit(@RequestBody MemberVo vo) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
 		int result = service.edit(vo);
-		
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");			
 		}
-		return "redirect:/home";
+		return map;
 	}
 	
 	//회원 탈퇴
 	@GetMapping("quit")
-	public  String quit(MemberVo vo, HttpSession session) throws Exception {
-		
+	public  Map<String, Object> quit(@RequestBody MemberVo vo) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
 		int result = service.quit(vo);
 		
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");			
 		}
-		
-		session.removeAttribute("loginMember");
-		session.setAttribute("alertMsh", "탈퇴가 완료 되었습니다.");
-		
-		return "redirect:/home";
+		return map;
 	}
 	
 	//회원목록 조회
 	@GetMapping("list")
-	public String list(Model model) {
-		
-		List<MemberVo> voList = service.list();
-		System.out.println(voList);
-		
-		model.addAttribute("memberVoList", voList);
-		
-		return "member/list";
+	public List<MemberVo> list() {
+		return service.list();
 	}
 	
-	//로그아웃
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/home";
-	}
+	
 }

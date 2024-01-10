@@ -42,7 +42,7 @@ const JoinEmail = () => {
         tel: "",
         id: "",
         pwd: "",
-        pwd2: "", // 비밀번호 확인 추가
+        pwd2: "",
         email: "",
         nick: ""
     });
@@ -107,31 +107,31 @@ const JoinEmail = () => {
                 <table>
                     <tr>
                         <td>이름</td>
-                        <td><input type='text' name='name' onChange={handleInputChange} /></td>
+                        <td><input type='text' name='name' placeholder='이름을 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
                         <td>휴대폰 번호</td>
-                        <td><input type='tel' name='tel' onChange={handleInputChange} /></td>
+                        <td><input type='tel' name='tel' placeholder='휴대폰 번호를 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
                         <td>아이디</td>
-                        <td><input type='text' name='id' onChange={handleInputChange} /></td>
+                        <td><input type='text' name='id' placeholder='아이디를 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
                         <td>비밀번호</td>
-                        <td><input type='password' name='pwd' onChange={handleInputChange} /></td>
+                        <td><input type='password' name='pwd' placeholder='비밀번호를 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
                         <td>비밀번호 확인</td>
-                        <td><input type='password' name='pwd2' onChange={handleInputChange} /></td>
+                        <td><input type='password' name='pwd2' placeholder='비밀번호 확인 해주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
                         <td>이메일</td>
-                        <td><input type='email' name='email' onChange={handleInputChange} /></td>
+                        <td><input type='email' name='email' placeholder='이메일 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
                         <td>닉네임</td>
-                        <td><input type='text' name='nick' onChange={handleInputChange} /></td>
+                        <td><input type='text' name='nick' placeholder='닉네임을 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
                         <td></td>

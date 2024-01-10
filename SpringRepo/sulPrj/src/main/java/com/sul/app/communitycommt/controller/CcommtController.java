@@ -1,8 +1,14 @@
 package com.sul.app.communitycommt.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sul.app.communitycommt.service.CcommtService;
@@ -19,22 +25,28 @@ public class CcommtController {
 	
 	//댓글작성
 	@PostMapping("insert")
-	public String insert(CcommtVo vo) throws Exception{
+	public Map<String, String> insert(@RequestBody CcommtVo vo, HttpSession session) throws Exception{
+		Map<String, String> map = new HashMap<String, String>();
 		int result = service.insert(vo);
 		
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");			
 		}
-		return "redirect:/community/detail";
+		return map;
 	}
 	
 	//댓글삭제
 	@GetMapping("delete")
-	public String delete(CcommtVo vo) throws Exception {
+	public Map<String, Object> delete(@RequestBody CcommtVo vo) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
 		int result = service.delete(vo);
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");
 		}
-		return "redirect:/community/detail";
+		return map;
 	}
 }
