@@ -26,13 +26,13 @@ public class MemberController {
 
 	private final MemberService service;
 	
-	//È¸¿ø°¡ÀÔ(È­¸é)
+	//íšŒì›ê°€ì…(í™”ë©´)
 	@GetMapping("join")
 	public String join() {
 		return "member/join";
 	}
 	
-	//È¸¿ø°¡ÀÔ
+	//íšŒì›ê°€ì…
 	@PostMapping("join")
 	public Map<String, String> join(MemberVo vo) throws Exception {
 		
@@ -50,7 +50,7 @@ public class MemberController {
 		return map;
 	}
 	
-	//·Î±×ÀÎ
+	//ë¡œê·¸ì¸
 	@PostMapping("login")
 	public Map<String, Object> login(MemberVo vo, HttpSession session) throws Exception {
 		
@@ -66,7 +66,7 @@ public class MemberController {
 		
 	}
 	
-	//È¸¿øÁ¤º¸ ¼öÁ¤
+	//íšŒì›ì •ë³´ ìˆ˜ì •
 	@PostMapping("edit")
 	public String edit(MemberVo vo) throws Exception{
 		int result = service.edit(vo);
@@ -77,7 +77,7 @@ public class MemberController {
 		return "redirect:/home";
 	}
 	
-	//È¸¿ø Å»Åğ
+	//íšŒì› íƒˆí‡´
 	@GetMapping("quit")
 	public  String quit(MemberVo vo, HttpSession session) throws Exception {
 		
@@ -88,12 +88,12 @@ public class MemberController {
 		}
 		
 		session.removeAttribute("loginMember");
-		session.setAttribute("alertMsh", "Å»Åğ°¡ ¿Ï·á µÇ¾ú½À´Ï´Ù.");
+		session.setAttribute("alertMsh", "íƒˆí‡´ê°€ ì™„ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		
 		return "redirect:/home";
 	}
 	
-	//È¸¿ø¸ñ·Ï Á¶È¸
+	//íšŒì›ëª©ë¡ ì¡°íšŒ
 	@GetMapping("list")
 	public String list(Model model) {
 		
@@ -105,7 +105,7 @@ public class MemberController {
 		return "member/list";
 	}
 	
-	//·Î±×¾Æ¿ô
+	//ë¡œê·¸ì•„ì›ƒ
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/home";

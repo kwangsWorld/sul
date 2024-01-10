@@ -15,12 +15,12 @@ public class CcommtService {
 	private final CcommtDao dao;
 	private final SqlSessionTemplate sst;
 	
-	//´ñ±Û ÀÛ¼º
+	//ëŒ“ê¸€ìž‘ì„±
 	public int insert(CcommtVo vo) {
 		return dao.insert(sst, vo);
 	}
 
-	//´ñ±Û »èÁ¦
+	//ëŒ“ê¸€ì‚­ì œ
 	public int delete(CcommtVo vo) {
 		return dao.delete(sst, vo);
 	}

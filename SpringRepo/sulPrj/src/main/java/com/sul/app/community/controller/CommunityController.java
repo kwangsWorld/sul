@@ -23,7 +23,7 @@ public class CommunityController {
 
 	private final CommunityService service;
 	
-	//°Ô½Ã±ÛÀÛ¼º
+	//ê²Œì‹œê¸€ì‘ì„±
 	@PostMapping("insert")
 	public String insert(CommunityVo vo) throws Exception {
 		
@@ -35,7 +35,7 @@ public class CommunityController {
 		return "redirect:/community/list";
 	}
 	
-	//°Ô½Ã±Û ¸ñ·Ï Á¶È¸ (data jsp³Ñ°Ü¼­ È­¸é ¸¸µé¾îÁÜ)
+	//ê²Œì‹œê¸€ ëª©ë¡ ì¡°íšŒ (data jspë„˜ê²¨ì„œ í™”ë©´ ë§Œë“¤ì–´ì¤Œ)
 	@GetMapping("list")
 	public String list(Model model) {
 		
@@ -45,7 +45,7 @@ public class CommunityController {
 		return "community/list";
  	}
 	
-	//°Ô½Ã±Û ¸ñ·Ï Á¶È¸(data¸¸)
+	//ê²Œì‹œê¸€ ëª©ë¡ ì¡°íšŒ(dataë§Œ)
 	@GetMapping("rest/list")
 	@ResponseBody
 	public List<CommunityVo> restList(){
@@ -53,7 +53,7 @@ public class CommunityController {
 		return voList;
 	}
 	
-	//°Ô½Ã±Û »ó¼¼Á¶È¸ (¹øÈ£)
+	//ê²Œì‹œê¸€ ìƒì„¸ì¡°íšŒ (ë²ˆí˜¸)
 	@GetMapping("detail")
 	public String detail(CommunityVo vo, Model model) {
 		CommunityVo communityVo = service.detail(vo);
@@ -61,7 +61,7 @@ public class CommunityController {
 		return "community/detail";
  	}
 	
-	//°Ô½Ã±Û ¼öÁ¤
+	//ê²Œì‹œê¸€ ìˆ˜ì •
 	@PostMapping("edit")
 	public String edit(CommunityVo vo) throws Exception {
 		int result = service.edit(vo);
@@ -71,7 +71,7 @@ public class CommunityController {
 		return "redirect:/community/detail?no=" + vo.getCommunityNo();
 	}
 	
-	//°Ô½Ã±Û »èÁ¦
+	//ê²Œì‹œê¸€ ì‚­ì œ
 	@GetMapping("delete")
 	public String delete(CommunityVo vo) throws Exception{
 		int result = service.delete(vo);
