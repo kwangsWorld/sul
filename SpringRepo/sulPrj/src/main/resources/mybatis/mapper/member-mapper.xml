@@ -45,4 +45,23 @@
 			AND MEMBER_NO = #{memberNo}
 	</select>
 	
+	<select id="detail" resultType="com.sul.app.member.vo.MemberVo">
+	SELECT 
+	    M.MEMBER_NO
+	    , M.ID
+	    , M.NICK
+	    , M.TEL
+	    , TO_CHAR (M.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+	    , M.DEL_YN
+	    , A.ADDRESS
+	FROM MEMBER M
+	JOIN ADDRESS A ON A.MEMBER_NO = M.MEMBER_NO
+	WHERE M.MEMBER_NO = #{memberNo}
+	</select>
+
+	<update id="delete">
+	UPDATE MEMBER SET DEL_YN = 'Y'
+	WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 </mapper>

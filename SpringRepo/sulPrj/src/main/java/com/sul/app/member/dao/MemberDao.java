@@ -35,4 +35,14 @@ public class MemberDao {
 		return sst.selectList("MemberMapper.list");
 	}
 
+	// 회원 목록 상세 조회
+	public MemberVo detail(SqlSessionTemplate sst, String no) {
+		return sst.selectOne("MemberMapper.detail", no);
+	}
+	
+	// 회원 삭제
+	public int delete(SqlSessionTemplate sst, String no) {
+		return sst.update("MemberMapper.delete", no);
+	}
+
 }

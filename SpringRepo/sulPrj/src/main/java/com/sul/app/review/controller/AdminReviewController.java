@@ -9,36 +9,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sul.app.review.service.ReviewService2;
+import com.sul.app.review.service.ReviewService;
 import com.sul.app.review.vo.ReviewVo;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("review")
+@RequestMapping("adminReview")
 @RequiredArgsConstructor
-public class ReviewController2 {
+public class AdminReviewController {
 
-	private final ReviewService2 service2;
+	private final ReviewService service;
 
 	// 리뷰 목록 조회 (관리자)
-	@GetMapping("adminList")
+	@GetMapping("list")
 	public List<ReviewVo> adminList() {
-		return service2.adminList();
+		return service.adminList();
 	}
 	
 	// 리뷰 목록 상세보기 (관리자)
-	@GetMapping("adminDetail")
+	@GetMapping("detail")
 	public ReviewVo adminDetail(String no) {
-		return service2.adminDetail(no);
+		return service.adminDetail(no);
 	}
 	
 	// 리뷰 삭제 (관리자)
-	@PostMapping("adminDelete")
+	@PostMapping("delete")
 	public Map<String,String> adminDelete(String no) {
 		
 		Map<String,String> map = new HashMap<String , String>();
-		int result = service2.adminDelete(no);
+		int result = service.adminDelete(no);
 		
 		if(result == 1) {
 			map.put("msg", "good");

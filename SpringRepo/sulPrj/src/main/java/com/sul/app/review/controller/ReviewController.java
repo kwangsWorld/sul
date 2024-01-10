@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +22,7 @@ public class ReviewController {
 
 	private final ReviewService service;
 	
-	
-	//작성하기
+	// 작성하기 (회원)
 	@PostMapping("write")
 	public Map<String, String> write(@RequestBody ReviewVo vo, HttpSession session) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
@@ -37,4 +35,5 @@ public class ReviewController {
 		}
 		return map;
 	}
+	
 }

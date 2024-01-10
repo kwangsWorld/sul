@@ -10,59 +10,20 @@
 		    , TITLE
 		    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
 		    , INQUIRY
-		    , DEL_YN
 		FROM NOTICE
+		WHERE DEL_YN = 'N'
 		ORDER BY NOTICE_NO DESC
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.notice.vo.NoticeVo">
-	SELECT 
-	    NOTICE_NO
-	    , DEL_YN
-	    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-	    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
-	    , TITLE
-	    , CONTENT
-	FROM NOTICE
-	WHERE NOTICE_NO = #{noticeNo}
-	</select>
-	
-	<insert id="write">
-	INSERT INTO NOTICE (NOTICE_NO, ADMIN_NO, TITLE, CONTENT, INQUIRY) 
-	VALUES(SEQ_NOTICE_NO.NEXTVAL, #{adminNo}, #{title}, #{content}, #{inquiry})
-	</insert>
-	
-	<update id="edit">
-	UPDATE NOTICE SET TITLE = #{title} , CONTENT = #{content}
-	WHERE NOTICE_NO = #{noticeNo}
-	</update>
-	
-	<update id="delete">
-	UPDATE NOTICE SET DEL_YN = 'Y'
-	WHERE NOTICE_NO = #{noticeNo}
-	</update>
-	
-<!-- 	유저측 기능 -->
-	<select id="mList" resultType="com.sul.app.notice.vo.NoticeVo">
-	SELECT 
-	    NOTICE_NO
-	    , TITLE
-	    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-	    , INQUIRY
-	FROM NOTICE
-	WHERE DEL_YN = 'N'
-	ORDER BY NOTICE_NO DESC
-	</select>
-	
-	<select id="mDetail" resultType="com.sul.app.notice.vo.NoticeVo">
-	SELECT 
-    	N.TITLE
-	    , N.CONTENT
-	    , TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-	    , A.ADMIN_NAME
-	FROM NOTICE N
-	JOIN ADMIN A ON A.ADMIN_NO = N.ADMIN_NO
-	WHERE N.DEL_YN = 'N' AND N.NOTICE_NO = #{noticeNo}
+		SELECT 
+	    	N.TITLE
+		    , N.CONTENT
+		    , TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , A.ADMIN_NAME
+		FROM NOTICE N
+		JOIN ADMIN A ON A.ADMIN_NO = N.ADMIN_NO
+		WHERE N.DEL_YN = 'N' AND N.NOTICE_NO = #{noticeNo}
 	</select>
 	
 	<update id="increaseHit">
