@@ -8,30 +8,35 @@ const StyledHeaderDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
-    & > .header_left {
-        width:500px;
-        height: 50px;
-        display: flex;
-        box-sizing: border-box;
+    box-sizing: border-box;
+
+    .icon{
+        font-size: 25px;
+        font-style: italic;
+        font-weight: bolder;
+
     }
-    & > .header_left > :nth-child(1){
-        width:100px;
-        height: 50px;
+    .header_right{
         display: flex;
+        flex-direction: row;
     }
-    & > .header_left > :
+    .join_login{
+        margin-right: 20px;
+    }
 `
 
 const Header = () => {
     return (
         <StyledHeaderDiv>
             <div className='header_left'>
-                <div className='icon'>icon</div>
-                <div className='search'>search</div>
+                <div className='icon'>SULDAMA</div>
+            </div>
+            <div className='header_center'>
+                검색: <input type="text" placeholder='무엇을 찾고 계신가요?'/>
             </div>
             <div className='header_right'>
                 <div className='join_login'>회원가입/로그인</div>
-                <div className='cart'>장바구니</div>
+                <img width = "30px" height = "30px" src="https://artfeel.co.kr/web/product/big/o_Icon_011.jpg" alt="장바구니"></img>
             </div>
         </StyledHeaderDiv>
     );
