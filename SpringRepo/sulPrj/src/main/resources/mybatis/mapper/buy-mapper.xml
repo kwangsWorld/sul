@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BuyMapper">
+	
+	<insert id="buy">
+		INSERT INTO ORDERS_LIST(
+			ORDER_LIST_NO
+			, ORDER_NO
+			, ORDER_DATE
+			, PRICE
+			, QUANTITY
+		)
+		VALUES (
+			SEQ_ORDER_LIST_NO.NEXTVAL
+			, SEQ_ORDER_NO.CURRVAL
+			, SYSDATE
+			, #{price}
+			, 1(나중에 JS에서 변수값 가져와야할듯..)
+		)
+	</insert>
+	
+	<select id="buyList" resultType="com.sul.app.product.vo.ProductVo">
+		SELECT 
+			P.NAME
+			, P.PRICE
+			, P.CAPACITY
+			, A.ADDRESS
+			, O.ORDER_NO
+			, O.MEMBER_NO
+			, O.ORDER_DATE
+			, O.QUANTITY 
+		FROM ORDERS O
+		JOIN PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
+		JOIN MEMBER M ON O.MEMBER_NO = M.MEMBER_NO
+		JOIN ADDRESS A ON A.MEMBER_NO = M.MEMBER_NO
+	</select>
+
+</mapper>
