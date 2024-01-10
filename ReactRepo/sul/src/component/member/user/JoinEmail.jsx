@@ -135,7 +135,7 @@ const JoinEmail = () => {
                     </tr>
                     <tr>
                         <td></td>
-                        <td><input type='submit' value='회원가입' /></td>
+                        <td><input type='submit' value='회원가입' style={{backgroundColor: '#ffe23dfb'}}/></td>
                     </tr>
                 </table>
             </form>

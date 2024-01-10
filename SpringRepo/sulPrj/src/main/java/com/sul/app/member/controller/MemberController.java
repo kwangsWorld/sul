@@ -27,11 +27,7 @@ public class MemberController {
 
 	private final MemberService service;
 	
-	//회원가입(화면)
-	@GetMapping("join")
-	public String join() {
-		return "member/join";
-	}
+
 	
 	//회원가입
 	@PostMapping("join")
