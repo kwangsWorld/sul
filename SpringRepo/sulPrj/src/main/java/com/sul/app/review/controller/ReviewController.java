@@ -1,8 +1,14 @@
 package com.sul.app.review.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sul.app.review.service.ReviewService;
@@ -17,20 +23,18 @@ public class ReviewController {
 
 	private final ReviewService service;
 	
-	//¸®ºä(È­¸é)
-	@GetMapping("write")
-	public String write() {
-		return "review/write";
-	}
 	
-	//¸®ºäÀÛ¼º
+	//ìž‘ì„±í•˜ê¸°
 	@PostMapping("write")
-	public String write(ReviewVo vo) throws Exception {
+	public Map<String, String> write(@RequestBody ReviewVo vo, HttpSession session) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
 		int result = service.write(vo);
 		
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "good");			
 		}
-		return "redirect:/";
+		return map;
 	}
 }

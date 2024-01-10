@@ -1,6 +1,8 @@
 package com.sul.app.community.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,60 +28,63 @@ public class CommunityController {
 	
 	//게시글작성
 	@PostMapping("insert")
-	public String insert(CommunityVo vo) throws Exception {
-		
+	public Map<String, String> insert(@RequestBody CommunityVo vo, HttpSession session) {
+		Map<String, String> map = new HashMap<String, String>();
 		int result = service.insert(vo);
 		
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");			
 		}
-		return "redirect:/community/list";
+		return map;
 	}
 	
-	//게시글 목록 조회 (data jsp넘겨서 화면 만들어줌)
+	//게시글 목록 조회
 	@GetMapping("list")
-	public String list(Model model) {
-		
-		List<CommunityVo> voList = service.list();
-		model.addAttribute("communityVoList", voList);
-		
-		return "community/list";
+	public List<CommunityVo> list() {
+		return service.list();
  	}
-	
-	//게시글 목록 조회(data만)
-	@GetMapping("rest/list")
-	@ResponseBody
-	public List<CommunityVo> restList(){
-		List<CommunityVo> voList = service.list();
-		return voList;
-	}
 	
 	//게시글 상세조회 (번호)
 	@GetMapping("detail")
-	public String detail(CommunityVo vo, Model model) {
+	public Map<String, String> detail(@RequestBody CommunityVo vo) {
+		Map<String, String> map = new HashMap<String, String>();
 		CommunityVo communityVo = service.detail(vo);
-		model.addAttribute("communityVo", communityVo);
-		return "community/detail";
+		int result = service.insert(vo);
+		
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");			
+		}
+		return map;
  	}
 	
 	//게시글 수정
 	@PostMapping("edit")
-	public String edit(CommunityVo vo) throws Exception {
+	public Map<String, Object> edit(@RequestBody CommunityVo vo) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
 		int result = service.edit(vo);
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");			
 		}
-		return "redirect:/community/detail?no=" + vo.getCommunityNo();
+		return map;
 	}
 	
 	//게시글 삭제
 	@GetMapping("delete")
-	public String delete(CommunityVo vo) throws Exception{
+	public Map<String, Object> delete(@RequestBody CommunityVo vo) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
 		int result = service.delete(vo);
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");			
 		}
-		return "redirect:/community/list";
+		return map;
 	}
 	
 	
