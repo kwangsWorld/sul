@@ -10,27 +10,27 @@ import com.sul.app.community.vo.CommunityVo;
 @Repository
 public class CommunityDao {
 
-	//°Ô½Ã±Û ÀÛ¼º
+	//ê²Œì‹œê¸€ ì‘ì„±
 	public int insert(SqlSessionTemplate sst, CommunityVo vo) {
 		return sst.insert("CommunityMapper.insert", vo);
 	}
 
-	//¸ñ·Ï
+	//ëª©ë¡
 	public List<CommunityVo> list(SqlSessionTemplate sst) {
 		return sst.selectList("CommunityMapper.list");
 	}
 
-	//»ó¼¼Á¶È¸
+	//ìƒì„¸ì¡°íšŒ
 	public CommunityVo detail(SqlSessionTemplate sst, CommunityVo vo) {
 		return sst.selectOne("CommunityMapper.detail", vo);
 	}
 
-	//¼öÁ¤
+	//ìˆ˜ì •
 	public int edit(SqlSessionTemplate sst, CommunityVo vo) {
 		return sst.update("CommunityMapper.edit", vo);
 	}
 
-	//»èÁ¦
+	//ì‚­ì œ
 	public int delete(SqlSessionTemplate sst, CommunityVo vo) {
 		return sst.update("CommunityMapper.delete", vo);
 	}

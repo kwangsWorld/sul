@@ -17,7 +17,7 @@ public class CcommtController {
 	
 	private final CcommtService service;
 	
-	//´ñ±Û ÀÛ¼º
+	//ëŒ“ê¸€ìž‘ì„±
 	@PostMapping("insert")
 	public String insert(CcommtVo vo) throws Exception{
 		int result = service.insert(vo);
@@ -28,7 +28,7 @@ public class CcommtController {
 		return "redirect:/community/detail";
 	}
 	
-	//´ñ±Û »èÁ¦
+	//ëŒ“ê¸€ì‚­ì œ
 	@GetMapping("delete")
 	public String delete(CcommtVo vo) throws Exception {
 		int result = service.delete(vo);

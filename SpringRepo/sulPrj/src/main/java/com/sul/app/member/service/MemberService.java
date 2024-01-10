@@ -17,35 +17,35 @@ public class MemberService {
 	private final MemberDao dao;
 	private final SqlSessionTemplate sst;
 	
-	//È¸¿ø°¡ÀÔ
+	//íšŒì›ê°€ì…
 	public int join(MemberVo vo) throws Exception {
 		
 		String id = vo.getId();
 		if(id.length() < 5) {
-			throw new Exception("¾ÆÀÌµğ 5±ÛÀÚ ÀÌ»ó");
+			throw new Exception("ì•„ì´ë”” 5ê¸€ì ì´ìƒ");
 		}
 		if("admin".equalsIgnoreCase(id)) {
-			throw new Exception("»ç¿ë ºÒ°¡ÇÑ ¾ÆÀÌµğ ÀÔ´Ï´Ù.");
+			throw new Exception("ì‚¬ìš© ë¶ˆê°€í•œ ì•„ì´ë”” ì…ë‹ˆë‹¤.");
 		}
 		return dao.join(sst, vo);
 	}
 
-	//·Î±×ÀÎ
+	//ë¡œê·¸ì¸
 	public MemberVo login(MemberVo vo) {
 		return dao.login(sst, vo);
 	}
 
-	//È¸¿ø Á¤º¸ ¼öÁ¤
+	//íšŒì› ì •ë³´ ìˆ˜ì •
 	public int edit(MemberVo vo) {
 		return dao.edit(sst, vo);
 	}
 
-	//È¸¿ø Å»Åğ
+	//íšŒì› íƒˆí‡´
 	public int quit(MemberVo vo) {
 		return dao.quit(sst, vo);
 	}
 
-	//È¸¿ø ¸ñ·ÏÁ¶È¸
+	//íšŒì› ëª©ë¡ì¡°íšŒ
 	public List<MemberVo> list() {
 		return dao.list(sst);
 	}

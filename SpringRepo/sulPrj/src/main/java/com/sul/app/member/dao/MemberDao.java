@@ -10,27 +10,27 @@ import com.sul.app.member.vo.MemberVo;
 @Repository
 public class MemberDao {
 
-	//È¸¿ø°¡ÀÔ
+	//íšŒì›ê°€ì…
 	public int join(SqlSessionTemplate sst, MemberVo vo) {
 		return sst.insert("MemberMapper.join", vo);
 	}
 
-	//·Î±×ÀÎ
+	//ë¡œê·¸ì¸
 	public MemberVo login(SqlSessionTemplate sst, MemberVo vo) {
 		return sst.selectOne("MemberMapper.quit", vo);
 	}
 
-	//È¸¿øÁ¤º¸ ¼öÁ¤
+	//íšŒì›ì •ë³´ ìˆ˜ì •
 	public int edit(SqlSessionTemplate sst, MemberVo vo) {
 		return sst.update("MemberMapper.edit",vo);
 	}
 
-	//È¸¿øÅ»Åğ
+	//íšŒì›íƒˆí‡´
 	public int quit(SqlSessionTemplate sst, MemberVo vo) {
 		return sst.update("MemberMapper.quit", vo);
 	}
 
-	//È¸¿ø¸ñ·Ï Á¶È¸
+	//íšŒì›ëª©ë¡ ì¡°íšŒ
 	public List<MemberVo> list(SqlSessionTemplate sst) {
 		return sst.selectList("MemberMapper.list");
 	}

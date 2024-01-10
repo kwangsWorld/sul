@@ -17,27 +17,27 @@ public class CommunityService {
 	private final CommunityDao dao;
 	private final SqlSessionTemplate sst;
 	
-	//ÀÛ¼ºÇÏ±â
+	//ì‘ì„±í•˜ê¸°
 	public int insert(CommunityVo vo) {
 		return dao.insert(sst, vo);
 	}
 
-	//¸ñ·Ï
+	//ëª©ë¡
 	public List<CommunityVo> list() {
 		return dao.list(sst);
 	}
 
-	//»ó¼¼Á¶È¸
+	//ìƒì„¸ì¡°íšŒ
 	public CommunityVo detail(CommunityVo vo) {
 		return dao.detail(sst, vo);
 	}
 
-	//¼öÁ¤
+	//ìˆ˜ì •
 	public int edit(CommunityVo vo) {
 		return dao.edit(sst, vo);
 	}
 
-	//»èÁ¦
+	//ì‚­ì œ
 	public int delete(CommunityVo vo) {
 		return dao.delete(sst, vo);
 	}
