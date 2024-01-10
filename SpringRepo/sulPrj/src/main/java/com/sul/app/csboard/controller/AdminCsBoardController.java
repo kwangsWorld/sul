@@ -17,8 +17,8 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("csboard")
-public class CsBoardController {
+@RequestMapping("adminCsboard")
+public class AdminCsBoardController {
 	
 	private final CsBoardService service;
 	
@@ -34,12 +34,12 @@ public class CsBoardController {
 		return service.detail(no);
 	}
 	
-	// 고객센터 질문 작성
-	@PostMapping("question")
-	public Map<String,String> question(@RequestBody CsBoardVo vo) {
+	// 고객센터 답변 작성
+	@PostMapping("answer")
+	public Map<String,String> answer(@RequestBody CsBoardVo vo) {
 		
 		Map<String,String> map = new HashMap<String, String>();
-		int result = service.question(vo);
+		int result = service.answer(vo);
 		
 		if(result == 1) {
 			map.put("msg", "good");
@@ -49,5 +49,5 @@ public class CsBoardController {
 		
 		return map;
 	}
-	
+
 }

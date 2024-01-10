@@ -1,8 +1,11 @@
 package com.sul.app.delivery.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,8 +16,8 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("delivery")
-public class DeliveryController {
+@RequestMapping("adminDelivery")
+public class AdminDeliveryController {
 
 	private final DeliveryService service;
 
@@ -28,6 +31,21 @@ public class DeliveryController {
 	@GetMapping("detail")
 	public DeliveryVo detail(String no) {
 		return service.detail(no);
+	}
+
+	// 배송상태 수정
+	@PostMapping("status")
+	public Map<String, String> status(DeliveryVo vo) {
+
+		Map<String, String> map = new HashMap<String, String>();
+		int result = service.status(vo);
+
+		if (result == 1) {
+			map.put("msg", "good");
+		} else {
+			map.put("msg", "bad");
+		}
+		return map;
 	}
 
 }

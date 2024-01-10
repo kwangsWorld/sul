@@ -4,38 +4,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.sul.app.product.service.ProductService;
-import com.sul.app.product.service.ProductService2;
+import com.sul.app.product.service.AdminProductService;
 import com.sul.app.product.vo.ProductVo;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
-@RequestMapping("product")
+@RestController
+@RequestMapping("adminProduct")
 @RequiredArgsConstructor
-public class ProductController2 {
+public class AdminProductController {
 	
-	private final ProductService2 service2;
+	private final AdminProductService service;
 	
 	// 상품 목록 조회 (관리자)
-	public List<ProductVo> adminList() {
-		return service2.adminList();
+	@GetMapping("list")
+	public List<ProductVo> list() {
+		return service.list();
 	}
 	
 	// 상품 목록 상세조회 (관리자)
-	public ProductVo adminDetail(String no) {
-		return service2.adminDetail(no);
+	@GetMapping("detail")
+	public ProductVo detail(String no) {
+		return service.detail(no);
 	}
 	
 	// 상품 등록 (관리자)
-	public Map<String,String> adminInsert(ProductVo vo) {
+	@PostMapping("insert")
+	public Map<String,String> insert(ProductVo vo) {
 		
 		Map<String,String> map = new HashMap<String , String>();
-		int result = service2.adminInsert(vo);
+		int result = service.insert(vo);
 		
 		if(result == 1) {
 			map.put("msg", "good");
@@ -46,10 +49,11 @@ public class ProductController2 {
 	}
 	
 	// 상품 삭제 (관리자)
-	public Map<String,String> adminDelete(String no) {
+	@PostMapping("delete")
+	public Map<String,String> delete(String no) {
 		
 		Map<String,String> map = new HashMap<String , String>();
-		int result = service2.adminDelete(no);
+		int result = service.delete(no);
 		
 		if (result == 1) {
 			map.put("msg", "good");

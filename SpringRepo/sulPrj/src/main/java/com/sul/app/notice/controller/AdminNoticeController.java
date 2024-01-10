@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +17,8 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("notice")
-public class NoticeController {
+@RequestMapping("adminNotice")
+public class AdminNoticeController {
 
 	private final NoticeService service;
 
@@ -33,20 +34,49 @@ public class NoticeController {
 		return service.detail(no);
 	}
 
-	// 조회수 증가
-	@GetMapping("increaseHit")
-	public Map<String, String> increaseHit(@RequestBody String no) {
+	// 공지사항 작성
+	@PostMapping("write")
+	public Map<String, String> write(@RequestBody NoticeVo vo) throws Exception {
 
 		Map<String, String> map = new HashMap<String, String>();
-		int result = service.increaseHit(no);
+		int result = service.write(vo);
 
 		if (result == 1) {
 			map.put("msg", "good");
 		} else {
 			map.put("msg", "bad");
 		}
-
 		return map;
 	}
 
+	// 공지사항 수정
+	@PostMapping("edit")
+	public Map<String, String> edit(@RequestBody NoticeVo vo) {
+
+		Map<String, String> map = new HashMap<String, String>();
+		int result = service.edit(vo);
+
+		if (result == 1) {
+			map.put("msg", "good");
+		} else {
+			map.put("msg", "bad");
+		}
+		return map;
+	}
+
+	// 공지사항 삭제
+	@PostMapping("delete")
+	public Map<String, String> delete(@RequestBody String no) {
+
+		Map<String, String> map = new HashMap<String, String>();
+		int result = service.delete(no);
+
+		if (result == 1) {
+			map.put("msg", "good");
+		} else {
+			map.put("msg", "bad");
+		}
+		return map;
+	}
+	
 }
