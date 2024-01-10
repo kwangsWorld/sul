@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CartMapper">
+	
+	<insert id="add">
+		INSERT INTO CART(
+			CART_NO
+			, MEMBER_NO
+			, PRODUCT_NO
+			, PRICE
+			, QUANTITY
+		)
+		VALUES(
+			SEQ_CART_NO.NEXTVAL
+			, SEQ_MEMBER_NO.CURRVAL
+			, #{PRODUCT_NO}
+			, #{PRICE}
+			, 1 (JS에서 가져와야할듯..)
+			)
+	</insert>
+	
+	<select id="buyList" resultType="com.sul.app.product.vo.ProductVo">
+		SELECT 
+			P.NAME
+			, C.QUANTITY
+			, C.PRICE
+			, M.MEMBER_NO
+		FROM CART C
+		JOIN PRODUCT P ON C.PRODUCT_NO = P.PRODUCT_NO
+		JOIN MEMBER M ON C.MEMBER_NO = C.MEMBER_NO
+		WHERE M.MEMBER_NO = 1 (이것도 js에서 가져와야할듯..?)
+
+	</select>
+
+</mapper>

@@ -5,22 +5,51 @@
 <mapper namespace="ProductMapper">
 
 	<select id="list" resultType="com.sul.app.product.vo.ProductVo">
-	SELECT 
-		P.NAME
-		, P.PRICE
-		, P.IMAGE
-		, P.DEL_YN
-		, R.RATING  
-	FROM PRODUCT P
-	JOIN ORDERS O ON P.PRODUCT_NO = O.PRODUCT_NO
-	JOIN ORDERS_LIST OL ON O.ORDER_NO = OL.ORDER_NO
-	JOIN REVIEW R ON OL.ORDER_LIST_NO = R.ORDER_LIST_NO
-	AND P.DEL_YN = 'N'
-	ORDER BY P.ENROLL_DATE DESC
+		SELECT 
+			P.NAME
+			, P.PRICE
+			, P.IMAGE
+			, P.DEL_YN
+			, R.RATING  
+		FROM PRODUCT P
+		JOIN ORDERS O ON P.PRODUCT_NO = O.PRODUCT_NO
+		JOIN ORDERS_LIST OL ON O.ORDER_NO = OL.ORDER_NO
+		JOIN REVIEW R ON OL.ORDER_LIST_NO = R.ORDER_LIST_NO
+		AND P.DEL_YN = 'N'
+		ORDER BY P.ENROLL_DATE DESC
 	</select>
 	
 	<select id="listByCategory" resultType="com.sul.app.product.vo.ProductVo">
+		SELECT 
+			P.NAME
+			, P.PRICE
+			,P.DEL_YN  
+		FROM PRODUCT P
+		WHERE P.TYPE_NO = #{no}
+		AND P.DEL_YN = 'N'
+		ORDER BY P.ENROLL_DATE DESC
+	</select>
 	
+	<select id="detail" resultType="com.sul.app.product.vo.ProductVo">
+		SELECT 
+			P.PRODUCT_NO
+			, P.TYPE_NO
+			, P.NAME
+			, P.PRICE
+			, P.DEGREE
+			, P.CAPACITY
+			, P.EXPIRY_DATE
+			, P.IMAGE
+			, P.STORAGE
+			, P.TASTE
+			, P.APPETIZER
+			, P.DEL_YN
+			, R.RATING
+		FROM PRODUCT P
+		JOIN ORDERS O ON P.PRODUCT_NO = O.PRODUCT_NO
+		JOIN ORDERS_LIST OL ON O.ORDER_NO = OL.ORDER_NO
+		JOIN REVIEW R ON OL.ORDER_LIST_NO = R.ORDER_LIST_NO
+		WHERE P.DEL_YN = 'N'
 	</select>
 	
 	
