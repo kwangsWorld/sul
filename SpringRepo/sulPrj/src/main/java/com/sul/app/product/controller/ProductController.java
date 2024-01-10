@@ -19,20 +19,20 @@ public class ProductController {
 	private final ProductService service;
 
 	//제품 전체 조회
-	@GetMapping
+	@GetMapping("list")
 	public List<ProductVo> list(ProductVo vo){
 		List<ProductVo> voList = service.list(vo);
 		return voList;
 	}
 	
-	@GetMapping
+	@GetMapping("")
 	//제품 카테고리 별 전체 조회
 	public List<ProductVo> listByCategory(ProductVo vo){
 		List<ProductVo> voList = service.listByCategory(vo);
 		return voList;
 	}
 	
-	@GetMapping
+	@GetMapping("detail")
 	//제품 상세 조회
 	public ProductVo detail(ProductVo vo) {
 		ProductVo productVo = service.detail(vo);
