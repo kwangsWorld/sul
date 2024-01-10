@@ -20,83 +20,83 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("notice")
 public class NoticeController {
-	
+
 	private final NoticeService service;
-	
+
 	// 공지사항 목록 조회
 	@GetMapping("list")
 	public List<NoticeVo> list() {
 		return service.list();
 	}
-	
+
 	// 공자시항 상세 조회
 	@GetMapping("detail")
 	public NoticeVo detail(String no) {
 		return service.detail(no);
 	}
-	
+
 	// 공지사항 작성
 	@PostMapping("write")
-	public Map<String,String> write(@RequestBody NoticeVo vo) throws Exception {
-		
-		Map<String,String> map = new HashMap<String, String>();
+	public Map<String, String> write(@RequestBody NoticeVo vo) throws Exception {
+
+		Map<String, String> map = new HashMap<String, String>();
 		int result = service.write(vo);
-		
-		if(result == 1) {
+
+		if (result == 1) {
 			map.put("msg", "good");
-		}else {
+		} else {
 			map.put("msg", "bad");
 		}
-		
+
 		return map;
-		
+
 	}
-	
+
 	// 공지사항 수정
 	@PostMapping("edit")
-	public Map<String,String> edit(@RequestBody NoticeVo vo) {
-		
-		Map<String,String> map = new HashMap<String, String>();
+	public Map<String, String> edit(@RequestBody NoticeVo vo) {
+
+		Map<String, String> map = new HashMap<String, String>();
 		int result = service.edit(vo);
-		
-		if(result == 1) {
+
+		if (result == 1) {
 			map.put("msg", "good");
-		}else {
+		} else {
 			map.put("msg", "bad");
 		}
-		
+
 		return map;
 	}
-	
+
 	// 공지사항 삭제
 	@PostMapping("delete")
-	public Map<String,String> delete(@RequestBody String no) {
-		
-		Map<String,String> map = new HashMap<String, String>();
+	public Map<String, String> delete(@RequestBody String no) {
+
+		Map<String, String> map = new HashMap<String, String>();
 		int result = service.delete(no);
-		
-		if(result == 1) {
+
+		if (result == 1) {
 			map.put("msg", "good");
-		}else {
+		} else {
 			map.put("msg", "bad");
 		}
-		
+
 		return map;
 	}
-	
+
 	// 조회수 증가
 	@GetMapping("increaseHit")
-	public Map<String,String> increaseHit (@RequestBody String no) {
-		
-		Map<String,String> map = new HashMap<String, String>();
+	public Map<String, String> increaseHit(@RequestBody String no) {
+
+		Map<String, String> map = new HashMap<String, String>();
 		int result = service.increaseHit(no);
-		
-		if(result == 1) {
+
+		if (result == 1) {
 			map.put("msg", "good");
-		}else {
+		} else {
 			map.put("msg", "bad");
 		}
-		
+
 		return map;
 	}
 
