@@ -8,12 +8,12 @@ import com.sul.app.communitycommt.vo.CcommtVo;
 @Repository
 public class CcommtDao {
 
-	//´ñ±Û ÀÛ¼º
+	//ëŒ“ê¸€ìž‘ì„±
 	public int insert(SqlSessionTemplate sst, CcommtVo vo) {
 		return sst.insert("CcommtMapper.insert" , vo);
 	}
 
-	//´ñ±Û »èÁ¦
+	//ëŒ“ê¸€ì‚­ì œ
 	public int delete(SqlSessionTemplate sst, CcommtVo vo) {
 		return sst.update("CcommtMapper.delete", vo);
 	}
