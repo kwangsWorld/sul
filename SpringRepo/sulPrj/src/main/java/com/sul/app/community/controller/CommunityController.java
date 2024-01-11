@@ -20,7 +20,7 @@ import com.sul.app.community.vo.CommunityVo;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("board")
+@RequestMapping("community")
 @RequiredArgsConstructor
 public class CommunityController {
 

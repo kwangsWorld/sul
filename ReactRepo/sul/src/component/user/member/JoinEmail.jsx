@@ -30,6 +30,10 @@ const StyledJoinEmailDiv = styled.div`
         width: 100%;
         height: 40px;
     }
+    .join{
+        border: none;
+        border-radius: 10px;
+    }
 `;
 
 const JoinEmail = () => {
@@ -135,7 +139,7 @@ const JoinEmail = () => {
                     </tr>
                     <tr>
                         <td></td>
-                        <td><input type='submit' value='회원가입' style={{backgroundColor: '#ffe23dfb'}}/></td>
+                        <td><input className='join' type='submit' value='회원가입' style={{backgroundColor: '#ffe23dfb'}}/></td>
                     </tr>
                 </table>
             </form>
