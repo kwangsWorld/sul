@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -10,7 +10,7 @@ const StyledLoginFont = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 13%;
+    margin-top: 5%;
         & > div{
             margin-right: 5.5%;
         }
@@ -24,13 +24,13 @@ const StyledLoginFont = styled.div`
         }
         & > table{
             width: 50%;
-            height: 100%;
+            height: 45%;
             margin-left: 25%;
         }
-        & > table > tbody > tr > td{
-            padding-top: 2%;
+        & > table > tbody > tr > td:nth-child(2){
+            padding-bottom: 15%;
         }
-        & > table > tbody > tr > td > a > button {
+        & > table > tbody > tr > td  > button {
             width: 50%;
             height: 60px;
             border: none;
@@ -39,11 +39,22 @@ const StyledLoginFont = styled.div`
             font-size: 20px;
             padding-right: 20%;
     }
+    
+    .btn{
+        margin-bottom: 20%;
+    }
+    .email{
+        padding-bottom: 20%;
+    }
 `;
 
 const JoinFirst = () => {
 
     const navigate = useNavigate();
+
+    const handlejoin = () => {
+        navigate("/member/joinEmail")
+    };
 
     return (
         <StyledLoginFont>
@@ -55,10 +66,10 @@ const JoinFirst = () => {
             <table>
                 <tbody>
                     <tr>
-                        <td><Link to="/member/"><button style={{backgroundColor: '#ffeb34fa'}}>💬 카카오로 시작하기</button></Link></td>
+                        <td><button className='btn1' style={{backgroundColor: '#ffeb34fa'}}>💬 카카오로 시작하기</button></td>
                     </tr>
-                    <tr>
-                    <td><Link to="/member/joinEmail"><button style={{backgroundColor: '#6eb7fbfa', color: 'white'}}>✉️ 이메일로 시작하기</button></Link></td>
+                    <tr className='email'>
+                        <td><button className='btn' onClick={handlejoin} style={{backgroundColor: '#6eb7fbfa', color: 'white'}}>✉️ 이메일로 시작하기</button></td>
                     </tr>
                 </tbody>
             </table>
