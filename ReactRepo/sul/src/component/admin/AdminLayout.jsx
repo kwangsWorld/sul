@@ -6,18 +6,30 @@ import AdminNavi from './AdminNavi';
 import AdminMain from './AdminMain';
 
 const StyledLayoutDiv = styled.div`
-    width: 100vw;
+    width: 90vw;
     height: 100vh;
-    display: flex;
-`;
+    display: grid;
+    grid-template-rows: 1fr 8fr 1fr;
+    place-items: center center;
+    margin: auto;
 
+& > :nth-child(2) {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+}
+
+`;
 const AdminLayout = () => {
     return (
         <StyledLayoutDiv>
-            <AdminHeader />
-            <AdminNavi />
-            <AdminMain />
-            <AdminFooter />
+                <AdminHeader />
+            <div>
+                <AdminNavi />
+                <AdminMain />
+            </div>
+                <AdminFooter />
         </StyledLayoutDiv>
     );
 };

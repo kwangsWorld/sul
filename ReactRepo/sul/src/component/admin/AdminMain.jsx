@@ -7,12 +7,13 @@ import AdminProductMain from './product/AdminProductMain';
 import AdminDeliveryMain from './delivery/AdminDeliveryMain';
 import AdminReviewMain from './review/AdminReviewMain';
 import AdminMemberMain from './member/AdminMemberMain';
-import ErrorPageNotFound from '../../error/error';
+import ErrorPageNotFound from '../error/ErrorPageNotFound';
 
 const StyledMainDiv = styled.div`
     width: 100%;
     height: 100%;
-    background-color: skyblue;
+    background-color: fff;
+    
 `;
 
 const AdminMain = () => {
