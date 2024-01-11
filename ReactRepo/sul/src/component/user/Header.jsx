@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const StyledHeaderDiv = styled.div`
     width: 100%;
@@ -53,6 +55,7 @@ const Header = () => {
             </div>
             <div className='header_center'>
                 <input className='header_search' type="text" placeholder='지우야, 또 술먹게? 어떤술 찾아줘?'/>
+                {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
             </div>
             <div className='header_right'>
                 <div className='join_login'>

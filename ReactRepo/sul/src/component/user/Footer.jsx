@@ -77,12 +77,6 @@ border-top: 1px solid rgb(224, 224, 224);
     margin-right: 15px;
 }
 
-
-
-
-
-
-
 `
 
 const Footer = () => {
@@ -90,7 +84,7 @@ const Footer = () => {
         <StyledFooterDiv>
                 <div className='footer_top'>
                     <div>
-                        <p className='footer_company'>담화컴퍼니 주식회사</p>
+                        <p className='footer_company'>담아컴퍼니 주식회사</p>
                         <p className='footer_cs'>고객센터: 070-5014-1282</p>
                         <p className='footer_time'>평일 10:00 ~ 18:00, 주말 휴무</p>
                     </div>

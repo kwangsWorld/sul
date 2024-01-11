@@ -26,4 +26,9 @@ public class ProductDao {
 		return sst.selectOne("ProductMapper.detail", vo);
 	}
 
+	//제품 검색
+	public List<ProductVo> searchByName(SqlSessionTemplate sst, ProductVo vo) {
+		return sst.selectList("ProductMapper.search", vo);
+	}
+
 }

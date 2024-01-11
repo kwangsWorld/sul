@@ -34,7 +34,10 @@ public class ProductService {
 	public ProductVo detail(ProductVo vo) {
 		return dao.detail(sst, vo);
 	}
-	
-	
+
+	//제품 검색
+	public List<ProductVo> searchByName(ProductVo vo) {
+		return dao.searchByName(sst, vo);
+	}
 
 }

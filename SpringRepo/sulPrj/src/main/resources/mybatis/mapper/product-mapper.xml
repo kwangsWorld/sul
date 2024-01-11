@@ -52,5 +52,20 @@
 		WHERE P.DEL_YN = 'N'
 	</select>
 	
+	<select id="search" resultType="">
+	SELECT 
+		P.NAME
+		, P.PRICE
+		, P.IMAGE
+		, P.DEL_YN
+		, R.RATING
+	FROM PRODUCT P
+	JOIN ORDERS O ON P.PRODUCT_NO = O.PRODUCT_NO
+	JOIN ORDERS_LIST OL ON O.ORDER_NO = OL.ORDER_NO
+	JOIN REVIEW R ON OL.ORDER_LIST_NO = R.ORDER_LIST_NO
+	WHERE P.DEL_YN = 'N'
+	AND P.NAME LIKE '%(검색데이터 받아야할 값..?)%'
+	ORDER BY P.ENROLL_DATE DESC
+	</select>
 	
 </mapper>
