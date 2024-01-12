@@ -10,7 +10,7 @@ justify-content: center;
 align-items: center;
 flex-direction: column;
    table{
-    width: 50%;
+    width: 60%;
     border-collapse: collapse;
     margin-bottom: 20%;
     margin-top: 15%;
@@ -28,7 +28,7 @@ flex-direction: column;
         border-radius: 10px;
         padding-bottom: 2%;
     }
-    table > tr:nth-child(2) > td{
+    table  > tr:nth-child(2) >  td{
         background-color: gray;
         font-weight: bold;
     }
@@ -44,7 +44,7 @@ const Comlist = () => {
     const [communityVoList , setCommunityVoList] = useState([]);
 
     const loadCommunityVoList = () => {
-        fetch("http://127.0.0.1:8888/community/list")
+        fetch("http://127.0.0.1:8888/app/community/list")
         .then(resp => resp.json())
         .then((x)=>{setCommunityVoList(x)})
         ;
@@ -61,10 +61,12 @@ const Comlist = () => {
             <table>
                 <tr>
                     <td className='font'>커뮤니티 게시판</td>
-                    <td><Link>작성하기</Link></td>
+                    <td></td>
+                    <td><Link to='/community/comwrite'>작성하기</Link></td>
                 </tr>
                 <tr>
                     <td>제목</td>
+                    <td>카테고리</td>
                     <td>작성일</td>
                 </tr>
                 {
@@ -72,16 +74,13 @@ const Comlist = () => {
                     ?
                     <h2>로딩중</h2>
                     :
-                    communityVoList.map( vo =>  <tr key={vo.communityNo}>
+                    communityVoList.map( vo => <tr key={vo.communityNo}>
                         <td>{vo.title}</td>
+                        <td>{vo.categoryNo}</td>
                         <td>{vo.enrollDate}</td>
                     </tr>
                     )
                 }
-                 <tr>
-                    <td>제목</td>
-                    <td>작성일</td>
-                </tr>
                 
             </table>
         </StyledComlistDiv>

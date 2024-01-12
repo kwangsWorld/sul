@@ -18,7 +18,6 @@
 	JOIN COMMUNITY_COMMT N ON C.COMMUNITY_NO = N.COMMUNITY_NO
 	JOIN COMMUNITY_CATEGORY T ON C.COMMUNITY_CATEGORY_NO = T.COMMUNITY_CATEGORY_NO
 	WHERE C.DEL_YN = 'N'
-	AND T.COMMNITY_CATEGORY_NO = #{communityCategoryNo}
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.community.vo.CommunityVo">

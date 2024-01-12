@@ -13,5 +13,6 @@ public class CommunityVo {
 	private String img;
 	private String memberNo;
 	private String modifyDate;
-	private String communityCategoryNo;
+	private String categoryNo;
+	private String categoryName;
 }

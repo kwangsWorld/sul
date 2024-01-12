@@ -1,5 +1,7 @@
 package com.sul.app.address.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -8,14 +10,19 @@ import com.sul.app.address.vo.AddressVo;
 @Repository
 public class AddressDao {
 
-	//林家眠啊
+	//欤检唽
 	public int plus(SqlSessionTemplate sst, AddressVo vo) {
 		return sst.insert("AddressMapper.plus", vo);
 	}
 
-	//林家 昏力
+	//靷牅
 	public int delete(SqlSessionTemplate sst, AddressVo vo) {
 		return sst.update("AddressMapper.delete", vo);
+	}
+
+	//氇╇
+	public List<AddressVo> list(SqlSessionTemplate sst) {
+		return sst.selectList("AddressMapper.list");
 	}
 
 }

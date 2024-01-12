@@ -28,9 +28,9 @@ public class CommunityService {
 	}
 
 	//상세조회
-	public CommunityVo detail(CommunityVo vo) {
-		return dao.detail(sst, vo);
-	}
+		public List<CommunityVo> detail() {
+			return dao.detail(sst);
+		}
 
 	//수정
 	public int edit(CommunityVo vo) {
@@ -41,6 +41,8 @@ public class CommunityService {
 	public int delete(CommunityVo vo) {
 		return dao.delete(sst, vo);
 	}
+
+	
 
 	
 

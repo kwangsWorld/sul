@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sul.app.community.service.CommunityService;
 import com.sul.app.community.vo.CommunityVo;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController
 @RequestMapping("community")
 @RequiredArgsConstructor
 public class CommunityController {
@@ -44,21 +45,11 @@ public class CommunityController {
 	@GetMapping("list")
 	public List<CommunityVo> list() {
 		return service.list();
- 	}
-	
+	}
 	//게시글 상세조회 (번호)
 	@GetMapping("detail")
-	public Map<String, String> detail(@RequestBody CommunityVo vo) {
-		Map<String, String> map = new HashMap<String, String>();
-		CommunityVo communityVo = service.detail(vo);
-		int result = service.insert(vo);
-		
-		if(result == 1) {
-			map.put("msg", "good");
-		}else {
-			map.put("msg", "bad");			
-		}
-		return map;
+	public List<CommunityVo>detail() {
+		return service.detail();
  	}
 	
 	//게시글 수정

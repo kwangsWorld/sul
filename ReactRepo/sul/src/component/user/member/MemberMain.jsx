@@ -4,7 +4,7 @@ import Login from './Login';
 import JoinFirst from './JoinFirst';
 import JoinEmail from './JoinEmail';
 
-const UserMain = () => {
+const MemberMain = () => {
     return (
         <Routes>
             <Route path='login' element={<Login />} />
@@ -14,4 +14,4 @@ const UserMain = () => {
     );
 };
 
-export default UserMain;
+export default MemberMain;

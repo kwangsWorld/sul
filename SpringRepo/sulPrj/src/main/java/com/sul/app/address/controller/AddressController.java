@@ -1,25 +1,28 @@
 package com.sul.app.address.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sul.app.address.service.AddressService;
 import com.sul.app.address.vo.AddressVo;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController
 @RequestMapping("address")
 @RequiredArgsConstructor
 public class AddressController {
 
 	private final AddressService service;
 	
-	//ÁÖ¼Ò Ãß°¡
+	//ì£¼ì†Œì¶”ê°€
 	@PostMapping("plus")
 	public String plus(AddressVo vo) throws Exception {
 		
@@ -31,7 +34,7 @@ public class AddressController {
 		return "redirect:/home";
 	}
 	
-	//ÁÖ¼Ò »èÁ¦
+	//ï¿½ì£¼ì†Œì‚­ì œ
 	@GetMapping("delete")
 	public String delete(AddressVo vo, HttpSession session) throws Exception {
 		
@@ -41,8 +44,14 @@ public class AddressController {
 			throw new Exception();
 		}
 			session.removeAttribute("address");
-			session.setAttribute("alertMsg", "ÁÖ¼Ò°¡ »èÁ¦ µÇ¾ú½À´Ï´Ù.");
+			session.setAttribute("alertMsg", "ï¿½Ö¼Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			
 			return "redirect:/home";
+	}
+	
+	//ì£¼ì†Œëª©ë¡ ì¡°íšŒ
+	@GetMapping("list")
+	public List<AddressVo> list(){
+		return service.list();
 	}
 }
