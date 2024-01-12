@@ -6,9 +6,9 @@
 
 	<insert id="join">
 	INSERT INTO MEMBER 
-		(MEMBER_NO, NAME, ID, PWD, EMAIL, NICK, TEL, ENROLL_DATE, DEL_YN) 
+		(MEMBER_NO, NAME, ID, PWD, EMAIL, NICK, TEL) 
 		VALUES 
-		(SEQ_MEMBER_NO.NEXTVAL, #{name}, #{id}, #{pwd}, #{email}, #{nick}, #{tel}, #{enrollDate}, #{delYn});
+		(SEQ_MEMBER_NO.NEXTVAL, #{name}, #{id}, #{pwd}, #{email}, #{nick}, #{tel});
 	</insert>
 	
 	<select id="login" resultType="com.sul.app.member.vo.MemberVo">
