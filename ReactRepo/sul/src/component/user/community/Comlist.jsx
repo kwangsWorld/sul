@@ -41,18 +41,19 @@ flex-direction: column;
 
 const Comlist = () => {
 
-    // const [communityVoList , setCommunityVoList] = useState([]);
-    // const loadCommunityVoList = () => {
-    //     fetch("http://127.0.0.1:8888/app/community/list")
-    //     .then(resp => resp.json())
-    //     .then((x)=>{setCommunityVoList(x)})
-    //     ;
-    // }
+    const [communityVoList , setCommunityVoList] = useState([]);
 
-    // useEffect( () => {
-    //     console.log("useEffect 호출");
-    //     loadCommunityVoList();
-    // }, []);
+    const loadCommunityVoList = () => {
+        fetch("http://127.0.0.1:8888/community/list")
+        .then(resp => resp.json())
+        .then((x)=>{setCommunityVoList(x)})
+        ;
+    }
+
+    useEffect( () => {
+        console.log("useEffect 호출");
+        loadCommunityVoList();
+    }, []);
 
     return (
 
@@ -66,7 +67,7 @@ const Comlist = () => {
                     <td>제목</td>
                     <td>작성일</td>
                 </tr>
-                {/* {
+                {
                     communityVoList.length === 0
                     ?
                     <h2>로딩중</h2>
@@ -76,7 +77,7 @@ const Comlist = () => {
                         <td>{vo.enrollDate}</td>
                     </tr>
                     )
-                } */}
+                }
                  <tr>
                     <td>제목</td>
                     <td>작성일</td>
