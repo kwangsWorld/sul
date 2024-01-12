@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -21,8 +21,8 @@ const StyledAdminNoticeDetailDiv = styled.div`
         border-bottom: solid 1px;
     }
 
-    tr > td:nth-child(2) {
-        border-right: solid 1px;
+    select {
+        height: 25px;
     }
 
     .detail_wrap {
@@ -81,9 +81,27 @@ const AdminNoticeDetail = () => {
 };
 
     // 수정하기 버튼 클릭 시 동작 함수
-const handleEdit = () => {
+    const handleEdit = () => {
     navigate("/adminNotice/edit")
 };
+
+    // // select 태그 상태설정
+    // const [select, setSelect] = useState();
+
+    // fetch 를 이용해서 데이터 준비
+    // const [vo , setVo] = useState([]);
+    // const loadAdminNoticeDtailVoList = () => {
+    //     fetch("http://127.0.0.1:8888/app/adminNotice/detail" , {
+    //         method : 'get'
+    //     })
+    //     .then( (resp) => {return resp.json()} )
+    //     .then( (data) => { return setVo(data); } )
+    //     ;
+    // }
+
+    // useEffect( () => {
+    //     loadAdminNoticeDtailVoList();
+    // }, [] );
 
     return (
         <StyledAdminNoticeDetailDiv>
@@ -91,15 +109,15 @@ const handleEdit = () => {
                 <thead>
                     <tr>
                         <td className=''>번호</td>
-                        <td className=''>vo.번호</td>
+                        <td className=''>공개여부</td>
+                        <td className=''>수정일자</td>
                         <td className=''>작성일자</td>
-                        <td className=''>vo.작성일자</td>
                     </tr>
                     <tr>
-                        <td className=''>공개여부</td>
-                        <td className=''>vo.공개여부</td>
-                        <td className=''>수정일자</td>
-                        <td className=''>vo.수정일자</td>
+                        <td className=''>vo.noticeNo</td>
+                        <td className=''>vo.updateDate</td>
+                        <td className=''>vo.delYn</td>
+                        <td className=''>vo.enrollDate</td>
                     </tr>
                 </thead>
             </table>
