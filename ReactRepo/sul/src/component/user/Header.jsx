@@ -12,9 +12,10 @@ const StyledHeaderDiv = styled.div`
     align-items: center;
     justify-content: space-around;
     box-sizing: border-box;
+    border-bottom: 2px solid pink;
 
-    position: fixed;
-    top: 0;
+    /* position: fixed;
+    top: 0; */
 
     .icon{
         font-size: 25px;
@@ -31,13 +32,14 @@ const StyledHeaderDiv = styled.div`
         display: flex;
         flex-direction: row;
         margin-right: 20px;
+        font-size: 20px;
     }
 
-    .join_login>div{
-        display: flex;
-        flex-direction: row;
+    .join{
         margin-right: 20px;
     }
+
+
 
     .header_search{
         width:500px;
@@ -59,9 +61,9 @@ const Header = () => {
             </div>
             <div className='header_right'>
                 <div className='join_login'>
-                    <div>회원가입</div>
-                    <div>로그인
-                        <Link to = "/member/login"></Link>
+                    <div className='join'>회원가입</div>
+                    <div>
+                        <Link to = "/member/login">로그인</Link>
                     </div>
                 </div>
                 <img width = "30px" height = "30px" src="https://artfeel.co.kr/web/product/big/o_Icon_011.jpg" alt="장바구니"></img>
