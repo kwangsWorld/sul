@@ -46,7 +46,6 @@ public class CsBoardController {
 		}else {
 			map.put("msg", "bad");
 		}
-		
 		return map;
 	}
 	

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -97,19 +97,13 @@ const StyledAdminNoticeListDiv = styled.div`
 
 const AdminNoticeList = () => {
 
+    const navigate = useNavigate();
+
     // select 태그 상태설정
     const [select, setSelect] = useState();
 
     // input 태그 상태설정
     const [input, setInput] = useState();
-
-    const navigate = useNavigate();
-
-    // 검색버튼 동작 함수
-    const handleSearch = () => {
-        // TODO: 검색 로직 구현
-        console.log("aaaa");
-    };
 
     // 초기화 버튼 클릭 시 동작 함수
     const handleReset = () => {
@@ -119,17 +113,41 @@ const AdminNoticeList = () => {
 
     // input 태그의 상태 초기화 (빈 문자열로)
     setInput('');
-  };
+    };
+
+     // 검색버튼 동작 함수
+     const handleSearch = () => {
+        
+    };
 
     // 작성하기 버튼 클릭 시 동작 함수
     const handleWrite = () => {
         navigate("/adminNotice/write")
-  };
+    };
 
     // 목록 클릭 시 동작 함수
     const handleDetail = () => {
         navigate("/adminNotice/detail")
-  };
+    };
+
+
+    // fetch 를 이용해서 데이터 준비
+    const [adminNoticeVoList , setAdminNoticeVoList] = useState([]);
+
+    const loadAdminNoticeVoList = () => {
+        fetch("http://127.0.0.1:8888/app/adminNotice/list" , {
+            method : 'get'
+        })
+        .then( (resp) => {return resp.json()} )
+        .then( (data) => { return setAdminNoticeVoList(data); } )
+        ;
+    }
+
+    useEffect( () => {
+        console.log("useEffect 호출");
+        loadAdminNoticeVoList();
+    }, [] );
+
 
     return (
         <StyledAdminNoticeListDiv>
@@ -173,36 +191,16 @@ const AdminNoticeList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onClick={handleDetail}>
-                        <td className='notice_no'>vo.번호</td>
-                        <td className='notice_title'>vo.제목</td>
-                        <td className='notice_enrollDate'>vo.작성일자</td>
-                        <td className='notice_delYn'>vo.공개여부</td>
-                    </tr>
-                    <tr onClick={handleDetail}>
-                        <td className='notice_no'>vo.번호</td>
-                        <td className='notice_title'>vo.제목</td>
-                        <td className='notice_enrollDate'>vo.작성일자</td>
-                        <td className='notice_delYn'>vo.공개여부</td>
-                    </tr>
-                    <tr onClick={handleDetail}>
-                        <td className='notice_no'>vo.번호</td>
-                        <td className='notice_title'>vo.제목</td>
-                        <td className='notice_enrollDate'>vo.작성일자</td>
-                        <td className='notice_delYn'>vo.공개여부</td>
-                    </tr>
-                    <tr onClick={handleDetail}>
-                        <td className='notice_no'>vo.번호</td>
-                        <td className='notice_title'>vo.제목</td>
-                        <td className='notice_enrollDate'>vo.작성일자</td>
-                        <td className='notice_delYn'>vo.공개여부</td>
-                    </tr>
-                    <tr onClick={handleDetail}>
-                        <td className='notice_no'>vo.번호</td>
-                        <td className='notice_title'>vo.제목</td>
-                        <td className='notice_enrollDate'>vo.작성일자</td>
-                        <td className='notice_delYn'>vo.공개여부</td>
-                    </tr>
+                    {
+                        adminNoticeVoList.map( (vo) => (
+                        <tr key={vo.no} onClick={handleDetail}>
+                            <td className='notice_no'>{vo.noticeNo}</td>
+                            <td className='notice_title'>{vo.title}</td>
+                            <td className='notice_enrollDate'>{vo.enrollDate}</td>
+                            <td className='notice_delYn'>{vo.delYn}</td>
+                        </tr>
+                        ))
+                    }
                 </tbody>
             </table>
                     <ul className='notice_page'>

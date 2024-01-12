@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sul.app.csboard.service.CsBoardService;
+import com.sul.app.csboard.service.AdminCsBoardService;
 import com.sul.app.csboard.vo.CsBoardVo;
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("adminCsboard")
 public class AdminCsBoardController {
 	
-	private final CsBoardService service;
+	private final AdminCsBoardService service;
 	
 	// 고객센터 목록 조회
 	@GetMapping("list")
@@ -46,7 +46,6 @@ public class AdminCsBoardController {
 		}else {
 			map.put("msg", "bad");
 		}
-		
 		return map;
 	}
 
