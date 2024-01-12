@@ -17,14 +17,13 @@ height: 100%;
     }
     & > ul > li{
         list-style: none;
-        padding-left: 6%;
+        padding-left: 4%;
     }
     & > ul > li:nth-child(2){
         border-left: 2px solid lightgray;
         margin-left: 3%;
     }
-    & > ul > li:nth-child(7){
-        margin-left: 3%;
+    & > ul > li:nth-child(8){
         padding-right: 8%;
     }
     a{
@@ -45,6 +44,7 @@ const Myheader = () => {
                 <li><Link to='/mypage/info'>👤회원정보</Link></li>
                 <li><Link to='/mypage/info'>🛻배송지관리</Link></li>
                 <li><Link to='/mypage/info'>📞고객센터</Link></li>
+                <li><Link to='/mypage/mycom'>💬커뮤니티</Link></li>
             </ul>
         </StyledMyheaderDiv>
     );

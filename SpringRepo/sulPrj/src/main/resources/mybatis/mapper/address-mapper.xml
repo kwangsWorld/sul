@@ -16,4 +16,9 @@
 			SET DEL_YN = 'Y'
 		WHERE ADDRESS_NO = #{adressNo}
 	</update>
+	
+	<select id="list" resultType="com.sul.app.address.vo.AddressVo">
+		SELECT *
+		FROM ADDRESS
+	</select>
 </mapper>

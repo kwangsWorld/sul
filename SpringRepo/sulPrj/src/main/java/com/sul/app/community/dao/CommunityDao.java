@@ -21,8 +21,8 @@ public class CommunityDao {
 	}
 
 	//상세조회
-	public CommunityVo detail(SqlSessionTemplate sst, CommunityVo vo) {
-		return sst.selectOne("CommunityMapper.detail", vo);
+	public List<CommunityVo> detail(SqlSessionTemplate sst) {
+		return sst.selectOne("CommunityMapper.detail");
 	}
 
 	//수정

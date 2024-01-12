@@ -1,5 +1,7 @@
 package com.sul.app.address.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +17,19 @@ public class AddressService {
 	private final AddressDao dao;
 	private final SqlSessionTemplate sst;
 	
-	//林家 眠啊
+	//锟届稊臧�
 	public int plus(AddressVo vo) throws Exception {
 		return dao.plus(sst, vo);
 	}
 
-	//林家昏力
+	//靷牅
 	public int delete(AddressVo vo) {
 		return dao.delete(sst, vo);
+	}
+
+	//氇╇臁绊殞
+	public List<AddressVo> list() {
+		return dao.list(sst);
 	}
 
 }
