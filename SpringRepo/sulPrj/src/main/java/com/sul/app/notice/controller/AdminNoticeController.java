@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sul.app.notice.service.NoticeService;
+import com.sul.app.notice.service.AdminNoticeService;
 import com.sul.app.notice.vo.NoticeVo;
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("adminNotice")
 public class AdminNoticeController {
 
-	private final NoticeService service;
+	private final AdminNoticeService service;
 
 	// 공지사항 목록 조회
 	@GetMapping("list")

@@ -5,16 +5,16 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
-import com.sul.app.csboard.dao.CsBoardDao;
+import com.sul.app.csboard.dao.AdminCsBoardDao;
 import com.sul.app.csboard.vo.CsBoardVo;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CsBoardService {
+public class AdminCsBoardService {
 	
-	private final CsBoardDao dao;
+	private final AdminCsBoardDao dao;
 	private final SqlSessionTemplate sqlSessionTemplate;
 	
 	// 고객센터 목록 조회
@@ -27,9 +27,9 @@ public class CsBoardService {
 		return dao.detail(sqlSessionTemplate, no);
 	}
 	
-	// 고객센터 질문 작성
-	public int question(CsBoardVo vo) {
-		return dao.question(sqlSessionTemplate, vo);
+	// 고객센터 답변 작성
+	public int answer(CsBoardVo vo) {
+		return dao.answer(sqlSessionTemplate, vo);
 	}
-	
+
 }

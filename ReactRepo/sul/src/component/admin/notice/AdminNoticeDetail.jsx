@@ -27,7 +27,7 @@ const StyledAdminNoticeDetailDiv = styled.div`
 
     .detail_wrap {
         width: 100%;
-        height: 100%;
+        height: 70%;
     }
 
     .detail_title {
@@ -42,7 +42,7 @@ const StyledAdminNoticeDetailDiv = styled.div`
 
     .detail_content {
         width: 100%;
-        height: 60%;
+        height: 80%;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -76,8 +76,13 @@ const AdminNoticeDetail = () => {
     const navigate = useNavigate();
 
     // 뒤로가기 버튼 클릭 시 동작 함수
-    const handleback = () => {
+    const handleBack = () => {
         navigate("/adminNotice/list")
+};
+
+    // 수정하기 버튼 클릭 시 동작 함수
+const handleEdit = () => {
+    navigate("/adminNotice/edit")
 };
 
     return (
@@ -106,11 +111,9 @@ const AdminNoticeDetail = () => {
                         vo.content
                     </div>
                 </div>
-                <div>
-                    <td className='btn'>
-                        <input style={{backgroundColor: '#ffe23dfb'}} className='back_button' type="submit" value="뒤로가기" onClick={handleback} />
-                        <input style={{backgroundColor: '#ffe23dfb'}} className='edit_button' type="submit" value="수정하기" />
-                    </td>
+                <div className='btn'>
+                    <input style={{backgroundColor: '#ffe23dfb'}} className='back_button' type="submit" value="뒤로가기" onClick={handleBack} />
+                    <input style={{backgroundColor: '#ffe23dfb'}} className='edit_button' type="submit" value="수정하기" onClick={handleEdit} />
                 </div>
         </StyledAdminNoticeDetailDiv>
     );

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="CsBoardMapper">
+<mapper namespace="AdminCsBoardMapper">
 
 	<select id="list" resultType="com.sul.app.csboard.vo.CsBoardVo">
 		SELECT 
@@ -26,9 +26,11 @@
 		WHERE C.Q_NO = #{qNo}
 	</select>
 	
-	<insert id="question">
-		INSERT INTO CUSTOMER_CENTER (Q_NO, MEMBER_NO, Q_TITLE, Q_CONTENT) 
-		VALUES(SEQ_Q_NO.NEXTVAL, #{qNo}, #{qTitle}, #{qContent})
-	</insert>
+	<update id="answer">
+		UPDATE CUSTOMER_CENTER 
+		SET ADMIN_NO = #{adminNo}, A_CONTENT = #{aContent}
+		WHERE Q_NO = #{qNo}
+	</update>
 	
+
 </mapper>

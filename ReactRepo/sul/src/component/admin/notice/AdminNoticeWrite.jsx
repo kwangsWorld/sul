@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const StyledNoticeWriteDiv = styled.div`
+const StyledAdminNoticeWriteDiv = styled.div`
     width: 100%;
     height: 80%;
     margin-top: 5%;
@@ -73,12 +73,12 @@ const AdminNoticeWrite = () => {
     const navigate = useNavigate();
 
     // 뒤로가기 버튼 클릭 시 동작 함수
-    const handleback = () => {
+    const handleBack = () => {
         navigate("/adminNotice/list")
 };
 
     return (
-        <StyledNoticeWriteDiv>
+        <StyledAdminNoticeWriteDiv>
             <table>
                 <tbody>
                     <tr>
@@ -91,12 +91,12 @@ const AdminNoticeWrite = () => {
                     </tr>
                         <td></td>
                             <td className='btn'>
-                                <input style={{backgroundColor: '#ffe23dfb'}} className='back_button' type="submit" value="뒤로가기" onClick={handleback} />
-                                <input style={{backgroundColor: '#ffe23dfb'}} className='wrtie_button' type="submit" value="작성하기" />
+                                <input style={{backgroundColor: '#ffe23dfb'}} className='back_button' type="submit" value="뒤로가기" onClick={handleBack} />
+                                <input style={{backgroundColor: '#ffe23dfb'}} className='wrtie_button' type="submit" value="작성완료" />
                             </td>
                 </tbody>
             </table>
-        </StyledNoticeWriteDiv>
+        </StyledAdminNoticeWriteDiv>
     );
 };
 
