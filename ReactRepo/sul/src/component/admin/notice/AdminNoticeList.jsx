@@ -12,9 +12,13 @@ const StyledAdminNoticeListDiv = styled.div`
 
     & > table {
         width: 100%;
-        height: 100%;
+        height: 80%;
         border: solid 1px;
         border-collapse: collapse;
+    }
+
+    & > table > tbody {
+        height: 10vh;
     }
 
     td {
@@ -125,29 +129,42 @@ const AdminNoticeList = () => {
         navigate("/adminNotice/write")
     };
 
-    // 목록 클릭 시 동작 함수
-    const handleDetail = () => {
-        navigate("/adminNotice/detail")
-    };
-
-
-    // fetch 를 이용해서 데이터 준비
-    const [adminNoticeVoList , setAdminNoticeVoList] = useState([]);
+    // 목록조회
+    const [voList , setVoList] = useState([]);
 
     const loadAdminNoticeVoList = () => {
         fetch("http://127.0.0.1:8888/app/adminNotice/list" , {
             method : 'get'
         })
         .then( (resp) => {return resp.json()} )
-        .then( (data) => { return setAdminNoticeVoList(data); } )
+        .then( (data) => { return setVoList(data); } )
         ;
     }
 
     useEffect( () => {
-        console.log("useEffect 호출");
         loadAdminNoticeVoList();
     }, [] );
 
+
+    // detail 로 넘겨줄 값 설정
+    const [no , setNo] = useState();
+
+    const handleDetail = () => {
+
+        fetch("http://127.0.0.1:8888/app/adminNotice/detail" , {
+            method : 'get',
+            headers : {
+                "Content-Type" : "aplication/json"
+            },
+            body : JSON.stringify()
+        })
+        .then( (resp) => {return resp.json()} )
+        .then(  (data) => {
+            setNo(vo.noticeNo);
+            navigate("/adminNotice/detail"); 
+        })
+            
+    };
 
     return (
         <StyledAdminNoticeListDiv>
@@ -192,8 +209,8 @@ const AdminNoticeList = () => {
                 </thead>
                 <tbody>
                     {
-                        adminNoticeVoList.map( (vo) => (
-                        <tr key={vo.no} onClick={handleDetail}>
+                        voList.map( (vo) => (
+                        <tr key={vo.no} onClick={() => handleDetail()}>
                             <td className='notice_no'>{vo.noticeNo}</td>
                             <td className='notice_title'>{vo.title}</td>
                             <td className='notice_enrollDate'>{vo.enrollDate}</td>
