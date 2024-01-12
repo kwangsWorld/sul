@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledFooterDiv = styled.div`
 width: 100%;
-padding: 30px 20px 150px;
+padding: 30px 20px;
 background-color: white;
 border-top: 1px solid rgb(224, 224, 224);
 
@@ -126,7 +126,7 @@ const Footer = () => {
                         <p>대표: 전옥진</p>
                         <p>사업자등록번호: 123-45-67899</p>
                         <Link to ="https://www.naver.com/">사업자확인</Link>
-                        <p>통신판매 신고번호: 2021-서울서초-2084</p>
+                        <p>통신판매 신고번호: 2021-서울역삼-2084</p>
                     </div>
                     <div className='footer_bottom_second'>
                         <p>주소: 서울특별시 서초구 역삼동 호산빌딩 6층</p>
