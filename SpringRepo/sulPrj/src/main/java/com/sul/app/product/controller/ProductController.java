@@ -28,8 +28,8 @@ public class ProductController {
 	}
 	
 	//제품 카테고리 별 전체 조회
-	@GetMapping("{vo}")
-	public List<ProductVo> listByCategory(@PathVariable("vo") ProductVo vo){
+	@GetMapping("list/{str}")
+	public List<ProductVo> listByCategory(@PathVariable(name = "str") String str, ProductVo vo){
 		List<ProductVo> voList = service.listByCategory(vo);
 		return voList;
 	}
