@@ -21,13 +21,13 @@ public class ReviewDao {
 	}
 	
 	// 리뷰 목록 상세보기 (관리자)
-	public ReviewVo adminDetail(SqlSessionTemplate sst , String no) {
-		return sst.selectOne("ReviewMapper.detail" , no);
+	public ReviewVo adminDetail(SqlSessionTemplate sst , ReviewVo vo) {
+		return sst.selectOne("ReviewMapper.detail" , vo);
 	}
 	
 	// 리뷰 삭제 (관리자)
-	public int adminDelete(SqlSessionTemplate sst , String no) {
-		return sst.update("ReviewMapper.delete" , no);
+	public int adminDelete(SqlSessionTemplate sst , ReviewVo vo) {
+		return sst.update("ReviewMapper.delete" , vo);
 	}
 
 }

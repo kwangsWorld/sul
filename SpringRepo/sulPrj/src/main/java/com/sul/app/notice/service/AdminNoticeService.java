@@ -23,8 +23,8 @@ public class AdminNoticeService {
 	}
 	
 	// 공자시항 상세 조회
-	public NoticeVo detail(String no) {
-		return dao.detail(sqlSessionTemplate, no);
+	public NoticeVo detail(NoticeVo vo) {
+		return dao.detail(sqlSessionTemplate, vo);
 	}
 	
 	// 공지사항 작성
@@ -40,11 +40,6 @@ public class AdminNoticeService {
 	// 공지사항 수정
 	public int edit(NoticeVo vo) {
 		return dao.edit(sqlSessionTemplate, vo);
-	}
-	
-	// 공지사항 삭제
-	public int delete(String no) {
-		return dao.delete(sqlSessionTemplate, no);
 	}
 
 }

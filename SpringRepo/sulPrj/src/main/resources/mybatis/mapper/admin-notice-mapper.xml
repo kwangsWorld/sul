@@ -8,8 +8,10 @@
 		SELECT 
 		    NOTICE_NO
 		    , TITLE
-		    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , CONTENT
 		    , INQUIRY
+		    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
 		    , DEL_YN
 		FROM NOTICE
 		ORDER BY NOTICE_NO DESC
@@ -18,11 +20,12 @@
 	<select id="detail" resultType="com.sul.app.notice.vo.NoticeVo">
 		SELECT 
 		    NOTICE_NO
-		    , DEL_YN
-		    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-		    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
 		    , TITLE
 		    , CONTENT
+		    , INQUIRY
+		    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
+		    , DEL_YN
 		FROM NOTICE
 		WHERE NOTICE_NO = #{noticeNo}
 	</select>
@@ -33,14 +36,8 @@
 	</insert>
 	
 	<update id="edit">
-		UPDATE NOTICE SET TITLE = #{title} , CONTENT = #{content}
+		UPDATE NOTICE SET TITLE = #{title} , CONTENT = #{content} , DEL_YN = #{delYn}
 		WHERE NOTICE_NO = #{noticeNo}
 	</update>
 	
-	<update id="delete">
-		UPDATE NOTICE SET DEL_YN = 'Y'
-		WHERE NOTICE_NO = #{noticeNo}
-	</update>
-	
-
 </mapper>

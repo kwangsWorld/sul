@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,13 +30,13 @@ public class AdminProductController {
 	
 	// 상품 목록 상세조회 (관리자)
 	@GetMapping("detail")
-	public ProductVo detail(String no) {
-		return service.detail(no);
+	public ProductVo detail(ProductVo vo) {
+		return service.detail(vo);
 	}
 	
 	// 상품 등록 (관리자)
 	@PostMapping("insert")
-	public Map<String,String> insert(ProductVo vo) {
+	public Map<String,String> insert(@RequestBody ProductVo vo) {
 		
 		Map<String,String> map = new HashMap<String , String>();
 		int result = service.insert(vo);
@@ -50,10 +51,10 @@ public class AdminProductController {
 	
 	// 상품 삭제 (관리자)
 	@PostMapping("delete")
-	public Map<String,String> delete(String no) {
+	public Map<String,String> delete(@RequestBody ProductVo vo) {
 		
 		Map<String,String> map = new HashMap<String , String>();
-		int result = service.delete(no);
+		int result = service.delete(vo);
 		
 		if (result == 1) {
 			map.put("msg", "good");

@@ -23,8 +23,8 @@ public class AdminProductService {
 	}
 	
 	// 상품 목록 상세조회 (관리자)
-	public ProductVo detail(String no) {
-		return dao.detail(sqlSessionTemplate, no);
+	public ProductVo detail(ProductVo vo) {
+		return dao.detail(sqlSessionTemplate, vo);
 	}
 	
 	// 상품 등록 (관리자)
@@ -33,8 +33,8 @@ public class AdminProductService {
 	}
 	
 	// 상품 삭제 (관리자)
-	public int delete(String no) {
-		return dao.delete(sqlSessionTemplate, no);
+	public int delete(ProductVo vo) {
+		return dao.delete(sqlSessionTemplate, vo);
 	}
 	
 	

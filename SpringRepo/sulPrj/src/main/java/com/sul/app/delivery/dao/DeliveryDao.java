@@ -16,8 +16,8 @@ public class DeliveryDao {
 	}
 	
 	// 배송목록 상세 조회
-	public DeliveryVo detail(SqlSessionTemplate sqlSessionTemplate, String no) {
-		return sqlSessionTemplate.selectOne("DeliveryMapper.detail" , no);
+	public DeliveryVo detail(SqlSessionTemplate sqlSessionTemplate, DeliveryVo vo) {
+		return sqlSessionTemplate.selectOne("DeliveryMapper.detail" , vo);
 	}
 	
 	// 배송상태 수정

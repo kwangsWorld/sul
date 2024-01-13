@@ -96,27 +96,41 @@ const StyledAdminNoticeListDiv = styled.div`
         margin-left: 10%;
     }
 
-
 `;
 
 const AdminNoticeList = () => {
 
     const navigate = useNavigate();
 
-    // select 태그 상태설정
     const [select, setSelect] = useState();
-
-    // input 태그 상태설정
     const [input, setInput] = useState();
+    const [voList , setVoList] = useState([]);
+
+    // 목록조회
+    const loadAdminNoticeVoList = () => {
+        fetch("http://127.0.0.1:8888/app/adminNotice/list" , {
+            method : 'get'
+        })
+        .then( (resp) => {return resp.json()} )
+        .then( (data) => { return setVoList(data); } )
+        ;
+    }
+    
+    // 렌더링
+    useEffect( () => {
+        loadAdminNoticeVoList();
+    }, [] );
+    console.log(voList);
+    
+    // detail 로 넘겨줄 값 설정
+    const detailItem = (vo) => {
+        navigate('/adminNotice/detail', { state:  {vo}  });
+    };
 
     // 초기화 버튼 클릭 시 동작 함수
     const handleReset = () => {
-
-    // select 태그의 상태 초기화 (첫 번째 옵션으로)
-    setSelect('');
-
-    // input 태그의 상태 초기화 (빈 문자열로)
-    setInput('');
+        setSelect('');
+        setInput('');
     };
 
      // 검색버튼 동작 함수
@@ -129,42 +143,7 @@ const AdminNoticeList = () => {
         navigate("/adminNotice/write")
     };
 
-    // 목록조회
-    const [voList , setVoList] = useState([]);
 
-    const loadAdminNoticeVoList = () => {
-        fetch("http://127.0.0.1:8888/app/adminNotice/list" , {
-            method : 'get'
-        })
-        .then( (resp) => {return resp.json()} )
-        .then( (data) => { return setVoList(data); } )
-        ;
-    }
-
-    useEffect( () => {
-        loadAdminNoticeVoList();
-    }, [] );
-
-
-    // detail 로 넘겨줄 값 설정
-    const [no , setNo] = useState();
-
-    const handleDetail = () => {
-
-        fetch("http://127.0.0.1:8888/app/adminNotice/detail" , {
-            method : 'get',
-            headers : {
-                "Content-Type" : "aplication/json"
-            },
-            body : JSON.stringify()
-        })
-        .then( (resp) => {return resp.json()} )
-        .then(  (data) => {
-            setNo(vo.noticeNo);
-            navigate("/adminNotice/detail"); 
-        })
-            
-    };
 
     return (
         <StyledAdminNoticeListDiv>
@@ -210,7 +189,9 @@ const AdminNoticeList = () => {
                 <tbody>
                     {
                         voList.map( (vo) => (
-                        <tr key={vo.no} onClick={() => handleDetail()}>
+                        <tr key={vo.no} onClick={() => {
+                            detailItem(vo)}
+                            }>
                             <td className='notice_no'>{vo.noticeNo}</td>
                             <td className='notice_title'>{vo.title}</td>
                             <td className='notice_enrollDate'>{vo.enrollDate}</td>

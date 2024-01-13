@@ -30,8 +30,8 @@ public class AdminCsBoardController {
 	
 	// 고객센터 상세 조회
 	@GetMapping("detail")
-	public CsBoardVo detail(String no) {
-		return service.detail(no);
+	public CsBoardVo detail(CsBoardVo vo) {
+		return service.detail(vo);
 	}
 	
 	// 고객센터 답변 작성
