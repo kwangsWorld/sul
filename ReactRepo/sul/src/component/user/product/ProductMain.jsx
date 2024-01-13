@@ -5,10 +5,13 @@ import ProductChungju from './ProductChungju';
 import ProductWine from './ProductWine';
 import ProductSoju from './ProductSoju';
 import ProductDetail from './ProductDetail';
+import ProductList from './ProductList';
+
 
 const ProductMain = () => {
     return (
         <Routes>
+            <Route path='list' element={<ProductList/>}/>
             <Route path='takju' element={<ProductTakju/>}/>
             <Route path='chungju' element={<ProductChungju/>}/>
             <Route path='wine' element={<ProductWine/>}/>

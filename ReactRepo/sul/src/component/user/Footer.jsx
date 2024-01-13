@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledFooterDiv = styled.div`
-width: 100%;
-padding: 30px 20px;
-background-color: white;
-border-top: 1px solid rgb(224, 224, 224);
+    width: 100%;
+    padding: 30px 20px;
+    background-color: white;
+    border-top: 1px solid rgb(224, 224, 224);
 
 .footer_top{
     display: flex;
@@ -77,7 +77,7 @@ border-top: 1px solid rgb(224, 224, 224);
     margin-right: 15px;
 }
 
-`
+`;
 
 const Footer = () => {
     return (
