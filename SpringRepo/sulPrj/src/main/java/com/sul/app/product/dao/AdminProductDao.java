@@ -16,8 +16,8 @@ public class AdminProductDao {
 	}
 	
 	// 상품 목록 상세조회 (관리자)
-	public ProductVo detail(SqlSessionTemplate sqlSessionTemplate , String no) {
-		return sqlSessionTemplate.selectOne("AdminProductMapper.detail" , no);
+	public ProductVo detail(SqlSessionTemplate sqlSessionTemplate , ProductVo vo) {
+		return sqlSessionTemplate.selectOne("AdminProductMapper.detail" , vo);
 	}
 	
 	// 상품 등록 (관리자)
@@ -26,8 +26,8 @@ public class AdminProductDao {
 	}
 	
 	// 상품 삭제 (관리자)
-	public int delete(SqlSessionTemplate sqlSessionTemplate , String no) {
-		return sqlSessionTemplate.update("AdminProductMapper.delete" , no);
+	public int delete(SqlSessionTemplate sqlSessionTemplate , ProductVo vo) {
+		return sqlSessionTemplate.update("AdminProductMapper.delete" , vo);
 	}
 
 }

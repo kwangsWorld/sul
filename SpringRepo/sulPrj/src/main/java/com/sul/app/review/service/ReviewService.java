@@ -28,13 +28,13 @@ public class ReviewService {
 	}
 	
 	// 리뷰 목록 상세보기 (관리자)
-	public ReviewVo adminDetail(String no) {
-		return dao.adminDetail(sst, no);
+	public ReviewVo adminDetail(ReviewVo vo) {
+		return dao.adminDetail(sst, vo);
 	}
 	
 	// 리뷰 삭제 (관리자)
-	public int adminDelete(String no) {
-		return dao.adminDelete(sst, no);
+	public int adminDelete(ReviewVo vo) {
+		return dao.adminDelete(sst, vo);
 	}
 
 }

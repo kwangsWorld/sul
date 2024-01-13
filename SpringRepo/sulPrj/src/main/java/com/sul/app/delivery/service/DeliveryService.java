@@ -23,8 +23,8 @@ public class DeliveryService {
 	}
 	
 	// 배송목록 상세 조회
-	public DeliveryVo detail(String no) {
-		return dao.detail(sqlSessionTemplate, no);
+	public DeliveryVo detail(DeliveryVo vo) {
+		return dao.detail(sqlSessionTemplate, vo);
 	}
 	
 	// 배송상태 수정

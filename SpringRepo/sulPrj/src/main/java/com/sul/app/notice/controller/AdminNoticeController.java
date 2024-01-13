@@ -30,8 +30,9 @@ public class AdminNoticeController {
 
 	// 공자시항 상세 조회
 	@GetMapping("detail")
-	public NoticeVo detail(String no) {
-		return service.detail(no);
+	public NoticeVo detail(NoticeVo vo) {
+		System.out.println(vo);
+		return service.detail(vo);
 	}
 
 	// 공지사항 작성
@@ -55,22 +56,7 @@ public class AdminNoticeController {
 
 		Map<String, String> map = new HashMap<String, String>();
 		int result = service.edit(vo);
-
-		if (result == 1) {
-			map.put("msg", "good");
-		} else {
-			map.put("msg", "bad");
-		}
-		return map;
-	}
-
-	// 공지사항 삭제
-	@PostMapping("delete")
-	public Map<String, String> delete(@RequestBody String no) {
-
-		Map<String, String> map = new HashMap<String, String>();
-		int result = service.delete(no);
-
+		System.out.println(vo);
 		if (result == 1) {
 			map.put("msg", "good");
 		} else {

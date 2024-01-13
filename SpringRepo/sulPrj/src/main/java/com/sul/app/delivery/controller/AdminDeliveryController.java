@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,13 +30,13 @@ public class AdminDeliveryController {
 
 	// 배송목록 상세 조회
 	@GetMapping("detail")
-	public DeliveryVo detail(String no) {
-		return service.detail(no);
+	public DeliveryVo detail(DeliveryVo vo) {
+		return service.detail(vo);
 	}
 
 	// 배송상태 수정
 	@PostMapping("status")
-	public Map<String, String> status(DeliveryVo vo) {
+	public Map<String, String> status(@RequestBody DeliveryVo vo) {
 
 		Map<String, String> map = new HashMap<String, String>();
 		int result = service.status(vo);

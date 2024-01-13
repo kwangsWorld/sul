@@ -26,8 +26,8 @@ public class DeliveryController {
 
 	// 배송목록 상세 조회
 	@GetMapping("detail")
-	public DeliveryVo detail(String no) {
-		return service.detail(no);
+	public DeliveryVo detail(DeliveryVo vo) {
+		return service.detail(vo);
 	}
 
 }

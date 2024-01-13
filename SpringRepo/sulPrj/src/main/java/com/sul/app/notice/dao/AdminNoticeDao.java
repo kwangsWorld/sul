@@ -16,8 +16,8 @@ public class AdminNoticeDao {
 	}
 	
 	// 공자시항 상세 조회
-	public NoticeVo detail(SqlSessionTemplate sqlSessionTemplate, String no) {
-		return sqlSessionTemplate.selectOne("AdminNoticeMapper.detail" , no);
+	public NoticeVo detail(SqlSessionTemplate sqlSessionTemplate, NoticeVo vo) {
+		return sqlSessionTemplate.selectOne("AdminNoticeMapper.detail" , vo);
 	}
 	
 	// 공지사항 작성
@@ -28,11 +28,6 @@ public class AdminNoticeDao {
 	// 공지사항 수정
 	public int edit(SqlSessionTemplate sqlSessionTemplate, NoticeVo vo) {
 		return sqlSessionTemplate.update("AdminNoticeMapper.edit", vo);
-	}
-	
-	// 공지사항 삭제
-	public int delete(SqlSessionTemplate sqlSessionTemplate, String no) {
-		return sqlSessionTemplate.update("AdminNoticeMapper.delete", no);
 	}
 	
 }
