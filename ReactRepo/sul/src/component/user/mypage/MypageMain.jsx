@@ -4,6 +4,7 @@ import Myheader from './Myheader';
 import Info from './Info';
 import Mycom from './Mycom';
 import Mycomdetail from './Mycomdetail';
+import Myaddress from './Myaddress';
 
 const MypageMain = () => {
     return (
@@ -12,6 +13,7 @@ const MypageMain = () => {
             <Route path='/info' element={<Info />}></Route>
             <Route path='/mycom' element={<Mycom />}></Route>
             <Route path='/mycomdetail' element={<Mycomdetail />}></Route>
+            <Route path='/myaddress' element={<Myaddress />}></Route>
         </Routes>
     );
 };

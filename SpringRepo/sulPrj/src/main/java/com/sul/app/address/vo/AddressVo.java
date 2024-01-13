@@ -9,4 +9,6 @@ public class AddressVo {
 	private String address;
 	private String delYn;
 	private String memberNo;
+	private String name;
+	private String tel;
 }

@@ -9,7 +9,7 @@ height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 13%;
+        margin-top: 10%;
         border: 3px solid lightgray;
         width: 75%;
         height: 90px;
@@ -42,7 +42,7 @@ const Myheader = () => {
                 <li><Link to='/mypage/info'>💱취소내역</Link></li>
                 <li><Link to='/mypage/info'>⭐리뷰</Link></li>
                 <li><Link to='/mypage/info'>👤회원정보</Link></li>
-                <li><Link to='/mypage/info'>🛻배송지관리</Link></li>
+                <li><Link to='/mypage/myaddress'>🛻배송지관리</Link></li>
                 <li><Link to='/mypage/info'>📞고객센터</Link></li>
                 <li><Link to='/mypage/mycom'>💬커뮤니티</Link></li>
             </ul>
