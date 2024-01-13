@@ -28,7 +28,7 @@ const Navi = () => {
         <StyledNaviDiv>
             <div className='navi_wrap'>
                 <div>
-                    <Link to = "/product/home">홈</Link>
+                    <Link to = "/product/list">홈</Link>
                 </div>
                 <div>
                     <Link to = "/product/takju">탁주</Link>
