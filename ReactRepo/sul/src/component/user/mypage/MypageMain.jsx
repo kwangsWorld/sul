@@ -5,6 +5,9 @@ import Info from './Info';
 import Mycom from './Mycom';
 import Mycomdetail from './Mycomdetail';
 import Myaddress from './Myaddress';
+import Myaddressplus from './Myaddressplus';
+import Myorder from './Myorder';
+import Mycancel from './Mycancel';
 
 const MypageMain = () => {
     return (
@@ -14,6 +17,9 @@ const MypageMain = () => {
             <Route path='/mycom' element={<Mycom />}></Route>
             <Route path='/mycomdetail' element={<Mycomdetail />}></Route>
             <Route path='/myaddress' element={<Myaddress />}></Route>
+            <Route path='/myaddressplus' element={<Myaddressplus />}></Route>
+            <Route path='/myorder' element={<Myorder />}></Route>
+            <Route path='/mycancel' element={<Mycancel />}></Route>
         </Routes>
     );
 };
