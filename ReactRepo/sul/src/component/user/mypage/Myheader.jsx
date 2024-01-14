@@ -38,9 +38,8 @@ const Myheader = () => {
         <StyledMyheaderDiv>
             <ul>
                 <li><Link to='/mypage/info'>누구님</Link></li>
-                <li><Link to='/mypage/info'>💸주문내역</Link></li>
-                <li><Link to='/mypage/info'>💱취소내역</Link></li>
-                <li><Link to='/mypage/info'>⭐리뷰</Link></li>
+                <li><Link to='/mypage/myorder'>💸주문내역</Link></li>
+                <li><Link to='/mypage/mycancel'>💱취소내역</Link></li>
                 <li><Link to='/mypage/info'>👤회원정보</Link></li>
                 <li><Link to='/mypage/myaddress'>🛻배송지관리</Link></li>
                 <li><Link to='/mypage/info'>📞고객센터</Link></li>
