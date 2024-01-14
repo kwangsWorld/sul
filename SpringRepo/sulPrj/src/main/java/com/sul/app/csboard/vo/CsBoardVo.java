@@ -7,6 +7,7 @@ public class CsBoardVo {
 	
 	private String qNo;
 	private String memberNo;
+	private String nick;
 	private String qTitle;
 	private String qContent;
 	private String qDate;

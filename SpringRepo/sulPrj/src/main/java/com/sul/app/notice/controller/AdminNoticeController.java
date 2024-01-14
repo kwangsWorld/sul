@@ -31,7 +31,6 @@ public class AdminNoticeController {
 	// 공자시항 상세 조회
 	@GetMapping("detail")
 	public NoticeVo detail(NoticeVo vo) {
-		System.out.println(vo);
 		return service.detail(vo);
 	}
 
@@ -56,7 +55,6 @@ public class AdminNoticeController {
 
 		Map<String, String> map = new HashMap<String, String>();
 		int result = service.edit(vo);
-		System.out.println(vo);
 		if (result == 1) {
 			map.put("msg", "good");
 		} else {

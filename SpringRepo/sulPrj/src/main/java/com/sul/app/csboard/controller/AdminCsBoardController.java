@@ -31,12 +31,14 @@ public class AdminCsBoardController {
 	// 고객센터 상세 조회
 	@GetMapping("detail")
 	public CsBoardVo detail(CsBoardVo vo) {
+		System.out.println(vo);
 		return service.detail(vo);
 	}
 	
 	// 고객센터 답변 작성
 	@PostMapping("answer")
 	public Map<String,String> answer(@RequestBody CsBoardVo vo) {
+		System.out.println(vo);
 		
 		Map<String,String> map = new HashMap<String, String>();
 		int result = service.answer(vo);
