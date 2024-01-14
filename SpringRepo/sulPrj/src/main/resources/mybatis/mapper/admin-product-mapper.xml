@@ -7,9 +7,18 @@
 	<select id="list" resultType="com.sul.app.product.vo.ProductVo">
 		SELECT 
 		    P.PRODUCT_NO
-		    , T.NAME
-		    , P.NAME
+            , T.TYPE_NO
+		    , T.NAME AS T_NAME
+		    , P.NAME AS P_NAME
+		    , P.PRICE
+		    , P.DEGREE
+		    , P.CAPACITY
+            , P.IMAGE
+		    , P.STORAGE
+		    , P.TASTE
+		    , P.APPETIZER
 		    , TO_CHAR (P.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+            , P.EXPIRY_DATE 
 		    , P.DEL_YN
 		FROM PRODUCT P
 		JOIN TYPE T ON T.TYPE_NO = P.TYPE_NO
@@ -19,11 +28,18 @@
 	<select id="detail" resultType="com.sul.app.product.vo.ProductVo">
 		SELECT 
 		    P.PRODUCT_NO
-		    , T.NAME
-		    , P.NAME
+            , T.TYPE_NO
+		    , T.NAME AS T_NAME
+		    , P.NAME AS P_NAME
 		    , P.PRICE
 		    , P.DEGREE
+		    , P.CAPACITY
+            , P.IMAGE
+		    , P.STORAGE
+		    , P.TASTE
+		    , P.APPETIZER
 		    , TO_CHAR (P.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+            , P.EXPIRY_DATE 
 		    , P.DEL_YN
 		FROM PRODUCT P
 		JOIN TYPE T ON T.TYPE_NO = P.TYPE_NO
@@ -32,11 +48,11 @@
 	
 	<insert id="insert">
 		INSERT INTO PRODUCT(PRODUCT_NO, TYPE_NO, NAME, PRICE, DEGREE, CAPACITY, EXPIRY_DATE, STORAGE, TASTE, APPETIZER) 
-		VALUES(SEQ_PRODUCT_NO.NEXTVAL, #{typeNo}, #{name}, #{price}, #{degree}, #{capacity}, #{expiryDate}, #{storage}, #{taste}, #{appetizer})
+		VALUES(SEQ_PRODUCT_NO.NEXTVAL, #{typeNo}, #{pName}, #{price}, #{degree}, #{capacity}, #{expiryDate}, #{storage}, #{taste}, #{appetizer})
 	</insert>
 	
 	<update id="delete">
-		UPDATE PRODUCT SET DEL_YN = 'Y'
+		UPDATE PRODUCT SET DEL_YN = #{delYn}
 		WHERE PRODUCT_NO = #{productNo}
 	</update>
 	

@@ -30,9 +30,13 @@
 		WHERE NOTICE_NO = #{noticeNo}
 	</select>
 	
+<!-- 	<insert id="write"> -->
+<!-- 		INSERT INTO NOTICE (NOTICE_NO, ADMIN_NO, TITLE, CONTENT)  -->
+<!-- 		VALUES(SEQ_NOTICE_NO.NEXTVAL, #{adminNo}, #{title}, #{content}) -->
+<!-- 	</insert> -->
 	<insert id="write">
-		INSERT INTO NOTICE (NOTICE_NO, ADMIN_NO, TITLE, CONTENT, INQUIRY) 
-		VALUES(SEQ_NOTICE_NO.NEXTVAL, #{adminNo}, #{title}, #{content}, #{inquiry})
+		INSERT INTO NOTICE (NOTICE_NO, TITLE, CONTENT) 
+		VALUES(SEQ_NOTICE_NO.NEXTVAL, #{title}, #{content})
 	</insert>
 	
 	<update id="edit">

@@ -13,11 +13,13 @@
 	<select id="list" resultType="com.sul.app.review.vo.ReviewVo">
 		SELECT 
 		    R.REVIEW_NO
+		    , R.CONTENT
 		    , M.NICK
-		    , R.RATING
 		    , P.PRODUCT_NO
 		    , P.NAME
 		    , TO_CHAR (R.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , R.IMG
+		    , R.RATING
 		    , R.DEL_YN
 		FROM REVIEW R
 		JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
@@ -30,13 +32,14 @@
 	<select id="detail" resultType="com.sul.app.review.vo.ReviewVo">
 		SELECT 
 		    R.REVIEW_NO
-		    , R.RATING
-		    , M.NICK
-		    , P.NAME
-		    , TO_CHAR (R.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE   
-		    , R.DEL_YN
-		    , R.IMG
 		    , R.CONTENT
+		    , M.NICK
+		    , P.PRODUCT_NO
+		    , P.NAME
+		    , TO_CHAR (R.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , R.IMG
+		    , R.RATING
+		    , R.DEL_YN
 		FROM REVIEW R
 		JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
 		JOIN ORDERS_LIST L ON L.ORDER_LIST_NO = R.ORDER_LIST_NO
@@ -46,7 +49,7 @@
 	</select>
 	
 	<update id="delete">
-		UPDATE REVIEW SET DEL_YN = 'Y'
+		UPDATE REVIEW SET DEL_YN = #{delYn}
 		WHERE REVIEW_NO = #{reviewNo}
 	</update>
 </mapper>
