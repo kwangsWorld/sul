@@ -22,7 +22,7 @@ public class CartController {
 	private final CartService service;
 
 	//장바구니 담기
-	@PostMapping
+	@PostMapping("add")
 	public Map<String, String> add(ProductVo vo){
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -38,7 +38,7 @@ public class CartController {
 	}
 	
 	//장바구니 조회
-	@GetMapping
+	@GetMapping("list")
 	public List<ProductVo> list(ProductVo vo){
 		
 		List<ProductVo> voList = service.list(vo);

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const StyledItemDiv = styled.div`
     display: grid;
@@ -10,6 +11,8 @@ const StyledItemDiv = styled.div`
 `
 
 const ProductListItem = () => {
+
+    const navigate =  useNavigate();
     return (
         <StyledItemDiv>
             <img
@@ -17,6 +20,9 @@ const ProductListItem = () => {
                 alt="이미지ㅋㅋ"
                 width='295px'
                 height='300px'
+                onClick={() =>{
+                    navigate("/product/detail");
+                }}
             />
             <div>제목</div>
             <div>가격</div>

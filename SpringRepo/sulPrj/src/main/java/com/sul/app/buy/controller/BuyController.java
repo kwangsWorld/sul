@@ -38,7 +38,7 @@ public class BuyController {
 	}
 	
 	//구매 목록 조회
-	@GetMapping
+	@GetMapping("list")
 	public List<ProductVo> buyList(ProductVo vo) {
 		
 		List<ProductVo> voList = service.buyList(vo);

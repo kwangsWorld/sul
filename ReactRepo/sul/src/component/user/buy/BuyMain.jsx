@@ -1,10 +1,12 @@
 import React from 'react';
+import BuyList from './BuyList'
+import { Route, Routes } from 'react-router-dom';
 
 const BuyMain = () => {
     return (
-        <div>
-            
-        </div>
+        <Routes>
+            <Route path='list' element={<BuyList/>}></Route>
+        </Routes>
     );
 };
 
