@@ -26,7 +26,7 @@ const StyledJoinEmailDiv = styled.div`
         font-weight: bold;
     }
     & > form > table > tr > td > input {
-        border: 1px solid lightgray;
+        border: 2px solid lightgray;
         width: 100%;
         height: 40px;
     }
@@ -37,9 +37,9 @@ const StyledJoinEmailDiv = styled.div`
 `;
 
 const JoinEmail = () => {
-    const navigate = useNavigate();
 
-    const [isFetching, setIsFetching] = useState(false);
+    const navigate = useNavigate();
+    let isFetching = false;
 
     const [vo, setVo] = useState({
         name: "",
@@ -60,49 +60,42 @@ const JoinEmail = () => {
         });
     }
 
-    const handleJoinEmailSubmit = (event) => {
+    const handleJoinEmailSubmit = async (event) => {
         event.preventDefault();
 
         if (isFetching) {
             return;
         }
 
-        if (vo.pwd !== vo.pwd2) {
-            alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-            return;
-        }
+        isFetching = true;
 
-        setIsFetching(true);
+        try {
+            const response = await fetch("http://127.0.0.1:8888/app/member/join", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(vo),
+            });
 
-        fetch("http://127.0.0.1:8888/app/member/join", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(vo)
-        })
-        .then(resp => {
-            if (!resp.ok) {
-                throw new Error("회원가입 fetch 실패");
+            if (!response.ok) {
+                throw new Error("회원가입 실패: " + response.statusText);
             }
-            return resp.json();
-        })
-        .then(data => {
+
+            const data = await response.json();
+
             if (data.msg === "good") {
                 alert("회원가입 성공");
-                navigate("/");
+                navigate("/member/login");
             } else {
-                alert("회원가입 실패!");
-                navigate("/fail");
+                throw new Error("회원가입 실패: " + data.msg);
             }
-        })
-        .catch((e) => {
-            console.log(e);
-            alert("회원가입 실패!");
-        })
-        .finally(() => {
-            setIsFetching(false);
-        });
+        } catch (error) {
+            console.error(error);
+            alert("회원가입 실패: " + error.message);
+        } finally {
+            isFetching = false;
+        }
     }
 
     return (

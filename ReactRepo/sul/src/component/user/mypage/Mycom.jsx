@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Myheader from './Myheader';
 import { useNavigate } from 'react-router-dom';
@@ -38,9 +38,20 @@ const Mycom = () => {
 
     const navigate = useNavigate();
 
-    const handledetail = () => {
-        navigate('/mypage/mycomdetail')
-    };
+    const [communityVoList, setCommunityVoList] = useState([]);
+    const loadCommunityVoList = () => {
+        fetch("http://127.0.0.1:8888/app/community/my")
+        .then(resp => resp.json())
+        .then( (x) => {setCommunityVoList(x);})
+        ;
+    }
+
+    useEffect( ()=> {
+        console.log("useEffect호출");
+        loadCommunityVoList();
+    }, []);
+
+
 
     return (
         <StyledMycomDiv>
@@ -56,16 +67,20 @@ const Mycom = () => {
                     <td>카테고리</td>
                     <td>작성일</td>
                 </tr>
-                <tr onClick={handledetail}>
-                    <td>제목</td>
-                    <td>카테고리</td>
-                    <td>작성일</td>
-                </tr>
-                <tr>
-                    <td>제목</td>
-                    <td>카테고리</td>
-                    <td>작성일</td>
-                </tr>
+                {
+                    communityVoList.length === 0
+                    ?
+                    <h3>로딩중</h3>
+                    :
+                    communityVoList.map( vo => <tr key={vo.communityNo}>
+                        <td>{vo.title}</td>
+                        <td>{vo.name}</td>
+                        <td>{vo.enrollDate}</td>
+                    </tr>
+                 ) 
+                }
+                
+                
                 
                 
             </table>

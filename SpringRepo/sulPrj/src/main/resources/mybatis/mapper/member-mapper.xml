@@ -8,13 +8,13 @@
 	INSERT INTO MEMBER 
 		(MEMBER_NO, NAME, ID, PWD, EMAIL, NICK, TEL) 
 		VALUES 
-		(SEQ_MEMBER_NO.NEXTVAL, #{name}, #{id}, #{pwd}, #{email}, #{nick}, #{tel});
+		(SEQ_MEMBER_NO.NEXTVAL, #{name}, #{id}, #{pwd}, #{email}, #{nick}, #{tel})
 	</insert>
 	
 	<select id="login" resultType="com.sul.app.member.vo.MemberVo">
 		SELECT * 
 		FROM MEMBER
-		WHERE DEL_YN = 'N' AND ID = #{id} AND PWD = #{pwd};
+		WHERE DEL_YN = 'N' AND ID = #{id} AND PWD = #{pwd}
 	</select>
 	
 	<update id="edit">
@@ -37,5 +37,11 @@
 			WHERE ID = #{id} 
 			AND PWD = #{pwd}
 	</update>
+	
+	<select id="detail" resultType="com.sul.app.member.vo.MemberVo">
+		SELECT NAME, NICK , EMAIL, PWD, TEL
+		FROM MEMBER
+		WHERE MEMBER_NO = 1
+	</select>
 	
 </mapper>

@@ -45,4 +45,9 @@ public class MemberService {
 		return dao.quit(sst, vo);
 	}
 
+	//회원상세조회
+	public List<MemberVo> detail() {
+		return dao.detail(sst);
+	}
+
 }

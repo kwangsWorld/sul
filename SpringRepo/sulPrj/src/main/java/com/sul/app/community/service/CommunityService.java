@@ -42,6 +42,11 @@ public class CommunityService {
 		return dao.delete(sst, vo);
 	}
 
+	//내가 작성한 글보기
+	public List<CommunityVo> my() {
+		return dao.my(sst);
+	}
+
 	
 
 	
