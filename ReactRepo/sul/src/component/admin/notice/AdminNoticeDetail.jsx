@@ -90,7 +90,7 @@ const AdminNoticeDetail = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/adminNotice/list")
+        navigate("/admin/adminNotice/list")
     };
 
     // 수정하기 버튼 클릭 시 동작 함수
@@ -114,7 +114,7 @@ const AdminNoticeDetail = () => {
         if (data.msg === "good") {
             setVo(editedVo);
             alert("공지사항 수정 완료");
-          navigate("/adminNotice/list");
+          navigate("/admin/adminNotice/list");
         } else {
           alert("공지사항 수정 실패");
         }

@@ -16,8 +16,8 @@ public class CsBoardDao {
 	}
 	
 	// 고객센터 상세 조회
-	public CsBoardVo detail(SqlSessionTemplate sqlSessionTemplate , String no) {
-		return sqlSessionTemplate.selectOne("CsBoardMapper.detail" , no);
+	public CsBoardVo detail(SqlSessionTemplate sqlSessionTemplate , CsBoardVo vo) {
+		return sqlSessionTemplate.selectOne("CsBoardMapper.detail" , vo);
 	}
 	
 	// 고객센터 질문 작성

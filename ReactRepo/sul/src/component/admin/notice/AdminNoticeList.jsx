@@ -120,11 +120,10 @@ const AdminNoticeList = () => {
     useEffect( () => {
         loadAdminNoticeVoList();
     }, [] );
-    console.log(voList);
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
-        navigate('/adminNotice/detail', { state:  {vo}  });
+        navigate('/admin/adminNotice/detail', { state:  {vo}  });
     };
 
     // 초기화 버튼 클릭 시 동작 함수
@@ -140,7 +139,7 @@ const AdminNoticeList = () => {
 
     // 작성하기 버튼 클릭 시 동작 함수
     const handleWrite = () => {
-        navigate("/adminNotice/write")
+        navigate("/admin/adminNotice/write")
     };
 
 

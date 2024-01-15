@@ -32,14 +32,24 @@ const StyledAdminCsBoardDetailDiv = styled.div`
     }
 
     .detail_qTitle {
-        width: 850px;
+        display: flex;
+        align-items: center;
+        width: 1300px;
         height: 50px;
     }
 
-    .detail_qContent {
+    .detail_second {
+        width: 100%;
         display: flex;
-        width: 850px;
-        height: 300px;
+    }
+
+    .detail_qContent {
+        width: 50%;
+        height: 250px;
+    }
+    .detail_qImg {
+        width: 50%;
+        height: 250px;
     }
 
     .detail_wrap {
@@ -55,12 +65,14 @@ const StyledAdminCsBoardDetailDiv = styled.div`
         align-items: center;
         flex-direction: column;
         box-sizing: border-box;
+        margin-top: 20px;
     }
 
     .btn {
         width: 80%;
         display: flex;
         justify-content: space-between;
+        margin-top: 10px;
     }
 
     .edit_button {
@@ -94,7 +106,7 @@ const AdminCsBoardDetail = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/adminCsboard/list")
+        navigate("/admin/adminCsboard/list")
     };
 
     // 수정하기 버튼 클릭 시 동작 함수
@@ -117,7 +129,7 @@ const AdminCsBoardDetail = () => {
         if (data.msg === "good") {
             setVo(editedVo);
             alert("고객센터 수정 완료");
-          navigate("/adminCsboard/list");
+          navigate("/admin/adminCsboard/list");
         } else {
           alert("고객센터 수정 실패");
         }
@@ -176,7 +188,10 @@ const AdminCsBoardDetail = () => {
                             {csboardVo.qTitle}
                         </td>
                     </tr>
-                    <tr>
+                    <tr className='detail_second'>
+                        <td className='detail_qImg' name='qImg'>
+                            {csboardVo.qImg}
+                        </td>
                         <td className='detail_qContent' name='qContent'>
                             {csboardVo.qContent}
                         </td>

@@ -6,19 +6,24 @@
 
 	<select id="list" resultType="com.sul.app.notice.vo.NoticeVo">
 		SELECT 
-		    NOTICE_NO
-		    , TITLE
-		    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-		    , INQUIRY
-		FROM NOTICE
-		WHERE DEL_YN = 'N'
+		    N.NOTICE_NO
+	    	, N.TITLE
+		    , N.CONTENT
+		    , N.INQUIRY
+		    , TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , A.ADMIN_NAME
+		FROM NOTICE N
+		JOIN ADMIN A ON A.ADMIN_NO = N.ADMIN_NO
+		WHERE N.DEL_YN = 'N'
 		ORDER BY NOTICE_NO DESC
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.notice.vo.NoticeVo">
 		SELECT 
-	    	N.TITLE
+			, N.NOTICE_NO
+	    	, N.TITLE
 		    , N.CONTENT
+		    , N.INQUIRY
 		    , TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
 		    , A.ADMIN_NAME
 		FROM NOTICE N

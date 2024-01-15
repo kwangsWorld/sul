@@ -16,12 +16,12 @@ public class NoticeDao {
 	}
 	
 	// 공자시항 상세 조회
-	public NoticeVo detail(SqlSessionTemplate sqlSessionTemplate, String no) {
-		return sqlSessionTemplate.selectOne("NoticeMapper.detail" , no);
+	public NoticeVo detail(SqlSessionTemplate sqlSessionTemplate, NoticeVo vo) {
+		return sqlSessionTemplate.selectOne("NoticeMapper.detail" , vo);
 	}
 	
 	// 조회수 증가
-	public int increaseHit(SqlSessionTemplate sqlSessionTemplate, String no) {
-		return sqlSessionTemplate.update("NoticeMapper.increaseHit", no);
+	public int increaseHit(SqlSessionTemplate sqlSessionTemplate, NoticeVo vo) {
+		return sqlSessionTemplate.update("NoticeMapper.increaseHit", vo);
 	}
 }

@@ -29,16 +29,16 @@ public class NoticeController {
 
 	// 공자시항 상세 조회
 	@GetMapping("detail")
-	public NoticeVo detail(String no) {
-		return service.detail(no);
+	public NoticeVo detail(NoticeVo vo) {
+		return service.detail(vo);
 	}
 
 	// 조회수 증가
 	@GetMapping("increaseHit")
-	public Map<String, String> increaseHit(@RequestBody String no) {
+	public Map<String, String> increaseHit(@RequestBody NoticeVo vo) {
 
 		Map<String, String> map = new HashMap<String, String>();
-		int result = service.increaseHit(no);
+		int result = service.increaseHit(vo);
 
 		if (result == 1) {
 			map.put("msg", "good");

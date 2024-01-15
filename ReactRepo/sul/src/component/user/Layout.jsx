@@ -4,7 +4,6 @@ import Header from './Header';
 import Navi from './Navi';
 import Main from './Main';
 import Footer from './Footer';
-import AdminLayout from '../admin/AdminLayout';
 
 const StyledLayoutDiv = styled.div`
     width: 100vw;

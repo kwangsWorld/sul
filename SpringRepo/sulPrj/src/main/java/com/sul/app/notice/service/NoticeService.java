@@ -23,13 +23,13 @@ public class NoticeService {
 	}
 	
 	// 공자시항 상세 조회
-	public NoticeVo detail(String no) {
-		return dao.detail(sqlSessionTemplate, no);
+	public NoticeVo detail(NoticeVo vo) {
+		return dao.detail(sqlSessionTemplate, vo);
 	}
 	
 	// 조회수 증가
-	public int increaseHit(String no) {
-		return dao.increaseHit(sqlSessionTemplate, no);
+	public int increaseHit(NoticeVo vo) {
+		return dao.increaseHit(sqlSessionTemplate, vo);
 	}
 	
 }

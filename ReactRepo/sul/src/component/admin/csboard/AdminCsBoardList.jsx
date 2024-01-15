@@ -120,7 +120,7 @@ const AdminCsBoardList = () => {
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
-        navigate('/adminCsBoard/detail', { state:  {vo}  });
+        navigate('/admin/adminCsBoard/detail', { state:  {vo}  });
     };
 
     // 초기화 버튼 클릭 시 동작 함수
@@ -133,13 +133,6 @@ const AdminCsBoardList = () => {
      const handleSearch = () => {
         
     };
-
-    // 작성하기 버튼 클릭 시 동작 함수
-    const handleWrite = () => {
-        navigate("/adminCsboard/answer")
-    };
-
-
 
     return (
         <StyledAdminCsBoardListDiv>

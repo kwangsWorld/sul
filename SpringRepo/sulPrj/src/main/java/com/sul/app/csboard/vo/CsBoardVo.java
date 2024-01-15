@@ -10,10 +10,11 @@ public class CsBoardVo {
 	private String nick;
 	private String qTitle;
 	private String qContent;
-	private String qDate;
+	private String qImg;
+	private String enrollDate;
 	private String adminNo;
 	private String aContent;
-	private String aDate;
+	private String answerDate;
 	private String aYn;
 
 }

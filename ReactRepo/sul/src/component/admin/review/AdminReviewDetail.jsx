@@ -68,7 +68,7 @@ const AdminReviewDetail = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/adminReview/list")
+        navigate("/admin/adminReview/list")
     };
 
     // 삭제하기 버튼 클릭 시 동작 함수
@@ -90,7 +90,7 @@ const AdminReviewDetail = () => {
         if (data.msg === "good") {
             setVo(editedVo);
             alert("리뷰 수정 완료");
-          navigate("/adminReview/list");
+          navigate("/admin/adminReview/list");
         } else {
           alert("리뷰 수정 실패");
         }

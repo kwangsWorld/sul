@@ -126,7 +126,7 @@ const AdminProductList = () => {
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
-        navigate('/adminProduct/detail', { state:  {vo}  });
+        navigate('/admin/adminProduct/detail', { state:  {vo}  });
     };
 
     // 초기화 버튼 클릭 시 동작 함수
@@ -142,7 +142,7 @@ const AdminProductList = () => {
 
     // 작성하기 버튼 클릭 시 동작 함수
     const handleInsert = () => {
-        navigate("/adminProduct/insert")
+        navigate("/admin/adminProduct/insert")
     };
 
 

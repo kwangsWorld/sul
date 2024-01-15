@@ -68,7 +68,7 @@ const AdminMemberDetail = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/adminMember/list")
+        navigate("/admin/adminMember/list")
     };
 
     // 수정하기 버튼 클릭 시 동작 함수
@@ -91,7 +91,7 @@ const AdminMemberDetail = () => {
         if (data.msg === "good") {
             setVo(editedVo);
             alert("회원 수정 완료");
-          navigate("/adminMember/list");
+          navigate("/admin/adminMember/list");
         } else {
           alert("회원 수정 실패");
         }

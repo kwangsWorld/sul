@@ -23,8 +23,8 @@ public class CsBoardService {
 	}
 	
 	// 고객센터 상세 조회
-	public CsBoardVo detail(String no) {
-		return dao.detail(sqlSessionTemplate, no);
+	public CsBoardVo detail(CsBoardVo vo) {
+		return dao.detail(sqlSessionTemplate, vo);
 	}
 	
 	// 고객센터 질문 작성
