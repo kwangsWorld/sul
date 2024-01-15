@@ -45,20 +45,4 @@ public class MemberService {
 		return dao.quit(sst, vo);
 	}
 
-	// 회원 목록 조회
-	public List<MemberVo> list() {
-		return dao.list(sst);
-	}
-	
-	// 회원 목록 상세 조회
-	public MemberVo detail(String no) {
-		return dao.detail(sst, no);
-	}
-	
-	// 회원 삭제
-	public int delete(String no) {
-		return dao.delete(sst, no);
-	}
-	
-
 }

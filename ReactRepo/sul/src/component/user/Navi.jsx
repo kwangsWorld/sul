@@ -20,6 +20,15 @@ const StyledNaviDiv = styled.div`
     .navi_wrap:nth-child(1){
         margin-left: 150px;
     }
+
+    .board {
+        width: 200px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        font-size:20px;
+        margin-left: 760px;
+    }
     
 `
 
@@ -41,6 +50,14 @@ const Navi = () => {
                 </div>
                 <div>
                     <Link to = "/product/soju">증류수</Link>
+                </div>
+            </div>
+            <div className='board'>
+                <div>
+                    <Link to = "/notice/list">공지사항</Link>
+                </div>
+                <div>
+                    <Link to = "/csboard/list">고객센터</Link>
                 </div>
             </div>
         </StyledNaviDiv>

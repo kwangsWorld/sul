@@ -71,7 +71,7 @@ const AdminProductDetail = () => {
         navigate("/adminProduct/list")
     };
 
-    // 삭제하기 버튼 클릭 시 동작 함수
+    // 수정하기 버튼 클릭 시 동작 함수
     const handleDelete = () => {
         const editedVo = {
             ...vo,
@@ -132,7 +132,7 @@ const AdminProductDetail = () => {
                             <select className='' value={editedDelYn} onChange={handleSelectChange}>
                                 <option value="N">N</option>
                                 <option value="Y">Y</option>
-                                </select>
+                            </select>
                         </td>
                         
                     </tr>

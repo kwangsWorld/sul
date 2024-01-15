@@ -89,11 +89,4 @@ public class MemberController {
 		return map;
 	}
 	
-	//회원목록 조회
-	@GetMapping("list")
-	public List<MemberVo> list() {
-		return service.list();
-	}
-	
-	
 }
