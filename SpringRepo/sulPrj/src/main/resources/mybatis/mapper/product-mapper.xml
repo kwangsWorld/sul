@@ -5,8 +5,9 @@
 <mapper namespace="ProductMapper">
 
 	<select id="list" resultType="com.sul.app.product.vo.ProductVo">
-		SELECT 
-			P.NAME
+		SELECT
+			P.PRODUCT_NO 
+			, P.NAME AS P_NAME
 			, P.PRICE
 			, P.IMAGE
 			, P.DEL_YN

@@ -10,7 +10,7 @@ const StyledItemDiv = styled.div`
     text-align: center;
 `
 
-const ProductListItem = () => {
+const ProductListItem = ({a, b, c, no}) => {
 
     const navigate =  useNavigate();
     return (
@@ -21,12 +21,12 @@ const ProductListItem = () => {
                 width='295px'
                 height='300px'
                 onClick={() =>{
-                    navigate("/product/detail");
+                    navigate("/product/detail/"+ no);
                 }}
             />
-            <div>제목</div>
-            <div>가격</div>
-            <div>평점</div>
+            <div>{a}</div>
+            <div>{b}</div>
+            <div>{c}</div>
             
         </StyledItemDiv>
     );
