@@ -30,19 +30,4 @@ public class MemberDao {
 		return sst.update("MemberMapper.quit", vo);
 	}
 
-	//회원목록 조회
-	public List<MemberVo> list(SqlSessionTemplate sst) {
-		return sst.selectList("MemberMapper.list");
-	}
-
-	// 회원 목록 상세 조회
-	public MemberVo detail(SqlSessionTemplate sst, String no) {
-		return sst.selectOne("MemberMapper.detail", no);
-	}
-	
-	// 회원 삭제
-	public int delete(SqlSessionTemplate sst, String no) {
-		return sst.update("MemberMapper.delete", no);
-	}
-
 }

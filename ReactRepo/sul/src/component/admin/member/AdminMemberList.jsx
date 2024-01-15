@@ -65,17 +65,6 @@ const StyledAdminMemberListDiv = styled.div`
         display: flex;
     }
 
-    .member_insert {
-        display: flex;
-    }
-
-    .member_insert > button {
-        width: 150px;
-        height: 25px;
-        border: none;
-        border-radius: 10px;
-    }
-
     .member_button {
         width: 80px;
         height: 25px;
@@ -140,17 +129,11 @@ const AdminMemberList = () => {
         
     };
 
-    // 작성하기 버튼 클릭 시 동작 함수
-    const handleInsert = () => {
-        navigate("/adminMember/insert")
-    };
-
-
 
     return (
         <StyledAdminMemberListDiv>
             <div className='list_header'>
-                <h1>상품관리</h1>
+                <h1>회원관리</h1>
             </div>
             <div className='member_top'>
                 <div className='member_select'>
@@ -160,7 +143,7 @@ const AdminMemberList = () => {
                         } }>
                             <option value=""></option>
                             <option value="number">번호</option>
-                            <option value="name">상품</option>
+                            <option value="name">이름</option>
                         </select>
                     </div>
                     <div>
@@ -175,19 +158,16 @@ const AdminMemberList = () => {
                         <button class="member_button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleReset}>초기화</button>
                     </div>
                 </div>
-                <div className='member_insert'>
-                    <button style={{backgroundColor: '#ffe23dfb'}} onClick={handleInsert}>상품 추가하기</button>
-                </div>
             </div>
             <table>
                 <thead>
                     <tr>
                         <td className='member_no'>번호</td>
-                        <td className='member_typeName'>종류</td>
-                        <td className='member_name'>상품명</td>
-                        <td className='member_degree'>도수</td>
-                        <td className='member_capacity'>용량</td>
-                        <td className='member_delYn'>판매여부</td>
+                        <td className='member_id'>아이디</td>
+                        <td className='member_nick'>닉네임</td>
+                        <td className='member_name'>이름</td>
+                        <td className='member_enrollDate'>가입일자</td>
+                        <td className='member_delYn'>탈퇴여부</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -197,10 +177,10 @@ const AdminMemberList = () => {
                             detailItem(vo)}
                             }>
                             <td className='member_no'>{vo.memberNo}</td>
-                            <td className='member_typeName'>{vo.tName}</td>
-                            <td className='member_name'>{vo.pName}</td>
-                            <td className='member_degree'>{vo.degree}</td>
-                            <td className='member_capacity'>{vo.capacity}</td>
+                            <td className='member_id'>{vo.id}</td>
+                            <td className='member_nick'>{vo.name}</td>
+                            <td className='member_name'>{vo.nick}</td>
+                            <td className='member_enrollDate'>{vo.enrollDate}</td>
                             <td className='member_delYn'>{vo.delYn}</td>
                         </tr>
                         ))

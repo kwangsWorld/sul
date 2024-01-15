@@ -1,11 +1,11 @@
 import React from 'react';
 
-const CsBoardList = () => {
+const NoticeList = () => {
     return (
         <div>
-            CsBoardList
+            NoticeList
         </div>
     );
 };
 
-export default CsBoardList;
+export default NoticeList;

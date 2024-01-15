@@ -7,6 +7,8 @@ import MemberMain from './member/MemberMain';
 import ProductMain from './product/ProductMain';
 import CartMain from './cart/CartMain';
 import BuyMain from './buy/BuyMain';
+import NoticeMain from './notice/NoticeMain';
+import CsBoardMain from './csboard/CsBoardMain';
 
 const StyledMainDiv = styled.div`
     
@@ -26,6 +28,8 @@ const Main = () => {
                 <Route path='/product/*' element={<ProductMain />}></Route>
                 <Route path='/cart/*' element={<CartMain />}></Route>
                 <Route path='/buy/*' element={<BuyMain />}></Route>
+                <Route path='/notice/*' element={<NoticeMain />}></Route>
+                <Route path='/csboard/*' element={<CsBoardMain />}></Route>
             </Routes>
         </StyledMainDiv>
     );
