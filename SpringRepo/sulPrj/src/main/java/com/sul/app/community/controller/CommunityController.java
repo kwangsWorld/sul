@@ -52,6 +52,12 @@ public class CommunityController {
 		return service.detail();
  	}
 	
+	//내가 작성한 게시글 보기
+	@GetMapping("my")
+	public List<CommunityVo> my(){
+		return service.my();
+	}
+	
 	//게시글 수정
 	@PostMapping("edit")
 	public Map<String, Object> edit(@RequestBody CommunityVo vo) throws Exception {

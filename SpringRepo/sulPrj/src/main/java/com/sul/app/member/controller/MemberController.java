@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sul.app.community.vo.CommunityVo;
 import com.sul.app.member.service.MemberService;
 import com.sul.app.member.vo.MemberVo;
 
@@ -50,8 +51,11 @@ public class MemberController {
 	@PostMapping("login")
 	public Map<String, Object> login(@RequestBody MemberVo vo) throws Exception {
 		
+		System.out.println(vo);
+		
 		MemberVo loginMember = service.login(vo);
 		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println("asdsad"+loginMember);
 		map.put("msg", "good");
 		map.put("loginMemberVo", loginMember);
 		if(loginMember == null) {
@@ -88,5 +92,11 @@ public class MemberController {
 		}
 		return map;
 	}
+	
+	//회원정보 상세조회
+	@GetMapping("detail")
+	public List<MemberVo>detail() {
+		return service.detail();
+ 	}
 	
 }

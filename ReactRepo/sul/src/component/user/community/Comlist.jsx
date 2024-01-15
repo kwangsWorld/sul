@@ -76,7 +76,7 @@ const Comlist = () => {
                     :
                     communityVoList.map( vo => <tr key={vo.communityNo}>
                         <td>{vo.title}</td>
-                        <td>{vo.categoryNo}</td>
+                        <td>{vo.name}</td>
                         <td>{vo.enrollDate}</td>
                     </tr>
                     )

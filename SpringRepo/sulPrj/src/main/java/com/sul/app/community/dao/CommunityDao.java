@@ -34,6 +34,11 @@ public class CommunityDao {
 	public int delete(SqlSessionTemplate sst, CommunityVo vo) {
 		return sst.update("CommunityMapper.delete", vo);
 	}
+
+	//내가 작성한 글 보기
+	public List<CommunityVo> my(SqlSessionTemplate sst) {
+		return sst.selectList("CommunityMapper.my");
+	}
 	
 	
 	

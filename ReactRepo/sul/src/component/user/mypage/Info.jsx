@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Myheader from './Myheader';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const StyledInfoDiv = styled.div`
 
@@ -42,6 +42,22 @@ td:nth-child(2){
 `;
 
 const Info = () => {
+
+    const navigate = useNavigate();
+
+    const [memberVoList, setMemberVoList] = useState([]);
+    const loadMemberVoList = () => {
+        fetch("http://127.0.0.1:8888/app/member/detail")
+        .then( resp => resp.json())
+        .then( (x) => {setMemberVoList(x); })
+        ;
+    }
+
+    useEffect( () => {
+        console.log("useEffect 호출됨");
+        loadMemberVoList();
+    }, []);
+ 
     return (
         <StyledInfoDiv>
             <Myheader />
@@ -50,26 +66,33 @@ const Info = () => {
                     <td className='font'><h3>회원정보</h3></td>
                     <td  className='font'><Link className='alink'>수정</Link></td>
                 </tr>
-                <tr>
-                    <td>회원명</td>
-                    <td>ㅇㅇㅇ</td>
-                </tr>
-                <tr>
-                    <td>닉네임</td>
-                    <td>ㅇㅇㅇ</td>
-                </tr>
-                <tr>
-                    <td>이메일</td>
-                    <td>ㅇㅇㅇ</td>
-                </tr>
-                <tr>
-                    <td>비밀번호</td>
-                    <td>ㅇㅇㅇ</td>
-                </tr>
-                <tr>
-                    <td>휴대폰 번호</td>
-                    <td>ㅇㅇㅇ</td>
-                </tr>
+                {
+                    <>
+                    
+                         <tr>
+                            <td>회원명</td>
+                            <td>{memberVoList.name}</td>
+                        </tr>
+                        <tr>
+                            <td>닉네임</td>
+                            <td>{memberVoList.nick}</td>
+                        </tr>
+                        <tr>
+                            <td>이메일</td>
+                            <td>ㅇㅇㅇ</td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호</td>
+                            <td>ㅇㅇㅇ</td>
+                        </tr>
+                        <tr>
+                            <td>휴대폰 번호</td>
+                            <td>ㅇㅇㅇ</td>
+                        </tr>
+                    </>
+                   
+                }
+                
             </table>
             
         </StyledInfoDiv>

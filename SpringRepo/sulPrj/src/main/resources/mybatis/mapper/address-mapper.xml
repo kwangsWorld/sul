@@ -8,7 +8,7 @@
 	INSERT INTO 
 	ADDRESS (ADDRESS_NO, ADDRESS, DEL_YN, MEMBER_NO) 
 	VALUES 
-	(SEQ_ADDRESS_NO.NEXTVAL, #{address}, 'N', #{memberNo});
+	(SEQ_ADDRESS_NO.NEXTVAL, #{address}, 'N', #{memberNo})
 	</insert>
 	
 	<update id="delete">
@@ -22,6 +22,6 @@
 		FROM ADDRESS A
 		JOIN MEMBER M ON A.MEMBER_NO=M.MEMBER_NO
 		WHERE A.DEL_YN = 'N'
-		AND M.MEMBER_NO = 2
+		AND M.MEMBER_NO = #{memberNo}
 	</select>
 </mapper>

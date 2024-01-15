@@ -93,20 +93,22 @@ const Myaddress = () => {
       </div>
       <table>
         <tbody>
-          {addressVoList.length === 0 ? (
-            <h2>로딩중</h2>
-          ) : (
-            addressVoList.map((vo) => (
+          {
+            addressVoList.length === 0 
+            ?
+          <h1>로딩중</h1>
+          : 
+            addressVoList.map((vo) => 
               <tr key={vo.addressNo}>
                 <td>{vo.name}</td>
                 <td>{vo.address}</td>
                 <td>{vo.tel}</td>
                 <td>
-                  <Link className='button' to='/mypage/myaddressplus'><button>새 배송지 추가하기 +</button></Link>
+                  <Link className='button' to='/member/mypage/myaddressplus'><button>새 배송지 추가하기 +</button></Link>
                 </td>
               </tr>
-            ))
-          )}
+            )
+          }
         </tbody>
       </table>
     </StyledMyaddressDiv>

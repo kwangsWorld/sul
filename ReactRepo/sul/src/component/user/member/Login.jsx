@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledLoginDiv = styled.div`
@@ -34,17 +35,18 @@ const StyledLoginDiv = styled.div`
 `;
 
 const Login = () => {
-  const [loginMemberVo, setLoginMemberVo] = useState({});
-  const [vo, setVo] = useState({});
 
-  useEffect(() => {
-    const jsonStr = sessionStorage.getItem("loginMemberVo");
-    const sessionLoginMemberVo = JSON.parse(jsonStr);
-    setLoginMemberVo(sessionLoginMemberVo);
-  }, []);
+  const navigate = useNavigate();
+
+  const jsonStr = sessionStorage.getItem("loginMemberVo");
+  const sessionLoginMemberVo = JSON.parse(jsonStr);
+  const [loginMemberVo, setLoginMemberVo] = useState(sessionLoginMemberVo);
+
+  const [vo, setVo] = useState({});
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+
     setVo({
       ...vo,
       [name]: value,
@@ -64,48 +66,45 @@ const Login = () => {
       .then((resp) => resp.json())
       .then((data) => {
         if (data.msg === "good") {
-          alert("로그인 성공");
+          alert("로그인 성공.");
           sessionStorage.setItem("loginMemberVo", JSON.stringify(data.loginMemberVo));
           setLoginMemberVo(data.loginMemberVo);
+          navigate('/mypage/info');
         } else {
-          alert("로그인 실패 ");
+          alert("로그인 실패");
         }
       })
       .catch((e) => {
         console.log(e);
       })
       .finally(() => {
-        console.log("로그인fetch끝");
+        console.log("로그인 fetch 끝");
       });
   };
 
   return (
     <StyledLoginDiv>
-      {loginMemberVo ? (
-        <p>사용자가 로그인했습니다!</p>
-      ) : (
-        <form onSubmit={handleClickLogin}>
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <input type="text" name="id" placeholder="아이디" onChange={handleInputChange} />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="password" name="pwd" placeholder="비밀번호" onChange={handleInputChange} />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="submit" value="로그인" style={{ backgroundColor: '#ffe23dfb' }} />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-      )}
+      <form onSubmit={handleClickLogin}>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <input type="text" name="id" placeholder="아이디" onChange={handleInputChange} />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="password" name="pwd" placeholder="비밀번호" onChange={handleInputChange} />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="submit" value="로그인" style={{ backgroundColor: '#ffe23dfb' }} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
     </StyledLoginDiv>
   );
 };
