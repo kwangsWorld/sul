@@ -115,7 +115,7 @@ const AdminMemberList = () => {
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
-        navigate('/adminMember/detail', { state:  {vo}  });
+        navigate('/admin/adminMember/detail', { state:  {vo}  });
     };
 
     // 초기화 버튼 클릭 시 동작 함수

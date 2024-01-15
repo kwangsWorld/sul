@@ -88,7 +88,7 @@ CREATE TABLE ADMIN (
 
 CREATE TABLE NOTICE (
    NOTICE_NO        NUMBER                          NOT NULL
-   , ADMIN_NO       NUMBER                          NOT NULL
+   , ADMIN_NO       NUMBER                          NULL
    , TITLE          VARCHAR2(100)                   NULL
    , CONTENT        VARCHAR2(100)                   NULL
    , INQUIRY        NUMBER                          NULL
@@ -99,9 +99,10 @@ CREATE TABLE NOTICE (
 
 CREATE TABLE CUSTOMER_CENTER (
    Q_NO             NUMBER                              PRIMARY KEY
-    , MEMBER_NO     NUMBER                              NOT NULL
+    , MEMBER_NO     NUMBER                              NULL
     , Q_TITLE       VARCHAR2(100)                       NOT NULL
     , Q_CONTENT     VARCHAR2(2000)                      NOT NULL
+    , Q_IMG         VARCHAR2(2000)                      NULL
     , Q_DATE        TIMESTAMP       DEFAULT SYSDATE     NULL
     , ADMIN_NO      NUMBER                              NULL
     , A_CONTENT     VARCHAR2(1000)                      NULL

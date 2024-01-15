@@ -20,7 +20,7 @@ const AdminMain = () => {
     return (
         <StyledMainDiv>
             <Routes>
-                <Route path='/admin' element={<h1>로그인 ㄱㄱ</h1>}></Route>
+                <Route path='/admin/*' element={<h1>로그인 ㄱㄱ</h1>}></Route>
                 <Route path='/adminNotice/*' element={<AdminNoticeMain />}></Route>
                 <Route path='/adminCsboard/*' element={<AdminCsBoardMain />}></Route>
                 <Route path='/adminProduct/*' element={<AdminProductMain />}></Route>

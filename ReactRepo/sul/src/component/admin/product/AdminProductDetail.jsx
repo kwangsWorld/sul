@@ -68,7 +68,7 @@ const AdminProductDetail = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/adminProduct/list")
+        navigate("/admin/adminProduct/list")
     };
 
     // 수정하기 버튼 클릭 시 동작 함수
@@ -90,7 +90,7 @@ const AdminProductDetail = () => {
         if (data.msg === "good") {
             setVo(editedVo);
             alert("상품 수정 완료");
-          navigate("/adminProduct/list");
+          navigate("/admin/adminProduct/list");
         } else {
           alert("상품 수정 실패");
         }

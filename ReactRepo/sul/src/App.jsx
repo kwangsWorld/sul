@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/member/*' element={<Layout />}></Route>
+        <Route path='/*' element={<Layout />}></Route>
         <Route path='/admin/*' element={<AdminLayout />}></Route>
       </Routes>
     </BrowserRouter>

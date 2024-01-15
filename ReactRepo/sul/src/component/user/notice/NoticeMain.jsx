@@ -7,7 +7,7 @@ const NoticeMain = () => {
     return (
         <Routes>
             <Route path='list' element={<NoticeList />}></Route>
-            <Route path='list' element={<NoticeDetail />}></Route>
+            <Route path='detail' element={<NoticeDetail />}></Route>
         </Routes>
     );
 };

@@ -68,7 +68,7 @@ const AdminDeliveryDetail = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/adminDelivery/list")
+        navigate("/admin/adminDelivery/list")
     };
 
     // 수정하기 버튼 클릭 시 동작 함수
@@ -91,7 +91,7 @@ const AdminDeliveryDetail = () => {
         if (data.msg === "good") {
             setVo(editedVo);
             alert("배송관리 수정 완료");
-          navigate("/adminDelivery/list");
+          navigate("/admin/adminDelivery/list");
         } else {
           alert("배송관리 수정 실패");
         }

@@ -75,7 +75,7 @@ const AdminProductInsert = () => {
         .then( (data) => {
             if( data.msg === "good"){
                 alert("상품등록 성공")
-                navigate("/adminProduct/list")
+                navigate("/admin/adminProduct/list")
             }else{
                 alert("상품등록 실패")
                 navigate("/")
@@ -98,7 +98,7 @@ const AdminProductInsert = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/adminProduct/list")
+        navigate("/admin/adminProduct/list")
 };
 
     return (

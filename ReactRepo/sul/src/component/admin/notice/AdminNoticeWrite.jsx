@@ -94,7 +94,7 @@ const AdminNoticeWrite = () => {
         .then( (data) => {
             if( data.msg === "good"){
                 alert("게시글 작성 성공")
-                navigate("/adminNotice/list")
+                navigate("/admin/adminNotice/list")
             }else{
                 alert("게시글 작성 실패")
                 navigate("/")
@@ -117,7 +117,7 @@ const AdminNoticeWrite = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/adminNotice/list")
+        navigate("/admin/adminNotice/list")
 };
 
     return (
@@ -136,7 +136,7 @@ const AdminNoticeWrite = () => {
                             <td></td>
                                 <td className='btn'>
                                     <input style={{backgroundColor: '#ffe23dfb'}} className='back_button' type="submit" value="뒤로가기" onClick={handleBack} />
-                                    <input style={{backgroundColor: '#ffe23dfb'}} className='wrtie_button' type="submit" value="작성완료" />
+                                    <input style={{backgroundColor: '#ffe23dfb'}} className='wrtie_button' type="submit" value="작성하기" />
                                 </td>
                     </tbody>
                 </table>

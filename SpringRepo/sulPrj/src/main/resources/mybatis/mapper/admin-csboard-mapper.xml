@@ -8,7 +8,8 @@
 		SELECT 
 		    C.Q_NO
 		    , C.Q_TITLE
-		    , Q_CONTENT
+		    , C.Q_CONTENT
+		    , C.Q_IMG
 		    , M.MEMBER_NO
 		    , M.NICK
 		    , TO_CHAR (C.Q_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
@@ -25,7 +26,8 @@
 		SELECT 
 		    C.Q_NO
 		    , C.Q_TITLE
-		    , Q_CONTENT
+		    , C.Q_CONTENT
+		    , C.Q_IMG
 		    , M.MEMBER_NO
 		    , M.NICK
 		    , TO_CHAR (C.Q_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
