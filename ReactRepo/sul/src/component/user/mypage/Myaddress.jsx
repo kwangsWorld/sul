@@ -40,10 +40,10 @@ const StyledMyaddressDiv = styled.div`
     padding-top: 10%;
   }
 
-  button {
+  .button > button{
     border: 6px solid #ffe23dfb;
     background-color: white;
-    width: 60%;
+    width: 100%;
     height: 50px;
     border-radius: 20px;
     font-size: 16px;
@@ -102,7 +102,7 @@ const Myaddress = () => {
                 <td>{vo.address}</td>
                 <td>{vo.tel}</td>
                 <td>
-                  <button>새 배송지 추가하기 +</button>
+                  <Link className='button' to='/mypage/myaddressplus'><button>새 배송지 추가하기 +</button></Link>
                 </td>
               </tr>
             ))

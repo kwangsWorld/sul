@@ -22,7 +22,7 @@ const StyledMyorderDiv = styled.div`
   }
 
   .ul > li {
-    padding-left: 12%;
+    padding-left: 15%;
     padding-top: 3%;
     padding-bottom: 3%;
     font-size: 20px;

@@ -43,6 +43,7 @@ flex-direction: column;
         border-radius: 20px;
         border: 6px solid #ffe23dfb;
         background-color: white;
+        font-weight: bold;
     }
 `;
 

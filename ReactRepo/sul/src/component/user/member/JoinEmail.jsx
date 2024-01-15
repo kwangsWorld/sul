@@ -16,7 +16,7 @@ const StyledJoinEmailDiv = styled.div`
         margin-top: 8%;
         padding-right: 5%;
         padding-bottom: 3%;
-        border: 1px solid yellow;
+
     }
     & > form > table > tr > td {
         padding-top: 4%;
