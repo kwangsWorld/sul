@@ -17,7 +17,6 @@ const Layout = () => {
             <Header />
             <Navi />
             <Main />
-            <AdminLayout />
             <Footer />
         </StyledLayoutDiv>
     );
