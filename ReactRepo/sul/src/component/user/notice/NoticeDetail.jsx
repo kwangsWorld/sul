@@ -65,8 +65,6 @@ const NoticeDetail = () => {
     console.log(noticeVo);
     console.log(noticeNo);
 
-    const [hitCnt , setHitCnt] = useState(noticeVo.inquiry);
-
     // 조회수 증가
     const IncreaseHit = () => {
         fetch("http://127.0.0.1:8888/app/notice/increaseHit" , {
@@ -74,9 +72,9 @@ const NoticeDetail = () => {
             headers: {
                 "Content-Type" : "application/json"
             },
-            body: JSON.stringify()
+            body: JSON.stringify({noticeNo})
         })
-        .then( (resp) => {return resp.json(noticeNo)} )
+        .then( (resp) => {return resp.json()} )
     };
 
     // 렌더링
@@ -96,20 +94,22 @@ const NoticeDetail = () => {
                 공지사항
             </h1>
             <table>
-                <tr className='top'>
-                    <td>제목</td>
-                    <td>조회수</td>
-                    <td>작성자</td>
-                    <td>작성일자</td>
-                    <td>수정일자</td>
-                </tr>
-                <tr className='mid'>
-                    <td>{noticeVo.title}</td>
-                    <td>{noticeVo.inquiry}</td>
-                    <td>{noticeVo.adminName}</td>
-                    <td>{noticeVo.enrollDate}</td>
-                    <td>{noticeVo.updateDate}</td>
-                </tr>
+                <thead>
+                    <tr className='top'>
+                        <td>제목</td>
+                        <td>조회수</td>
+                        <td>작성자</td>
+                        <td>작성일자</td>
+                        <td>수정일자</td>
+                    </tr>
+                    <tr className='mid'>
+                        <td>{noticeVo.title}</td>
+                        <td>{noticeVo.inquiry}</td>
+                        <td>{noticeVo.adminName}</td>
+                        <td>{noticeVo.enrollDate}</td>
+                        <td>{noticeVo.updateDate}</td>
+                    </tr>
+                    </thead>
                 <tr className='bottom'>
                     <td className='content'>{noticeVo.content}</td>
                 </tr>

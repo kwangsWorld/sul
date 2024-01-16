@@ -163,7 +163,7 @@ const AdminCsBoardDetail = () => {
                 <thead>
                     <tr>
                         <td className=''>번호</td>
-                        <td className=''>공개여부</td>
+                        <td className=''>답변여부</td>
                         <td className=''>닉네임</td>
                         <td className=''>작성일자</td>
                         <td className=''>답변일자</td>
@@ -177,8 +177,8 @@ const AdminCsBoardDetail = () => {
                                 </select>
                                 </td>
                         <td className=''>{csboardVo.nick}</td>
-                        <td className=''>{csboardVo.qDate}</td>
-                        <td className=''>{csboardVo.aDate}</td>
+                        <td className=''>{csboardVo.enrollDate}</td>
+                        <td className=''>{csboardVo.answerDate}</td>
                     </tr>
                 </thead>
             </table>

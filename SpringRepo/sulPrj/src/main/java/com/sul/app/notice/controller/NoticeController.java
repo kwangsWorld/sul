@@ -48,7 +48,6 @@ public class NoticeController {
 		} else {
 			map.put("msg", "bad");
 		}
-
 		return map;
 	}
 

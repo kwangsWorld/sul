@@ -34,7 +34,6 @@ flex-direction: column;
     }
 
     .left_first {
-        
         display: flex;
     }
 
@@ -69,7 +68,7 @@ flex-direction: column;
         padding-bottom: 2%;
     }
 
-    table  > tr:nth-child(1) >  td{
+    table > tr:nth-child(1) >  td{
         background-color: gray;
         font-weight: bold;
     }
@@ -175,7 +174,6 @@ const NoticeList = () => {
                     </tr>
                     ))
                 }
-                
             </table>
         </StyledNoticeListDiv>
     );

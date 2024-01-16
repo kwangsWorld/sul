@@ -29,6 +29,10 @@ public class AdminProductService {
 	
 	// 상품 등록 (관리자)
 	public int insert(ProductVo vo) {
+		
+		String str = vo.getImage().replace("", "");
+		vo.setImage(str);
+		
 		return dao.insert(sqlSessionTemplate, vo);
 	}
 	

@@ -57,26 +57,34 @@ const StyledCsBoardQuestionDiv = styled.div`
 
 `;
 
-const CsBoardQuestion = (event) => {
+const CsBoardQuestion = () => {
     
     const navigate = useNavigate();
-    // const adminMemberVo = sessionStorage.getItem("adminMemberVo");
-    // const vo = JSON.parse(adminMemberVo);
-    // const adminNo = vo.no;
     
     const [inputCsBoardVo , setInputCsBoardVo] = useState({
-        // "adminNo" : adminNo
     });
+    const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo"));
+    console.log(inputCsBoardVo);
+    console.log(loginInfo);
     
     const handleWrite = (event) => {
         event.preventDefault();
+        
+        const obj = {
+            ...inputCsBoardVo ,
+            ...loginInfo 
+        };
+        console.log("전체 :::" , obj);
+        console.log("고객센터정보 :::" , inputCsBoardVo);
+        console.log("로그인정보 :::" , loginInfo);
+            
 
         fetch("http://127.0.0.1:8888/app/csboard/question" , {
             method : 'post',
             headers : {
                 "Content-Type" : "application/json"
             },
-            body : JSON.stringify(inputCsBoardVo)
+            body : JSON.stringify(obj)
         })
         .then( resp => {return resp.json();} )
         .then( (data) => {

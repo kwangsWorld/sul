@@ -151,7 +151,7 @@ const AdminNoticeDetail = () => {
                 <thead>
                     <tr>
                         <td className=''>번호</td>
-                        <td className=''>공개여부</td>
+                        <td className=''>삭제여부</td>
                         <td className=''>조회수</td>
                         <td className=''>작성일자</td>
                         <td className=''>수정일자</td>

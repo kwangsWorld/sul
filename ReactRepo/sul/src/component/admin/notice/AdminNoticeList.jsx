@@ -116,7 +116,7 @@ const AdminNoticeList = () => {
         ;
     }
     
-    // 렌더링
+    // 렌더링 이후 내용실행
     useEffect( () => {
         loadAdminNoticeVoList();
     }, [] );
