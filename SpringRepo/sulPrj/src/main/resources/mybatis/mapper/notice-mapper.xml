@@ -35,7 +35,7 @@
 		UPDATE NOTICE
 		SET
 			INQUIRY = INQUIRY+1
-		WHERE NO = #{no}
+		WHERE NOTICE_NO = #{noticeNo}
 		AND DEL_YN = 'N'
 	</update>
 
