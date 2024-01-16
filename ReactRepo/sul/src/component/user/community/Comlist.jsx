@@ -34,8 +34,16 @@ flex-direction: column;
     }
     table > tr > td{
         border-bottom: 1px solid lightgray;
-        padding-top: 3%;
+        padding-top: 1%;
         padding-left: 3%;
+        padding-bottom: 2%;
+    }
+    td:nth-child(2){
+        text-align: center;
+    }
+    td:nth-child(3){
+        text-align: right;
+        padding-right: 2%;
     }
 `;
 
