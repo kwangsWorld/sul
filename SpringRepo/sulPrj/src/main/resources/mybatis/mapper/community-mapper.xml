@@ -21,13 +21,13 @@
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.community.vo.CommunityVo">
-		SELECT C.COMMUNITY_NO, C.TITLE, C.CONTENT, C.ENROLL_DATE, C.DEL_YN, C.IMG, M.NICK, N.CONTENT, T.NAME
-		FROM COMMUNITY C
-		JOIN MEMBER M ON C.MEMBER_NO = M.MEMBER_NO
-		JOIN COMMUNITY_COMMT N ON C.COMMUNITY_NO = N.COMMUNITY_NO
-		JOIN COMMUNITY_CATEGORY T ON C.COMMUNITY_CATEGORY_NO = T.COMMUNITY_CATEGORY_NO
-		WHERE C.COMMUNITY_NO = #{communityCategoryNo}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-		AND C.DEL_YN = 'N'
+		SELECT C.COMMUNITY_NO, C.TITLE, C.CONTENT, C.ENROLL_DATE, C.DEL_YN, M.NICK, T.NAME, N.CONTENT AS CCONTENT, TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS CENROLL_DATE
+		, N.MEMBER_NO AS CMEMBER_NO
+			FROM COMMUNITY C
+			JOIN MEMBER M ON C.MEMBER_NO = M.MEMBER_NO
+			JOIN COMMUNITY_COMMT N ON C.COMMUNITY_NO = N.COMMUNITY_NO
+			JOIN COMMUNITY_CATEGORY T ON C.COMMUNITY_CATEGORY_NO = T.COMMUNITY_CATEGORY_NO
+			WHERE C.DEL_YN = 'N'
 	</select>
 	
 	<select id="my" resultType="com.sul.app.community.vo.CommunityVo">

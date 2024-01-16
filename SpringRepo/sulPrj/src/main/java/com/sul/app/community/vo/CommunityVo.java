@@ -14,6 +14,10 @@ public class CommunityVo {
 	private String memberNo;
 	private String nick;
 	private String modifyDate;
-	private String categoryNo;
+	private String communityCategoryNo;
 	private String name;
+	private String ccontent;
+	private String cenrollDate;
+	private String cmemberNo;
+		
 }

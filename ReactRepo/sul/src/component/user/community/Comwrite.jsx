@@ -17,11 +17,10 @@ const StyledComwriteDiv = styled.div`
     padding-right: 20%;
   }
   table {
-    border: 3px solid #ffe23dfb;
+    border: 3px solid gray;
     width: 80%;
     padding-top: 5%;
     padding-bottom: 5%;
-    border-radius: 50px;
     margin-top: 5%;
   }
   textarea {
@@ -41,61 +40,78 @@ const StyledComwriteDiv = styled.div`
     border-bottom: 3px solid lightgray;
   }
   .write {
-    border: none;
     width: 10%;
     height: 40px;
     font-size: 15px;
     font-weight: bold;
-    border-radius: 10px;
-    background-color: #ffe23dfb;
+    border: 6px solid #ffe23dfb;
+    background-color: white;
+    border-radius: 20px;
     margin-left: 40%;
     margin-top: 3%;
+  }
+  select{
+    width:80%
   }
 `;
 
 const Comwrite = () => {
 
   const navigate = useNavigate();
-  
-  const[inputCommunityVo, setInputCommunityVo] = useState({
 
+  const [inputCommunityVo, setInputCommunityVo] = useState({
+   
   });
+  const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
+  
+  console.log(inputCommunityVo);
+  console.log(loginInfo);
 
   const handleSubmit = (event) => {
-      event.prventDefault();
+    event.preventDefault();
 
-      fetch("http://127.0.0.1:8888/app/community/insert",{
-        method:'post',
-        headers: {
-          "Content-Type" : "application/json"
-        },
-        body : JSON.stringify(inputCommunityVo)
+  const obj = {
+    ...inputCommunityVo ,
+    ...loginInfo
+  };
+
+    console.log("inputCommunityVo ::: " , inputCommunityVo);
+    console.log("loginInfo ::: " , loginInfo);
+    console.log("obj ::: " , obj);
+
+    fetch("http://127.0.0.1:8888/app/community/insert", {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    })
+      .then(resp => resp.json())
+      .then((data) => {
+        if (data.msg === "good") {
+          alert("게시글 작성 성공")
+          navigate("/community/comlist")
+        } else {
+          alert("게시글 작성 실패")
+          navigate("/")
+        }
       })
-      .then( resp => {return resp.json();} )
-      .then( (data) => {
-          if( data.msg === "good"){
-              alert("게시글 작성 성공")
-              navigate("/community/comlist")
-          }else{
-              alert("게시글 작성 실패")
-              navigate("/")
-          }
-      } )
-      .catch( () => {
-          alert("게시글 작성 에러발생");
-      } )
-   };
+      .catch(() => {
+        alert("게시글 작성 에러 발생");
+      });
+  };
 
-   const handleChangeInput = (event) =>{
-    const {name , value} = event.target;
+  const handleChangeInput = (event) => {
+    const { name, value } = event.target;
 
     setInputCommunityVo({
-        ...inputCommunityVo ,
-        [name] : value,
+      ...inputCommunityVo,
+      [name]: value,
     })
-   }
+  }
+
    
-  
+
 
     return (
       <StyledComwriteDiv>
@@ -103,6 +119,15 @@ const Comwrite = () => {
           <h1>커뮤니티 게시판</h1>
           <table>
             <tbody>
+              <tr>
+                <td>
+                  <select name="" id="" name="communityCategoryNo" onChange={handleChangeInput}>
+                    <option value=""></option>
+                    <option value="1">술</option>
+                    <option value="2">안주</option>
+                  </select>
+                </td>
+              </tr>
               <tr>
                 <td>제목</td>
                 <td>

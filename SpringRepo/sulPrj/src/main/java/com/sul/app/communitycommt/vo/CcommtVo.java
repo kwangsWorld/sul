@@ -10,4 +10,5 @@ public class CcommtVo {
 	private String delYn;
 	private String enrollDate;
 	private String communityNo;
+	private String nick;
 }

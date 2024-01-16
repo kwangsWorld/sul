@@ -5,14 +5,21 @@
 <mapper namespace="CcommtMapper">
 
 	<insert id= "insert">
-		INSERT INTO COMMUNITY_COMMT 
-		(COMMUNITY_COMMT_NO, CONTENT, DEL_YN, ENROLL_DATE, COMMUNITY_NO) 
-		VALUES 
-		(SEQ_COMMUNITY_COMMT_NO.NEXTVAL, #{content}, 'N', #{enrollDate}, #{communityNo})
+		INSERT INTO 
+		COMMUNITY_COMMT (COMMUNITY_COMMT_NO, CONTENT, DEL_YN, ENROLL_DATE, COMMUNITY_NO , MEMBER_NO) 
+		VALUES (SEQ_COMMUNITY_COMMT_NO.NEXTVAL, #{content}, 'N', #{enrollDate}, #{communityNo}, #{memberNo})
 	</insert>
 	
 	<update id="delete">
 		UPDATE COMMUNITY_COMMT
 		SET DEL_YN = 'Y' WHERE COMMT_NO = #{commtNo}
 	</update>
+	
+	<select id="list" resultType="com.sul.app.communitycommt.vo.CcommtVo">
+		SELECT C.COMMUNITY_COMMT_NO, C.CONTENT, C.DEL_YN, TO_CHAR (C.ENROLL_DATE, 'YYYY-MM-DD'), C.COMMUNITY_NO, M.NICK
+		FROM COMMUNITY_COMMT C
+		JOIN MEMBER M ON M.MEMBER_NO = C.MEMBER_NO
+		WHERE C.DEL_YN = 'N'
+		AND C.COMMUNITY_NO = #{communityNo}
+	</select>
 </mapper>
