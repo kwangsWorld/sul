@@ -1,5 +1,7 @@
 package com.sul.app.communitycommt.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,11 @@ public class CcommtService {
 	//댓글삭제
 	public int delete(CcommtVo vo) {
 		return dao.delete(sst, vo);
+	}
+
+	//댓글조회
+	public List<CcommtVo> list(CcommtVo vo) {
+		return dao.list(sst,vo);
 	}
 
 }

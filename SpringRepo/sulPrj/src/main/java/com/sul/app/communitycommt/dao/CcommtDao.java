@@ -1,5 +1,7 @@
 package com.sul.app.communitycommt.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +18,10 @@ public class CcommtDao {
 	//댓글삭제
 	public int delete(SqlSessionTemplate sst, CcommtVo vo) {
 		return sst.update("CcommtMapper.delete", vo);
+	}
+
+	public List<CcommtVo> list(SqlSessionTemplate sst, CcommtVo vo) {
+		return sst.selectList("CcommtMapper.list", vo);
 	}
 
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledComlistDiv = styled.div`
@@ -19,8 +19,9 @@ flex-direction: column;
     text-decoration: none;
     color: #474646;
     font-weight: bold;
-    background-color: #ffe23dfb;
-    border-radius: 10px;
+    border: 6px solid #ffe23dfb;
+    background-color: white;
+    border-radius: 20px;
    }
    .font{
         font-size: 30px;
@@ -45,14 +46,35 @@ flex-direction: column;
         text-align: right;
         padding-right: 2%;
     }
+    .option{
+        display: flex;
+        justify-content: space-between;
+    }
+    select{
+        padding-left: 30%;
+    }
+    .btn{
+        padding-right: 10%;
+    }
+    button{
+        border: 6px solid #ffe23dfb;
+        border-radius: 10px;
+    }
+   
+   
 `;
 
 const Comlist = () => {
 
+    const navigate = useNavigate();
+
     const [communityVoList , setCommunityVoList] = useState([]);
+    const [select, setSelect] = useState();
 
     const loadCommunityVoList = () => {
-        fetch("http://127.0.0.1:8888/app/community/list")
+        fetch("http://127.0.0.1:8888/app/community/list", {
+            method : 'get'
+        })
         .then(resp => resp.json())
         .then((x)=>{setCommunityVoList(x)})
         ;
@@ -63,13 +85,36 @@ const Comlist = () => {
         loadCommunityVoList();
     }, []);
 
+
+    const handleDetail = (vo) => {
+        navigate('/community/comdetail', {state: {vo}});
+    };
+
+    const handleSearch = () => {
+
+    };
+
     return (
 
         <StyledComlistDiv>
             <table>
                 <tr>
                     <td className='font'>커뮤니티 게시판</td>
-                    <td></td>
+                    <td>
+                        <div className='option'>
+                            <select  onChange={(event) => {
+                                    return setSelect(event.target.value)
+                            }}>
+                                <option value=""></option>
+                                <option value="1">술</option>
+                                <option value="2">안주</option>
+                            </select>
+                            <div className='btn'>
+                                <button class="button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleSearch} >검색</button>
+                            </div>
+                        </div>
+                    </td>
+
                     <td><Link to='/community/comwrite'>작성하기</Link></td>
                 </tr>
                 <tr>
@@ -82,7 +127,9 @@ const Comlist = () => {
                     ?
                     <h2>로딩중</h2>
                     :
-                    communityVoList.map( vo => <tr key={vo.communityNo}>
+                    communityVoList.map( vo => <tr key={vo.communityNo} onClick={()=>{
+                        handleDetail(vo)
+                    }}>
                         <td>{vo.title}</td>
                         <td>{vo.name}</td>
                         <td>{vo.enrollDate}</td>
