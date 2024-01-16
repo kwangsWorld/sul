@@ -121,7 +121,7 @@ const Comwrite = () => {
             <tbody>
               <tr>
                 <td>
-                  <select name="" id="" name="communityCategoryNo" onChange={handleChangeInput}>
+                  <select name="" id="" onChange={handleChangeInput}>
                     <option value=""></option>
                     <option value="1">술</option>
                     <option value="2">안주</option>
