@@ -18,10 +18,7 @@ const StyledListDiv = styled.div`
     }
 `;
 
-
 const ProductList = () => {
-
-
 
     const [arr, setArr] = useState([]);
 

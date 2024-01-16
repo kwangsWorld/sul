@@ -40,16 +40,16 @@ const Navi = () => {
                     <Link to = "/product/list">홈</Link>
                 </div>
                 <div>
-                    <Link to = "/product/takju">탁주</Link>
+                    <Link to = "/product/list/1">탁주</Link>
                 </div>
                 <div>
-                    <Link to = "/product/chungju">약·청주</Link>
+                    <Link to = "/product/list/2">약·청주</Link>
                 </div>
                 <div>
-                    <Link to = "/product/wine">과실주</Link>
+                    <Link to = "/product/list/3">과실주</Link>
                 </div>
                 <div>
-                    <Link to = "/product/soju">증류수</Link>
+                    <Link to = "/product/list/4">증류수</Link>
                 </div>
             </div>
             <div className='board'>

@@ -12,10 +12,10 @@ const ProductMain = () => {
     return (
         <Routes>
             <Route path='list' element={<ProductList/>}/>
-            <Route path='takju' element={<ProductTakju/>}/>
-            <Route path='chungju' element={<ProductChungju/>}/>
-            <Route path='wine' element={<ProductWine/>}/>
-            <Route path='soju' element={<ProductSoju/>}/>
+            <Route path='list/1' element={<ProductTakju/>}/>
+            <Route path='list/2' element={<ProductChungju/>}/>
+            <Route path='list/3' element={<ProductWine/>}/>
+            <Route path='list/4' element={<ProductSoju/>}/>
             <Route path='detail/:productNo' element={<ProductDetail/>}/>
         </Routes>
     );

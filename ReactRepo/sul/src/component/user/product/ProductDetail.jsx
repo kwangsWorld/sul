@@ -41,14 +41,14 @@ const ProductDetail = () => {
     const params = useParams();
     const navigate = useNavigate();
 
-    const [arr, setArr] = useState(params.productNo);
+    const [vo, setVo] = useState(params.productNo);
     const loadDetailList = () => {
-        console.log(params.productNo);
+        // console.log(params.productNo);
         fetch("http://127.0.0.1:8888/app/product/detail?productNo=" + params.productNo)
         .then(resp => resp.json())
         .then(data => {
-            setArr(data)
-            console.log(data)
+            setVo(data)
+            console.log("vo : " + vo);
         })
         ;
     }
@@ -70,10 +70,8 @@ const ProductDetail = () => {
                         />
                     </div>
                     <div className='left_detail'>
-                    {Array.isArray(arr) && arr.map( vo => 
-                        <>
-                            <div>이름: {vo.productName} </div>
-                            <div>종류: ㅇㅅㅇ</div>
+                            <div>이름: {vo.pName} </div>
+                            <div>종류: {vo.tName}</div>
                             <div>평점: {vo.rating}</div>
                             <div>용량: {vo.capacity}ml</div>
                             <div>판매가격: {vo.price}원</div>
@@ -81,13 +79,11 @@ const ProductDetail = () => {
                             <div>유통기한: {vo.expiryDate}</div>
                             <div>보관방법: {vo.storage}</div>
                             <p>현재 페이지의 파라미터는 {params.productNo}입니다.</p>
-                        </>
-                    )}
                     </div>
                 </div>
                 <div className='left_side_down'>
-                    <div className='taste'> 맛 : 계피차에 귤 과즙 한숱갈 넣은 맛</div>
-                    <div className='appetizer'> 안주: 제주에서 찾던 음식과 함께 여행분위기를 보세요</div>
+                    <div className='taste'> 맛: {vo.taste}</div>
+                    <div className='appetizer'> 안주: {vo.appetizer}</div>
                 </div>
             </div>
             <div className='right_side'>

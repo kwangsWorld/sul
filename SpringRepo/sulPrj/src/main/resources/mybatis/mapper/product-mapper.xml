@@ -22,11 +22,17 @@
 	
 	<select id="listByCategory" resultType="com.sul.app.product.vo.ProductVo">
 		SELECT 
-			P.NAME
-			, P.PRICE
-			,P.DEL_YN  
+   			 P.NAME as p_name
+   			, T.TYPE_NO
+		    , P.PRICE
+		    , P.DEL_YN
+		    , R.RATING
 		FROM PRODUCT P
-		WHERE P.TYPE_NO = #{no}
+		JOIN ORDERS O ON P.PRODUCT_NO = O.PRODUCT_NO
+		JOIN ORDERS_LIST OL ON O.ORDER_NO = OL.ORDER_NO
+		JOIN REVIEW R ON OL.ORDER_LIST_NO = R.ORDER_LIST_NO
+		JOIN TYPE T ON P.TYPE_NO = T.TYPE_NO
+		WHERE P.TYPE_NO = #{typeNo}
 		AND P.DEL_YN = 'N'
 		ORDER BY P.ENROLL_DATE DESC
 	</select>

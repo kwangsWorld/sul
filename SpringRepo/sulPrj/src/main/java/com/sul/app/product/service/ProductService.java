@@ -25,9 +25,10 @@ public class ProductService {
 	}
 
 	//제품 카테고리별 전체 조회
-	public List<ProductVo> listByCategory(ProductVo vo) {
-		
-		return dao.listByCategory(sst, vo);
+	public List<ProductVo> listByCategory(String str) {
+		List<ProductVo> a = dao.listByCategory(sst, str);
+		a.forEach(System.out::println);
+		return a;
 	}
 
 	//제품 상세 조회
