@@ -48,7 +48,6 @@ const StyledAdminProductInsertDiv = styled.div`
 
 `;
 
-
 const AdminProductInsert = () => {
 
     const navigate = useNavigate();
@@ -60,6 +59,7 @@ const AdminProductInsert = () => {
     const [inputProductVo , setInputProductVo] = useState({
         // "adminNo" : adminNo
     });
+    const [fileObj , setFileObj] = useState();
 
     const handleInsert = (event) => {
         event.preventDefault();
@@ -144,7 +144,7 @@ const AdminProductInsert = () => {
                         </tr>
                         <tr>
                             <td><h3>이미지</h3></td>
-                            <td><input className='insert' type="text" name='image' placeholder='이미지' onChange={handleChangeInput} /></td>
+                            <td><input className='insert' type="file" name='image' placeholder='이미지' onChange={handleChangeInput} /></td>
                         </tr>
                             <td></td>
                                 <td className='btn'>

@@ -16,7 +16,7 @@
 		    , R.CONTENT
 		    , M.NICK
 		    , P.PRODUCT_NO
-		    , P.NAME
+		    , P.NAME AS P_NAME
 		    , TO_CHAR (R.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
 		    , R.IMG
 		    , R.RATING

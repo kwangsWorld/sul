@@ -1,5 +1,6 @@
 package com.sul.app.product.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sul.app.product.service.AdminProductService;
 import com.sul.app.product.vo.ProductVo;
@@ -36,11 +38,14 @@ public class AdminProductController {
 	
 	// 상품 등록 (관리자)
 	@PostMapping("insert")
-	public Map<String,String> insert(@RequestBody ProductVo vo) {
+	public Map<String,String> insert(@RequestBody ProductVo vo , MultipartFile f) throws Exception {
 		
-		Map<String,String> map = new HashMap<String , String>();
+		String fullPath = saveFile(f);
+		vo.setImage(fullPath);
+		
 		int result = service.insert(vo);
 		
+		Map<String,String> map = new HashMap<String , String>();
 		if(result == 1) {
 			map.put("msg", "good");
 		}else {
@@ -48,6 +53,21 @@ public class AdminProductController {
 		}
 		return map;
 	}
+	
+	// 상품 이미지 등록
+	private String saveFile(MultipartFile f) throws Exception {
+		String path = "";
+		String originName = f.getOriginalFilename();
+		
+		File target = new File(path + originName);
+		
+		System.out.println(target.getAbsolutePath());
+		
+		f.transferTo(target);
+		
+		return path + originName;
+	}
+	
 	
 	// 상품 삭제 (관리자)
 	@PostMapping("delete")

@@ -47,8 +47,8 @@
 	</select>
 	
 	<insert id="insert">
-		INSERT INTO PRODUCT(PRODUCT_NO, TYPE_NO, NAME, PRICE, DEGREE, CAPACITY, EXPIRY_DATE, STORAGE, TASTE, APPETIZER) 
-		VALUES(SEQ_PRODUCT_NO.NEXTVAL, #{typeNo}, #{pName}, #{price}, #{degree}, #{capacity}, #{expiryDate}, #{storage}, #{taste}, #{appetizer})
+		INSERT INTO PRODUCT(PRODUCT_NO, TYPE_NO, NAME, PRICE, DEGREE, CAPACITY, EXPIRY_DATE, STORAGE, TASTE, APPETIZER, IMAGE) 
+		VALUES(SEQ_PRODUCT_NO.NEXTVAL, #{typeNo}, #{pName}, #{price}, #{degree}, #{capacity}, #{expiryDate}, #{storage}, #{taste}, #{appetizer}, #{image})
 	</insert>
 	
 	<update id="delete">

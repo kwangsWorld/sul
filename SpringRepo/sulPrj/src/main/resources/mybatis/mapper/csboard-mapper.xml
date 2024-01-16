@@ -40,14 +40,9 @@
 		WHERE C.Q_NO = #{qNo}
 	</select>
 	
-<!-- 	<insert id="question"> -->
-<!-- 		INSERT INTO CUSTOMER_CENTER (Q_NO, MEMBER_NO, Q_TITLE, Q_CONTENT)  -->
-<!-- 		VALUES(SEQ_Q_NO.NEXTVAL, #{qNo}, #{qTitle}, #{qContent}) -->
-<!-- 	</insert> -->
-
 	<insert id="question">
-		INSERT INTO CUSTOMER_CENTER (Q_NO, Q_TITLE, Q_CONTENT) 
-		VALUES(SEQ_Q_NO.NEXTVAL, #{qTitle}, #{qContent})
+		INSERT INTO CUSTOMER_CENTER (Q_NO, MEMBER_NO, Q_TITLE, Q_CONTENT) 
+		VALUES(SEQ_Q_NO.NEXTVAL, #{memberNo}, #{qTitle}, #{qContent})
 	</insert>
-	
+
 </mapper>
