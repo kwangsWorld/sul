@@ -30,7 +30,7 @@ public class AdminProductService {
 	// 상품 등록 (관리자)
 	public int insert(ProductVo vo) {
 		
-		String str = vo.getImage().replace("", "");
+		String str = vo.getImage().replace("C:\\dev\\sulRepo\\sulPrj\\src\\main\\webapp", "http://127.0.0.1:8888/app");
 		vo.setImage(str);
 		
 		return dao.insert(sqlSessionTemplate, vo);
