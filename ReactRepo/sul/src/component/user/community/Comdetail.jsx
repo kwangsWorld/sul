@@ -9,12 +9,15 @@ const StyledComdetailDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  form{
+    width: 100%;
+    height: 100%;
+  }
   h1 {
     padding-bottom: 3%;
   }
-
-  table {
+  
+  .table {
     width: 60%;
     height: 60%;
     font-size: 16px;
@@ -89,35 +92,38 @@ const Comdetail = () => {
   return (
     <StyledComdetailDiv>
       <h1>커뮤니티 게시판</h1>
-      <table>
-        <tbody>
-          <tr>
-            <td>제목</td>
-            <td>{communityVo.title}</td>
-            <td>{communityVo.nick}</td>
-          </tr>
-          <tr>
-            <td className='img'>{communityVo.img}이미지</td>
-            <td className='img'>{communityVo.content}</td>
-          </tr>
-          {communitycommtVo.map(vo => (
-            <tr key={vo.communitycommtNo}>
-              <td className='second'>{vo.nick}</td>
-              <td className='second'>{vo.content}</td>
-              <td className='second'>{vo.enrollDate}</td>
+      <form>
+        <table className='table'>
+          <tbody>
+            <tr>
+              <td>제목</td>
+              <td>{communityVo.title}</td>
+              <td>{communityVo.nick}</td>
             </tr>
-          ))}
-          <tr>
-            <td>{loginInfo.nick}</td>
-            <td>
-              <input className='comment' type='text' name='comment' placeholder='댓글을 작성하세요.' />
-            </td>
-            <td>
-              <input className='insert' type='submit' value='등록' />{' '}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <tr>
+              <td className='img'>{communityVo.img}이미지</td>
+              <td className='img'>{communityVo.content}</td>
+            </tr>
+            {communitycommtVo.map(vo => (
+              <tr key={vo.communitycommtNo}>
+                <td className='second'>{vo.nick}</td>
+                <td className='second'>{vo.content}</td>
+                <td className='second'>{vo.enrollDate}</td>
+              </tr>
+            ))}
+            <tr>
+              <td>{loginInfo.nick}</td>
+              <td>
+                <input className='comment' type='text' name='comment' placeholder='댓글을 작성하세요.' />
+              </td>
+              <td>
+                <input className='insert' type='submit' value='등록' />{' '}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      
       <Link to='/community/comlist'>목록으로</Link>
     </StyledComdetailDiv>
   );
