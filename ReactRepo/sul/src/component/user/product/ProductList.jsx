@@ -21,6 +21,8 @@ const StyledListDiv = styled.div`
 
 const ProductList = () => {
 
+
+
     const [arr, setArr] = useState([]);
 
     useEffect(() => {
@@ -41,7 +43,7 @@ const ProductList = () => {
             </div>
            {
                 arr.map( (vo) => {
-                    return <ProductListItem a={vo.pName} b={vo.price} c={vo.rating} no={vo.productNo}/>;
+                    return <ProductListItem name={vo.pName} price={vo.price} rating={vo.rating} productNo={vo.productNo}/>;
             } )
             }
             <div className='second_text'>

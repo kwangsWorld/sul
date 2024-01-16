@@ -1,5 +1,5 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledDetailDiv = styled.div`
@@ -37,9 +37,26 @@ const StyledDetailDiv = styled.div`
     
 `;
 
-
 const ProductDetail = () => {
+    const params = useParams();
     const navigate = useNavigate();
+
+    const [arr, setArr] = useState(params.productNo);
+    const loadDetailList = () => {
+        console.log(params.productNo);
+        fetch("http://127.0.0.1:8888/app/product/detail?productNo=" + params.productNo)
+        .then(resp => resp.json())
+        .then(data => {
+            setArr(data)
+            console.log(data)
+        })
+        ;
+    }
+
+    useEffect( () => {
+        loadDetailList();
+    } , [] );
+
     return (
         <StyledDetailDiv>
             <div className='left_side'>
@@ -53,14 +70,19 @@ const ProductDetail = () => {
                         />
                     </div>
                     <div className='left_detail'>
-                        <div>WON SOJU</div>
-                        <div>종류: 증류주</div>
-                        <div>평점: 5점</div>
-                        <div>용량: 375ml</div>
-                        <div>판매가격: 15000원</div>
-                        <div>도수:12%</div>
-                        <div>유통기한:제조일로부터 6개월</div>
-                        <div>보관방법: 냉장 보관</div>
+                    {Array.isArray(arr) && arr.map( vo => 
+                        <>
+                            <div>이름: {vo.productName} </div>
+                            <div>종류: ㅇㅅㅇ</div>
+                            <div>평점: {vo.rating}</div>
+                            <div>용량: {vo.capacity}ml</div>
+                            <div>판매가격: {vo.price}원</div>
+                            <div>도수: {vo.degree}%</div>
+                            <div>유통기한: {vo.expiryDate}</div>
+                            <div>보관방법: {vo.storage}</div>
+                            <p>현재 페이지의 파라미터는 {params.productNo}입니다.</p>
+                        </>
+                    )}
                     </div>
                 </div>
                 <div className='left_side_down'>

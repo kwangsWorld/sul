@@ -16,7 +16,7 @@ const ProductMain = () => {
             <Route path='chungju' element={<ProductChungju/>}/>
             <Route path='wine' element={<ProductWine/>}/>
             <Route path='soju' element={<ProductSoju/>}/>
-            <Route path='detail/*' element={<ProductDetail/>}/>
+            <Route path='detail/:productNo' element={<ProductDetail/>}/>
         </Routes>
     );
 };

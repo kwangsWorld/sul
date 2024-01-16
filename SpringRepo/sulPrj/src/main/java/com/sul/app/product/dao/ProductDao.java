@@ -12,7 +12,6 @@ public class ProductDao {
 
 	//제품 전체 조회
 	public List<ProductVo> list(SqlSessionTemplate sst, ProductVo vo) {
-		
 		return sst.selectList("ProductMapper.list", vo);
 	}
 
