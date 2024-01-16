@@ -16,8 +16,8 @@ public class ProductDao {
 	}
 
 	//제품 카테고리별 전체 조회
-	public List<ProductVo> listByCategory(SqlSessionTemplate sst, ProductVo vo) {
-		return sst.selectList("ProductMapper.listByCategory", vo);
+	public List<ProductVo> listByCategory(SqlSessionTemplate sst, String str) {
+		return sst.selectList("ProductMapper.listByCategory", str);
 	}
 	
 	//제품 상세 조회

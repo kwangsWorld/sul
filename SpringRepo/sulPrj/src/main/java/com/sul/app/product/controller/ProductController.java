@@ -2,11 +2,8 @@ package com.sul.app.product.controller;
 
 import java.util.List;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,8 +29,8 @@ public class ProductController {
 	
 	//제품 카테고리 별 전체 조회
 	@GetMapping("list/{str}")
-	public List<ProductVo> listByCategory(@PathVariable(name = "str") String str, ProductVo vo){
-		List<ProductVo> voList = service.listByCategory(vo);
+	public List<ProductVo> listByCategory(@PathVariable (name = "str") String str){
+		List<ProductVo> voList = service.listByCategory(str);
 		return voList;
 	}
 	
