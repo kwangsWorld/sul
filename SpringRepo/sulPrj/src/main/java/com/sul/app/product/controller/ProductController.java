@@ -26,7 +26,7 @@ public class ProductController {
 	@GetMapping("list")
 	public List<ProductVo> list(ProductVo vo){
 		List<ProductVo> voList = service.list(vo);
-		System.out.println(voList);
+//		System.out.println(voList);
 		return voList;
 	}
 	
@@ -41,6 +41,7 @@ public class ProductController {
 	@GetMapping("detail")
 	public ProductVo detail(ProductVo vo) {
 		ProductVo productVo = service.detail(vo);
+		System.out.println(productVo);
 		return productVo;
 	}
 	
