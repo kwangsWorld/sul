@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,8 @@ public class NoticeController {
 	// 공지사항 목록 조회
 	@GetMapping("list")
 	public List<NoticeVo> list() {
+		List<NoticeVo> voList = service.list();
+		System.out.println(voList);
 		return service.list();
 	}
 
@@ -34,9 +37,9 @@ public class NoticeController {
 	}
 
 	// 조회수 증가
-	@GetMapping("increaseHit")
+	@PostMapping("increaseHit")
 	public Map<String, String> increaseHit(@RequestBody NoticeVo vo) {
-
+		System.out.println(vo);
 		Map<String, String> map = new HashMap<String, String>();
 		int result = service.increaseHit(vo);
 

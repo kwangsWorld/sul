@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNoticeDetailDiv = styled.div`
@@ -9,47 +9,44 @@ const StyledNoticeDetailDiv = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-align: center;
         h1{
             padding-bottom: 2%;
         }
+
         table{
             width: 60%;
-            height: 60%;
+            height: 70%;
             font-size: 16px;
             border-collapse: collapse;
             border: 2px solid black;
         }
-        table > tr:nth-child(2) {
-            border-bottom: 2px solid black;
-        }
 
-        tr {
-
+        td {
+            margin: auto;
         }
 
         .top {
             width: 100%;
-            height: 20%;
+            height: 50%;
+            display: grid;
+            grid-template-columns: 2.5fr 2.5fr 2.5fr 2.5fr 2.5fr;
         }
 
         .mid {
             width: 100%;
-            height: 20%;
+            height: 50%;
+            display: grid;
+            grid-template-columns: 2.5fr 2.5fr 2.5fr 2.5fr 2.5fr;
+            border-top: 1px solid black;
         }
 
         .bottom {
             width: 100%;
-            height: 60%;
+            height: 80%;
+            border-top: 2px solid black;
         }
 
-        .top_td {
-            width: 80px;
-        }
-
-        .mid_td {
-            width: 80px;
-        }
-        
         .back_button {
             width: 100px;
             height: 50px;
@@ -64,6 +61,29 @@ const NoticeDetail = () => {
 
     const location = useLocation();
     const noticeVo = location.state.vo;
+    const noticeNo = noticeVo.noticeNo;
+    console.log(noticeVo);
+    console.log(noticeNo);
+
+    const [hitCnt , setHitCnt] = useState(noticeVo.inquiry);
+
+    // 조회수 증가
+    const IncreaseHit = () => {
+        fetch("http://127.0.0.1:8888/app/notice/increaseHit" , {
+            method: 'post' ,
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify()
+        })
+        .then( (resp) => {return resp.json(noticeNo)} )
+    };
+
+    // 렌더링
+    useEffect( () => {
+        IncreaseHit();
+    }, []);
+
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
@@ -77,23 +97,20 @@ const NoticeDetail = () => {
             </h1>
             <table>
                 <tr className='top'>
-                    <td className='top_td'>번호</td>
-                    <td >{noticeVo.noticeNo}</td>
-                    <td className='top_td'>제목</td>
-                    <td>{noticeVo.title}</td>
-                    <td className='top_td'>조회수</td>
-                    <td>{noticeVo.inquiry}</td>
+                    <td>제목</td>
+                    <td>조회수</td>
+                    <td>작성자</td>
+                    <td>작성일자</td>
+                    <td>수정일자</td>
                 </tr>
                 <tr className='mid'>
-                    <td className='mid_td'>작성자</td>
+                    <td>{noticeVo.title}</td>
+                    <td>{noticeVo.inquiry}</td>
                     <td>{noticeVo.adminName}</td>
-                    <td className='mid_td'>작성일자</td>
                     <td>{noticeVo.enrollDate}</td>
-                    <td className='mid_td'>수정일자</td>
                     <td>{noticeVo.updateDate}</td>
                 </tr>
                 <tr className='bottom'>
-                    <td>내용</td>
                     <td className='content'>{noticeVo.content}</td>
                 </tr>
             </table>
