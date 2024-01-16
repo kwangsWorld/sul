@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const StyledHeaderDiv = styled.div`
-
+    min-width: 1500px;
     position: sticky;
     top: 0;
     z-index: 999;

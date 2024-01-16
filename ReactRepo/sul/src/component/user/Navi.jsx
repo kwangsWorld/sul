@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNaviDiv = styled.div`
+    min-width: 3000px;
     width:100%;
     height: 40px;
     display: flex;
     align-items: center;
-    background-color: yellow;
+    background-color: #ffe23dfb;
 
     .navi_wrap{
         display: flex;

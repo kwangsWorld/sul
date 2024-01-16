@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledFooterDiv = styled.div`
+    min-width: 1500px;
     width: 100%;
     padding: 30px 20px;
     background-color: white;
