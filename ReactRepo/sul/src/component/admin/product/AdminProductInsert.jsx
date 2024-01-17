@@ -59,17 +59,38 @@ const AdminProductInsert = () => {
     const [inputProductVo , setInputProductVo] = useState({
         // "adminNo" : adminNo
     });
+
     const [fileObj , setFileObj] = useState();
+
+    const handleChangeInput = (event) => {
+
+        const {name , value} = event.target;
+
+        setInputProductVo({
+            ...inputProductVo ,
+            [name] : value,
+        })
+    }
+
+    const handleImageChange = (event) => {
+        setFileObj(event.target.files[0]);
+      };
 
     const handleInsert = (event) => {
         event.preventDefault();
 
+        const formData = new FormData();
+        formData.append("vo" , JSON.stringify(inputProductVo));
+        formData.append("file" , fileObj);
+
+        // formData.append("writerNo" , 1); // sessionStorage.getItem("loginMember") 파싱
+
+        console.log(inputProductVo);
+        console.log(fileObj);
+
         fetch("http://127.0.0.1:8888/app/adminProduct/insert" , {
             method : 'post',
-            headers : {
-                "Content-Type" : "application/json"
-            },
-            body : JSON.stringify(inputProductVo)
+            body : formData ,
         })
         .then( resp => {return resp.json();} )
         .then( (data) => {
@@ -85,16 +106,6 @@ const AdminProductInsert = () => {
             alert("상품등록 에러발생");
         } )
     };
-
-    const handleChangeInput = (event) => {
-
-        const {name , value} = event.target;
-
-        setInputProductVo({
-            ...inputProductVo ,
-            [name] : value,
-        })
-    }
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
@@ -144,7 +155,7 @@ const AdminProductInsert = () => {
                         </tr>
                         <tr>
                             <td><h3>이미지</h3></td>
-                            <td><input className='insert' type="file" name='image' placeholder='이미지' onChange={handleChangeInput} /></td>
+                            <td><input className='insert' type="file" name='file' placeholder='이미지' onChange={handleImageChange} /></td>
                         </tr>
                             <td></td>
                                 <td className='btn'>
