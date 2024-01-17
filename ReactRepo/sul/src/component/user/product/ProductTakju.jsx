@@ -31,12 +31,12 @@ const ProductTakju = () => {
         fetch("http://127.0.0.1:8888/app/product/list/1",
         {method : 'get'})
         .then( (resp) => {return resp.json()})
-        .then( (voList) => {return setArr(voList);
-        } )
+        .then( (voList) => {return setArr(voList)
+        ;})
         ;
     } , [] );
 
-    const f = () => {
+    const box = () => {
         console.log(arr);
         return arr.map((vo, index) => (
           <div className='detail_box' key={index}>
@@ -56,14 +56,14 @@ const ProductTakju = () => {
     return (
 
         <StyledTakjuListDiv>
-            <div className='first_text'> 
+            <div className='first_line'> 
             청룡의 해 시작을 함께할 우리술!
             </div>
             <div className='second_line'>
-                {f()};
+                {box()}
             </div>
             <div className='three_line'>
-                {f()};
+                {box()}
             </div>
             
         </StyledTakjuListDiv>

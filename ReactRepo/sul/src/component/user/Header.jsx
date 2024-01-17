@@ -20,7 +20,7 @@ const StyledHeaderDiv = styled.div`
         align-items: center;
         justify-content: space-around;
         box-sizing: border-box;
-        border-bottom: 2px solid pink;
+        border-bottom: 2px solid lightgray;
     }
 
     /* position: fixed;
@@ -67,7 +67,9 @@ const Header = () => {
         <StyledHeaderDiv>
             <div className='header_wrap'>
                 <div className='header_left'>
-                    <div className='icon'>SULDAMA</div>
+                    <div className='icon'>
+                        <Link to = "/product/list">SULDAMA</Link>
+                    </div>
                 </div>
                 <div className='header_center'>
                     <input className='header_search' type="text" placeholder='지우야, 또 술먹게? 어떤술 찾아줘?'/>
@@ -75,7 +77,9 @@ const Header = () => {
                 </div>
                 <div className='header_right'>
                     <div className='join_login'>
-                        <div className='join'>회원가입</div>
+                        <div className='join'>
+                            <Link to = "/member/joinfirst">회원가입</Link>
+                        </div>
                         <div>
                             <Link to = "/member/login">로그인</Link>
                         </div>
