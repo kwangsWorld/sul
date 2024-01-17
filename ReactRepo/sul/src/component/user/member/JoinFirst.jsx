@@ -25,7 +25,7 @@ const StyledLoginFont = styled.div`
         & > table{
             width: 50%;
             height: 45%;
-            margin-left: 25%;
+            margin-left: 20%;
         }
         & > table > tbody > tr > td:nth-child(2){
             padding-bottom: 15%;
