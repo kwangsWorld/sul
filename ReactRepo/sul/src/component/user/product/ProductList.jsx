@@ -8,13 +8,10 @@ const StyledListDiv = styled.div`
     background-color: lightcoral;
     display: grid;
     grid-template-rows: 0.5fr 4fr 0.5fr 4fr;
-    grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
 
-    .first_text{
-        grid-column: span 5;
-    }
-    .second_text{
-        grid-column: span 5;
+    .second_line{
+        display: grid;
+        grid-template-columns: 2.5fr 2.5fr 2.5fr 2.5fr 2.5fr;
     }
 `;
 
@@ -35,7 +32,7 @@ const ProductList = () => {
     return (
 
         <StyledListDiv>
-            <div className='first_text'> 
+            {/* <div className='first_text'> 
             청룡의 해 시작을 함께할 우리술!
             </div>
            {
@@ -45,12 +42,22 @@ const ProductList = () => {
             }
             <div className='second_text'>
             평점이 증명해주는 Hot of Hot한 우리술!
+            </div> */}
+            <div>청룡의 해 시작을 함께할 우리술!</div>
+            <div className='second_line'>{
+                arr.map( (vo) => {
+                    return <ProductListItem name={vo.pName} price={vo.price} rating={vo.rating} productNo={vo.productNo}/>;
+                } )
+            }
             </div>
-            <ProductListItem/>
-            <ProductListItem/>
-            <ProductListItem/>
-            <ProductListItem/>
-            <ProductListItem/>
+            <div className='three_line'>평점이 증명해주는 Hot of Hot한 우리술!</div>
+            <div className='fourth_line'>
+                <ProductListItem/>
+                <ProductListItem/>
+                <ProductListItem/>
+                <ProductListItem/>
+                <ProductListItem/>
+            </div>
         </StyledListDiv>
             
     );

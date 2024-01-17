@@ -8,7 +8,7 @@ const StyledNaviDiv = styled.div`
     height: 40px;
     display: flex;
     align-items: center;
-    background-color: #ffe23dfb;
+    background-color: white;
 
     .navi_wrap{
         display: flex;

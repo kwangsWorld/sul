@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const StyledItemDiv = styled.div`
-    display: grid;
-    grid-template-rows: 7fr 1fr 1fr 1fr;
+    display: inline-block;
     justify-content: center;
     align-items: center;
     text-align: center;
