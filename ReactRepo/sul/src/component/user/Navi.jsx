@@ -53,14 +53,6 @@ const Navi = () => {
                     <Link to = "/product/list/4">증류수</Link>
                 </div>
             </div>
-            <div className='board'>
-                <div>
-                    <Link to = "/notice/list">공지사항</Link>
-                </div>
-                <div>
-                    <Link to = "/csboard/list">고객센터</Link>
-                </div>
-            </div>
         </StyledNaviDiv>
     );
 };
