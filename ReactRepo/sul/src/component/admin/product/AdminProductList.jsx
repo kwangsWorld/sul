@@ -106,8 +106,6 @@ const AdminProductList = () => {
     const [input, setInput] = useState();
     const [voList , setVoList] = useState([]);
 
-    console.log(voList);
-
     // 목록조회
     const loadAdminProductVoList = () => {
         fetch("http://127.0.0.1:8888/app/adminProduct/list" , {
@@ -122,7 +120,6 @@ const AdminProductList = () => {
     useEffect( () => {
         loadAdminProductVoList();
     }, [] );
-    console.log(voList);
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
@@ -144,8 +141,6 @@ const AdminProductList = () => {
     const handleInsert = () => {
         navigate("/admin/adminProduct/insert")
     };
-
-
 
     return (
         <StyledAdminProductListDiv>

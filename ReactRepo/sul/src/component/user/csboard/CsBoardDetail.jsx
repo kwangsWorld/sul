@@ -66,7 +66,7 @@ const CsBoardDetail = () => {
                     <td>문의내용</td>
                     <td>{csboardVo.qContent}</td>
                     <td className='img'>이미지</td>
-                    <td className='img'>{csboardVo.qImg}</td>
+                    <td className='img'><img src={csboardVo.qImg} alt="사진" width='100px' height='100px'/></td>
                 </tr>
                 <tr>
                     <td className=''>답변</td>

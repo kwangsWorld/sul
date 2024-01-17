@@ -34,7 +34,7 @@ const StyledAdminCsBoardDetailDiv = styled.div`
     .detail_qTitle {
         display: flex;
         align-items: center;
-        width: 1300px;
+        width: 100%;
         height: 50px;
     }
 
@@ -190,7 +190,7 @@ const AdminCsBoardDetail = () => {
                     </tr>
                     <tr className='detail_second'>
                         <td className='detail_qImg' name='qImg'>
-                            {csboardVo.qImg}
+                        <img src={csboardVo.qImg} alt="사진" width='100px' height='100px'/>
                         </td>
                         <td className='detail_qContent' name='qContent'>
                             {csboardVo.qContent}

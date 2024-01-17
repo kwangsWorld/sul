@@ -5,12 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,9 +40,6 @@ public class AdminProductController {
 	@PostMapping("insert")
 	public Map<String,String> insert(ProductVo vo , MultipartFile file) throws Exception {
 		
-		System.out.println(vo);
-		System.out.println(file);
-		
 		String fullPath = saveFile(file);
 		vo.setImage(fullPath);
 		
@@ -60,15 +55,13 @@ public class AdminProductController {
 	}
 	
 	// 상품 이미지 등록
-	private String saveFile(MultipartFile f) throws Exception {
-		String path = "C:\\dev\\sulRepo\\sulPrj\\src\\main\\webapp\\resources\\upload\\gallery\\img\\";
-		String originName = f.getOriginalFilename();
+	private String saveFile(MultipartFile file) throws Exception {
+		String path = "C:\\sulRepo\\SpringRepo\\sulPrj\\src\\main\\webapp\\resources\\upload\\gallery\\img\\";
+		String originName = file.getOriginalFilename();
 		
 		File target = new File(path + originName);
 		
-		System.out.println(target.getAbsolutePath());
-		
-		f.transferTo(target);
+		file.transferTo(target);
 		
 		return path + originName;
 	}

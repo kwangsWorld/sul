@@ -41,8 +41,8 @@
 	</select>
 	
 	<insert id="question">
-		INSERT INTO CUSTOMER_CENTER (Q_NO, MEMBER_NO, Q_TITLE, Q_CONTENT) 
-		VALUES(SEQ_Q_NO.NEXTVAL, #{memberNo}, #{qTitle}, #{qContent})
+		INSERT INTO CUSTOMER_CENTER (Q_NO, MEMBER_NO, Q_TITLE, Q_CONTENT, Q_IMG) 
+		VALUES(SEQ_Q_NO.NEXTVAL, #{memberNo}, #{qTitle}, #{qContent}, #{qImg})
 	</insert>
 
 </mapper>

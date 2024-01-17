@@ -1,14 +1,15 @@
 package com.sul.app.csboard.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sul.app.csboard.service.CsBoardService;
 import com.sul.app.csboard.vo.CsBoardVo;
@@ -37,17 +38,36 @@ public class CsBoardController {
 	
 	// 고객센터 질문 작성
 	@PostMapping("question")
-	public Map<String,String> question(@RequestBody CsBoardVo vo) {
+	public Map<String,String> question(CsBoardVo vo , MultipartFile file) throws Exception {
+		System.out.println(vo);
+		System.out.println(file);
+		String fullPath = saveFile(file);
+		vo.setQImg(fullPath);
 		
-		Map<String,String> map = new HashMap<String, String>();
 		int result = service.question(vo);
 		
+		Map<String,String> map = new HashMap<String, String>();
 		if(result == 1) {
 			map.put("msg", "good");
 		}else {
 			map.put("msg", "bad");
 		}
 		return map;
+	}
+	
+	// 질문 이미지 등록
+	private String saveFile(MultipartFile file) throws Exception {
+		String path = "C:\\sulRepo\\SpringRepo\\sulPrj\\src\\main\\webapp\\resources\\upload\\gallery\\img\\";
+		String originName = file.getOriginalFilename();
+		
+		File target = new File(path + originName);
+		
+		System.out.println(target.getAbsolutePath());
+		
+		
+		file.transferTo(target);
+		
+		return path + originName;
 	}
 	
 }

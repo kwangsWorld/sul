@@ -61,7 +61,6 @@ const AdminProductDetail = () => {
 
     const location = useLocation();
     const productVo = location.state.vo;
-    console.log(productVo);
 
     const [vo , setVo] = useState(productVo);
     const [editedDelYn , setEditedDelYn] = useState(productVo.delYn);
@@ -90,15 +89,15 @@ const AdminProductDetail = () => {
         if (data.msg === "good") {
             setVo(editedVo);
             alert("상품 수정 완료");
-          navigate("/admin/adminProduct/list");
+            navigate("/admin/adminProduct/list");
         } else {
-          alert("상품 수정 실패");
+            alert("상품 수정 실패");
         }
-      })
+    })
       .catch((e) => {
         alert("상품 수정 중 에러 발생");
-      });
-    };
+    });
+};
 
     // select 값이 변경될 때 동작 함수
     const handleSelectChange = (event) => {
@@ -159,7 +158,7 @@ const AdminProductDetail = () => {
                     </tr>
                     <tr className='detail_content'>
                         <td className=''>{productVo.rating}</td>
-                        <td className=''>{productVo.image}</td>
+                        <td className=''><img src={productVo.image} alt="사진" width='100px' height='100px'/></td>
                         <td className=''>{productVo.taste}</td>
                         <td className=''>{productVo.appetizer}</td>
                         <td></td>
