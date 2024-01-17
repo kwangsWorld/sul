@@ -22,7 +22,7 @@ public class AddressDao {
 
 	//목록
 	public List<AddressVo> list(SqlSessionTemplate sst) {
-		return sst.selectList("AddressMapper.list");
+		return sst.selectOne("AddressMapper.list");
 	}
 
 }

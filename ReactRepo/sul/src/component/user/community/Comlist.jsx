@@ -72,11 +72,9 @@ const Comlist = () => {
     const [select, setSelect] = useState();
 
     const loadCommunityVoList = () => {
-        fetch("http://127.0.0.1:8888/app/community/list", {
-            method : 'get'
-        })
+        fetch("http://127.0.0.1:8888/app/community/list")
         .then(resp => resp.json())
-        .then((x)=>{setCommunityVoList(x)})
+        .then((x)=> {setCommunityVoList(x);})
         ;
     }
 

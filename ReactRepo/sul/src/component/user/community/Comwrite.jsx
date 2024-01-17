@@ -121,10 +121,10 @@ const Comwrite = () => {
             <tbody>
               <tr>
                 <td>
-                  <select name="" id="" onChange={handleChangeInput}>
-                    <option value=""></option>
-                    <option value="1">술</option>
-                    <option value="2">안주</option>
+                  <select name="communityCategoryNo" id="" onChange={handleChangeInput}>
+                    <option name="communityCategoryNo" value=""></option>
+                    <option name="communityCategoryNo" value="1">술</option>
+                    <option name="communityCategoryNo" value="2">안주</option>
                   </select>
                 </td>
               </tr>

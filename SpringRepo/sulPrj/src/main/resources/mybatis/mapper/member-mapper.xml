@@ -6,9 +6,9 @@
 
 	<insert id="join">
 	INSERT INTO MEMBER 
-		(MEMBER_NO, NAME, ID, PWD, EMAIL, NICK, TEL) 
-		VALUES 
-		(SEQ_MEMBER_NO.NEXTVAL, #{name}, #{id}, #{pwd}, #{email}, #{nick}, #{tel})
+		(MEMBER_NO, NAME, ID, PWD, EMAIL, NICK, TEL, AGE, DEL_YN) 
+	VALUES 
+		(SEQ_MEMBER_NO.NEXTVAL, #{name}, #{id}, #{pwd}, #{email}, #{nick}, #{tel}, #{age},'N')
 	</insert>
 	
 	<select id="login" resultType="com.sul.app.member.vo.MemberVo">
@@ -39,9 +39,10 @@
 	</update>
 	
 	<select id="detail" resultType="com.sul.app.member.vo.MemberVo">
-		SELECT NAME, NICK , EMAIL, PWD, TEL
-		FROM MEMBER
-		WHERE MEMBER_NO = 1
+		SELECT M.NAME, M.NICK , M.EMAIL, M.PWD, M.TEL, A.ADDRESS
+		FROM MEMBER M
+		JOIN ADDRESS A ON A.MEMBER_NO=M.MEMBER_NO
+		WHERE M.MEMBER_NO = #{memberNo}
 	</select>
 	
 </mapper>

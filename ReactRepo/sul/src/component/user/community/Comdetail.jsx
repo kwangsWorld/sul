@@ -67,7 +67,6 @@ const Comdetail = () => {
   const location = useLocation();
   const communityVo = location.state.vo;
   const [communitycommtVo, setCommunitycommtVo] = useState([]);
-  const [communitycommtVoList, setCommunitycommtVoList] = useState([]);
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
 
   useEffect(() => {
@@ -99,10 +98,10 @@ const Comdetail = () => {
     };
 
     fetch("http://127.0.0.1:8888/app/ccommt/insert", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-      },
+        "Content-Type": "application/json" ,
+      }, 
       body: JSON.stringify(commentData),
     })
       .then((resp) => resp.json())
@@ -110,7 +109,10 @@ const Comdetail = () => {
         if (data.msg === 'good') {
           alert("댓글 등록이 완료되었습니다.");
 
-          navigate('/community/comdetail', { state: { vo: communityVo } });
+          // Update the state with the new comment data
+          setCommunitycommtVo([...communitycommtVo, data]);
+
+          navigate('/community/comdetail', { state: { vo: {...communityVo, communitycommtVo: [...communitycommtVo, data]} } });
         } else {
           alert("댓글 작성에 실패했습니다.");
         }
@@ -124,10 +126,11 @@ const Comdetail = () => {
     const { name, value } = event.target;
 
     setCommunitycommtVo({
-      ...setCommunitycommtVo,
+      ...communitycommtVo,
       [name]: value,
     });
   };
+;
 
   return (
     <StyledComdetailDiv>

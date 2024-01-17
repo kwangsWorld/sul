@@ -11,9 +11,9 @@ height: 100%;
         align-items: center;
         margin-top: 10%;
         border: 3px solid lightgray;
-        width: 75%;
+        width: 85%;
         height: 90px;
-        margin-left: 15%;
+        margin-left:8%;
     }
     & > ul > li{
         list-style: none;
@@ -34,15 +34,19 @@ height: 100%;
 `;
 
 const Myheader = () => {
+
+    const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
+
     return (
         <StyledMyheaderDiv>
             <ul>
-                <li><Link to='/mypage/info'>누구님</Link></li>
+                <li><Link to='/mypage/info'>{loginInfo.nick} 님</Link></li>
                 <li><Link to='/mypage/myorder'>💸주문내역</Link></li>
                 <li><Link to='/mypage/mycancel'>💱취소내역</Link></li>
                 <li><Link to='/mypage/info'>👤회원정보</Link></li>
                 <li><Link to='/mypage/myaddress'>🛻배송지관리</Link></li>
-                <li><Link to='/mypage/info'>📞고객센터</Link></li>
+                <li><Link to='/csboard/list'>📞고객센터</Link></li>
+                <li><Link to='/notice/list'>📒공지사항</Link></li>
                 <li><Link to='/mypage/mycom'>💬커뮤니티</Link></li>
             </ul>
         </StyledMyheaderDiv>

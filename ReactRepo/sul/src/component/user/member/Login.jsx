@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { MemberContext } from '../../../context/MemberContext';
 
 const StyledLoginDiv = styled.div`
   width: 100%;
@@ -36,11 +37,12 @@ const StyledLoginDiv = styled.div`
 
 const Login = () => {
 
+  const {loginMember, setLoginMember} = useContext(MemberContext);
+
   const navigate = useNavigate();
 
   const jsonStr = sessionStorage.getItem("loginMemberVo");
   const sessionLoginMemberVo = JSON.parse(jsonStr);
-  const [loginMemberVo, setLoginMemberVo] = useState(sessionLoginMemberVo);
 
   const [vo, setVo] = useState({});
 
@@ -67,9 +69,9 @@ const Login = () => {
       .then((data) => {
         if (data.msg === "good") {
           alert("로그인 성공.");
+          setLoginMember(data.loginMemberVo);
           sessionStorage.setItem("loginMemberVo", JSON.stringify(data.loginMemberVo));
-          setLoginMemberVo(data.loginMemberVo);
-          navigate('/mypage/info');
+          navigate('/product/list');
         } else {
           alert("로그인 실패");
         }

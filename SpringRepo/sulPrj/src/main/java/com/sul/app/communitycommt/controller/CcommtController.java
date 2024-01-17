@@ -28,7 +28,7 @@ public class CcommtController {
 	
 	//댓글작성
 	@PostMapping("insert")
-	public Map<String, String> insert(@RequestBody CcommtVo vo, HttpSession session) throws Exception{
+	public Map<String, String> insert(@RequestBody CcommtVo vo, HttpSession session){
 		Map<String, String> map = new HashMap<String, String>();
 		int result = service.insert(vo);
 		

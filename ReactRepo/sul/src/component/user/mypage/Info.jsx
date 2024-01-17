@@ -1,63 +1,51 @@
-import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Myheader from './Myheader';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 const StyledInfoDiv = styled.div`
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+    table{
+        border: 3px solid gray;
+        border-radius: 30px;
+        width: 40%;
+        margin-bottom: 10%;
+        margin-top: 3%;
+        padding-bottom: 3%;
+        
+    }
+    td{
+        padding-top: 5%;
+        font-weight: bold;
+        font-size: 17px;
+        border-collapse: collapse;
+    }
+    
+    td:first-child{
+        padding-left: 15%;
+    }
+    td:nth-child(2){
+        padding-left: 18%;
+    }
 
-table{
-    width: 60%;
-    background-color: lightgray;
-    margin-top: 8%;
-    margin-bottom: 20%;
-    padding-bottom: 5%;
-    border-radius: 60px;
-    margin-left: 20%;
-}
-.alink{
-    text-decoration: none;
-    color: blue;
-}
-h3{
-    font-size: 30px;
-    color: black;
-}
-td{
-    padding-top: 5%;
-    font-weight: bold;
-    font-size: 20px;
-    color: #6e6e6e;
-}
-td:first-child{
-    padding-left: 15%;
-}
-td:nth-child(2){
-    padding-left: 5%;
-}
-
-.font{
- border-bottom: 3px solid #ffe23dfb;
-}
+    .font{
+        border-bottom: 3px solid gray;
+    }
+    .alink{
+        text-decoration: none;
+        color: blue;
+    }
 
 `;
 
 const Info = () => {
 
-    const navigate = useNavigate();
+    const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
 
-    const [memberVoList, setMemberVoList] = useState([]);
-    const loadMemberVoList = () => {
-        fetch("http://127.0.0.1:8888/app/member/detail")
-        .then( resp => resp.json())
-        .then( (x) => {setMemberVoList(x); })
-        ;
-    }
-
-    useEffect( () => {
-        console.log("useEffect 호출됨");
-        loadMemberVoList();
-    }, []);
- 
     return (
         <StyledInfoDiv>
             <Myheader />
@@ -71,24 +59,29 @@ const Info = () => {
                     
                          <tr>
                             <td>회원명</td>
-                            <td>{memberVoList.name}</td>
+                            <td>{loginInfo.name}</td>
+                        </tr>
+                        <tr>
+                            <td>생년월일</td>
+                            <td>{loginInfo.age}</td>
                         </tr>
                         <tr>
                             <td>닉네임</td>
-                            <td>{memberVoList.nick}</td>
+                            <td>{loginInfo.nick}</td>
                         </tr>
                         <tr>
                             <td>이메일</td>
-                            <td>ㅇㅇㅇ</td>
+                            <td>{loginInfo.email}</td>
                         </tr>
                         <tr>
                             <td>비밀번호</td>
-                            <td>ㅇㅇㅇ</td>
+                            <td>{loginInfo.pwd}</td>
                         </tr>
                         <tr>
                             <td>휴대폰 번호</td>
-                            <td>ㅇㅇㅇ</td>
+                            <td>{loginInfo.tel}</td>
                         </tr>
+                      
                     </>
                    
                 }
