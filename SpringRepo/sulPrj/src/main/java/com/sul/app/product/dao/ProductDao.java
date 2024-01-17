@@ -11,13 +11,24 @@ import com.sul.app.product.vo.ProductVo;
 public class ProductDao {
 
 	//제품 전체 조회
-	public List<ProductVo> list(SqlSessionTemplate sst, ProductVo vo) {
-		return sst.selectList("ProductMapper.list", vo);
+	public List<ProductVo> listByEnrollDate(SqlSessionTemplate sst, ProductVo vo) {
+		return sst.selectList("ProductMapper.listByEnrollDate", vo);
+	}
+	
+	public List<ProductVo> listByRating(SqlSessionTemplate sst, ProductVo vo){
+		System.out.println("다오 오나?");
+		List<ProductVo> voList = sst.selectList("ProductMapper.listByRating", vo);
+		System.out.println("다오 voList 값 : " + voList);
+		return voList;
 	}
 
 	//제품 카테고리별 전체 조회
 	public List<ProductVo> listByCategory(SqlSessionTemplate sst, String str) {
-		return sst.selectList("ProductMapper.listByCategory", str);
+//		System.out.println("dao에서 str:" + str);
+		List<ProductVo> voList = sst.selectList("ProductMapper.listByCategory", str);
+//		System.out.println("여길안오네?");
+		System.out.println(voList);
+		return voList;
 	}
 	
 	//제품 상세 조회

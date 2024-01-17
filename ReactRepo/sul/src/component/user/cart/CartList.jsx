@@ -11,7 +11,7 @@ const StyledCartListDiv = styled.div`
         padding: 0px 300px ;
         width:100%;
         height: 100%;
-        background-color: lightgreen;
+        /* background-color: lightgreen; */
         display: grid;
         grid-template-rows: 1fr 8fr;
         grid-template-columns: 6fr 4fr;
@@ -19,7 +19,7 @@ const StyledCartListDiv = styled.div`
     }
 
     .top_left_wrap{
-        background-color: lightsalmon;
+        /* background-color: lightsalmon; */
     }
     
     .all_select{
@@ -32,7 +32,7 @@ const StyledCartListDiv = styled.div`
         display: grid;
         grid-template-rows: 5fr 5fr;
         grid-template-columns: 1fr 9fr;
-        background-color: aquamarine;
+        /* background-color: aquamarine; */
     }
 
     .select{
@@ -47,7 +47,7 @@ const StyledCartListDiv = styled.div`
 
     .list{
         display: flex;
-        background-color: khaki;
+        /* background-color: khaki; */
     }
 
 
@@ -57,7 +57,7 @@ const StyledCartListDiv = styled.div`
     }
 
     .bottom_right{
-        background-color: blueviolet;
+        /* background-color: blueviolet; */
     }
 
 `;

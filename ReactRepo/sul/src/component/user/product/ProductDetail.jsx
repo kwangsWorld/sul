@@ -6,34 +6,42 @@ const StyledDetailDiv = styled.div`
     
     width: 100%;
     height:100%;
-    background-color: lightskyblue;
+    /* background-color: lightskyblue; */
     padding: 30px 300px;
     display: flex;
 
     .left_side{
         width:60%;
         height: 100%;
-        background-color: pink;
+        /* background-color: pink; */
     }
 
     .left_side_top{
         display: flex;
-        background-color: lightcoral;
+        /* background-color: lightcoral; */
     }
     
     .left_side_down{
-        background-color: gray;
+        /* background-color: gray; */
     }
 
     .right_side{
+        padding: 40px;
         width: 40%;
-        height: 100%;
-        background-color: orange;
+        height: 50%;
+        border: 1px solid gray;
+        border-radius: 10%;
+        /* background-color: orange; */
     }
 
     .count_box{
         display: flex;
     }
+
+    .left_detail{
+        
+    }
+
     
 `;
 
@@ -70,15 +78,15 @@ const ProductDetail = () => {
                         />
                     </div>
                     <div className='left_detail'>
-                            <div>이름: {vo.pName} </div>
-                            <div>종류: {vo.tName}</div>
-                            <div>평점: {vo.rating}</div>
-                            <div>용량: {vo.capacity}ml</div>
-                            <div>판매가격: {vo.price}원</div>
-                            <div>도수: {vo.degree}%</div>
-                            <div>유통기한: {vo.expiryDate}</div>
-                            <div>보관방법: {vo.storage}</div>
-                            <p>현재 페이지의 파라미터는 {params.productNo}입니다.</p>
+                            <div className='name'>이름: {vo.pName} </div>
+                            <div className='type'>종류: {vo.tName}</div>
+                            <div className='rating'>평점: {vo.rating}</div>
+                            <div className='capacity'>용량: {vo.capacity}ml</div>
+                            <div className='price'>판매가격: {vo.price}원</div>
+                            <div className='degree'>도수: {vo.degree}%</div>
+                            <div className='expire_date'>유통기한: {vo.expiryDate}</div>
+                            <div className='sotrage'>보관방법: {vo.storage}</div>
+                            {/* <p>현재 페이지의 파라미터는 {params.productNo}입니다.</p> */}
                     </div>
                 </div>
                 <div className='left_side_down'>
@@ -87,21 +95,34 @@ const ProductDetail = () => {
                 </div>
             </div>
             <div className='right_side'>
-                <div>수량</div>
-                <div className='count_box'>
-                    <div>
-                        <img width= '50px' height= '50px' src="https://cdn.icon-icons.com/icons2/1674/PNG/512/minus_111123.png" alt="마이너스" />
-                    </div>
-                    <input type="number" />
-                    <div>
-                        <img width= '50px' height= '50px'src="https://cdn.icon-icons.com/icons2/510/PNG/512/plus-round_icon-icons.com_50065.png" alt="플러스" />
-                    </div>
-                </div>
-                <div>총 상품가격</div>
-                <input type="text" />
-                <br />
-                <button >장바구니</button> 
-                <button onClick={()=> {navigate("/buy/list");}}>바로 구매하기</button>
+                <table border='1px'>
+                    <tr>
+                        <td colSpan={4}>수량</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td colSpan={2}>
+                            수량~~
+                        </td>
+                        <td>+</td>
+                    </tr>
+                    <tr>
+                        <td colSpan={4}>
+                            총 상품가격
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={4}>가격~~</td>
+                    </tr>
+                    <tr>
+                        <td colSpan={2}>
+                            <button onClick={()=> {navigate("/cart/list");}}>장바구니</button>
+                        </td>
+                        <td colSpan={2}>
+                            <button onClick={()=> {navigate("/buy/list");}}>바로 구매하기</button>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </StyledDetailDiv>
     );

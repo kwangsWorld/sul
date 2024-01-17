@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledChungjuListDiv = styled.div`
@@ -25,6 +26,7 @@ const StyledChungjuListDiv = styled.div`
 `;
 
 const ProductChungju = () => {
+    const navigate = useNavigate();
     const [arr, setArr] = useState([]);
 
     useEffect(() => {
@@ -39,7 +41,9 @@ const ProductChungju = () => {
     const box = () => {
         console.log(arr);
         return arr.map((vo, index) => (
-          <div className='detail_box' key={index}>
+          <div className='detail_box' key={index} onClick={()=>{
+            navigate("/product/detail/" + vo.productNo);
+          }}>
                 {console.log(vo)}
                 <img 
                         src="https://cogulmars.cafe24.com/img/04about_img04.png" 
@@ -62,7 +66,6 @@ const ProductChungju = () => {
                 {box()}
             </div>
             <div className='three_line'>
-                {box()}
             </div>
 
         </StyledChungjuListDiv>

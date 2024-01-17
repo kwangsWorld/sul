@@ -18,10 +18,13 @@ public class ProductService {
 	private final SqlSessionTemplate sst;
 
 	//제품 전체 조회
-	public List<ProductVo> list(ProductVo vo) {
-		
-		return dao.list(sst, vo);
-		
+	public List<ProductVo> listByEnrollDate(ProductVo vo) {
+		return dao.listByEnrollDate(sst, vo);
+	}
+	
+	public List<ProductVo> listByRating(ProductVo vo){
+		System.out.println("서비스 오나?");
+		return dao.listByRating(sst, vo);
 	}
 
 	//제품 카테고리별 전체 조회

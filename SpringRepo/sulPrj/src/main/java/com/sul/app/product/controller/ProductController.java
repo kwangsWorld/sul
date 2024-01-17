@@ -20,10 +20,17 @@ public class ProductController {
 	private final ProductService service;
 
 	//제품 전체 조회
-	@GetMapping("list")
-	public List<ProductVo> list(ProductVo vo){
-		List<ProductVo> voList = service.list(vo);
+	@GetMapping("listByEnrollDate")
+	public List<ProductVo> listByEnrollDate(ProductVo vo){
+		List<ProductVo> voList = service.listByEnrollDate(vo);
 //		System.out.println(voList);
+		return voList;
+	}
+	
+	@GetMapping("listByRating")
+	public List<ProductVo> listByRating(ProductVo vo){
+		System.out.println("컨트롤러 오나?");
+		List<ProductVo> voList = service.listByRating(vo);
 		return voList;
 	}
 	

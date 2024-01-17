@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const StyledBuyListDiv = styled.div`
     width: 100%;
     height: 100%;
-    background-color: orange;
+    /* background-color: orange; */
     /* padding: 40px 200px; */
 
     .buy_wrap{
@@ -12,12 +12,12 @@ const StyledBuyListDiv = styled.div`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: lightpink;
+        /* background-color: lightpink; */
     }
 
     .buy_header{
         padding: 40px 200px;
-        background-color: blueviolet;
+        /* background-color: blueviolet; */
     }
 
     .address{
