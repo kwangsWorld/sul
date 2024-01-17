@@ -9,20 +9,22 @@ const StyledComdetailDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  form{
+  form {
     width: 100%;
     height: 100%;
   }
-  h1 {
-    padding-bottom: 3%;
-  }
-  
+
   .table {
     width: 60%;
-    height: 60%;
+    height: 90%;
+    margin-left: 20%;
     font-size: 16px;
     border-collapse: collapse;
     border: 2px solid black;
+  }
+  h1 {
+    padding-bottom: 3%;
+    padding-top: 5%;
   }
 
   tr > td:first-child {
@@ -36,8 +38,8 @@ const StyledComdetailDiv = styled.div`
   }
 
   a {
-    padding-top: 3%;
     font-weight: bold;
+    margin-bottom: 3%;
   }
 
   .second {
@@ -61,38 +63,76 @@ const StyledComdetailDiv = styled.div`
 `;
 
 const Comdetail = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const communityVo = location.state.vo;
   const [communitycommtVo, setCommunitycommtVo] = useState([]);
   const [communitycommtVoList, setCommunitycommtVoList] = useState([]);
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
 
-    useEffect(() => {
-      console.log("커뮤니티 넘버:",communityVo.communityNo);
-
+  useEffect(() => {
     const obj = {
-        ...communityVo,
-        ...loginInfo
+      ...communityVo,
+      ...loginInfo,
     };
 
-    fetch("http://127.0.0.1:8888/app/ccommt/list",{
-        method:'post',
-        headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(obj)
+    fetch("http://127.0.0.1:8888/app/ccommt/list", {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
     })
-    .then((resp) => {return resp.json()})
-    .then(data =>{
+      .then((resp) => resp.json())
+      .then((data) => {
         setCommunitycommtVo(data);
-    })
+      });
   }, []);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const commentData = {
+      communityNo: communityVo.communityNo,
+      content: event.target.comment.value,
+      nick: loginInfo.nick,
+    };
+
+    fetch("http://127.0.0.1:8888/app/ccommt/insert", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(commentData),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.msg === 'good') {
+          alert("댓글 등록이 완료되었습니다.");
+
+          navigate('/community/comdetail', { state: { vo: communityVo } });
+        } else {
+          alert("댓글 작성에 실패했습니다.");
+        }
+      })
+      .catch(() => {
+        alert("댓글 작성 중 에러");
+      });
+  };
+
+  const handleChangeInput = (event) => {
+    const { name, value } = event.target;
+
+    setCommunitycommtVo({
+      ...setCommunitycommtVo,
+      [name]: value,
+    });
+  };
 
   return (
     <StyledComdetailDiv>
       <h1>커뮤니티 게시판</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <table className='table'>
           <tbody>
             <tr>
@@ -104,7 +144,7 @@ const Comdetail = () => {
               <td className='img'>{communityVo.img}이미지</td>
               <td className='img'>{communityVo.content}</td>
             </tr>
-            {communitycommtVo.map(vo => (
+            {communitycommtVo.map((vo) => (
               <tr key={vo.communitycommtNo}>
                 <td className='second'>{vo.nick}</td>
                 <td className='second'>{vo.content}</td>
@@ -114,16 +154,16 @@ const Comdetail = () => {
             <tr>
               <td>{loginInfo.nick}</td>
               <td>
-                <input className='comment' type='text' name='comment' placeholder='댓글을 작성하세요.' />
+                <input className='comment' type='text' name='comment' placeholder='댓글을 작성하세요.' onChange={handleChangeInput} />
               </td>
               <td>
-                <input className='insert' type='submit' value='등록' />{' '}
+                <input className='insert' type='submit' value='등록' />
               </td>
             </tr>
           </tbody>
         </table>
       </form>
-      
+
       <Link to='/community/comlist'>목록으로</Link>
     </StyledComdetailDiv>
   );
