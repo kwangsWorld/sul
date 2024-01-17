@@ -56,43 +56,71 @@ const AdminProductInsert = () => {
     // const vo = JSON.parse(adminMemberVo);
     // const adminNo = vo.no;
 
-    const [inputProductVo , setInputProductVo] = useState({
-        // "adminNo" : adminNo
-    });
-
     const [fileObj , setFileObj] = useState();
+    const [typeNo , setTypeNo] = useState();
+    const [pName , setPName] = useState();
+    const [price , setPrice] = useState();
+    const [degree , setDegree] = useState();
+    const [capacity , setCapacity] = useState();
+    const [storage , setStorage] = useState();
+    const [expiryDate , setExpiryDate] = useState();
+    const [taste , setTaste] = useState();
+    const [appetizer , setAppetizer] = useState();
 
-    const handleChangeInput = (event) => {
-
-        const {name , value} = event.target;
-
-        setInputProductVo({
-            ...inputProductVo ,
-            [name] : value,
-        })
-    }
-
-    const handleImageChange = (event) => {
+    const handleChangeImage = (event) => {
         setFileObj(event.target.files[0]);
+      };
+    const handleChangeTypeNo = (event) => {
+        setTypeNo(event.target.value);
+      };
+    const handleChangePName = (event) => {
+        setPName(event.target.value);
+      };
+    const handleChangePrice = (event) => {
+        setPrice(event.target.value);
+      };
+    const handleChangeDegree = (event) => {
+        setDegree(event.target.value);
+      };
+    const handleChangeCapacity = (event) => {
+        setCapacity(event.target.value);
+      };
+    const handleChangeStorage = (event) => {
+        setStorage(event.target.value);
+      };
+    const handleChangeExpiryDate = (event) => {
+        setExpiryDate(event.target.value);
+      };
+    const handleChangeTaste = (event) => {
+        setTaste(event.target.value);
+      };
+    const handleChangeAppetizer = (event) => {
+        setAppetizer(event.target.value);
       };
 
     const handleInsert = (event) => {
         event.preventDefault();
 
         const formData = new FormData();
-        formData.append("vo" , JSON.stringify(inputProductVo));
         formData.append("file" , fileObj);
 
-        // formData.append("writerNo" , 1); // sessionStorage.getItem("loginMember") 파싱
+        formData.append("typeNo", typeNo);
+        formData.append("pName", pName);
+        formData.append("price", price);
+        formData.append("degree", degree);
+        formData.append("capacity", capacity);
+        formData.append("storage", storage);
+        formData.append("expiryDate", expiryDate);
+        formData.append("taste", taste);
+        formData.append("appetizer", appetizer);
 
-        console.log(inputProductVo);
-        console.log(fileObj);
+        // formData.append("writerNo" , 1); // sessionStorage.getItem("loginMember") 파싱
 
         fetch("http://127.0.0.1:8888/app/adminProduct/insert" , {
             method : 'post',
             body : formData ,
         })
-        .then( resp => {return resp.json();} )
+        .then( resp => {return resp.json()} )
         .then( (data) => {
             if( data.msg === "good"){
                 alert("상품등록 성공")
@@ -120,7 +148,7 @@ const AdminProductInsert = () => {
                         <tr>
                             <td><h3>종류</h3></td>
                             <td>
-                                <select className='select' name='typeNo' onChange={handleChangeInput}>
+                                <select className='select' name='typeNo' onChange={handleChangeTypeNo}>
                                     <option name='' value=""></option>
                                     <option name='typeNo' value="1">탁주</option>
                                     <option name='typeNo' value="2">청주</option>
@@ -131,31 +159,31 @@ const AdminProductInsert = () => {
                         </tr>
                         <tr>
                             <td><h3>상품명</h3></td>
-                            <td><input className='insert' type="text" name='pName' placeholder='상품명' onChange={handleChangeInput} /></td>
+                            <td><input className='insert' type="text" name='pName' placeholder='상품명' onChange={handleChangePName} /></td>
                             <td><h3>가격</h3></td>
-                            <td><input className='insert' type="text" name='price' placeholder='가격' onChange={handleChangeInput} /></td>
+                            <td><input className='insert' type="text" name='price' placeholder='가격' onChange={handleChangePrice} /></td>
                         </tr>
                         <tr>
                             <td><h3>도수</h3></td>
-                            <td><input className='insert' type="text" name='degree' placeholder='도수' onChange={handleChangeInput} /></td>
+                            <td><input className='insert' type="text" name='degree' placeholder='도수' onChange={handleChangeDegree} /></td>
                             <td><h3>용량</h3></td>
-                            <td><input className='insert' type="text" name='capacity' placeholder='용량' onChange={handleChangeInput} /></td>
+                            <td><input className='insert' type="text" name='capacity' placeholder='용량' onChange={handleChangeCapacity} /></td>
                         </tr>
                         <tr>
                             <td><h3>보관방법</h3></td>
-                            <td><input className='insert' type="text" name='storage' placeholder='보관방법' onChange={handleChangeInput} /></td>
+                            <td><input className='insert' type="text" name='storage' placeholder='보관방법' onChange={handleChangeStorage} /></td>
                             <td><h3>유통기한</h3></td>
-                            <td><input className='insert' type="text" name='expiryDate' placeholder='유통기한' onChange={handleChangeInput} /></td>
+                            <td><input className='insert' type="text" name='expiryDate' placeholder='유통기한' onChange={handleChangeExpiryDate} /></td>
                         </tr>
                         <tr>
                             <td><h3>맛</h3></td>
-                            <td><input className='insert' type="text" name='taste' placeholder='맛' onChange={handleChangeInput} /></td>
+                            <td><input className='insert' type="text" name='taste' placeholder='맛' onChange={handleChangeTaste} /></td>
                             <td><h3>어울리는 안주</h3></td>
-                            <td><input className='insert' type="text" name='appetizer' placeholder='어울리는 안주' onChange={handleChangeInput} /></td>
+                            <td><input className='insert' type="text" name='appetizer' placeholder='어울리는 안주' onChange={handleChangeAppetizer} /></td>
                         </tr>
                         <tr>
                             <td><h3>이미지</h3></td>
-                            <td><input className='insert' type="file" name='file' placeholder='이미지' onChange={handleImageChange} /></td>
+                            <td><input className='insert' type="file" name='file' placeholder='이미지' onChange={handleChangeImage} /></td>
                         </tr>
                             <td></td>
                                 <td className='btn'>

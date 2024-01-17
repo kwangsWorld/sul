@@ -52,8 +52,6 @@ const StyledCsBoardQuestionDiv = styled.div`
             margin-left: 40%;
             margin-top: 3%;
         }
-        
-        
 
 `;
 
@@ -61,30 +59,42 @@ const CsBoardQuestion = () => {
     
     const navigate = useNavigate();
     
-    const [inputCsBoardVo , setInputCsBoardVo] = useState({
-    });
+    const [inputCsBoardVo , setInputCsBoardVo] = useState({});
     const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo"));
-    console.log(inputCsBoardVo);
-    console.log(loginInfo);
+
+    const handleChangeInput = (event) => {
+
+        const {name , value , files} = event.target;
+
+        setInputCsBoardVo({
+            ...inputCsBoardVo ,
+            [name] : files ? files[0] : value,
+        })
+    }
     
     const handleWrite = (event) => {
         event.preventDefault();
+
+        const formData = new FormData();
+        formData.append("qTitle" , inputCsBoardVo.qTitle);
+        formData.append("qContent" , inputCsBoardVo.qContent);
+        formData.append("file" , inputCsBoardVo.file);
+        formData.append("memberNo" , loginInfo.memberNo);
         
         const obj = {
             ...inputCsBoardVo ,
             ...loginInfo 
         };
+
+        formData.forEach( (value, key) => {
+            obj[key] = value;
+        })
+        
         console.log("전체 :::" , obj);
-        console.log("고객센터정보 :::" , inputCsBoardVo);
-        console.log("로그인정보 :::" , loginInfo);
-            
 
         fetch("http://127.0.0.1:8888/app/csboard/question" , {
             method : 'post',
-            headers : {
-                "Content-Type" : "application/json"
-            },
-            body : JSON.stringify(obj)
+            body : formData
         })
         .then( resp => {return resp.json();} )
         .then( (data) => {
@@ -101,18 +111,7 @@ const CsBoardQuestion = () => {
         } )
     };
 
-    const handleChangeInput = (event) => {
-
-        const {name , value} = event.target;
-
-        setInputCsBoardVo({
-            ...inputCsBoardVo ,
-            [name] : value,
-        })
-    }
-
-
-
+    
 
     return (
         <StyledCsBoardQuestionDiv>
@@ -129,7 +128,7 @@ const CsBoardQuestion = () => {
                     </tr>
                     <tr>
                         <td>이미지</td>
-                        <td><input type='file' name='f' /></td>
+                        <td><input type='file' name='file' onChange={handleChangeInput}/></td>
                     </tr>
                     <tr>
                         <td className='btn' colSpan={2}><input className='write' type='submit' value="작성하기" /></td>

@@ -29,6 +29,10 @@ public class CsBoardService {
 	
 	// 고객센터 질문 작성
 	public int question(CsBoardVo vo) {
+		
+		String str = vo.getQImg().replace("C:\\sulRepo\\SpringRepo\\sulPrj\\src\\main\\webapp", "http://127.0.0.1:8888/app");
+		vo.setQImg(str);
+		
 		return dao.question(sqlSessionTemplate, vo);
 	}
 	
