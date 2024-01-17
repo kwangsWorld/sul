@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,9 +40,12 @@ public class AdminProductController {
 	
 	// 상품 등록 (관리자)
 	@PostMapping("insert")
-	public Map<String,String> insert(@RequestBody ProductVo vo , MultipartFile f) throws Exception {
+	public Map<String,String> insert(ProductVo vo , MultipartFile file) throws Exception {
 		
-		String fullPath = saveFile(f);
+		System.out.println(vo);
+		System.out.println(file);
+		
+		String fullPath = saveFile(file);
 		vo.setImage(fullPath);
 		
 		int result = service.insert(vo);
