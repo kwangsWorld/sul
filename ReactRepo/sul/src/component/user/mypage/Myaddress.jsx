@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Myheader from './Myheader';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const StyledMyaddressDiv = styled.div`
   width: 100%;
@@ -67,18 +67,19 @@ const StyledMyaddressDiv = styled.div`
 `;
 
 const Myaddress = () => {
-  const [addressVoList, setAddressVoList] = useState([]);
-  const loadAddressVoList = () => {
-    fetch("http://127.0.0.1:8888/app/address/list")
-      .then((resp) => resp.json())
-      .then((x) => {
-        setAddressVoList(x);
-      });
-  };
+  
+  const navigate = useNavigate();
+  const [memberVoList, setMemberVoList] = useState([]);
+  const loadMemberVoList = () => {
+    fetch("http://127.0.0.1:8888/app/community/detail")
+    .then( resp => resp.json())
+    .then((x)=> {setMemberVoList(x);})
+    ;
+  }
 
-  useEffect(() => {
-    console.log("useEffect 호출");
-    loadAddressVoList();
+  useEffect( ()=>{
+    console.log("useEffect호출");
+    loadMemberVoList();
   }, []);
 
   return (
@@ -94,15 +95,15 @@ const Myaddress = () => {
       <table>
         <tbody>
           {
-            addressVoList.length === 0 
+            memberVoList.length === 0 
             ?
           <h1>로딩중</h1>
           : 
-            addressVoList.map((vo) => 
-              <tr key={vo.addressNo}>
+            memberVoList.map((vo) => <tr key={vo.memberNo}>
+              
                 <td>{vo.name}</td>
-                <td>{vo.address}</td>
                 <td>{vo.tel}</td>
+                <td>{vo.address}</td>
                 <td>
                   <Link className='button' to='/member/mypage/myaddressplus'><button>새 배송지 추가하기 +</button></Link>
                 </td>

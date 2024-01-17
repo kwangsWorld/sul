@@ -12,6 +12,7 @@ public class MemberVo {
 	private String email;
 	private String nick;
 	private String tel;
+	private String age;
 	private String enrollDate;
 	private String modifyDate;
 	private String delYn;

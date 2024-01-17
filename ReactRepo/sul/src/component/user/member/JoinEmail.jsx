@@ -111,6 +111,10 @@ const JoinEmail = () => {
                         <td><input type='tel' name='tel' placeholder='휴대폰 번호를 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
+                        <td>생년월일</td>
+                        <td><input type='text' name='age' placeholder=' 생년월일 8자리를 입력해 주세요' onChange={handleInputChange} /></td>
+                    </tr>
+                    <tr>
                         <td>아이디</td>
                         <td><input type='text' name='id' placeholder='아이디를 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
