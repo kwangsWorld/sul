@@ -5,13 +5,17 @@ import ProductListItem from './ProductListItem';
 const StyledListDiv = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: lightcoral;
+    /* background-color: lightcoral; */
     display: grid;
     grid-template-rows: 0.5fr 4fr 0.5fr 4fr;
 
     .second_line, .fourth_line{
         display: grid;
         grid-template-columns: 2.5fr 2.5fr 2.5fr 2.5fr 2.5fr;
+    }
+
+    .first_title, .second_title{
+        font-size: 25px;
     }
 `;
 
@@ -55,11 +59,11 @@ const ProductList = () => {
     return (
 
         <StyledListDiv>
-            <div>청룡의 해 시작을 함께할 우리술!</div>
+            <div className='first_title'>🐲청룡의 해 시작을 함께할 우리술!🐲</div>
             <div className='second_line'>
                 {box1()}
             </div>
-            <div className='three_line'>평점이 증명해주는 Hot of Hot한 우리술!</div>
+            <div className='first_title'>⭐평점이 증명해주는 Hot of Hot한 우리술!⭐</div>
             <div className='fourth_line'>
                 {box2()}
             </div>

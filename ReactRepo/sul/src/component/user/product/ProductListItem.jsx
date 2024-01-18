@@ -11,6 +11,14 @@ const StyledItemDiv = styled.div`
     .detail_box{
         cursor: pointer;
     }
+
+    .detail_box >div{
+    }
+
+    .image{
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
 `
 
 const ProductListItem = ({name, price, rating, productNo}) => {
@@ -22,15 +30,15 @@ const ProductListItem = ({name, price, rating, productNo}) => {
                 onClick={() =>{
                     navigate("/product/detail/"+ productNo);
                 }}>
-            <img
+            <img    className='image'
                     src= "https://cogulmars.cafe24.com/img/04about_img03.png"
                     alt="이미지ㅋㅋ"
                     width='295px'
                     height='300px'
             />
-                <div>{name}</div>
-                <div>{price}</div>
-                <div>{rating}</div>
+                <div>이름 : {name}</div>
+                <div>가격 : {price}원</div>
+                <div>평점 : {rating}점</div>
             </div>
 
             

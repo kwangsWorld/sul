@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNaviDiv = styled.div`
-    min-width: 3000px;
+    min-width: 1500px;
     width:100%;
     height: 40px;
     display: flex;
