@@ -151,6 +151,11 @@ const NoticeList = () => {
                         <button class="button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleReset}>초기화</button>
                     </div>
                 </div>
+                <div className='top_right'>
+                    <div className='question'>
+                        
+                    </div>
+                </div>
             </div>      
                     
             <table>
