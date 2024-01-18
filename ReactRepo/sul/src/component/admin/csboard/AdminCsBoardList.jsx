@@ -120,7 +120,7 @@ const AdminCsBoardList = () => {
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
-        navigate('/admin/adminCsBoard/detail', { state:  {vo}  });
+        navigate('/admin/csboard/detail', { state:  {vo}  });
     };
 
     // 초기화 버튼 클릭 시 동작 함수

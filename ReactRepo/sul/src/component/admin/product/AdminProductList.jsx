@@ -123,7 +123,7 @@ const AdminProductList = () => {
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
-        navigate('/admin/adminProduct/detail', { state:  {vo}  });
+        navigate('/admin/product/detail', { state:  {vo}  });
     };
 
     // 초기화 버튼 클릭 시 동작 함수
@@ -139,7 +139,7 @@ const AdminProductList = () => {
 
     // 작성하기 버튼 클릭 시 동작 함수
     const handleInsert = () => {
-        navigate("/admin/adminProduct/insert")
+        navigate("/admin/product/insert")
     };
 
     return (
@@ -155,7 +155,7 @@ const AdminProductList = () => {
                         } }>
                             <option value=""></option>
                             <option value="number">번호</option>
-                            <option value="name">상품</option>
+                            <option value="name">상품명</option>
                         </select>
                     </div>
                     <div>

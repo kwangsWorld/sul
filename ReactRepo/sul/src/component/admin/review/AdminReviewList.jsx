@@ -115,7 +115,7 @@ const AdminReviewList = () => {
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
-        navigate('/admin/adminReview/detail', { state:  {vo}  });
+        navigate('/admin/review/detail', { state:  {vo}  });
     };
 
     // 초기화 버튼 클릭 시 동작 함수
@@ -145,7 +145,7 @@ const AdminReviewList = () => {
                         } }>
                             <option value=""></option>
                             <option value="number">번호</option>
-                            <option value="name">상품</option>
+                            <option value="name">닉네임</option>
                         </select>
                     </div>
                     <div>

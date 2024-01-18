@@ -123,7 +123,7 @@ const AdminNoticeList = () => {
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
-        navigate('/admin/adminNotice/detail', { state:  {vo}  });
+        navigate('/admin/notice/detail', { state:  {vo}  });
     };
 
     // 초기화 버튼 클릭 시 동작 함수
@@ -139,7 +139,7 @@ const AdminNoticeList = () => {
 
     // 작성하기 버튼 클릭 시 동작 함수
     const handleWrite = () => {
-        navigate("/admin/adminNotice/write")
+        navigate("/admin/notice/write")
     };
 
 

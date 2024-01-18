@@ -124,7 +124,7 @@ const AdminDeliveryList = () => {
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
-        navigate('/admin/adminDelivery/detail', { state:  {vo}  });
+        navigate('/admin/delivery/detail', { state:  {vo}  });
     };
 
     // 초기화 버튼 클릭 시 동작 함수

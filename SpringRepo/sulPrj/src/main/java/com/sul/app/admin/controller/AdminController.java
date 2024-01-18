@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("admin")
+@RequestMapping("/adminMember")
 public class AdminController {
 	
 	private final AdminService service;
@@ -24,6 +24,7 @@ public class AdminController {
 	// 회원가입
 	@PostMapping("join")
 	public Map<String,String> join(@RequestBody AdminVo vo) throws Exception {
+		
 		
 		int result = service.join(vo);
 		
@@ -39,7 +40,7 @@ public class AdminController {
 	// 로그인
 	@PostMapping("login")
 	public Map<String,Object> login(@RequestBody AdminVo vo) {
-		
+		System.out.println(vo);
 		AdminVo loginAdmin = service.login(vo);
 		
 		Map<String,Object> map = new HashMap<String, Object>();

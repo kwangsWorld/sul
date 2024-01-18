@@ -1,13 +1,15 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AdminMemberList from './AdminMemberList';
-import AdminMemberDetail from './AdminMemberDetail';
+import AdminMemberJoin from './AdminMemberJoin';
+import AdminMemberLogin from './AdminMemberLogin';
+import AdminMemberFirst from './AdminMemberFirst';
 
 const AdminMemberMain = () => {
     return (
         <Routes>
-            <Route path='list' element={<AdminMemberList />}></Route>
-            <Route path='detail' element={<AdminMemberDetail />}></Route>
+        <Route path='/first/*' element={<AdminMemberFirst />}></Route>
+        <Route path='/Join/*' element={<AdminMemberJoin />}></Route>
+        <Route path='/Login/*' element={<AdminMemberLogin />}></Route>
         </Routes>
     );
 };
