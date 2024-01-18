@@ -9,7 +9,7 @@ height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 10%;
+        margin-top: 5%;
         border: 3px solid lightgray;
         width: 85%;
         height: 90px;
