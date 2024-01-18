@@ -1,12 +1,15 @@
 package com.sul.app.address.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,34 +27,34 @@ public class AddressController {
 	
 	//주소추가
 	@PostMapping("plus")
-	public String plus(AddressVo vo) throws Exception {
-		
+	public Map<String, String> plus(@RequestBody AddressVo vo, HttpSession session) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
 		int result = service.plus(vo);
 		
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");			
 		}
-		return "redirect:/home";
+		return map;
 	}
 	
-	//�주소삭제
+	//s주소삭제
 	@GetMapping("delete")
-	public String delete(AddressVo vo, HttpSession session) throws Exception {
-		
+	public Map<String, Object> delete(@RequestBody AddressVo vo) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
 		int result = service.delete(vo);
-		
-		if(result != 1) {
-			throw new Exception();
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");			
 		}
-			session.removeAttribute("address");
-			session.setAttribute("alertMsg", "�ּҰ� ���� �Ǿ����ϴ�.");
-			
-			return "redirect:/home";
+		return map;
 	}
 	
 	//주소목록 조회
-	@GetMapping("list")
-	public List<AddressVo> list(){
-		return service.list();
+	@PostMapping("list")
+	public List<AddressVo> list(@RequestBody AddressVo vo){
+		return service.list(vo);
 	}
 }

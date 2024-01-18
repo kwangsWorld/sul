@@ -21,8 +21,8 @@ public class AddressDao {
 	}
 
 	//목록
-	public List<AddressVo> list(SqlSessionTemplate sst) {
-		return sst.selectOne("AddressMapper.list");
+	public List<AddressVo> list(SqlSessionTemplate sst, AddressVo vo) {
+		return sst.selectList("AddressMapper.list", vo);
 	}
 
 }

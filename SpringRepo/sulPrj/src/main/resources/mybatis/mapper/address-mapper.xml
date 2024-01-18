@@ -18,9 +18,10 @@
 	</update>
 	
 	<select id="list" resultType="com.sul.app.address.vo.AddressVo">
-		SELECT M.NAME, M.TEL, A.ADDRESS
+		SELECT M.NAME, M.TEL, A.ADDRESS, A.DEL_YN
 		FROM ADDRESS A
 		JOIN MEMBER M ON A.MEMBER_NO = M.MEMBER_NO
-		WHERE M.MEMBER_NO = #{memberNo}
+		WHERE A.DEL_YN = 'N'
+		AND M.MEMBER_NO = #{memberNo}
 	</select>
 </mapper>

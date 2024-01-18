@@ -28,8 +28,8 @@ public class AddressService {
 	}
 
 	//목록조회
-	public List<AddressVo> list() {
-		return dao.list(sst);
+	public List<AddressVo> list(AddressVo vo) {
+		return dao.list(sst, vo);
 	}
 
 }
