@@ -65,7 +65,7 @@ const StyledHeaderDiv = styled.div`
 const Header = () => {
 
     const {loginMember} = useContext(MemberContext);
-
+ 
     const navigate = useNavigate();
     const [loginInfo, setLoginInfo] = useState(JSON.parse(sessionStorage.getItem('loginMemberVo')));
 

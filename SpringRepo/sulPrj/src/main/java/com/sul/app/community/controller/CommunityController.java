@@ -47,7 +47,7 @@ public class CommunityController {
 	public List<CommunityVo> list() {
 		return service.list();
 	}
-	//게시글 상세조회 (번호)
+	//게시글 상세조회
 	@GetMapping("detail")
 	public List<CommunityVo>detail() {
 		return service.detail();
