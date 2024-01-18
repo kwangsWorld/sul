@@ -5,9 +5,9 @@ import styled from 'styled-components';
 const StyledWineListDiv = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: lightcoral;
+    /* background-color: lightcoral; */
     display: grid;
-    grid-template-rows: 0.5fr 4fr 4fr;
+    grid-template-rows: 0.5fr 3fr 3fr;
 
     .second_line, .three_line{
         display: grid;
@@ -15,13 +15,21 @@ const StyledWineListDiv = styled.div`
     }
 
     .detail_box{
-        background-color: bisque;
+        /* background-color: bisque; */
         display: grid;
-        grid-template-rows: 7fr 1fr 1fr 1fr;
+        grid-template-rows: 7fr 0.8fr 0.8fr 0.8fr;
         justify-content: center;
-        align-items: center;
+        /* align-items: center; */
         text-align: center;
         cursor: pointer;
+    }
+
+    .image{
+        border-radius: 10px;
+    }
+
+    .first_line{
+        font-size: 25px;
     }
 `;
 
@@ -45,14 +53,14 @@ const ProductWine = () => {
             navigate("/product/detail/" + vo.productNo);
           }}>
                 {console.log(vo)}
-                <img 
+                <img className='image'
                         src="https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/6e/5b/65/6e5b6558-90d6-5202-de76-d7b3bdc411c9/source/512x512bb.jpg" 
                         alt="이미지"
                         width='295px'
                         height='300px' />
-                <div>{vo.pName}</div>
-                <div>{vo.price}</div>
-                <div>{vo.rating}</div>
+                <div>이름:{vo.pName}</div>
+                <div>가격:{vo.price}원</div>
+                <div>평점:{vo.rating}점</div>
           </div>
         ));
       };
@@ -61,7 +69,7 @@ const ProductWine = () => {
         
         <StyledWineListDiv>
             <div className='first_line'> 
-            청룡의 해 시작을 함께할 우리술!
+            🍷우리, 와인은 몰라도 분위기는 알잖아요🍷
             </div>
             <div className='second_line'>
                 {box()}
