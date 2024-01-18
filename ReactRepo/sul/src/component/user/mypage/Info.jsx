@@ -29,7 +29,8 @@ flex-direction: column;
         padding-left: 15%;
     }
     td:nth-child(2){
-        padding-left: 18%;
+        padding-left: 20%;
+        text-align: left;
     }
 
     .font{

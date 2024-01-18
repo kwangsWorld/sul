@@ -10,14 +10,16 @@ justify-content: center;
 align-items: center;
 display: flex;
 flex-direction: column;
+margin-top: 5%;
   table{
     border: 3px solid gray;
-    width: 50%;
+    width: 40%;
     height: 100%;
     margin-bottom: 10%;
   }
   tr{
     display: flex;
+    border-top: 3px solid gray;
     flex-direction: column;
   }
   tr:first-child{
@@ -25,7 +27,6 @@ flex-direction: column;
     padding-bottom: 5%;
   }
   tr:nth-child(2){
-    border-top: 3px solid gray;
     padding-top: 3%;
     padding-bottom: 3%;
   }
@@ -34,18 +35,21 @@ flex-direction: column;
     padding-top: 2%;
     text-align: center;
   }
-  .button > button{
-    border: 6px solid #ffe23dfb;
+  button{
     background-color: white;
-    width: 30%;
-    height: 50px;
     border-radius: 20px;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: bold;
+    border: 6px solid #ffe23dfb;
+  }
+  .btn{
+    padding-left: 45%;
+    padding-top: 2%;
   }
   .div {
     width: 20%;
     padding-bottom: 0.5%;
+    padding-left: 5%;
   }
   .font {
     margin-left: 25%;
@@ -63,6 +67,8 @@ const Myaddress = () => {
   const [addressVo, setAddressVo] = useState([]);
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
   const loadMemberVoList = () => {
+
+    
 
 
     fetch("http://127.0.0.1:8888/app/address/list",{
@@ -82,15 +88,22 @@ const Myaddress = () => {
     loadMemberVoList();
   }, []);
 
+
+  const handleplus = () => {
+    navigate("/mypage/myaddressplus")
+  };
+
+  const detailItem = (vo)=> {
+    navigate("/mypage/addressedit", { state: {vo}});
+  };
+
   return (
     <StyledMyaddressDiv>
-      <Myheader />
+     
+        <Myheader />
       <h1>배송지</h1>
       <div className="div">
-        <Link className="font" to="">
-          수정
-        </Link>
-        <Link className="font">삭제</Link>
+        <button onClick={handleplus}>새 배송지 추가하기 +</button>
       </div>
       <table>
         <tbody>
@@ -104,9 +117,11 @@ const Myaddress = () => {
                 <td>{vo.name}</td>
                 <td>{vo.tel}</td>
                 <td>{vo.address}</td>
-                <td>
-                  <Link className='button' to='/member/mypage/myaddressplus'><button>새 배송지 추가하기 +</button></Link>
-                </td>
+                <div className='btn'>
+                  <td>
+                    <button >삭제</button>
+                  </td>
+                </div>
             </tr>
               )
             )

@@ -36,8 +36,8 @@ public class CommunityDao {
 	}
 
 	//내가 작성한 글 보기
-	public List<CommunityVo> my(SqlSessionTemplate sst) {
-		return sst.selectList("CommunityMapper.my");
+	public List<CommunityVo> my(SqlSessionTemplate sst, CommunityVo vo) {
+		return sst.selectList("CommunityMapper.my", vo);
 	}
 	
 	

@@ -54,9 +54,9 @@ public class CommunityController {
  	}
 	
 	//내가 작성한 게시글 보기
-	@GetMapping("my")
-	public List<CommunityVo> my(){
-		return service.my();
+	@PostMapping("my")
+	public List<CommunityVo> my(@RequestBody CommunityVo vo){
+		return service.my(vo);
 	}
 	
 	//게시글 수정
