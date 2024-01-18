@@ -43,8 +43,8 @@ public class CommunityService {
 	}
 
 	//내가 작성한 글보기
-	public List<CommunityVo> my() {
-		return dao.my(sst);
+	public List<CommunityVo> my(CommunityVo vo) {
+		return dao.my(sst, vo);
 	}
 
 	

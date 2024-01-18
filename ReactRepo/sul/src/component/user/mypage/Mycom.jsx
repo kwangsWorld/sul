@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Myheader from './Myheader';
-import { useNavigate } from 'react-router-dom';
 
-const StyledMycomDiv = styled.div`
+const StyledComlistDiv = styled.div`
 width: 100%;
 height: 100%;
 display: flex;
@@ -11,12 +11,12 @@ justify-content: center;
 align-items: center;
 flex-direction: column;
    table{
-    width: 55%;
+    width: 60%;
     border-collapse: collapse;
     margin-bottom: 20%;
-    margin-top: 4%;
+    margin-top: 15%;
    }
-
+  
    .font{
         font-size: 30px;
         font-weight: bold;
@@ -25,42 +25,66 @@ flex-direction: column;
     }
     table  > tr:nth-child(2) >  td{
         background-color: gray;
-        font-weight: bold;
+        font-weight: bold; 
     }
     table > tr > td{
         border-bottom: 1px solid lightgray;
-        padding-top: 3%;
+        padding-top: 1%;
         padding-left: 3%;
+        padding-bottom: 2%;
     }
+    td:nth-child(2){
+        text-align: center;
+    }
+    td:nth-child(3){
+        text-align: right;
+        padding-right: 2%;
+    }
+   
+   
+   
 `;
 
-const Mycom = () => {
+const Comlist = () => {
 
     const navigate = useNavigate();
 
-    const [communityVoList, setCommunityVoList] = useState([]);
+    const [communityVoList , setCommunityVoList] = useState([]);
+    const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
+
     const loadCommunityVoList = () => {
-        fetch("http://127.0.0.1:8888/app/community/my")
+
+        fetch("http://127.0.0.1:8888/app/community/my",{
+            method: 'post',
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(loginInfo)
+        })
         .then(resp => resp.json())
-        .then( (x) => {setCommunityVoList(x);})
+        .then((x)=> {setCommunityVoList(x);})
         ;
     }
 
-    useEffect( ()=> {
-        console.log("useEffect호출");
+    useEffect( () => {
+        console.log("useEffect 호출");
         loadCommunityVoList();
     }, []);
 
 
+    const handleDetail = (vo) => {
+        navigate('/mypage/mycomdetail', {state: {vo}});
+    };
+
+
 
     return (
-        <StyledMycomDiv>
+
+        <StyledComlistDiv>
             <Myheader />
             <table>
                 <tr>
                     <td className='font'>커뮤니티 게시판</td>
-                    <td></td>
-                    <td></td>
                 </tr>
                 <tr>
                     <td>제목</td>
@@ -70,23 +94,21 @@ const Mycom = () => {
                 {
                     communityVoList.length === 0
                     ?
-                    <h3>로딩중</h3>
+                    <h2>로딩중</h2>
                     :
-                    communityVoList.map( vo => <tr key={vo.communityNo}>
+                    communityVoList.map( vo => <tr key={vo.communityNo} onClick={()=>{
+                        handleDetail(vo)
+                    }}>
                         <td>{vo.title}</td>
                         <td>{vo.name}</td>
                         <td>{vo.enrollDate}</td>
                     </tr>
-                 ) 
+                    )
                 }
                 
-                
-                
-                
             </table>
-            
-        </StyledMycomDiv>
+        </StyledComlistDiv>
     );
 };
 
-export default Mycom;
+export default Comlist;

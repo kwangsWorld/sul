@@ -1,104 +1,179 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Myheader from './Myheader';
 
-const StyledMycomdetailDiv = styled.div`
+const StyledComdetailDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5%;
+  form {
     width: 100%;
-    height: 200%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-        table{
-            width: 60%;
-            height: 180%;
-            font-size: 16px;
-            border-collapse: collapse;
-            border: 2px solid gray;
-            margin-bottom: 30%;
-        }
-        tr > td:first-child{
-            padding-left: 10%;
-            font-weight: bold;
-        }
-        
-        .div{
-           width: 50%;
-            padding-bottom: 1%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        button{
-            border: 2px solid gray;
-            width: 10%;
-            height: 40px;
-            border-radius: 10px;
-            background-color: #ffe23dfb;
-            font-weight: bold;
-        }
-        button:hover{
-            background-color: gray;
-        }
-        .second{
-            border-top: 2px solid gray;
-        }
-        .comment{
-            width: 90%;
-        }
-        .img{
-            padding-bottom: 5%;
-        }
-        .insert{
-            background-color: #ffe23dfb;
-            width: 40%;
-            border-radius: 20px;
-            border: none;
-        }
+    height: 100%;
+    margin-bottom: 3%;
+  }
+
+  .table {
+    width: 50%;
+    height: 400px;
+    margin-left: 26%;
+    font-size: 16px;
+    border-collapse: collapse;
+    border: 2px solid gray;
+  }
+  h1 {
+    padding-bottom: 3%;
+    padding-top: 5%;
+  }
+  button{
+    background-color: white;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 6px solid #ffe23dfb;
+  }
+
+  tr > td:first-child {
+    padding-left: 10%;
+    font-weight: bold;
+  }
+
+  tr:first-child{
+    border-bottom: 2px solid gray;
+  }
+  input {
+    border: 2px solid lightgray;
+    height: 40%;
+  }
+  textarea{
+    border: none;
+    padding-top: 5%;
+  }
+  .second {
+    border-top: 2px solid gray;
+  }
+
+  .comment {
+    width: 90%;
+  }
+
+  .img {
+    padding-bottom: 5%;
+  }
+
+  .insert {
+    background-color: #ffe23dfb;
+    width: 40%;
+    border-radius: 20px;
+    border: none;
+  }
+  .btn{
+    margin-bottom: 10%;
+  }
 `;
 
-const Mycomdetail = () => {
+const Comdetail = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const communityVo = location.state.vo;
+  const[vo, setVo] =useState(communityVo);
+  const [editedTitle , setEditedTitle] = useState(communityVo.title);
+  const [editedContent , setEditedContent] = useState(communityVo.content);
+  const [editedImg , setEditedImg] = useState(communityVo.img);
+  const [communitycommtVo, setCommunitycommtVo] = useState([]);
+  const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
 
-    const navigate = useNavigate();
-
-    const handlelist = () => {
-        navigate('/mypage/mycom')
+  useEffect(() => {
+    const obj = {
+      ...communityVo,
+      ...loginInfo,
     };
 
-    return (
+    fetch("http://127.0.0.1:8888/app/ccommt/list", {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setCommunitycommtVo(data);
+      });
+  }, []);
 
-        <StyledMycomdetailDiv>
-            <Myheader />
-            <h1>
-                커뮤니티 게시판
-            </h1>
-            <div className='div'>
-                <button onClick={handlelist}>목록으로</button>
-                <button>수정하기</button>
-                <button>삭제하기</button>
-            </div>
-            <table>
-                <tr>
-                    <td>제목</td>
-                    <td>제목이다</td>
-                    <td>작성자</td>
-                </tr>
-                <tr>
-                    <td className='img'>이미지</td>
-                    <td className='img'>내용이다내용내용</td>
-                </tr>
-                <tr>
-                    <td className='second'>닉네임</td>
-                    <td className='second'>댓글댓글댓글</td>
-                    <td className='second'>작성일</td>
-                </tr>
-                
-            </table>
-            
-            
-        </StyledMycomdetailDiv>
-    );
+  const handleList = () => {
+    navigate("/mypage/mycom")
+  };
+
+  const handleEdit = () => {
+    const editVo = {
+        ...vo,
+        title: editedTitle,
+        contene: editedContent,
+        img: editedImg,
+    };
+
+    fetch("http://127.0.0.1:8888/app/community/edit",{
+        method: 'post',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(editVo)
+    })
+    .then((resp) => resp.json())
+    .then((data) => {
+        if(data.msg === "good"){
+            setVo(editVo);
+            alert("게시글 수정이 완료되었습니다.");
+            navigate("/mypage/mycom")
+        }else{
+            alert("게시글 수정 실패.")
+
+        }
+    })
+    .catch((e) => {
+        alert("게시글 수정 중 에러 발생");
+    });
+  }
+
+  return (
+    <StyledComdetailDiv>
+        <Myheader />
+      <h1>커뮤니티 게시판</h1>
+      <form>
+        <table className='table'>
+          <tbody>
+            <tr>
+              <td>제목</td>
+              <td><textarea>{communityVo.title}</textarea></td>
+              <td>{communityVo.nick}</td>
+            </tr>
+            <tr>
+              <td className='img'>{communityVo.img}이미지</td>
+              <td className='img'><textarea>{communityVo.content}</textarea></td>
+            </tr>
+            {communitycommtVo.map((vo) => (
+              <tr key={vo.communitycommtNo}>
+                <td className='second'>{vo.nick}</td>
+                <td className='second'>{vo.content}</td>
+                <td className='second'>{vo.enrollDate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </form>
+      <div className='btn'>
+        <button onClick={handleList}>목록으로</button>
+        <button onClick={handleEdit}>수정하기</button>
+        <button>삭제하기</button>
+      </div>
+    </StyledComdetailDiv>
+  );
 };
 
-export default Mycomdetail;
+export default Comdetail;

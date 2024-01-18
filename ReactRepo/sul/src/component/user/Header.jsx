@@ -9,7 +9,10 @@ const StyledHeaderDiv = styled.div`
     top: 0;
     z-index: 999;
     background-color: white;
-
+    
+    h4{
+       padding-right: 5%;
+    }
     .header_wrap {
         width: 100%;
         height: 56px;
@@ -27,6 +30,7 @@ const StyledHeaderDiv = styled.div`
         font-weight: bolder;
     }
 
+    
     .header_right {
         display: flex;
         flex-direction: row;
@@ -41,6 +45,16 @@ const StyledHeaderDiv = styled.div`
 
     .join {
         margin-right: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .nick{
+        width: 30%;
+        margin-right: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .header_search {
@@ -49,11 +63,15 @@ const StyledHeaderDiv = styled.div`
         border-radius: 10px;
         border: 1px solid gray;
     }
-    .btn{
-        margin-top: 15%;
+    .cart{
+        margin-top: 16%;
     }
     .out{
-        margin-top: 13%;
+        margin-top: 2%;
+        padding-left: 25%;
+    }
+    .log{
+        font-size: 14px;
     }
     button{
         border: none;
@@ -67,7 +85,12 @@ const Header = () => {
     const {loginMember} = useContext(MemberContext);
  
     const navigate = useNavigate();
-    const [loginInfo, setLoginInfo] = useState(JSON.parse(sessionStorage.getItem('loginMemberVo')));
+
+      // 페이지 로드 시 세션 스토리지에서 로그인 정보 가져오기
+      const [loginInfo, setLoginInfo] = useState(() => {
+        const loginInfoStr = sessionStorage.getItem('loginMemberVo');
+        return JSON.parse(loginInfoStr) || null;
+    });
 
     console.log("헤더");
     console.log("로그인", loginInfo);
@@ -83,7 +106,8 @@ const Header = () => {
             <div className='header_wrap'>
                 <div className='header_left'>
                     <div className='icon'>
-                        <Link to="/product/list">SULDAMA</Link>
+                       
+                        <Link  to="/product/list">SULDAMA</Link>
                     </div>
                 </div>
                 <div className='header_center'>
@@ -94,33 +118,36 @@ const Header = () => {
                         {loginMember === null
                         ? 
                         <>
+                            <Link to="/admin/member/first">👤</Link>
                             <div className='join'>
-                                <Link to="/member/joinfirst">회원가입</Link>
+                                <Link className='log' to="/member/joinfirst">회원가입</Link>
                             </div>
                             <div>
-                                <Link to="/member/login">로그인</Link>
+                                <Link className='log' to="/member/login">로그인</Link>
                             </div>
                         </>
                          : 
                         <>
-                            <div className='join'>
+                            <div className='nick'>
                                 <Link to="/mypage/Info">
                                     <h4>{loginMember.nick}</h4>
                                 </Link>
+                                <Link className='com' to="/community/comlist">community</Link>
                             </div>
                             <div className='out'>
                                 <button className='btn' onClick={handleLogout}>로그아웃</button>
-                            </div>
-                            <img
-                                className='btn'
-                                width="30px"
-                                height="30px"
-                                src="https://artfeel.co.kr/web/product/big/o_Icon_011.jpg"
-                                alt="장바구니"
-                                onClick={() => {
-                                    navigate("/cart/list");
+                                <img
+                                    className='cart'
+                                    width="30px"
+                                    height="30px"
+                                    src="https://artfeel.co.kr/web/product/big/o_Icon_011.jpg"
+                                    alt="장바구니"
+                                    onClick={() => {
+                                        navigate("/cart/list");
                                 }}
                             />
+                            </div>
+                            
                         </>
                         }
                     </div>

@@ -1,77 +1,202 @@
-import React from 'react';
 import styled from 'styled-components';
 import Myheader from './Myheader';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const StyledMyplusDiv = styled.div`
-width: 100%;
-height: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-    h1{
-        padding-bottom: 3%;
-    }
-    form{
-        width: 100%;
-    }
-    table{
-        width: 35%;
-        height: 100px;
-        background-color: lightgray;
-        border-radius: 50px;
-        margin-left: 33%;
-    }
-    td{
-        padding-left: 20%;
-        padding-top: 15%;
-        padding-bottom: 3%;
-        font-weight: bold;
-        font-size: 20px;
-    }
-    .input{
-        border: none;
-        border-radius: 10px;
-        height: 30px;
-        width: 80%;
-    }
-    .button{
-        width: 40%;
-        height: 40px;
-        margin-left: 20%;
-        border: none;
-        border-radius: 20px;
-        border: 6px solid #ffe23dfb;
-        background-color: white;
-        font-weight: bold;
-    }
+const StyledMyaddressDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+
+  form {
+    width: 90%;
+    height: 70%;
+    margin-left: 45%;
+  }
+
+  table {
+    border: 3px solid gray;
+    width: 50%;
+    height: 80%;
+    margin-bottom: 10%;
+    padding-top: 3%;
+  }
+
+  tr {
+    display: flex;
+    flex-direction: column;
+  }
+
+  tr:first-child {
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
+
+  tr:nth-child(2) {
+    border-top: 3px solid gray;
+    padding-top: 3%;
+    padding-bottom: 3%;
+  }
+
+  td {
+    font-weight: bold;
+    padding-top: 2%;
+    text-align: center;
+  }
+
+  input {
+    width: 50%;
+    height: 50px;
+    border: none;
+    border-bottom: 2px solid gray;
+  }
+
+  .btn {
+    background-color: white;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 6px solid #ffe23dfb;
+  }
+
+  .deleteBtn {
+    background-color: white;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 6px solid red;
+    margin-top: 10px;
+  }
 `;
 
-const Myaddressplus = () => {
-    return (
-        <StyledMyplusDiv>
-            <Myheader />
-             <h1>배송지 추가</h1>
-             <form>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>이름</td>
-                        </tr>
-                        <tr>
-                            <td>010-0000-0000</td>
-                        </tr>
-                        <tr>
-                            <td><input className='input' type='text' name='address' placeholder='주소를 입력해주세요.' /></td>
-                        </tr>
-                        <tr>
-                            <td><input className='button' type='submit' value="추가하기" /></td>
-                        </tr>
-                    </tbody>
-                </table>
-             </form>
-        </StyledMyplusDiv>
-    );
+const Myaddress = () => {
+  const navigate = useNavigate();
+  const [inputAddressVo, setInputAddressVo] = useState({});
+  const [addressList, setAddressList] = useState([]);
+
+  const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
+
+  useEffect(() => {
+    loadAddressList();
+  }, []);
+
+  const loadAddressList = () => {
+    fetch("http://127.0.0.1:8888/app/address/list")
+      .then((resp) => resp.json())
+      .then((data) => {
+        setAddressList(data);
+      })
+      .catch(() => {
+        alert('주소 목록 불러오기 에러');
+      });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const obj = {
+      ...inputAddressVo,
+      ...loginInfo,
+    };
+
+    fetch("http://127.0.0.1:8888/app/address/plus", {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.msg === 'good') {
+          alert('배송지가 추가되었습니다.');
+          loadAddressList();
+        } else {
+          alert('다시 추가해주세요.');
+        }
+      })
+      .catch(() => {
+        alert('배송지 추가 에러');
+      });
+  };
+
+  const handleChangeInput = (event) => {
+    const { name, value } = event.target;
+
+    setInputAddressVo({
+      ...inputAddressVo,
+      [name]: value,
+    });
+  };
+
+  const handleDelete = (addressNo) => {
+    fetch("http://127.0.0.1:8888/app/address/delete", {
+      method: 'get',
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.msg === 'good') {
+          alert('배송지가 삭제되었습니다.');
+          loadAddressList();
+        } else {
+          alert('다시 시도해주세요.');
+        }
+      })
+      .catch(() => {
+        alert('배송지 삭제 에러');
+      });
+  };
+
+  return (
+    <StyledMyaddressDiv>
+      <Myheader />
+      <h1>배송지</h1>
+      <form onSubmit={handleSubmit}>
+        <table>
+          <tbody>
+            <tr>
+              <td>{loginInfo.name}</td>
+              <td>{loginInfo.tel}</td>
+              <td>
+                <input
+                  type='text'
+                  name='address'
+                  placeholder='주소를 입력하세요.'
+                  onChange={handleChangeInput}
+                />
+              </td>
+              <td>
+                <input className='btn' type='submit' value='등록' />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      <table>
+        <tbody>
+          {addressList.map((address) => (
+            <tr key={address.addressNo}>
+              <td>{address.name}</td>
+              <td>{address.tel}</td>
+              <td>{address.address}</td>
+              <td>
+                <button
+                  className='deleteBtn'
+                  onClick={() => handleDelete(address.addressNo)}
+                >
+                  삭제
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </StyledMyaddressDiv>
+  );
 };
 
-export default Myaddressplus;
+export default Myaddress;
