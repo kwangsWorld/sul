@@ -94,10 +94,9 @@ const AdminNoticeWrite = () => {
         .then( (data) => {
             if( data.msg === "good"){
                 alert("게시글 작성 성공")
-                navigate("/admin/adminNotice/list")
+                navigate("/admin/notice/list")
             }else{
                 alert("게시글 작성 실패")
-                navigate("/")
             }
         } )
         .catch( () => {

@@ -106,7 +106,7 @@ const AdminCsBoardDetail = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/admin/adminCsboard/list")
+        navigate("/admin/csboard/list")
     };
 
     // 수정하기 버튼 클릭 시 동작 함수
@@ -129,7 +129,7 @@ const AdminCsBoardDetail = () => {
         if (data.msg === "good") {
             setVo(editedVo);
             alert("고객센터 수정 완료");
-          navigate("/admin/adminCsboard/list");
+          navigate("/admin/csboard/list");
         } else {
           alert("고객센터 수정 실패");
         }

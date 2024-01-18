@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const StyledAdminMemberDetailDiv = styled.div`
+const StyledAdminUserDetailDiv = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
@@ -55,7 +55,7 @@ const StyledAdminMemberDetailDiv = styled.div`
 
 `;
 
-const AdminMemberDetail = () => {
+const AdminUserDetail = () => {
 
     const navigate = useNavigate();
 
@@ -68,7 +68,7 @@ const AdminMemberDetail = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/admin/adminMember/list")
+        navigate("/admin/User/list")
     };
 
     // 수정하기 버튼 클릭 시 동작 함수
@@ -91,7 +91,7 @@ const AdminMemberDetail = () => {
         if (data.msg === "good") {
             setVo(editedVo);
             alert("회원 수정 완료");
-          navigate("/admin/adminMember/list");
+          navigate("/admin/User/list");
         } else {
           alert("회원 수정 실패");
         }
@@ -113,7 +113,7 @@ const AdminMemberDetail = () => {
     };
 
     return (
-        <StyledAdminMemberDetailDiv>
+        <StyledAdminUserDetailDiv>
             <table>
                 <thead>
                     <tr>
@@ -156,8 +156,8 @@ const AdminMemberDetail = () => {
                     <input style={{backgroundColor: '#ffe23dfb'}} className='back_button' type="submit" value="뒤로가기" onClick={handleBack} />
                     <input style={{backgroundColor: '#ffe23dfb'}} className='edit_button' type="submit" value="수정하기" onClick={handleDelete} />
                 </div>
-        </StyledAdminMemberDetailDiv>
+        </StyledAdminUserDetailDiv>
     );
 };
 
-export default AdminMemberDetail;
+export default AdminUserDetail;
