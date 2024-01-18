@@ -32,6 +32,11 @@ const StyledDetailDiv = styled.div`
         border-radius: 10px;
     }
 
+    .name, .price{
+        font-size: 30px;
+    }
+
+
     .point{
         font-size: 30px;
         margin-top: 10px;
@@ -73,26 +78,24 @@ const StyledDetailDiv = styled.div`
         /* background-color: orange; */
     }
 
-    .go_cart, .go_buy{
-        width: 100%;
-        height: 40px;
-    }
-
     .right_table{
         width: 100%;
         height: 100%;
     }
 
-    .name, .price{
-        font-size: 30px;
-    }
+
+    /* .cnt_name, .total_price_name{
+        display: flex;
+        font-size: 20px;
+        justify-content: baseline;
+    } */
 
     .go_cart, .go_buy{
         width: 100%;
         height: 100%;
+        background-color: #ffe23dfb;
+        border: none;
         border-radius: 10px;
-        background-color: skyblue;
-        color: white;
     }
     
 `;
@@ -103,6 +106,13 @@ const ProductDetail = () => {
     
     const [vo, setVo] = useState(params.productNo);
     const [cnt, setCnt] = useState(1);
+
+    const obj = {
+        name : vo.pName ,
+        price : vo.price,
+        capacity : vo.capacity,
+        cnt : cnt /* 키값과 벨류가 같으면 cnt만 써도됨*/
+    };
 
     const loadDetailList = () => {
         // console.log(params.productNo);
@@ -115,6 +125,7 @@ const ProductDetail = () => {
         ;
     }
     const minus = () => {
+        if(cnt>1)
         setCnt(cnt-1);
     }
     const plus = () => {
@@ -123,11 +134,14 @@ const ProductDetail = () => {
 
     useEffect( () => {
         loadDetailList();
+        // minus();
     } , [] );
 
     // useEffect( () => {
     //     minus();
     // }, [] );
+
+    const totalPrice = vo.price * cnt;
 
     return (
         <StyledDetailDiv>
@@ -157,7 +171,7 @@ const ProductDetail = () => {
                     <div className='point'>핵심 포인트</div>
                     <div className='first_line'>
                         <div className='image'>
-                            <img src="https://www.sooldamhwa.com/images/modules/damhwaMarket/point_anju.png" alt="" />
+                            <img src="https://www.sooldamhwa.com/images/modules/damhwaMarket/point_anju.png" alt="taste" />
                         </div>
                         <div className='taste'>
                             <div className='taste_title'> 맛 </div>
@@ -167,7 +181,7 @@ const ProductDetail = () => {
                     </div>
                     <div className='second_line'>
                         <div className='image'>
-                            <img src="https://www.sooldamhwa.com/images/modules/damhwaMarket/point_damhwa.png" alt="" />
+                            <img src="https://www.sooldamhwa.com/images/modules/damhwaMarket/point_damhwa.png" alt="appetizer" />
                         </div>
                         <div className='appetizer'>
                             <div className='appetizer_title'> 안주 </div>
@@ -179,34 +193,38 @@ const ProductDetail = () => {
                 </div>
             </div>
             <div className='right_side'>
-                <table border='1px' className='right_table'>
-                    <tr>
-                        <td colSpan={4}>수량</td>
-                    </tr>
-                    <tr>
-                        <td>-</td>
-                        {console.log("cnt : " + cnt)}
-                        <td colSpan={2}>
-                            {cnt}
-                        </td>
-                        <td>+</td>
-                    </tr>
-                    <tr>
-                        <td colSpan={4}>
-                            총 상품가격
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan={4}>가격~~</td>
-                    </tr>
-                    <tr>
-                        <td colSpan={2}>
-                            <button className='go_cart' onClick={()=> {navigate("/cart/list");}}>🛒장바구니</button>
-                        </td>
-                        <td colSpan={2}>
-                            <button className='go_buy' onClick={()=> {navigate("/buy/list");}}>💰구매하기</button>
-                        </td>
-                    </tr>
+                <table className='right_table' border="1px">
+                    <tbody>
+                        <tr className='cnt_name'>
+                            <td colSpan={4}>수량</td>
+                        </tr>
+                        <tr>
+                            <td onClick={minus}>-</td>
+                            {console.log("cnt : " + cnt)}
+                            <td colSpan={2}>
+                                {cnt}
+                            </td>
+                            <td onClick={plus}>+</td>
+                        </tr>
+                        <tr>
+                            <td colSpan={4}  className='total_price_name'>
+                                총상품가격
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan={4} cn>
+                                {totalPrice}원
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan={2}>
+                                <button className='go_cart' onClick={()=> {navigate("/cart/list");}}>🛒장바구니</button>
+                            </td>
+                            <td colSpan={2}>
+                                <button className='go_buy' onClick={()=> {navigate("/buy/list" , {state:obj});}}>💰구매하기</button>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </StyledDetailDiv>
