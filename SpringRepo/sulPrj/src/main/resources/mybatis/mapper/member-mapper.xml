@@ -20,6 +20,8 @@
 	<update id="edit">
 		UPDATE MEMBER
 			SET 
+				 NAME = #{name},
+				 AGE = #{age},
 				 ID = #{id},
 				 PWD = #{pwd}, 
 				 EMAIL = #{email}, 

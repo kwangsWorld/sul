@@ -19,6 +19,9 @@ public class CommunityService {
 	
 	//작성하기
 	public int insert(CommunityVo vo) {
+		String str = vo.getImg().replace("C:\\sulRepo\\SpringRepo\\sulPrj\\src\\main\\webapp", "http://127.0.0.1:8888/app");
+		vo.setImg(str);
+		
 		return dao.insert(sst, vo);
 	}
 
