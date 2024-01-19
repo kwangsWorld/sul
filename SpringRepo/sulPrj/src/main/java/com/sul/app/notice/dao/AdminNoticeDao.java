@@ -6,13 +6,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.sul.app.notice.vo.NoticeVo;
+import com.sul.app.notice.vo.PageVo;
 
 @Repository
 public class AdminNoticeDao {
 
 	// 공지사항 목록 조회
-	public List<NoticeVo> list(SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.selectList("AdminNoticeMapper.list");
+	public List<NoticeVo> list(SqlSessionTemplate sqlSessionTemplate, PageVo pVo) {
+		return sqlSessionTemplate.selectList("AdminNoticeMapper.list", pVo);
 	}
 	
 	// 공자시항 상세 조회

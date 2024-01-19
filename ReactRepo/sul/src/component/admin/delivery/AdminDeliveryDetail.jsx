@@ -141,9 +141,7 @@ const AdminDeliveryDetail = () => {
                         </td>
                         <td className=''>{deliveryVo.deliveryStartDate}</td>
                         <td className='detail_wrap'>
-                            <textarea className='detail_deliveryFinishDate' name='deliveryFinishDate' placeholder='YYYY-MM-DD' value={editedDeliveryFinishDate} onChange={handleFinishDateChange}>
-                                {deliveryVo.deliveryFinishDate}
-                            </textarea>
+                            <input type="date" name='deliveryFinishDate' value={editedDeliveryFinishDate} onChange={handleFinishDateChange}></input>
                         </td>
                     </tr>
                     <tr>

@@ -115,7 +115,7 @@ CREATE TABLE DELIVERY (
     , DELIVERY_STATUS_NO     NUMBER                         NOT NULL
     , ORDER_NO               NUMBER                         NOT NULL
     , DELIVERY_START_DATE    TIMESTAMP   DEFAULT SYSDATE    NULL
-    , DELIVERY_FINISH_DATE   TIMESTAMP   DEFAULT SYSDATE    NULL
+    , DELIVERY_FINISH_DATE   VARCHAR2(1000)                 NULL
     , ADDRESS_NO             NUMBER                         NOT NULL
 );
 

@@ -12,9 +12,8 @@ import CsBoardMain from './csboard/CsBoardMain';
 
 const StyledMainDiv = styled.div`
     min-width: 1500px;
-    width: 100vw;
-    height: 100vh;
-
+    width: 100%;
+    height: 100%;
 `;
 
 
