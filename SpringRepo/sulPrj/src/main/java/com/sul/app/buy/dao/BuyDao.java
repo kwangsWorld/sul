@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.sul.app.member.vo.MemberVo;
 import com.sul.app.product.vo.ProductVo;
 
 @Repository
@@ -18,6 +19,10 @@ public class BuyDao {
 
 	public List<ProductVo> buyList(SqlSessionTemplate sst, ProductVo vo) {
 		return sst.selectList("BuyMapper.buyList", vo);
+	}
+
+	public MemberVo buyLoadAddress(SqlSessionTemplate sst, MemberVo vo) {
+		return sst.selectOne("BuyLoadAddress", vo);
 	}
 
 }

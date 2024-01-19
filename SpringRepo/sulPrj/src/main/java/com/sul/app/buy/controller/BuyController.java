@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sul.app.buy.service.BuyService;
+import com.sul.app.member.vo.MemberVo;
 import com.sul.app.product.vo.ProductVo;
 
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,12 @@ public class BuyController {
 		List<ProductVo> voList = service.buyList(vo);
 		
 		return voList;
+	}
+	
+	//배송지 정보 조회
+	@GetMapping("address")
+	public MemberVo buyLoadAddress(MemberVo vo) {
+		return service.buyLoadAddress(vo);
 	}
 	
 

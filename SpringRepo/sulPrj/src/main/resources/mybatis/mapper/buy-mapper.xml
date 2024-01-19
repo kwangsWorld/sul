@@ -36,5 +36,9 @@
 		JOIN MEMBER M ON O.MEMBER_NO = M.MEMBER_NO
 		JOIN ADDRESS A ON A.MEMBER_NO = M.MEMBER_NO
 	</select>
+	
+	<select id="BuyLoadAddress" resultType="com.sul.app.member.vo.MemberVo">
+	
+	</select>
 
 </mapper>

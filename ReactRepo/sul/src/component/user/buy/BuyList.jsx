@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
+
 const StyledBuyListDiv = styled.div`
     width: 100%;
     height: 100%;
@@ -81,10 +82,15 @@ const StyledBuyListDiv = styled.div`
 
 const BuyList = () => {
     const [isChecked, setIsChecked] = useState(false);
+    const [isArrowActivated, setIsArrowActivated] = useState(false);
 
     const handleCheckboxToggle = () => {
         setIsChecked((prev) => !prev);
     };
+
+    const handleArrowToggle = () => {
+        setIsArrowActivated((prev) => !prev);
+    }
     
     const obj = useLocation();
     console.log("obj : " , obj);
@@ -136,16 +142,16 @@ const BuyList = () => {
                     <div>총 결제 금액: {totalPrice}원</div>
                 </div>
 
-                <div className='toggleCheckbox'>
+                <div className='agree_user_info'>
                     <br />
-                    <input type="checkbox" onChange={handleCheckboxToggle}/>
+                    <input type="checkbox" checked={isChecked} onChange={handleCheckboxToggle}/>
                     <span className='checkbox_agree'>전통주 구매자의 정보수집·이용(필수)
-                        <span checked={isChecked} onClick={handleCheckboxToggle}>
-                            {/* {isChecked ? "▼" : "▲"} */}
+                        <span onClick={handleArrowToggle}>
+                            {!isArrowActivated ? "▼" : "▲"}
                         </span>
                     </span>
                     <br />
-                    {isChecked && 
+                    {isArrowActivated && 
                         <div className='checkbox_info'>
                             <div>개인정보 판매자 제공에 동의합니다.</div>
                             <div>제공받는자: "양조장"</div>

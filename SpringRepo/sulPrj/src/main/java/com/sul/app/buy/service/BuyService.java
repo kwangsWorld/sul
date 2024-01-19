@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sul.app.buy.dao.BuyDao;
+import com.sul.app.member.vo.MemberVo;
 import com.sul.app.product.vo.ProductVo;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,10 @@ public class BuyService {
 
 	public List<ProductVo> buyList(ProductVo vo) {
 		return dao.buyList(sst, vo);
+	}
+
+	public MemberVo buyLoadAddress(MemberVo vo) {
+		return dao.buyLoadAddress(sst, vo);
 	}
 
 }

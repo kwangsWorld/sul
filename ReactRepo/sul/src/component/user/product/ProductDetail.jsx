@@ -108,6 +108,7 @@ const ProductDetail = () => {
     const [cnt, setCnt] = useState(1);
 
     const obj = {
+        no : vo.productNo,
         name : vo.pName ,
         price : vo.price,
         capacity : vo.capacity,
