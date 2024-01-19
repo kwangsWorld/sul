@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sul.app.member.dao.MemberDao;
 import com.sul.app.member.vo.MemberVo;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+//@Transactional
 public class MemberService {
 
 	private final MemberDao dao;
@@ -37,7 +39,9 @@ public class MemberService {
 
 	//회원 정보 수정
 	public int edit(MemberVo vo) {
-		return dao.edit(sst, vo);
+		System.out.println("ddd");
+		int i = dao.edit(sst, vo);
+		return i;
 	}
 
 	//회원 탈퇴

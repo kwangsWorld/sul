@@ -24,8 +24,7 @@
 				 PWD = #{pwd}, 
 				 EMAIL = #{email}, 
 				 NICK = #{nick}, 
-				 TEL = #{tel}, 
-				 MODIFY_DATE=SYSDATE
+				 TEL = #{tel}
 			WHERE MEMBER_NO = #{memberNo}
 			AND DEL_YN = 'N'
 	</update>

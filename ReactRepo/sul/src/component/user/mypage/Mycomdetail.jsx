@@ -41,9 +41,13 @@ const StyledComdetailDiv = styled.div`
     padding-left: 10%;
     font-weight: bold;
   }
-
   tr:first-child{
+    height: 45px;
+  }
+  tr{
     border-bottom: 2px solid gray;
+  }
+  td:nth-child(2){
   }
   input {
     border: 2px solid lightgray;
@@ -51,7 +55,14 @@ const StyledComdetailDiv = styled.div`
   }
   textarea{
     border: none;
-    padding-top: 5%;
+    text-align: center;
+    padding-top: 4%;
+  }
+  .tse{
+    width: 200px;
+    margin-left: 20%;
+    height: 200px;
+    text-align: left;
   }
   .second {
     border-top: 2px solid gray;
@@ -114,7 +125,7 @@ const Comdetail = () => {
     const editVo = {
         ...vo,
         title: editedTitle,
-        contene: editedContent,
+        content: editedContent,
         img: editedImg,
     };
 
@@ -139,6 +150,18 @@ const Comdetail = () => {
     .catch((e) => {
         alert("게시글 수정 중 에러 발생");
     });
+  };
+
+  const handleImgChange = (event) => {
+    setEditedImg(event.target.value);
+  }
+
+  const handleContentChange = (event) => {
+    setEditedContent(event.target.value);
+  }
+
+  const handleTitleChange = (event) => {
+    setEditedTitle(event.target.value);
   }
 
   return (
@@ -150,12 +173,15 @@ const Comdetail = () => {
           <tbody>
             <tr>
               <td>제목</td>
-              <td><textarea>{communityVo.title}</textarea></td>
+              <td><textarea name='title' value={editedTitle} onChange={handleTitleChange}>
+                {communityVo.title}</textarea></td>
               <td>{communityVo.nick}</td>
             </tr>
             <tr>
-              <td className='img'>{communityVo.img}이미지</td>
-              <td className='img'><textarea>{communityVo.content}</textarea></td>
+              <td className='img' name='img' value={editedImg} onChange={handleImgChange}>
+                {communityVo.img}이미지</td>
+              <td className='content'><textarea className='tse' name='content' value={editedContent} onChange={handleContentChange}>
+                {communityVo.content}</textarea></td>
             </tr>
             {communitycommtVo.map((vo) => (
               <tr key={vo.communitycommtNo}>

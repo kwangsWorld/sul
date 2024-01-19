@@ -70,7 +70,9 @@ public class MemberController {
 	@PostMapping("edit")
 	public Map<String, Object> edit(@RequestBody MemberVo vo) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(vo);
 		int result = service.edit(vo);
+		System.out.println("dd" + result);
 		if(result == 1) {
 			map.put("msg", "good");
 		}else {

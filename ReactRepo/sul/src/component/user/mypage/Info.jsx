@@ -53,7 +53,7 @@ const Info = () => {
             <table>
                 <tr>
                     <td className='font'><h3>회원정보</h3></td>
-                    <td  className='font'><Link className='alink'>수정</Link></td>
+                    <td  className='font'><Link className='alink' to="/mypage/infoedit">수정</Link></td>
                 </tr>
                 {
                     <>
@@ -73,6 +73,10 @@ const Info = () => {
                         <tr>
                             <td>이메일</td>
                             <td>{loginInfo.email}</td>
+                        </tr>
+                        <tr>
+                            <td>아이디</td>
+                            <td>{loginInfo.id}</td>
                         </tr>
                         <tr>
                             <td>비밀번호</td>

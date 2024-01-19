@@ -16,6 +16,9 @@ flex-direction: column;
     margin-bottom: 20%;
     margin-top: 7%;
    }
+   tr:hover{
+    background-color: lightgray;
+   }
   
    .font{
         font-size: 30px;
