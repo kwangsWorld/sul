@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaChevronDown, FaChevronUp} from 'react-icons/fa'
 
 const StyledBuyListDiv = styled.div`
     width: 100%;
