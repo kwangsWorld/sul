@@ -72,12 +72,12 @@ const StyledAdminNoticeWriteDiv = styled.div`
 const AdminNoticeWrite = () => {
 
     const navigate = useNavigate();
-    // const adminMemberVo = sessionStorage.getItem("adminMemberVo");
-    // const vo = JSON.parse(adminMemberVo);
-    // const adminNo = vo.no;
+    const loginAdminVo = sessionStorage.getItem("loginAdminVo");
+    const vo = JSON.parse(loginAdminVo);
+    const adminNo = vo.adminNo;
 
     const [inputNoticeVo , setInputNoticeVo] = useState({
-        // "adminNo" : adminNo
+        "adminNo" : adminNo, 
     });
 
     const handleWrite = (event) => {

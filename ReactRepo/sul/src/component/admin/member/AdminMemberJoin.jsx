@@ -99,7 +99,7 @@ const AdminMemberJoin = () => {
         .then( (data) => {
             if( data.msg === "good" ){
                 alert("등록 성공")
-                navigate("/admin/notice/list");
+                navigate("/admin/member/first");
             }else{
                 alert("등록 실패")
                 navigate("/");
