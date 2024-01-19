@@ -40,7 +40,6 @@ public class AdminController {
 	// 로그인
 	@PostMapping("login")
 	public Map<String,Object> login(@RequestBody AdminVo vo) {
-		System.out.println(vo);
 		AdminVo loginAdmin = service.login(vo);
 		
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -50,7 +49,6 @@ public class AdminController {
 		if(loginAdmin == null) {
 			map.put("msg", "bad");
 		}
-		
 		return map;
 		
 	}

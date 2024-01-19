@@ -37,7 +37,7 @@ public class AdminNoticeController {
 	// 공지사항 작성
 	@PostMapping("write")
 	public Map<String, String> write(@RequestBody NoticeVo vo) throws Exception {
-
+System.out.println(vo);
 		Map<String, String> map = new HashMap<String, String>();
 		int result = service.write(vo);
 
@@ -46,6 +46,7 @@ public class AdminNoticeController {
 		} else {
 			map.put("msg", "bad");
 		}
+		System.out.println(vo);
 		return map;
 	}
 

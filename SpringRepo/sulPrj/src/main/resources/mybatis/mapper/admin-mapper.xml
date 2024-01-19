@@ -10,9 +10,7 @@
 	</insert>
 	
 	<select id="login" resultType="com.sul.app.admin.vo.AdminVo">
-		SELECT 
-		    ADMIN_NO
-		    , ADMIN_NAME
+		SELECT *
 		FROM ADMIN
 		WHERE DEL_YN ='N' 
 		AND ADMIN_ID = #{adminId} 

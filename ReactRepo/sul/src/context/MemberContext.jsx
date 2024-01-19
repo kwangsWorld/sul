@@ -23,6 +23,16 @@ const MemberContextProvider = ( {children} ) => {
         }
     }
 
+    console.log("adminLoginMember" , adminLoginMember);
+    if(adminLoginMember === null){
+        const jsonStr = sessionStorage.getItem("loginAdminVo");
+        console.log("jsonStr" , jsonStr);
+        if(jsonStr !== null){
+            const vo = JSON.parse(jsonStr);
+            setAdminLoginMember(vo);
+        }
+    }
+
     return <MemberContext.Provider value={obj}>
         {children}
     </MemberContext.Provider>

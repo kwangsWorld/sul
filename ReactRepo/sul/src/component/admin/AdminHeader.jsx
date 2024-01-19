@@ -51,16 +51,28 @@ const StyledAdminHeaderDiv = styled.div`
 
 const AdminHeader = () => {
 
-    const [adminLoginMember] = useContext(MemberContext);
+    const {adminLoginMember ,setAdminLoginMember} = useContext(MemberContext);
     const navigate = useNavigate();
-    const [loginInfo , setLoginInfo] = useState(JSON.parse(sessionStorage.getItem('adminLoginMemberVo')));
-
+    
+    // 페이지 로드 시 세션 스토리지에서 로그인 정보 가져오기
+    const [adminLoginInfo, setAdminLoginInfo] = useState( () => {
+        const adminLoginInfoStr = sessionStorage.getItem('loginAdminVo');
+        return JSON.parse(adminLoginInfoStr) || null;
+    });
 
     const handleLogout = () => {
-        sessionStorage.removeItem("adminLoginMemberVo");
-        setLoginInfo(null);
+        sessionStorage.removeItem("loginAdminVo");
+        setAdminLoginInfo(null);
+        setAdminLoginMember(null);
         navigate("/admin/member/first")
     }
+
+    const handleHome = () => {
+        sessionStorage.removeItem("loginAdminVo");
+        setAdminLoginInfo(null);
+        setAdminLoginMember(null);
+        navigate("/product/list")
+    };
 
     return (
         <StyledAdminHeaderDiv>
@@ -75,9 +87,11 @@ const AdminHeader = () => {
                     {adminLoginMember === null
                         ?
                         <>
-                            <div></div>
+                            <div onClick={handleHome}>
+                                홈으로
+                            </div>
                         </>
-                        :
+                         :
                         <>
                             <div className='join'>
                                 <Link to="/admin/notice/list">

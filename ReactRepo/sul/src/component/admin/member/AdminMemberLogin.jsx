@@ -61,57 +61,58 @@ width: 100%;
 
 const AdminMemberLogin = () => {
 
-        const navigate = useNavigate();
+    const navigate = useNavigate();
 
-        const [loginMemberVo , setLoginMemberVo] = useContext(MemberContext);
-        
-        const sessionVo = sessionStorage.getItem("loginMemberVo");
-        const sessionLoginMemberVo = JSON.parse(sessionVo);
-        // const [loginMemberVo , setLoginMemberVo] = useState(sessionLoginMemberVo);
-    
-        const [vo, setVo] = useState({
-            adminId: "",
-            adminPwd: "",
+    const { adminLoginMember, setAdminLoginMember } = useContext(MemberContext);
+
+    const jsonStr = sessionStorage.getItem("loginAdminVo");
+    const sessionAdminLoginMemberVo = JSON.parse(jsonStr);
+
+    const [vo, setVo] = useState({
+        adminId: "",
+        adminPwd: "",
+    });
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+
+        setVo({
+            ...vo,
+            [name]: value
         });
-    
-        const handleInputChange = (event) => {
-            const { name, value } = event.target;
-    
-            setVo({
-                ...vo,
-                [name]: value
-            });
-        }
-    
-        const handleLoginSubmit = (event) => {
+    }
 
-            event.preventDefault();
+    const handleLoginSubmit = (event) => {
+        event.preventDefault();
 
-            fetch("http://127.0.0.1:8888/app/adminMember/login" , {
-                method : "post" ,
-                headers : {
-                    "Content-Type" : "application/json"
-                },
-                body : JSON.stringify(vo) ,
-            })
-            .then( (resp) => { return resp.json() } )
-            .then( (data) => {
-                if(data.msg === "good"){
+        fetch("http://127.0.0.1:8888/app/adminMember/login", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(vo),
+        })
+            .then((resp) => { return resp.json() })
+            .then((data) => {
+                if (data.msg === "good") {
                     alert("로그인 성공")
-                    
-                    setLoginMemberVo(data.loginMemberVo);
+                    setAdminLoginMember(data.loginAdminVo);
 
-                    sessionStorage.setItem("loginMemberVo" , JSON.stringify(data.loginMemberVo));
+                    sessionStorage.setItem("loginAdminVo", JSON.stringify(data.loginAdminVo));
 
                     navigate("/admin/notice/list");
-                }else{
+                } else {
                     alert("로그인 실패");
                 }
-            } )
-            .catch( (error) => {
-                alert("에러발생")
-            } );
-        };
+            })
+            .catch((error) => {
+                console.error("에러 발생:", error);
+                alert("에러 발생. 콘솔을 확인하세요.");
+            })
+            .finally((error) => {
+                console.log("로그인 fetch 끝");
+            });
+    };
 
     return (
         <StyledAdminMemberLogin>
@@ -132,7 +133,7 @@ const AdminMemberLogin = () => {
                             <td><input type='password' name='adminPwd' placeholder='비밀번호' onChange={handleInputChange} /></td>
                         </tr>
                         <tr>
-                            <td><input className='btn' type='submit' value='로그인' style={{backgroundColor: '#ffe23dfb'}}/></td>
+                            <td><input className='btn' type='submit' value='로그인' style={{ backgroundColor: '#ffe23dfb' }} /></td>
                         </tr>
                     </tbody>
                 </table>
