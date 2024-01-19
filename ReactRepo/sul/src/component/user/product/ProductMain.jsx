@@ -17,6 +17,7 @@ const ProductMain = () => {
             <Route path='list/3' element={<ProductWine/>}/>
             <Route path='list/4' element={<ProductSoju/>}/>
             <Route path='detail/:productNo' element={<ProductDetail/>}/>
+            <Route path='/' element={<ProductList/>}/>
         </Routes>
     );
 };

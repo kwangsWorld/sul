@@ -9,6 +9,7 @@ import CartMain from './cart/CartMain';
 import BuyMain from './buy/BuyMain';
 import NoticeMain from './notice/NoticeMain';
 import CsBoardMain from './csboard/CsBoardMain';
+import ProductList from './product/ProductList';
 
 const StyledMainDiv = styled.div`
     min-width: 1500px;
@@ -21,6 +22,7 @@ const Main = () => {
     return (
         <StyledMainDiv>
             <Routes>
+                <Route path='/' element={<ProductList />}></Route>
                 <Route path='/member/*' element={<MemberMain />}></Route>
                 <Route path='/mypage/*' element={<MypageMain />}></Route>
                 <Route path='/community/*' element={<ComMain />}></Route>

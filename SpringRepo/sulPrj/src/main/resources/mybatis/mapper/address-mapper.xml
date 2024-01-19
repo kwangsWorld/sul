@@ -11,6 +11,10 @@
 	(SEQ_ADDRESS_NO.NEXTVAL, #{address}, 'N', #{memberNo})
 	</insert>
 	
+	<update id="selectBasicAdrress">
+	
+	</update>
+	
 	<update id="delete">
 		UPDATE ADDRESS
 			SET DEL_YN = 'Y'

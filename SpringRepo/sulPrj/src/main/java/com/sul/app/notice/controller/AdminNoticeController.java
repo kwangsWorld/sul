@@ -1,5 +1,6 @@
 package com.sul.app.notice.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +39,15 @@ public class AdminNoticeController {
 		//전체페이지 수 구하기  (전체 리스트를 조회하여 토탈페이지 수를 구하는 매퍼 하나)
 	      //리스트가 121개이고 리미트가 10일 경우 13페이지까지 나와야 함
 	      //121을 10(리미트)로 나누면 12.1이 나오고 ceil을 사용하여 소수점 올림 == 13
-
+		int pageTotal = (int)Math.ceil((double)service.list(vo).size()/Integer.parseInt(vo.getLimit()));
 		
-		return service.list(vo);
+		List<NoticeVo> voList = new ArrayList<NoticeVo>();
+		
+		voList = service.list(vo);
+		map.put("pageTotal", pageTotal);
+		map.put("voList", voList);
+		
+		return map;
 	}
 
 	// 공자시항 상세 조회

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +38,13 @@ public class AddressController {
 		return map;
 	}
 	
-	//s주소삭제
+	//기본배송지 설정
+	@PostMapping("selectBasicAdrress")
+	public int selectBasicAdrress() {
+		return 0;
+	}
+	
+	//주소삭제
 	@GetMapping("delete")
 	public Map<String, Object> delete(@RequestBody AddressVo vo) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();

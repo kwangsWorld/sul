@@ -17,12 +17,17 @@ public class AddressService {
 	private final AddressDao dao;
 	private final SqlSessionTemplate sst;
 	
-	//�추가
+	//주소추가
 	public int plus(AddressVo vo) throws Exception {
 		return dao.plus(sst, vo);
 	}
+	
+	//기본배송지 설정
+	public int selectBasicAdrress() {
+		return 0;
+	}
 
-	//삭제
+	//주소삭제
 	public int delete(AddressVo vo) {
 		return dao.delete(sst, vo);
 	}
