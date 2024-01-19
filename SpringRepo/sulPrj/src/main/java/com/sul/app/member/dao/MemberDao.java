@@ -17,11 +17,13 @@ public class MemberDao {
 
 	//로그인
 	public MemberVo login(SqlSessionTemplate sst, MemberVo vo) {
+		
 		return sst.selectOne("MemberMapper.login", vo);
 	}
 
 	//회원정보 수정
 	public int edit(SqlSessionTemplate sst, MemberVo vo) {
+		System.out.println("dd222");
 		return sst.update("MemberMapper.edit",vo);
 	}
 

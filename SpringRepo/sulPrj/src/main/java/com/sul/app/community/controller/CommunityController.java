@@ -31,7 +31,6 @@ public class CommunityController {
 	@PostMapping("insert")
 	public Map<String, String> insert(@RequestBody CommunityVo vo, HttpSession session) {
 		Map<String, String> map = new HashMap<String, String>();
-		System.out.println(vo);
 		int result = service.insert(vo);
 		
 		if(result == 1) {

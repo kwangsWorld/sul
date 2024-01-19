@@ -52,18 +52,8 @@
 	
 	<update id="edit">
 		UPDATE COMMUNITY 
-		SET 
-		<trim prefixOverrides=",">
-			<if test="title != null and title != '' ">
-				TITLE = #{title} 
-			</if>
-			<if test="content != null and content != '' ">
-				, CONTENT = #{content} 			
-			</if>
-		</trim>
-		, MODIFY_DATE = SYSDATE 
-		WHERE COMMUNITY_NO = #{communityNo} 
-		AND DEL_YN = 'N'
+		SET TITLE = #{title} , CONTENT = #{content} , MODIFY_DATE = SYSDATE 
+		WHERE COMMUNITY_NO = #{communityNo} AND DEL_YN = 'N'
 	</update>
 	
 </mapper>

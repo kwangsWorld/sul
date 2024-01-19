@@ -82,7 +82,7 @@ const StyledHeaderDiv = styled.div`
 
 const Header = () => {
 
-    const {loginMember} = useContext(MemberContext);
+    const {loginMember, setLoginMember} = useContext(MemberContext);
  
     const navigate = useNavigate();
 
@@ -98,6 +98,7 @@ const Header = () => {
     const handleLogout = () => {
         sessionStorage.removeItem("loginMemberVo");
         setLoginInfo(null);
+        setLoginMember(null);
         navigate("/product/list")
     };
 

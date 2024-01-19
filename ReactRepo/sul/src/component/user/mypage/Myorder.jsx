@@ -37,7 +37,9 @@ const StyledMyorderDiv = styled.div`
   td:first-child{
    display: flex;
    justify-content: center;
-   border-bottom: 2px solid gray;
+  }
+  .td{
+    border-bottom: 2px solid gray;
   }
   .tel{
     padding-left: 7%;
@@ -82,6 +84,7 @@ const StyledMyorderDiv = styled.div`
   .second{
     width: 100%;
     height: 100%;
+    border: 2px solid lightgray;
   }
   .content{
     width: 90%;
@@ -146,7 +149,7 @@ const Myorder = () => {
               <h3>주문내역이 없습니다.</h3>
               :
               orderVoList.map( vo  => <tr key={vo.orderNo}>
-                  <td>{loginInfo.name}<div className='tel'>{loginInfo.tel}</div></td>
+                  <td className='td'>{loginInfo.name}<div className='tel'>{loginInfo.tel}</div></td>
                   <td className='child'>{vo.deliveryStatus}</td>
                   <td className='child'>주문날짜 : {vo.orderDate}</td>
                   <td className='child'>{vo.image}</td>
@@ -178,16 +181,16 @@ const Myorder = () => {
           <form>
             <table className='second'>
                 <tbody>
-                    <tr>
+                    <tr className='tr'>
                         <td>상품이름</td>
                     </tr>
-                    <tr>
+                    <tr className='tr'>
                         <td>별점⭐⭐⭐</td>
                     </tr>
-                    <tr>
+                    <tr className='tr'>
                         <td><input className='content' type='text' name='content' placeholder='내용을 입력해주세요' /></td>
                     </tr>
-                    <tr>
+                    <tr className='tr'>
                         <td><input className='file' type='file' name='file' /></td>
                     </tr>
                 </tbody>

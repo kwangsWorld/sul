@@ -31,6 +31,7 @@ height: 100%;
         color: black;
         font-weight: bold;
     }
+    
 `;
 
 const Myheader = () => {
