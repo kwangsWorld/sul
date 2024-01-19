@@ -12,14 +12,14 @@ display: flex;
 flex-direction: column;
 margin-top: 5%;
   table{
-    border: 3px solid gray;
+    border: 2px solid gray;
     width: 40%;
     height: 100%;
     margin-bottom: 10%;
   }
   tr{
     display: flex;
-    border-top: 3px solid gray;
+    border-top: 2px solid gray;
     flex-direction: column;
   }
   tr:first-child{

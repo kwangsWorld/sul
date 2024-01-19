@@ -14,7 +14,7 @@ flex-direction: column;
     width: 60%;
     border-collapse: collapse;
     margin-bottom: 20%;
-    margin-top: 15%;
+    margin-top: 7%;
    }
   
    .font{
