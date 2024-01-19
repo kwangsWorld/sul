@@ -29,7 +29,8 @@
 			, P.PRICE
 			, P.IMAGE
 			, P.DEL_YN
-			, R.RATING  
+			, R.RATING
+			, P.ENROLL_DATE  
 		FROM PRODUCT P
 		JOIN ORDERS O ON P.PRODUCT_NO = O.PRODUCT_NO
 		JOIN ORDERS_LIST OL ON O.ORDER_NO = OL.ORDER_NO
@@ -47,6 +48,7 @@
 		    , P.PRICE
 		    , P.DEL_YN
 		    , R.RATING
+		    , P.ENROLL_DATE
 		FROM PRODUCT P
 		JOIN ORDERS O ON P.PRODUCT_NO = O.PRODUCT_NO
 		JOIN ORDERS_LIST OL ON O.ORDER_NO = OL.ORDER_NO
@@ -66,9 +68,10 @@
 			, P.PRICE
 			, P.DEGREE
 			, P.CAPACITY
-			,P.EXPIRY_DATE
+			, P.EXPIRY_DATE
 			, P.IMAGE
 			, P.STORAGE
+			, P.ENROLL_DATE
 			, P.TASTE
 			, P.APPETIZER
 			, P.DEL_YN
@@ -82,7 +85,7 @@
 		AND P.DEL_YN = 'N'
 	</select>
 	
-	<select id="search" resultType="">
+	<select id="search" resultType="com.sul.app.product.vo.ProductVo">
 	SELECT 
 		P.NAME
 		, P.PRICE
