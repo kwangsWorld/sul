@@ -19,5 +19,6 @@ public class CommunityVo {
 	private String ccontent;
 	private String cenrollDate;
 	private String cmemberNo;
+
 		
 }
