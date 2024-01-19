@@ -52,7 +52,7 @@ const StyledMyaddressDiv = styled.div`
     width: 50%;
     height: 50px;
     border: none;
-    border-bottom: 2px solid gray;
+    border-bottom: 1px solid gray;
   }
 
   .btn {
@@ -85,7 +85,13 @@ const Myaddress = () => {
   }, []);
 
   const loadAddressList = () => {
-    fetch("http://127.0.0.1:8888/app/address/list")
+    fetch("http://127.0.0.1:8888/app/address/list",{
+      method : 'post',
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify(loginInfo)
+    })
       .then((resp) => resp.json())
       .then((data) => {
         setAddressList(data);
@@ -114,6 +120,7 @@ const Myaddress = () => {
       .then((data) => {
         if (data.msg === 'good') {
           alert('배송지가 추가되었습니다.');
+          navigate("/mypage/myaddress")
           loadAddressList();
         } else {
           alert('다시 추가해주세요.');
@@ -176,25 +183,7 @@ const Myaddress = () => {
           </tbody>
         </table>
       </form>
-      <table>
-        <tbody>
-          {addressList.map((address) => (
-            <tr key={address.addressNo}>
-              <td>{address.name}</td>
-              <td>{address.tel}</td>
-              <td>{address.address}</td>
-              <td>
-                <button
-                  className='deleteBtn'
-                  onClick={() => handleDelete(address.addressNo)}
-                >
-                  삭제
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      
     </StyledMyaddressDiv>
   );
 };

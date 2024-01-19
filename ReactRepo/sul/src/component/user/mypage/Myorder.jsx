@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Myheader from './Myheader';
 
 const StyledMyorderDiv = styled.div`
+  h3{
+    text-align: center;
+  }
   .main {
     width: 100%;
     height: 100%;
@@ -12,39 +15,35 @@ const StyledMyorderDiv = styled.div`
     flex-direction: column;
     padding-top: 5%;
   }
-  .ul {
-    width: 60%;
-    height: 20%;
-    list-style: none;
-    display: flex;
-    border: 3px solid gray;
-    border-radius: 30px;
-  }
-
-  .ul > li {
-    padding-left: 15%;
-    padding-top: 3%;
-    padding-bottom: 3%;
-    font-size: 20px;
-    font-weight: bold;
-    color: gray;
-    margin-right: 6%;
-  }
 
   table {
     border-collapse: collapse;
     width: 40%;
     border: 2px solid gray;
   }
+  tr{
+    display: flex;
+    flex-direction: column;
+  }
   tr:nth-child(5) {
     border-bottom: 1px solid gray;
   }
   table td {
-    padding-left: 19%;
-    padding-top: 2%;
+    padding-top: 3%;
     padding-bottom: 3%;
     text-align: left;
     font-weight: bold;
+  }
+  td:first-child{
+   display: flex;
+   justify-content: center;
+   border-bottom: 2px solid gray;
+  }
+  .tel{
+    padding-left: 7%;
+  }
+  .child{
+    padding-left: 18%;
   }
   .submit {
     width: 70%;
@@ -105,7 +104,27 @@ const StyledMyorderDiv = styled.div`
 `;
 
 const Myorder = () => {
+ const [orderVoList, setOrderVoList] = useState([]);
+  const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
   const [showModal, setShowModal] = useState(false);
+
+  const loadOrderVoList = () => {
+    fetch("http://127.0.0.1:8888/app/order/list",{
+      method : 'post',
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify(loginInfo)
+    })
+    .then( resp => resp.json())
+    .then((x) => {setOrderVoList(x);})
+    ;
+  }
+  
+  useEffect( ()=> {
+    console.log("useEffect호출");
+    loadOrderVoList();
+  },[]);
 
   const handleReviewClick = () => {
     setShowModal(true);
@@ -119,25 +138,22 @@ const Myorder = () => {
     <StyledMyorderDiv showModal={showModal}>
       <Myheader />
       <div className='main'>
-        <ul className='ul'>
-          <li>배송준비중</li>
-          <li>배송중</li>
-          <li>배송완료</li>
-        </ul>
         <table>
           <tbody>
-            <tr>
-              <td>2022.01.01</td>
-            </tr>
-            <tr>
-              <td>이미지</td>
-            </tr>
-            <tr>
-              <td>술이름술술</td>
-            </tr>
-            <tr>
-              <td>수량1개</td>
-            </tr>
+            {
+              orderVoList.length === 0
+              ?
+              <h3>주문내역이 없습니다.</h3>
+              :
+              orderVoList.map( vo  => <tr key={vo.orderNo}>
+                  <td>{loginInfo.name}<div className='tel'>{loginInfo.tel}</div></td>
+                  <td className='child'>{vo.deliveryStatus}</td>
+                  <td className='child'>주문날짜 : {vo.orderDate}</td>
+                  <td className='child'>{vo.image}</td>
+                  <td className='child'>품명 : {vo.name}</td>
+                  <td className='child'>수량 : {vo.quantity}</td>
+                </tr> )   
+            }
             <tr>
               <td>
                 <input
