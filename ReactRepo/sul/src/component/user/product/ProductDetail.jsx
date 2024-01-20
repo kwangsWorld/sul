@@ -135,12 +135,18 @@ const ProductDetail = () => {
 
     useEffect( () => {
         loadDetailList();
-        // minus();
     } , [] );
 
-    // useEffect( () => {
-    //     minus();
-    // }, [] );
+    const addCart = () => {
+        fetch("http://127.0.0.1:8888/app/cart/add",{
+            method: 'post' ,
+            headers: {
+                "Content-Type" : "appplication/json"
+            },
+            body: JSON.stringify({vo})})
+            .then( (resp) => {return resp.json()})
+    };
+
 
     const totalPrice = vo.price * cnt;
 
@@ -219,7 +225,8 @@ const ProductDetail = () => {
                         </tr>
                         <tr>
                             <td colSpan={2}>
-                                <button className='go_cart' onClick={()=> {navigate("/cart/list");}}>🛒장바구니</button>
+                                <button className='go_cart' 
+                                    onClick={()=> {navigate("/cart/list", {state:obj}); addCart(); }}>🛒장바구니</button>
                             </td>
                             <td colSpan={2}>
                                 <button className='go_buy' onClick={()=> {navigate("/buy/list" , {state:obj});}}>💰구매하기</button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledCartListDiv = styled.div`
@@ -41,14 +41,36 @@ const StyledCartListDiv = styled.div`
         align-items: center;
     }
 
-    .count_box{
+    .total_list{
         display: flex;
-    }
 
-    .list{
-        display: flex;
         /* background-color: khaki; */
     }
+
+    .cnt_box{
+        width: 100px;
+        height: 30px;
+        display: grid;
+        grid-template-columns: 3fr 3fr 3fr;
+        border:1px solid lightgray;
+        border-radius: 10px;
+        font-size:20px;
+        text-align: center;
+    }
+
+    .plus{
+        width: 100%;
+        height: 100%;
+        border-right: 1px solid lightgray;
+    }
+
+    .minus{
+        width: 100%;
+        height: 100%;
+        border-left: 1px solid lightgray;
+    }
+
+
 
 
     .detail{
@@ -66,6 +88,14 @@ const CartList = () => {
 
     const navigate = useNavigate();
 
+    const cartObj = useLocation();
+
+    console.log("cartObj : " , cartObj);
+    const totalPrice = cartObj.state.price * cartObj.state.cnt;
+
+
+
+
     return (
         <StyledCartListDiv>
             <div className='cart_wrap'>
@@ -81,7 +111,7 @@ const CartList = () => {
                     </div>
                 </div>
                 
-                <div><span>22</span></div>
+                <div><span>계산서</span></div>
 
 
                 <div className='bottom_left_wrap'>
@@ -91,35 +121,35 @@ const CartList = () => {
                             <input type="checkbox" />
                         </div>
                         
-                        <div className='list'>
+                        <div className='total_list'>
                             <img 
                             width= '70px' 
                             height= '70px' 
                             src="https://m.soollove.com/web/product/big/202312/57fda681ed7628e049055c3f0df77ba9.jpg" 
                             alt="bottle" 
                                 />
-                                <div>WON SOJU</div>
-                        </div>
-                        <div><span>test</span></div>
-                            <div className='detail'>
-                            <div className='count_box'>
-                                <div>
-                                    <img width= '30px' height= '30px' src="https://cdn.icon-icons.com/icons2/1674/PNG/512/minus_111123.png" alt="마이너스" />
-                                </div>
-                                <input type="number" />
-                                <div>
-                                    <img width= '30px' height= '30px'src="https://cdn.icon-icons.com/icons2/510/PNG/512/plus-round_icon-icons.com_50065.png" alt="플러스" />
-                                </div>
+                            <div>
+                                <div>이름: {cartObj.state.name}</div>
+                                <div>용량: {cartObj.state.capacity}ml</div>
+                                <div>가격: {cartObj.state.price}원</div>
                             </div>
-                            <div className='price'>가격:38000원</div>
                             
+                        </div>
+                        <div><span></span></div>
+                            <div className='detail'>
+                            <div className='cnt_box'>
+                                <div className='plus'>-</div>
+                                <div className='cnt'>{cartObj.state.cnt} </div>
+                                <div className='minus'>+</div>
+                            </div>
+                            <div className='price'></div>
                         </div>
                     </div>
                 </div>
 
                 <div className='bottom_right'>
                     <br />
-                    총 결제 금액: 38000원
+                    총 결제 금액: {totalPrice}원
                     <br />
                     <button onClick={()=>{navigate("/buy/list");}}>구매하기</button>
                 </div>
