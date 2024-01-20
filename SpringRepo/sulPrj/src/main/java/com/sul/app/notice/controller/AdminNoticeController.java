@@ -27,7 +27,7 @@ public class AdminNoticeController {
 	// 공지사항 목록 조회
 	@PostMapping("list")
 	public Map<String, Object> list(@RequestBody PageVo vo) {
-		
+		System.out.println(vo);
 		Map<String,Object> map = new HashMap<String, Object>();
 		 //pageNo의 값 바꿔주기 페이지 1에 리스트 10를 불러올거면 (페이지와 리미트를 가지고 조회하는 매퍼 하나)
 	      //1페이지 : pageNo = 0, limit = 10
