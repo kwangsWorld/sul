@@ -7,21 +7,19 @@
 	<insert id="add">
 		INSERT INTO CART(
 			CART_NO
-			, MEMBER_NO
 			, PRODUCT_NO
 			, PRICE
-			, QUANTITY
+			, DEGREE
 		)
 		VALUES(
 			SEQ_CART_NO.NEXTVAL
-			, SEQ_MEMBER_NO.CURRVAL
 			, #{PRODUCT_NO}
 			, #{PRICE}
-			, 1 (JS에서 가져와야할듯..)
+			, #{DEGREE}
 			)
 	</insert>
 	
-	<select id="buyList" resultType="com.sul.app.product.vo.ProductVo">
+	<select id="CartList" resultType="com.sul.app.product.vo.ProductVo">
 		SELECT 
 			P.NAME
 			, C.QUANTITY
