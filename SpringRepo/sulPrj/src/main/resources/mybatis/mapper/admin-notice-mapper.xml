@@ -15,7 +15,7 @@
 		    , DEL_YN
 		FROM NOTICE
 		ORDER BY NOTICE_NO ASC
-		OFFSET {pageNo} ROWS FETCH NEXT {limit} ROWS ONLY
+		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.notice.vo.NoticeVo">
