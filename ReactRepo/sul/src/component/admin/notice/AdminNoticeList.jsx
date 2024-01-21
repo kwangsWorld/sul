@@ -107,8 +107,8 @@ const AdminNoticeList = () => {
     const [select, setSelect] = useState();
     const [input, setInput] = useState();
     const [voList , setVoList] = useState([]);
-    const [currentPage , setCurrentPage] = useState(1);
-    const [pageTotal , setPageTotal] = useState(1);
+    const [currentPage , setCurrentPage] = useState();
+    const [pageTotal , setPageTotal] = useState();
 
     // 목록조회
     const loadAdminNoticeVoList = (page = 1) => {
