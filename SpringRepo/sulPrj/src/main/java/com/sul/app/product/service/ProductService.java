@@ -23,15 +23,15 @@ public class ProductService {
 	}
 	
 	public List<ProductVo> listByRating(ProductVo vo){
-		System.out.println("서비스 오나?");
+//		System.out.println("서비스 오나?");
 		return dao.listByRating(sst, vo);
 	}
 
 	//제품 카테고리별 전체 조회
 	public List<ProductVo> listByCategory(String str) {
-		List<ProductVo> a = dao.listByCategory(sst, str);
-		a.forEach(System.out::println);
-		return a;
+		List<ProductVo> voList = dao.listByCategory(sst, str);
+//		voList.forEach(System.out::println);
+		return voList;
 	}
 
 	//제품 상세 조회

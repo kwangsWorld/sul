@@ -29,7 +29,7 @@ public class ProductController {
 	
 	@GetMapping("listByRating")
 	public List<ProductVo> listByRating(ProductVo vo){
-		System.out.println("컨트롤러 오나?");
+//		System.out.println("컨트롤러 오나?");
 		List<ProductVo> voList = service.listByRating(vo);
 		return voList;
 	}
@@ -44,8 +44,9 @@ public class ProductController {
 	//제품 상세 조회
 	@GetMapping("detail")
 	public ProductVo detail(ProductVo vo) {
+//		System.out.println("detail vo값 : " + vo);
 		ProductVo productVo = service.detail(vo);
-		System.out.println(productVo);
+//		System.out.println("상세조회 vo: " + productVo);
 		return productVo;
 	}
 	

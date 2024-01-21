@@ -121,10 +121,16 @@ const ProductDetail = () => {
         .then(resp => resp.json())
         .then(data => {
             setVo(data)
-            console.log("vo : " + vo);
         })
         ;
     }
+
+    useEffect( () => {
+        loadDetailList();
+    } , [] );
+
+    console.log("vo : " + vo);
+
     const minus = () => {
         if(cnt>1)
         setCnt(cnt-1);
@@ -133,19 +139,20 @@ const ProductDetail = () => {
         setCnt(cnt+1);
     }
 
-    useEffect( () => {
-        loadDetailList();
-    } , [] );
 
-    const addCart = () => {
-        fetch("http://127.0.0.1:8888/app/cart/add",{
-            method: 'post' ,
-            headers: {
-                "Content-Type" : "appplication/json"
-            },
-            body: JSON.stringify({vo})})
-            .then( (resp) => {return resp.json()})
-    };
+        const addCart = () => {
+            const productInfo = {
+                ...vo,
+                cnt : cnt
+            };
+            fetch("http://127.0.0.1:8888/app/cart/add",{
+                method: 'post' ,
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify(productInfo)})
+                .then( (resp) => {return resp.json()})
+        };
 
 
     const totalPrice = vo.price * cnt;
@@ -226,7 +233,7 @@ const ProductDetail = () => {
                         <tr>
                             <td colSpan={2}>
                                 <button className='go_cart' 
-                                    onClick={()=> {navigate("/cart/list", {state:obj}); addCart(); }}>🛒장바구니</button>
+                                    onClick={()=> {navigate("/cart/list", {state:cnt}); addCart(); }}>🛒장바구니</button>
                             </td>
                             <td colSpan={2}>
                                 <button className='go_buy' onClick={()=> {navigate("/buy/list" , {state:obj});}}>💰구매하기</button>

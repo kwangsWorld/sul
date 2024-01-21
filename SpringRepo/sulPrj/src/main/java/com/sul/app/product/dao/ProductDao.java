@@ -16,9 +16,9 @@ public class ProductDao {
 	}
 	
 	public List<ProductVo> listByRating(SqlSessionTemplate sst, ProductVo vo){
-		System.out.println("다오 오나?");
+//		System.out.println("다오 오나?");
 		List<ProductVo> voList = sst.selectList("ProductMapper.listByRating", vo);
-		System.out.println("다오 voList 값 : " + voList);
+//		System.out.println("다오 voList 값 : " + voList);
 		return voList;
 	}
 
