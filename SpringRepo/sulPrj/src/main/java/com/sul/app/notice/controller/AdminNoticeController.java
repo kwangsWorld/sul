@@ -46,7 +46,7 @@ public class AdminNoticeController {
 		voList = service.list(vo);
 		map.put("pageTotal", pageTotal);
 		map.put("voList", voList);
-		
+		System.out.println(map);
 		return map;
 	}
 
