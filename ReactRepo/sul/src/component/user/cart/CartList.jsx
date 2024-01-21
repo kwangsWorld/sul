@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -70,9 +70,6 @@ const StyledCartListDiv = styled.div`
         border-left: 1px solid lightgray;
     }
 
-
-
-
     .detail{
         display: flex;
         justify-content: space-between;
@@ -87,14 +84,19 @@ const StyledCartListDiv = styled.div`
 const CartList = () => {
 
     const navigate = useNavigate();
+    const [arr, setArr] = useState([]);
 
-    const cartObj = useLocation();
+    useEffect(() => {
+        fetch("http://127.0.0.1:8888/app/cart/list",
+            {method : 'get'})
+            .then( (resp) => {return resp.json()})
+            .then( (voList) => {return setArr(voList);
+            }
+        )
+        ;
+    } , [] );
 
-    console.log("cartObj : " , cartObj);
-    const totalPrice = cartObj.state.price * cartObj.state.cnt;
-
-
-
+    console.log("arr : " , arr);
 
     return (
         <StyledCartListDiv>
@@ -129,9 +131,9 @@ const CartList = () => {
                             alt="bottle" 
                                 />
                             <div>
-                                <div>이름: {cartObj.state.name}</div>
-                                <div>용량: {cartObj.state.capacity}ml</div>
-                                <div>가격: {cartObj.state.price}원</div>
+                                <div>이름: </div>
+                                <div>용량: ml</div>
+                                <div>가격: 원</div>
                             </div>
                             
                         </div>
@@ -139,7 +141,7 @@ const CartList = () => {
                             <div className='detail'>
                             <div className='cnt_box'>
                                 <div className='plus'>-</div>
-                                <div className='cnt'>{cartObj.state.cnt} </div>
+                                <div className='cnt'> 수량값 </div>
                                 <div className='minus'>+</div>
                             </div>
                             <div className='price'></div>
@@ -149,7 +151,7 @@ const CartList = () => {
 
                 <div className='bottom_right'>
                     <br />
-                    총 결제 금액: {totalPrice}원
+                    총 결제 금액: 총금액 땡땡 원
                     <br />
                     <button onClick={()=>{navigate("/buy/list");}}>구매하기</button>
                 </div>

@@ -20,5 +20,6 @@ public class ProductVo {
 	private String taste;
 	private String appetizer;
 	private String rating;
+	private String cnt;
 
 }

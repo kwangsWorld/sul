@@ -8,27 +8,31 @@
 		INSERT INTO CART(
 			CART_NO
 			, PRODUCT_NO
+			, NAME
 			, PRICE
-			, DEGREE
+			, CAPACITY
+			, CNT
 		)
 		VALUES(
 			SEQ_CART_NO.NEXTVAL
-			, #{PRODUCT_NO}
-			, #{PRICE}
-			, #{DEGREE}
-			)
+			, #{productNo}
+			, #{pName}
+			, #{price}
+			, #{capacity}
+			, #{cnt}
+		)
+
 	</insert>
 	
-	<select id="CartList" resultType="com.sul.app.product.vo.ProductVo">
+	<select id="list" resultType="com.sul.app.cart.vo.CartVo">
 		SELECT 
-			P.NAME
-			, C.QUANTITY
-			, C.PRICE
-			, M.MEMBER_NO
-		FROM CART C
-		JOIN PRODUCT P ON C.PRODUCT_NO = P.PRODUCT_NO
-		JOIN MEMBER M ON C.MEMBER_NO = C.MEMBER_NO
-		WHERE M.MEMBER_NO = 1 (이것도 js에서 가져와야할듯..?)
+			CART_NO
+			, PRODUCT_NO
+			, NAME
+			, PRICE
+			, CAPACITY
+			, CNT
+		FROM CART 
 
 	</select>
 

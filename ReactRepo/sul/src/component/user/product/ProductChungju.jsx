@@ -47,7 +47,7 @@ const ProductChungju = () => {
     } , [] );
 
     const box = () => {
-        console.log(arr);
+        // console.log(arr);
         return arr.map((vo, index) => (
           <div className='detail_box' key={index} onClick={()=>{
             navigate("/product/detail/" + vo.productNo);

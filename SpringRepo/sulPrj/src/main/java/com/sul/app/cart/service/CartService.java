@@ -24,8 +24,8 @@ public class CartService {
 	}
 
 	//장바구니 조회
-	public List<ProductVo> list(ProductVo vo) {
+	public List<ProductVo> list() {
 		
-		return dao.list(sst, vo);
+		return dao.list(sst);
 	}
 }

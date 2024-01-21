@@ -17,9 +17,9 @@ public class CartDao {
 	}
 
 	//장바구니 조회
-	public List<ProductVo> list(SqlSessionTemplate sst, ProductVo vo) {
+	public List<ProductVo> list(SqlSessionTemplate sst) {
 		
-		return sst.selectList("CartMapper.list", vo);
+		return sst.selectList("CartMapper.list");
 	}
 
 }

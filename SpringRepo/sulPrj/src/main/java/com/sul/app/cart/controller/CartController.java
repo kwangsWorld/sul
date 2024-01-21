@@ -26,6 +26,8 @@ public class CartController {
 	@PostMapping("add")
 	public Map<String, String> add(@RequestBody ProductVo vo){
 		
+//		System.out.println("리액트에서 받아온 장바구니 추가 vo : " + vo);
+		
 		Map<String, String> map = new HashMap<String, String>();
 		int result = service.add(vo);
 		
@@ -40,9 +42,11 @@ public class CartController {
 	
 	//장바구니 조회
 	@GetMapping("list")
-	public List<ProductVo> list(ProductVo vo){
+	public List<ProductVo> list(){
 		
-		List<ProductVo> voList = service.list(vo);
+		List<ProductVo> voList = service.list();
+		
+		System.out.println("쿼리문 이후 voList: " + voList);
 		
 		return voList;
 	}
