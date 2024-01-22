@@ -11,9 +11,14 @@ import com.sul.app.notice.vo.PageVo;
 @Repository
 public class AdminNoticeDao {
 
-	// 공지사항 목록 조회
-	public List<NoticeVo> list(SqlSessionTemplate sqlSessionTemplate, PageVo pVo) {
-		return sqlSessionTemplate.selectList("AdminNoticeMapper.list", pVo);
+	// 공지사항 목록 조회 (한 페이지 리스트)
+	public List<NoticeVo> list(SqlSessionTemplate sqlSessionTemplate, PageVo vo) {
+		return sqlSessionTemplate.selectList("AdminNoticeMapper.list", vo);
+	}
+	
+	// 공지사항 목록 조회 (전체 리스트)
+	public List<NoticeVo> listAll(SqlSessionTemplate sqlSessionTemplate, PageVo vo) {
+		return sqlSessionTemplate.selectList("AdminNoticeMapper.listAll", vo);
 	}
 	
 	// 공자시항 상세 조회
@@ -30,5 +35,6 @@ public class AdminNoticeDao {
 	public int edit(SqlSessionTemplate sqlSessionTemplate, NoticeVo vo) {
 		return sqlSessionTemplate.update("AdminNoticeMapper.edit", vo);
 	}
+
 	
 }

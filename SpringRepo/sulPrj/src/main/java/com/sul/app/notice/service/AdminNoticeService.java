@@ -1,6 +1,7 @@
 package com.sul.app.notice.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,14 @@ public class AdminNoticeService {
 	private final AdminNoticeDao dao;
 	private final SqlSessionTemplate sqlSessionTemplate;
 
-	// 공지사항 목록 조회
+	// 공지사항 목록 조회 (한 페이지 리스트)
 	public List<NoticeVo> list(PageVo vo) {
 		return dao.list(sqlSessionTemplate , vo);
+	}
+	
+	// 공지사항 목록 조회 (전체 리스트)
+	public  List<NoticeVo> listAll(PageVo vo) {
+		return dao.listAll(sqlSessionTemplate , vo);
 	}
 
 	// 공자시항 상세 조회
@@ -43,12 +49,6 @@ public class AdminNoticeService {
 		return dao.edit(sqlSessionTemplate, vo);
 	}
 
-//	// 페이징
-//	public List<NoticeVo> list(SqlSessionTemplate sqlSessionTemplate, PageVo pvo) {
-//		int offset = (pvo.getCurrentPage() - 1) * pvo.getBoardLimit();
-//		int limit = pvo.getBoardLimit();
-//		RowBounds rb = new RowBounds(offset, limit);
-//	}
 }
 
 

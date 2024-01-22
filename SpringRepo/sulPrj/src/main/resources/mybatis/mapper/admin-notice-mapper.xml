@@ -18,6 +18,19 @@
 		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
 	</select>
 	
+	<select id="listAll" resultType="com.sul.app.notice.vo.NoticeVo">
+		SELECT 
+		    NOTICE_NO
+		    , TITLE
+		    , CONTENT
+		    , INQUIRY
+		    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
+		    , DEL_YN
+		FROM NOTICE
+		ORDER BY NOTICE_NO ASC
+	</select>
+	
 	<select id="detail" resultType="com.sul.app.notice.vo.NoticeVo">
 		SELECT 
 		    NOTICE_NO

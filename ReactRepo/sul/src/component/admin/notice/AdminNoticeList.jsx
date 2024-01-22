@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Pagination from '../../../page/Paging';
+import Paging from '../../../page/Paging';
 
 const StyledAdminNoticeListDiv = styled.div`
     width: 100%;
@@ -104,20 +104,30 @@ const AdminNoticeList = () => {
 
     const navigate = useNavigate();
 
-    const [select, setSelect] = useState();
-    const [input, setInput] = useState();
-    const [voList , setVoList] = useState([]);
-    const [currentPage , setCurrentPage] = useState();
-    const [pageTotal , setPageTotal] = useState();
+    // 페이징
+    const [pageTotal , setPageTotal] = useState([]);
+    const [pageVo , setPageVo] = useState({
+        pageNo : 1,
+        limit : 10,
+    });
+
+    // 페이지 클릭 시 동작 함수
+    const handlePageChange = (pageNumber) => {
+        setPageVo( (pageVo) => ({
+            ...pageVo ,
+            pageNo: pageNumber,
+        }));
+    };
 
     // 목록조회
-    const loadAdminNoticeVoList = (page = 1) => {
+    const [voList , setVoList] = useState([]);
+    const loadAdminNoticeVoList = () => {
         fetch("http://127.0.0.1:8888/app/adminNotice/list" , {
             method : 'post' ,
             headers : {
                 "Content-Type" : "application/json"
             },
-            body : JSON.stringify({ pageNo : page - 1 , limit : 10})
+            body : JSON.stringify(pageVo)
         })
         .then( (resp) => {return resp.json()} )
         .then( (data) => { 
@@ -126,17 +136,22 @@ const AdminNoticeList = () => {
         })
         .catch(error => console.error("Error fetching data:" , error));
     };
-    
+
     // 렌더링 이후 내용실행
     useEffect( () => {
         loadAdminNoticeVoList();
-    }, [currentPage] );
+    }, [pageVo] );
     
     // detail 로 넘겨줄 값 설정
+    // const detailItem = (voList) => {
+    //     navigate(`/admin/notice/detail/${voList.noticeNo}`);
+    // };
     const detailItem = (vo) => {
-        navigate('/admin/notice/detail', { state:  {vo}  });
+        navigate('/admin/notice/detail/', { state:  {vo}  });
     };
-
+   
+    const [select, setSelect] = useState();
+    const [input, setInput] = useState();
     // 초기화 버튼 클릭 시 동작 함수
     const handleReset = () => {
         setSelect('');
@@ -146,11 +161,6 @@ const AdminNoticeList = () => {
      // 검색버튼 동작 함수
      const handleSearch = () => {
         
-    };
-
-    // 페이지 클릭 시 동작 함수
-     const handlePageClick = (pageNumber) => {
-        setCurrentPage(pageNumber);
     };
 
     // 작성하기 버튼 클릭 시 동작 함수
@@ -214,20 +224,9 @@ const AdminNoticeList = () => {
                     }
                 </tbody>
             </table>
-            <Pagination
-                currentPage={currentPage}
-                pageTotal={pageTotal}
-                onPageClick={handlePageClick}
-            />
-                    {/* <ul className='page'>
-                        <li><a href="">◀</a></li>
-                        <li><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">4</a></li>
-                        <li><a href="">5</a></li>
-                        <li><a href="">▶</a></li>
-                    </ul> */}
+            <div id="pageArea">
+                <Paging pageTotal={pageTotal} currentPage={pageVo.pageNo} handlePageChange={handlePageChange}/>
+            </div>
         </StyledAdminNoticeListDiv>
     );
 };

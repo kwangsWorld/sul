@@ -21,13 +21,13 @@
 	</appender>
 	
 <!-- 	파일에 저장하는 어펜더  -->
-<!-- 	<appender name="fa" class="org.apache.log4j.FileAppender"> -->
-<!-- 	      <param name="file" value="C:\\dev\\khLogFile.txt"/> -->
-<!-- 	      <param name="append" value="true"/> -->
-<!-- 	      <layout class="org.apache.log4j.PatternLayout"> -->
-<!-- 	         <param name="ConversionPattern" value="%p[%d{yyyy-mm-dd hh:mm:ss}] %c - %m%n" /> -->
-<!-- 	      </layout> -->
-<!-- 	 </appender> -->
+	<appender name="fa" class="org.apache.log4j.FileAppender">
+	      <param name="file" value="C:\\sulRepo\\sulLogFile.txt"/>
+	      <param name="append" value="true"/>
+	      <layout class="org.apache.log4j.PatternLayout">
+	         <param name="ConversionPattern" value="%p[%d{yyyy-mm-dd hh:mm:ss}] %c - %m%n" />
+	      </layout>
+	 </appender>
 	
 	<!-- Application Loggers -->
 	<logger name="com.sul.app">
