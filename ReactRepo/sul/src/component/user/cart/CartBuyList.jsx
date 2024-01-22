@@ -46,6 +46,8 @@ const StyledBuyListDiv = styled.div`
     .order_list{
         display: flex;
         justify-content: space-evenly;
+        border-bottom: 1px solid lightgray;
+        
     }
 
     .line{
@@ -81,6 +83,7 @@ const StyledBuyListDiv = styled.div`
 `;
 
 const BuyList = () => {
+    const [arr, setArr] = useState(useLocation().state);
     const [isChecked, setIsChecked] = useState(false);
     const [isArrowActivated, setIsArrowActivated] = useState(false);
 
@@ -92,12 +95,9 @@ const BuyList = () => {
         setIsArrowActivated((prev) => !prev);
     }
     
-    const buyObj = useLocation();
-    console.log("buyObj : " , buyObj);
-    // console.log("buyObj.피네임 : " , buyObj.state.pname);
-    // console.log("buyObj.카운트 : " , buyObj.state.cnt);
-
-    const totalPrice = buyObj.state.price * buyObj.state.cnt;
+    console.log("arr : ", arr);
+    console.log("useLocation값:", useLocation());
+    const totalPrice = arr.totalPrice;
 
     return (
         <StyledBuyListDiv>
@@ -118,29 +118,35 @@ const BuyList = () => {
                         <div>서울 성동구 둘레15가길 2</div>
                     </div>
                 </div>
+
                 <div className='order'>
                     <div className='order_head'>
                         주문 예정 상품
                     </div>
                     <hr />
-                    <div className='order_list'>
-                        <div className='product_img'>
-                            <img 
-                                width='100px'
-                                height='100px'
-                                src="https://m.soollove.com/web/product/big/202312/57fda681ed7628e049055c3f0df77ba9.jpg" alt="이미지" />
+                    {
+                        arr.arr.map((vo) => (
+                        <div key = {vo.cartNo}  className='order_list'>
+                            <div className='product_img'>
+                                <img 
+                                    width='100px'
+                                    height='100px'
+                                    src="https://m.soollove.com/web/product/big/202312/57fda681ed7628e049055c3f0df77ba9.jpg" alt="이미지" />
+                            </div>
+                            <div className='product_info'>
+                                <div>이름 : {vo.name} </div>
+                                <div>용량: {vo.capacity}ml</div>
+                                <div>가격: {parseInt(vo.price).toLocaleString('ko-KR')}원</div>
+                                <div>수량: {vo.cnt}병</div>
+                                <br />
+                            </div>
                         </div>
-                        <div className='product_info'>
-                            <div>이름 : {buyObj.state.name}</div>
-                            <div>용량: {buyObj.state.capacity}ml</div>
-                            <div>가격: {parseInt(buyObj.state.price).toLocaleString('ko-KR')}원</div>
-                            <div>수량: {buyObj.state.cnt}병</div>
-                            <br />
-                        </div>
-                    </div>
+                        ))
+                    }
                     <hr />  
                     <div>총 결제 금액: {parseInt(totalPrice).toLocaleString('ko-KR')}원</div>
                 </div>
+
 
                 <div className='agree_user_info'>
                     <br />
