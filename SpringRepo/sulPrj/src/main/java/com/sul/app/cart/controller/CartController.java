@@ -4,20 +4,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sul.app.cart.service.CartService;
 import com.sul.app.product.vo.ProductVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@Controller
+@RestController
 @RequestMapping("cart")
 @RequiredArgsConstructor
+@Slf4j
 public class CartController {
 	
 	private final CartService service;
@@ -25,7 +27,7 @@ public class CartController {
 	//장바구니 담기
 	@PostMapping("add")
 	public Map<String, String> add(@RequestBody ProductVo vo){
-		
+		log.info("method called...");
 //		System.out.println("리액트에서 받아온 장바구니 추가 vo : " + vo);
 		
 		Map<String, String> map = new HashMap<String, String>();
