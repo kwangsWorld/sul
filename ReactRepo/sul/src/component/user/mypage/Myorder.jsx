@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Myheader from './Myheader';
+import { useNavigate } from 'react-router-dom';
 
 const StyledMyorderDiv = styled.div`
   h3{
@@ -107,7 +108,10 @@ const StyledMyorderDiv = styled.div`
 `;
 
 const Myorder = () => {
- const [orderVoList, setOrderVoList] = useState([]);
+  
+  const navigate = useNavigate();
+  const [orderVoList, setOrderVoList] = useState([]);
+  const [reviewVo, setReviewVo] =useState([]);
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
   const [showModal, setShowModal] = useState(false);
 
@@ -135,6 +139,32 @@ const Myorder = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const handleChangeInput = (event) => {
+    const {name, value, files} = event.targete;
+    
+  }
+
+  const handleSubmit = (event) =>{
+     event.preventDefault();
+
+     fetch("http://127.0.0.1:8888/app/review/write", {
+        method : 'post',
+        body: FormData
+     })
+     .then( resp => {resp.json();})
+     .then((data) => {
+      if(data.msg === "good"){
+        alert("리뷰작성이 완료되었습니다.")
+        navigate("/")
+      }else{
+        alert("리뷰작성 실패.")
+      }
+     })
+     .catch(() => {
+      alert("리뷰작성중 에러발생")
+     });
   };
 
   return (
@@ -178,7 +208,7 @@ const Myorder = () => {
             &times;
           </span>
           <p>리뷰작성하기</p>
-          <form>
+          <form onSubmit={handleSubmit}>
             <table className='second'>
                 <tbody>
                     <tr className='tr'>
@@ -188,10 +218,10 @@ const Myorder = () => {
                         <td>별점⭐⭐⭐</td>
                     </tr>
                     <tr className='tr'>
-                        <td><input className='content' type='text' name='content' placeholder='내용을 입력해주세요' /></td>
+                        <td><input className='content' type='text' name='content' placeholder='내용을 입력해주세요' onChange={handleChangeInput} /></td>
                     </tr>
                     <tr className='tr'>
-                        <td><input className='file' type='file' name='file' /></td>
+                        <td><input className='file' type='file' name='file' onChange={handleChangeInput} /></td>
                     </tr>
                 </tbody>
             </table>
