@@ -171,7 +171,7 @@ const ProductDetail = () => {
                     </div>
                     <div className='left_detail'>
                             <div className='name'>이름: {vo.pName} </div>
-                            <div className='price'>판매가격: {vo.price}원</div>
+                            <div className='price'>판매가격: {parseInt(vo.price).toLocaleString('ko-KR')}원</div>
                             <div className='type'>주종: {vo.tName}</div>
                             <div className='degree'>도수: {vo.degree}%</div>
                             <div className='capacity'>용량: {vo.capacity}ml</div>
@@ -227,7 +227,7 @@ const ProductDetail = () => {
                         </tr>
                         <tr>
                             <td colSpan={4} cn>
-                                {totalPrice}원
+                                {parseInt(totalPrice).toLocaleString('ko-KR')}원
                             </td>
                         </tr>
                         <tr>
