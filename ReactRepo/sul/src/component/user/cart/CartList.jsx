@@ -90,7 +90,9 @@ const CartList = () => {
         fetch("http://127.0.0.1:8888/app/cart/list",
             {method : 'get'})
             .then( (resp) => {return resp.json()})
-            .then( (voList) => {return setArr(voList);
+            .then( (voList) => {
+                console.log("voList값: " ,voList);
+                setArr(voList); 
             }
         )
         ;
