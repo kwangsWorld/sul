@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import com.sul.app.notice.vo.PageVo;
 import com.sul.app.review.dao.ReviewDao;
 import com.sul.app.review.vo.ReviewVo;
 
@@ -22,19 +23,24 @@ public class ReviewService {
 		return dao.write(sst, vo);
 	}
 	
-	// 리뷰 목록 조회 (관리자)
-	public List<ReviewVo> adminList() {
-		return dao.adminList(sst);
+	// 리뷰 목록 조회 (관리자) (한 페이지 리스트)
+	public List<ReviewVo> list(PageVo vo) {
+		return dao.list(sst, vo);
+	}
+	
+	// 리뷰 목록 조회 (관리자) (전체 리스트)
+	public List<ReviewVo> listAll(PageVo vo) {
+		return dao.listAll(sst, vo);
 	}
 	
 	// 리뷰 목록 상세보기 (관리자)
-	public ReviewVo adminDetail(ReviewVo vo) {
-		return dao.adminDetail(sst, vo);
+	public ReviewVo detail(ReviewVo vo) {
+		return dao.detail(sst, vo);
 	}
 	
 	// 리뷰 삭제 (관리자)
-	public int adminDelete(ReviewVo vo) {
-		return dao.adminDelete(sst, vo);
+	public int delete(ReviewVo vo) {
+		return dao.delete(sst, vo);
 	}
 
 }

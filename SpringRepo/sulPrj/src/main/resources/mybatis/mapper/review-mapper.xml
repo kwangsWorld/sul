@@ -5,51 +5,79 @@
 <mapper namespace="ReviewMapper">
 
 	<insert id="write">
-		INSERT INTO REVIEW 
-		(REVIEW_NO, CONTENT, ENROLL_DATE, IMG, MEMBER_NO, RATING, ORDER_NO) 
-		VALUES (SEQ_REVIEW_NO.NEXTVAL, #{content}, #{enrollDate}, #{img}, #{memberNo}, #{rating}, #{orderNo})
+		INSERT INTO REVIEW
+		(REVIEW_NO, CONTENT, ENROLL_DATE, IMG, MEMBER_NO, RATING, ORDER_NO)
+		VALUES (SEQ_REVIEW_NO.NEXTVAL, #{content}, #{enrollDate}, #{img},
+		#{memberNo}, #{rating}, #{orderNo})
 	</insert>
-	
+
 	<select id="list" resultType="com.sul.app.review.vo.ReviewVo">
-		SELECT 
-		    R.REVIEW_NO
-		    , R.CONTENT
-		    , M.NICK
-		    , P.PRODUCT_NO
-		    , P.NAME AS P_NAME
-		    , TO_CHAR (R.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-		    , R.IMG
-		    , R.RATING
-		    , R.DEL_YN
+		SELECT
+		R.REVIEW_NO
+		, R.CONTENT
+		, M.NICK
+		, P.PRODUCT_NO
+		, P.NAME AS P_NAME
+		, TO_CHAR (R.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		, R.IMG
+		, R.RATING
+		, R.DEL_YN
 		FROM REVIEW R
 		JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
-		JOIN ORDERS_LIST L ON L.ORDER_LIST_NO = R.ORDER_LIST_NO
-		JOIN ORDERS O ON O.ORDER_NO = L.ORDER_NO
+		JOIN
+		ORDERS_LIST L ON L.ORDER_LIST_NO = R.ORDER_LIST_NO
+		JOIN ORDERS O ON
+		O.ORDER_NO = L.ORDER_NO
+		JOIN PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
+		ORDER BY REVIEW_NO DESC
+		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+
+	<select id="listAll" resultType="com.sul.app.review.vo.ReviewVo">
+		SELECT
+		R.REVIEW_NO
+		, R.CONTENT
+		, M.NICK
+		, P.PRODUCT_NO
+		, P.NAME AS P_NAME
+		, TO_CHAR (R.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		, R.IMG
+		, R.RATING
+		, R.DEL_YN
+		FROM REVIEW R
+		JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
+		JOIN
+		ORDERS_LIST L ON L.ORDER_LIST_NO = R.ORDER_LIST_NO
+		JOIN ORDERS O ON
+		O.ORDER_NO = L.ORDER_NO
 		JOIN PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
 		ORDER BY REVIEW_NO DESC
 	</select>
-	
+
 	<select id="detail" resultType="com.sul.app.review.vo.ReviewVo">
-		SELECT 
-		    R.REVIEW_NO
-		    , R.CONTENT
-		    , M.NICK
-		    , P.PRODUCT_NO
-		    , P.NAME
-		    , TO_CHAR (R.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-		    , R.IMG
-		    , R.RATING
-		    , R.DEL_YN
+		SELECT
+		R.REVIEW_NO
+		, R.CONTENT
+		, M.NICK
+		, P.PRODUCT_NO
+		, P.NAME
+		, TO_CHAR (R.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		, R.IMG
+		, R.RATING
+		, R.DEL_YN
 		FROM REVIEW R
 		JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
-		JOIN ORDERS_LIST L ON L.ORDER_LIST_NO = R.ORDER_LIST_NO
-		JOIN ORDERS O ON O.ORDER_NO = L.ORDER_NO
+		JOIN
+		ORDERS_LIST L ON L.ORDER_LIST_NO = R.ORDER_LIST_NO
+		JOIN ORDERS O ON
+		O.ORDER_NO = L.ORDER_NO
 		JOIN PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
 		WHERE R.REVIEW_NO = #{reviewNo}
 	</select>
-	
+
 	<update id="delete">
 		UPDATE REVIEW SET DEL_YN = #{delYn}
-		WHERE REVIEW_NO = #{reviewNo}
+		WHERE REVIEW_NO =
+		#{reviewNo}
 	</update>
 </mapper>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Paging from '../../../page/Paging';
+import Paging from '../../../paging/Paging';
+import '../../../Paging.css';
 
 const StyledAdminNoticeListDiv = styled.div`
     width: 100%;
@@ -84,20 +85,6 @@ const StyledAdminNoticeListDiv = styled.div`
         border-radius: 10px;
     }
 
-/* 페이지네이션 */
-    .page {
-        margin-right: 20%;
-        list-style-type: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-    }
-    li {
-        margin-left: 10%;
-        cursor: pointer;
-    }
-
 `;
 
 const AdminNoticeList = () => {
@@ -112,10 +99,10 @@ const AdminNoticeList = () => {
     });
 
     // 페이지 클릭 시 동작 함수
-    const handlePageChange = (pageNumber) => {
+    const handlePageChange = (pageNo) => {
         setPageVo( (pageVo) => ({
             ...pageVo ,
-            pageNo: pageNumber,
+            pageNo: pageNo,
         }));
     };
 

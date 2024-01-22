@@ -89,7 +89,6 @@ const StyledAdminCsBoardDetailDiv = styled.div`
         border-radius: 10px;
     }
 
-
 `;
 
 const AdminCsBoardDetail = () => {
