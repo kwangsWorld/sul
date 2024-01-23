@@ -95,6 +95,7 @@ const Comdetail = () => {
       communityNo: communityVo.communityNo,
       content: event.target.comment.value,
       nick: loginInfo.nick,
+      memberNo: loginInfo.memberNo,
     };
 
     fetch("http://127.0.0.1:8888/app/ccommt/insert", {
@@ -112,7 +113,7 @@ const Comdetail = () => {
           // Update the state with the new comment data
           setCommunitycommtVo([...communitycommtVo, data]);
 
-          navigate('/community/comdetail', { state: { vo: {...communityVo, communitycommtVo: [...communitycommtVo, data]} } });
+          navigate('/community/comlist', { state: { vo: {...communityVo, communitycommtVo: [...communitycommtVo, data]} } });
         } else {
           alert("댓글 작성에 실패했습니다.");
         }
@@ -125,12 +126,10 @@ const Comdetail = () => {
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
 
-    setCommunitycommtVo({
-      ...communitycommtVo,
-      [name]: value,
-    });
+    // communitycommtVo를 배열 요소로 업데이트
+    setCommunitycommtVo((prevCommunitycommtVo) => [...prevCommunitycommtVo, { [name]: value }]);
   };
-;
+
 
   return (
     <StyledComdetailDiv>
