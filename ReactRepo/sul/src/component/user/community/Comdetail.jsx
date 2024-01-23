@@ -16,17 +16,24 @@ const StyledComdetailDiv = styled.div`
 
   .table {
     width: 60%;
-    height: 90%;
+    height: 150%;
     margin-left: 20%;
     font-size: 16px;
     border-collapse: collapse;
-    border: 2px solid black;
+    border: 2px solid gray;
   }
   h1 {
     padding-bottom: 3%;
     padding-top: 5%;
   }
-
+  tr:first-child{
+    border-bottom: 2px solid gray;
+    height: 10%;
+  }
+  tr:nth-child(2){
+    border-bottom: 2px solid gray;
+    height: 40%;
+  }
   tr > td:first-child {
     padding-left: 10%;
     font-weight: bold;
@@ -39,11 +46,7 @@ const StyledComdetailDiv = styled.div`
 
   a {
     font-weight: bold;
-    margin-bottom: 3%;
-  }
-
-  .second {
-    border-top: 2px solid black;
+    padding-top: 13%;
   }
 
   .comment {
@@ -141,7 +144,7 @@ const Comdetail = () => {
               <td>제목</td>
               <td>{communityVo.title}</td>
               <td>{communityVo.nick}</td>
-            </tr>
+            </tr> 
             <tr>
               <td className='img'>{communityVo.img}이미지</td>
               <td className='img'>{communityVo.content}</td>
