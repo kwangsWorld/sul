@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sul.app.notice.dao.NoticeDao;
 import com.sul.app.notice.vo.NoticeVo;
+import com.sul.app.notice.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,9 +18,14 @@ public class NoticeService {
 	private final NoticeDao dao;
 	private final SqlSessionTemplate sqlSessionTemplate;
 	
-	// 공지사항 목록 조회
-	public List<NoticeVo> list() {
-		return dao.list(sqlSessionTemplate);
+	// 공지사항 목록 조회 (한 페이지 리스트)
+	public List<NoticeVo> list(PageVo vo) {
+		return dao.list(sqlSessionTemplate, vo);
+	}
+	
+	// 공지사항 목록 조회 (전체 리스트)
+	public List<NoticeVo> listAll(PageVo vo) {
+		return dao.listAll(sqlSessionTemplate, vo);
 	}
 	
 	// 공자시항 상세 조회

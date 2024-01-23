@@ -16,6 +16,21 @@
 		JOIN ADMIN A ON A.ADMIN_NO = N.ADMIN_NO
 		WHERE N.DEL_YN = 'N'
 		ORDER BY NOTICE_NO DESC
+		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+	
+	<select id="listAll" resultType="com.sul.app.notice.vo.NoticeVo">
+		SELECT 
+		    N.NOTICE_NO
+	    	, N.TITLE
+		    , N.CONTENT
+		    , N.INQUIRY
+		    , TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , A.ADMIN_NAME
+		FROM NOTICE N
+		JOIN ADMIN A ON A.ADMIN_NO = N.ADMIN_NO
+		WHERE N.DEL_YN = 'N'
+		ORDER BY NOTICE_NO DESC
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.notice.vo.NoticeVo">

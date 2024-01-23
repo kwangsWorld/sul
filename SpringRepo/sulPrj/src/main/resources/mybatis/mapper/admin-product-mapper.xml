@@ -23,6 +23,28 @@
 		FROM PRODUCT P
 		JOIN TYPE T ON T.TYPE_NO = P.TYPE_NO
 		ORDER BY PRODUCT_NO DESC
+		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+	
+	<select id="listAll" resultType="com.sul.app.product.vo.ProductVo">
+		SELECT 
+		    P.PRODUCT_NO
+            , T.TYPE_NO
+		    , T.NAME AS T_NAME
+		    , P.NAME AS P_NAME
+		    , P.PRICE
+		    , P.DEGREE
+		    , P.CAPACITY
+            , P.IMAGE
+		    , P.STORAGE
+		    , P.TASTE
+		    , P.APPETIZER
+		    , TO_CHAR (P.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+            , P.EXPIRY_DATE 
+		    , P.DEL_YN
+		FROM PRODUCT P
+		JOIN TYPE T ON T.TYPE_NO = P.TYPE_NO
+		ORDER BY PRODUCT_NO DESC
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.product.vo.ProductVo">

@@ -1,6 +1,7 @@
 package com.sul.app.member.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sul.app.member.service.AdminMemberService;
 import com.sul.app.member.vo.MemberVo;
+import com.sul.app.notice.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,9 +26,24 @@ public class AdminMemberController {
 	private final AdminMemberService service;
 	
 	// 회원 목록 조회
-	@GetMapping("list")
-	public List<MemberVo> list() {
-		return service.list();
+	@PostMapping("list")
+	public Map<String, Object> list(@RequestBody PageVo vo) {
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		int start = (Integer.parseInt(vo.getPageNo())-1)*Integer.parseInt(vo.getLimit());
+		
+		vo.setPageNo(Integer.toString(start));
+		
+		int pageTotal = (int)Math.ceil((double)service.listAll(vo).size()/Integer.parseInt(vo.getLimit()));
+		
+		List<MemberVo> voList = new ArrayList<MemberVo>();
+		
+		voList = service.list(vo);
+		map.put("pageTotal", pageTotal);
+		map.put("voList", voList);
+		
+		return map;
 	}
 	
 	// 회원 목록 상세 조회

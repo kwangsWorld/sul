@@ -6,13 +6,19 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.sul.app.notice.vo.NoticeVo;
+import com.sul.app.notice.vo.PageVo;
 
 @Repository
 public class NoticeDao {
 
-	// 공지사항 목록 조회
-	public List<NoticeVo> list(SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.selectList("NoticeMapper.list");
+	// 공지사항 목록 조회 (한 페이지 리스트)
+	public List<NoticeVo> list(SqlSessionTemplate sqlSessionTemplate, PageVo vo) {
+		return sqlSessionTemplate.selectList("NoticeMapper.list", vo);
+	}
+	
+	// 공지사항 목록 조회 (전체 리스트)
+	public List<NoticeVo> listAll(SqlSessionTemplate sqlSessionTemplate, PageVo vo) {
+		return sqlSessionTemplate.selectList("NoticeMapper.listAll", vo);
 	}
 	
 	// 공자시항 상세 조회

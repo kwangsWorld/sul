@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Paging from '../../../page/Paging';
+import Paging from '../../../paging/Paging';
 
-const StyledAdminNoticeListDiv = styled.div`
+const StyledAdminProductListDiv = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
@@ -39,91 +39,77 @@ const StyledAdminNoticeListDiv = styled.div`
         width: 100%;
     }
 
-    .notice_no {
+    .product_no {
         width: 5%;
     }
 
-    .notice_title {
-        width: 70%;
+    .product_typeName {
+        width: 20%;
     }
 
-    .notice_enrollDate {
-        width: 15%;
+    .product_name {
+        width: 20%;
     }
 
-    .notice_delYn {
+    .product_delYn {
         width: 10%;
     }
 
-    .notice_top {
+    .product_top {
         width: 100%;
         display: flex;
         justify-content: space-between;
         margin-bottom: 1%;
     }
 
-    .notice_select {
+    .product_select {
         display: flex;
     }
 
-    .notice_write {
+    .product_insert {
         display: flex;
     }
 
-    .notice_write > button {
+    .product_insert > button {
         width: 150px;
         height: 25px;
         border: none;
         border-radius: 10px;
     }
 
-    .notice_button {
+    .product_button {
         width: 80px;
         height: 25px;
         border: none;
         border-radius: 10px;
     }
 
-/* 페이지네이션 */
-    .page {
-        margin-right: 20%;
-        list-style-type: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-    }
-    li {
-        margin-left: 10%;
-        cursor: pointer;
-    }
-
 `;
 
-const AdminNoticeList = () => {
+const AdminProductList = () => {
 
     const navigate = useNavigate();
 
     // 페이징
     const [pageTotal , setPageTotal] = useState([]);
     const [pageVo , setPageVo] = useState({
-        pageNo : 1,
-        limit : 10,
+        pageNo : 1 ,
+        limit : 10 ,
     });
 
     // 페이지 클릭 시 동작 함수
-    const handlePageChange = (pageNumber) => {
-        setPageVo( (pageVo) => ({
+    const handlePageChange = (pageNo) => {
+        setPageVo( () => ({
             ...pageVo ,
-            pageNo: pageNumber,
-        }));
-    };
+            pageNo : pageNo,
+        }) );
+    }
 
     // 목록조회
     const [voList , setVoList] = useState([]);
-    const loadAdminNoticeVoList = () => {
-        fetch("http://127.0.0.1:8888/app/adminNotice/list" , {
-            method : 'post' ,
+    const loadAdminProductVoList = () => {
+        fetch("http://127.0.0.1:8888/app/adminProduct/list" , {
+            method : 'post',
             headers : {
                 "Content-Type" : "application/json"
             },
@@ -131,25 +117,23 @@ const AdminNoticeList = () => {
         })
         .then( (resp) => {return resp.json()} )
         .then( (data) => { 
-            setVoList(data.voList);
-            setPageTotal(data.pageTotal); 
-        })
-        .catch(error => console.error("Error fetching data:" , error));
+            return(
+                setVoList(data.voList),
+                setPageTotal(data.pageTotal)
+                );
+            } );
     };
-
-    // 렌더링 이후 내용실행
+    
+    // 렌더링
     useEffect( () => {
-        loadAdminNoticeVoList();
+        loadAdminProductVoList();
     }, [pageVo] );
     
     // detail 로 넘겨줄 값 설정
-    // const detailItem = (voList) => {
-    //     navigate(`/admin/notice/detail/${voList.noticeNo}`);
-    // };
     const detailItem = (vo) => {
-        navigate('/admin/notice/detail/', { state:  {vo}  });
+        navigate('/admin/product/detail', { state:  {vo}  });
     };
-   
+
     const [select, setSelect] = useState();
     const [input, setInput] = useState();
     // 초기화 버튼 클릭 시 동작 함수
@@ -164,24 +148,24 @@ const AdminNoticeList = () => {
     };
 
     // 작성하기 버튼 클릭 시 동작 함수
-    const handleWrite = () => {
-        navigate("/admin/notice/write")
+    const handleInsert = () => {
+        navigate("/admin/product/insert")
     };
 
     return (
-        <StyledAdminNoticeListDiv>
+        <StyledAdminProductListDiv>
             <div className='list_header'>
-                <h1>공지사항</h1>
+                <h1>상품관리</h1>
             </div>
-            <div className='notice_top'>
-                <div className='notice_select'>
+            <div className='product_top'>
+                <div className='product_select'>
                     <div>
                         <select name="" id="" value={select} onChange={ (event) => {
                             return setSelect(event.target.value)
                         } }>
                             <option value=""></option>
                             <option value="number">번호</option>
-                            <option value="title">제목</option>
+                            <option value="name">상품명</option>
                         </select>
                     </div>
                     <div>
@@ -190,23 +174,25 @@ const AdminNoticeList = () => {
                         } }></input>
                     </div>
                     <div>
-                        <button class="notice_button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleSearch}>검색</button>
+                        <button class="product_button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleSearch}>검색</button>
                     </div>
                     <div>
-                        <button class="notice_button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleReset}>초기화</button>
+                        <button class="product_button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleReset}>초기화</button>
                     </div>
                 </div>
-                <div className='notice_write'>
-                    <button style={{backgroundColor: '#ffe23dfb'}} onClick={handleWrite}>게시글 작성하기</button>
+                <div className='product_insert'>
+                    <button style={{backgroundColor: '#ffe23dfb'}} onClick={handleInsert}>상품 추가하기</button>
                 </div>
             </div>
             <table>
                 <thead>
                     <tr>
-                        <td className='notice_no'>번호</td>
-                        <td className='notice_title'>제목</td>
-                        <td className='notice_enrollDate'>작성일자</td>
-                        <td className='notice_delYn'>공개여부</td>
+                        <td className='product_no'>번호</td>
+                        <td className='product_typeName'>종류</td>
+                        <td className='product_name'>상품명</td>
+                        <td className='product_degree'>도수</td>
+                        <td className='product_capacity'>용량</td>
+                        <td className='product_delYn'>판매여부</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -215,10 +201,12 @@ const AdminNoticeList = () => {
                         <tr key={vo.no} onClick={() => {
                             detailItem(vo)}
                             }>
-                            <td className='notice_no'>{vo.noticeNo}</td>
-                            <td className='notice_title'>{vo.title}</td>
-                            <td className='notice_enrollDate'>{vo.enrollDate}</td>
-                            <td className='notice_delYn'>{vo.delYn}</td>
+                            <td className='product_no'>{vo.productNo}</td>
+                            <td className='product_typeName'>{vo.tName}</td>
+                            <td className='product_name'>{vo.pName}</td>
+                            <td className='product_degree'>{vo.degree}</td>
+                            <td className='product_capacity'>{vo.capacity}</td>
+                            <td className='product_delYn'>{vo.delYn}</td>
                         </tr>
                         ))
                     }
@@ -227,8 +215,8 @@ const AdminNoticeList = () => {
             <div id="pageArea">
                 <Paging pageTotal={pageTotal} currentPage={pageVo.pageNo} handlePageChange={handlePageChange}/>
             </div>
-        </StyledAdminNoticeListDiv>
+        </StyledAdminProductListDiv>
     );
 };
 
-export default AdminNoticeList;
+export default AdminProductList;
