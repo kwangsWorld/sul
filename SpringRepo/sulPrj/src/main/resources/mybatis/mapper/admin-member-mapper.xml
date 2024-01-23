@@ -19,6 +19,24 @@
 		FROM MEMBER M
 		JOIN ADDRESS A ON A.MEMBER_NO = M.MEMBER_NO
 		ORDER BY M.MEMBER_NO DESC
+		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+	
+	<select id="listAll" resultType="com.sul.app.member.vo.MemberVo">
+		SELECT 
+			M.MEMBER_NO
+		    , M.ID
+		    , M.NICK
+		    , M.NAME
+		    , M.EMAIL
+		    , M.TEL
+		    , TO_CHAR (M.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , TO_CHAR (M.MODIFY_DATE, 'YYYY-MM-DD') AS MODIFY_DATE
+		    , M.DEL_YN
+		    , A.ADDRESS
+		FROM MEMBER M
+		JOIN ADDRESS A ON A.MEMBER_NO = M.MEMBER_NO
+		ORDER BY M.MEMBER_NO DESC
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.member.vo.MemberVo">

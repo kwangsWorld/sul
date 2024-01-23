@@ -1,7 +1,6 @@
 package com.sul.app.notice.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;

@@ -14,7 +14,7 @@
 		    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
 		    , DEL_YN
 		FROM NOTICE
-		ORDER BY NOTICE_NO ASC
+		ORDER BY NOTICE_NO DESC
 		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
 	</select>
 	
@@ -28,7 +28,7 @@
 		    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
 		    , DEL_YN
 		FROM NOTICE
-		ORDER BY NOTICE_NO ASC
+		ORDER BY NOTICE_NO DESC
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.notice.vo.NoticeVo">

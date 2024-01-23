@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Paging from '../../../paging/Paging';
 
 const StyledAdminDeliveryListDiv = styled.div`
     width: 100%;
@@ -83,50 +84,58 @@ const StyledAdminDeliveryListDiv = styled.div`
         border-radius: 10px;
     }
 
-/* 페이지네이션 */
-    .delivery_page {
-        margin-right: 20%;
-        list-style-type: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-    }
-    li {
-        margin-left: 10%;
-    }
-
 `;
 
 const AdminDeliveryList = () => {
 
     const navigate = useNavigate();
 
-    const [select, setSelect] = useState();
-    const [input, setInput] = useState();
-    const [voList , setVoList] = useState([]);
+    // 페이징
+    const [pageTotal , setPageTotal] = useState([]);
+    const [pageVo , setPageVo] = useState({
+        pageNo : 1 ,
+        limit : 10,
+    });
 
+    // 페이징 클릭 시 동작 함수
+    const handlePageChange = (pageNo) => {
+        setPageVo( () => ({
+            ...pageVo ,
+            pageNo : pageNo,
+        }))
+    }
+    
     // 목록조회
+    const [voList , setVoList] = useState([]);
     const loadAdminDeliveryVoList = () => {
         fetch("http://127.0.0.1:8888/app/adminDelivery/list" , {
-            method : 'get'
+            method : 'post',
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(pageVo)
         })
         .then( (resp) => {return resp.json()} )
-        .then( (data) => { return setVoList(data); } )
-        ;
-    }
+        .then( (data) => { 
+            return(
+                setVoList(data.voList),
+                setPageTotal(data.pageTotal)
+                );
+             } );
+    };
     
     // 렌더링
     useEffect( () => {
         loadAdminDeliveryVoList();
-    }, [] );
-    console.log(voList);
+    }, [pageVo] );
     
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
         navigate('/admin/delivery/detail', { state:  {vo}  });
     };
 
+    const [select, setSelect] = useState();
+    const [input, setInput] = useState();
     // 초기화 버튼 클릭 시 동작 함수
     const handleReset = () => {
         setSelect('');
@@ -195,15 +204,9 @@ const AdminDeliveryList = () => {
                     }
                 </tbody>
             </table>
-                    <ul className='delivery_page'>
-                        <li><a href="">◀</a></li>
-                        <li><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">4</a></li>
-                        <li><a href="">5</a></li>
-                        <li><a href="">▶</a></li>
-                    </ul>
+            <div id="pageArea">
+                <Paging pageTotal={pageTotal} currentPage={pageVo.pageNo} handlePageChange={handlePageChange}/>
+            </div>
         </StyledAdminDeliveryListDiv>
     );
 };

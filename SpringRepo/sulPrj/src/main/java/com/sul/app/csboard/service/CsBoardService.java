@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sul.app.csboard.dao.CsBoardDao;
 import com.sul.app.csboard.vo.CsBoardVo;
+import com.sul.app.notice.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,9 +18,14 @@ public class CsBoardService {
 	private final CsBoardDao dao;
 	private final SqlSessionTemplate sqlSessionTemplate;
 	
-	// 고객센터 목록 조회
-	public List<CsBoardVo> list() {
-		return dao.list(sqlSessionTemplate);
+	// 고객센터 목록 조회 (한 페이지 리스트)
+	public List<CsBoardVo> list(PageVo vo) {
+		return dao.list(sqlSessionTemplate, vo);
+	}
+	
+	// 고객센터 목록 조회 (전체 리스트)
+	public List<CsBoardVo> listAll(PageVo vo) {
+		return dao.listAll(sqlSessionTemplate, vo);
 	}
 	
 	// 고객센터 상세 조회
