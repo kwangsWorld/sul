@@ -6,8 +6,8 @@
 
 	<insert id= "insert">
 		INSERT INTO 
-		COMMUNITY_COMMT (COMMUNITY_COMMT_NO, CONTENT, DEL_YN, ENROLL_DATE, COMMUNITY_NO , MEMBER_NO) 
-		VALUES (SEQ_COMMUNITY_COMMT_NO.NEXTVAL, #{content}, 'N', #{enrollDate}, #{communityNo}, #{memberNo})
+		COMMUNITY_COMMT (COMMUNITY_COMMT_NO, CONTENT, DEL_YN,COMMUNITY_NO , MEMBER_NO) 
+		VALUES (SEQ_COMMUNITY_COMMT_NO.NEXTVAL, #{content}, 'N', #{communityNo}, #{memberNo})
 	</insert>
 	
 	<update id="delete">
