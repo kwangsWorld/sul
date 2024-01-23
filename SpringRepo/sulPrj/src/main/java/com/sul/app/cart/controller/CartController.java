@@ -27,7 +27,7 @@ public class CartController {
 	//장바구니 담기
 	@PostMapping("add")
 	public Map<String, String> add(@RequestBody ProductVo vo){
-		log.info("method called...");
+//		log.info("method called...");
 //		System.out.println("리액트에서 받아온 장바구니 추가 vo : " + vo);
 		
 		Map<String, String> map = new HashMap<String, String>();
