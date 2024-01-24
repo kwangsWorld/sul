@@ -62,8 +62,6 @@ const NoticeDetail = () => {
     const location = useLocation();
     const noticeVo = location.state.vo;
     const noticeNo = noticeVo.noticeNo;
-    console.log(noticeVo);
-    console.log(noticeNo);
 
     // 조회수 증가
     const IncreaseHit = () => {

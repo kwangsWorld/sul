@@ -193,6 +193,7 @@ const CsBoardList = () => {
                     <td>닉네임</td>
                     <td>제목</td>
                     <td>작성일</td>
+                    <td>답변여부</td>
                 </tr>
                 {
                     voList.map((vo) => (
@@ -203,6 +204,7 @@ const CsBoardList = () => {
                         <td>{vo.nick}</td>
                         <td>{vo.qTitle}</td>
                         <td>{vo.enrollDate}</td>
+                        <td>{vo.aYn}</td>
                     </tr>
                     ))
                 }

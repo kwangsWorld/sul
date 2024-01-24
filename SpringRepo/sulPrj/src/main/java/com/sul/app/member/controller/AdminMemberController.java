@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sul.app.common.PageVo;
 import com.sul.app.member.service.AdminMemberService;
 import com.sul.app.member.vo.MemberVo;
-import com.sul.app.notice.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
