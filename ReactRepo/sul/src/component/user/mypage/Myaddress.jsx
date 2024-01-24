@@ -65,11 +65,10 @@ const Myaddress = () => {
   
   const navigate = useNavigate();
   const [addressVo, setAddressVo] = useState([]);
+  const [vo, setVo] = useState(addressVo);
+  const [editedDelYn, setEditedDelYn] = useState(addressVo.delYn);
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
   const loadMemberVoList = () => {
-
-    
-
 
     fetch("http://127.0.0.1:8888/app/address/list",{
       method : 'post',
@@ -79,23 +78,59 @@ const Myaddress = () => {
       body: JSON.stringify(loginInfo)
     })
     .then( resp => resp.json())
-    .then((x)=> {setAddressVo(x);})
+    .then((x)=> {
+      setAddressVo(x);
+      console.log("x : " , x);
+    })
     ;
   }
+  
+  
+  
+  
+  const handleplus = () => {
+    navigate("/mypage/myaddressplus")
+  };
+
+
+  const handleDelete = (no) => {
+
+    const editedVo = {
+      ...vo,
+      addressNo: no,
+      delYn : 'Y',
+    };
+
+    console.log("addressVo",addressVo);
+    console.log("voooooooooo",vo);
+    console.log("editedVo",editedVo);
+
+    fetch("http://127.0.0.1:8888/app/address/delete",{
+      method : 'post',
+      headers : {
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify(editedVo)
+    })
+    .then( (resp) => resp.json())
+    .then( (data) => {
+      if(data.msg === 'good') {
+        setVo(editedVo);
+        alert('배송지가 삭제되었습니다.');
+        navigate('/mypage/info');
+      }else{
+        alert('배송지 삭제 실패.');
+      }
+    })
+    .catch( (e) => {
+      alert('배송지 삭제 중 에러 발생');
+    });
+  };
 
   useEffect( ()=>{
     console.log("useEffect호출");
     loadMemberVoList();
   }, []);
-
-
-  const handleplus = () => {
-    navigate("/mypage/myaddressplus")
-  };
-
-  const detailItem = (vo)=> {
-    navigate("/mypage/addressedit", { state: {vo}});
-  };
 
   return (
     <StyledMyaddressDiv>
@@ -110,7 +145,7 @@ const Myaddress = () => {
           {
             addressVo.length === 0 
             ?
-            <h1>로딩중</h1>
+            <h1>배송지를 추가해주세요.</h1>
             : 
               addressVo.map((vo) => (
               <tr key={vo.addressNo}>     
@@ -119,7 +154,7 @@ const Myaddress = () => {
                 <td>{vo.address}</td>
                 <div className='btn'>
                   <td>
-                    <button >삭제</button>
+                    <button onClick={ ()=>{handleDelete(vo.addressNo);} }>삭제</button>
                   </td>
                 </div>
             </tr>

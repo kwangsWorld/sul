@@ -18,11 +18,11 @@
 	<update id="delete">
 		UPDATE ADDRESS
 			SET DEL_YN = 'Y'
-		WHERE ADDRESS_NO = #{adressNo}
+		WHERE ADDRESS_NO = #{addressNo}
 	</update>
 	
 	<select id="list" resultType="com.sul.app.address.vo.AddressVo">
-		SELECT M.NAME, M.TEL, A.ADDRESS, A.DEL_YN
+		SELECT M.NAME, M.TEL, A.ADDRESS, A.DEL_YN, A.ADDRESS_NO
 		FROM ADDRESS A
 		JOIN MEMBER M ON A.MEMBER_NO = M.MEMBER_NO
 		WHERE A.DEL_YN = 'N'

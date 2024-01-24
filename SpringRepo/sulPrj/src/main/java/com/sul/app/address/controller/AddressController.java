@@ -45,8 +45,9 @@ public class AddressController {
 	}
 	
 	//주소삭제
-	@GetMapping("delete")
+	@PostMapping("delete")
 	public Map<String, Object> delete(@RequestBody AddressVo vo) throws Exception {
+		System.out.println("del vo : " + vo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		int result = service.delete(vo);
 		if(result == 1) {

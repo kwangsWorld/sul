@@ -97,7 +97,7 @@ const Comlist = () => {
                 {
                     communityVoList.length === 0
                     ?
-                    <h2>로딩중</h2>
+                    <h2>게시글이 없습니다.</h2>
                     :
                     communityVoList.map( vo => <tr key={vo.communityNo} onClick={()=>{
                         handleDetail(vo)

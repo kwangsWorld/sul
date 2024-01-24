@@ -140,23 +140,7 @@ const Myaddress = () => {
     });
   };
 
-  const handleDelete = (addressNo) => {
-    fetch("http://127.0.0.1:8888/app/address/delete", {
-      method: 'get',
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        if (data.msg === 'good') {
-          alert('배송지가 삭제되었습니다.');
-          loadAddressList();
-        } else {
-          alert('다시 시도해주세요.');
-        }
-      })
-      .catch(() => {
-        alert('배송지 삭제 에러');
-      });
-  };
+ 
 
   return (
     <StyledMyaddressDiv>

@@ -92,7 +92,7 @@ public class CommunityController {
 	
 	//게시글 삭제
 	@PostMapping("delete")
-	public Map<String, Object> delete(CommunityVo vo) throws Exception{
+	public Map<String, Object> delete(@RequestBody CommunityVo vo) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		int result = service.delete(vo);
 		if(result == 1) {

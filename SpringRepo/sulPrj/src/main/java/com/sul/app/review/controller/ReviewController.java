@@ -27,6 +27,8 @@ public class ReviewController {
 	@PostMapping("write")
 	public Map<String, String> write(@RequestBody ReviewVo vo, HttpSession session) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
+		
+		System.out.println(vo);
 		int result = service.write(vo);
 		
 		if(result == 1) {

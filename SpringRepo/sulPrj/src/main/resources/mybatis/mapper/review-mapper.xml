@@ -5,10 +5,9 @@
 <mapper namespace="ReviewMapper">
 
 	<insert id="write">
-		INSERT INTO REVIEW
-		(REVIEW_NO, CONTENT, ENROLL_DATE, IMG, MEMBER_NO, RATING, ORDER_NO)
-		VALUES (SEQ_REVIEW_NO.NEXTVAL, #{content}, #{enrollDate}, #{img},
-		#{memberNo}, #{rating}, #{orderNo})
+		INSERT INTO REVIEW 
+		(REVIEW_NO, CONTENT, IMG, MEMBER_NO, RATING, DEL_YN, ORDER_LIST_NO) 
+		VALUES (SEQ_REVIEW_NO.NEXTVAL, #{content}, #{img}, #{rating}, #{memberNo}, 'N', #{orderListNo})
 	</insert>
 
 	<select id="list" resultType="com.sul.app.review.vo.ReviewVo">
