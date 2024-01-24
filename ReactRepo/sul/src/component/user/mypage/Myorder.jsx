@@ -142,18 +142,30 @@ const Myorder = () => {
   };
 
   const handleChangeInput = (event) => {
-    const {name, value, files} = event.targete;
+    const {name, value} = event.target;
     
+    setReviewVo({
+      ...reviewVo,
+      [name] : value,
+    })
   }
 
   const handleSubmit = (event) =>{
      event.preventDefault();
 
+     const obj = {
+      ...reviewVo,
+      ...loginInfo,
+     }
+
      fetch("http://127.0.0.1:8888/app/review/write", {
         method : 'post',
-        body: FormData
+        headers: {
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify(obj),
      })
-     .then( resp => {resp.json();})
+     .then( (resp) => resp.json())
      .then((data) => {
       if(data.msg === "good"){
         alert("리뷰작성이 완료되었습니다.")
@@ -215,7 +227,13 @@ const Myorder = () => {
                         <td>상품이름</td>
                     </tr>
                     <tr className='tr'>
-                        <td>별점⭐⭐⭐</td>
+                        <td><select name="rating" id="" onChange={handleChangeInput}>
+                            <option name="rating" value="1">⭐</option>
+                            <option name="rating" value="2">⭐⭐</option>
+                            <option name="rating" value="3">⭐⭐⭐</option>
+                            <option name="rating" value="4">⭐⭐⭐⭐</option>
+                            <option name="rating" value="5">⭐⭐⭐⭐⭐</option>
+                          </select></td>
                     </tr>
                     <tr className='tr'>
                         <td><input className='content' type='text' name='content' placeholder='내용을 입력해주세요' onChange={handleChangeInput} /></td>

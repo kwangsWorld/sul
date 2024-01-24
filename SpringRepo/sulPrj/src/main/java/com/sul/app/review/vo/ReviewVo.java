@@ -15,4 +15,6 @@ public class ReviewVo {
 	private String nick;
 	private String productNo;
 	private String pName;
+	private String memberNo;
+	private String orderNo;
 }
