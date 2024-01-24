@@ -53,5 +53,26 @@
 		WHERE NOTICE_NO = #{noticeNo}
 		AND DEL_YN = 'N'
 	</update>
+	
+	<select id="search" resultType="com.sul.app.notice.vo.NoticeVo">
+			SELECT 
+			    NOTICE_NO
+			    , TITLE
+			    , CONTENT
+			    , INQUIRY
+			    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+			    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
+			    , DEL_YN
+			FROM NOTICE
+	<where>
+        <if test="title != null">
+            AND TITLE LIKE #{title}
+        </if>
+        <if test="noticeNo != null">
+            AND NOTICE_NO LIKE #{noticeNo}
+        </if>
+    </where>
+		    ORDER BY NOTICE_NO ASC
+	</select>
 
 </mapper>

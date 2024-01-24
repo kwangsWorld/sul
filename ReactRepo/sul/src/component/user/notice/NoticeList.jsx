@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Paging from '../../../paging/Paging';
 
 const StyledNoticeListDiv = styled.div`
 min-width: 1500px;
@@ -15,7 +16,6 @@ flex-direction: column;
         width: 60%;
         display: flex;
         justify-content: space-between;
-        margin-top: 10%;
     }
 
     .top_left {
@@ -50,7 +50,7 @@ flex-direction: column;
     table{
          width: 60%;
          border-collapse: collapse;
-         margin-bottom: 20%;
+         margin-bottom: 2%;
     }
 
    button {
@@ -78,46 +78,100 @@ flex-direction: column;
         padding-top: 3%;
         padding-left: 3%;
     }
+
+    .pageArea {
+        margin-left: 100px;
+    }
 `;
 
 const NoticeList = () => {
 
     const navigate = useNavigate();
 
-    const [select, setSelect] = useState();
-    const [input, setInput] = useState();
-    const [noticeVoList , setVoList] = useState([]);
-    console.log(noticeVoList);
+    // 페이징
+    const [pageTotal , setPageTotal] = useState([]);
+    const [pageVo , setPageVo] = useState({
+        pageNo : 1,
+        limit : 10
+    })
 
+    // 페이지 클릭 시 동작 함수
+    const handlePageChange = (pageNo) => {
+        setPageVo ( (pageVo) => ({
+            ...pageVo ,
+            pageNo : pageNo,
+        }));
+    }
+    
     // 목록조회
+    const [voList , setVoList] = useState([]);
     const loadNoticeVoList = () => {
         fetch("http://127.0.0.1:8888/app/notice/list" ,{
-            method : 'get'
+            method : 'post' ,
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(pageVo)
         })
         .then( (resp) => {return resp.json()} )
-        .then( (data) => {return setVoList(data); } )
-        ;
-    }
+        .then( (data) => {
+            setVoList(data.voList);
+            setPageTotal(data.pageTotal);
+        } )
+    };
 
     // 렌더링
     useEffect( () => {
         loadNoticeVoList();
-    }, []);
+    }, [pageVo]);
 
     // detail 로 넘겨줄 값 설정
     const detailItem = (vo) => {
         navigate('/notice/detail', { state:  {vo}  });
     };
 
+     // 검색버튼 동작 함수
+     const handleSearch = () => { 
+
+        const searchVo = {
+            // pageVo : {
+            //   pageNo : pageVo.pageNo,
+            //   limit : pageVo.limit,  
+            // },
+            // noticeVo : {
+                title : select === 'title' ? input : null,
+                noticeNo : select === 'noticeNo' ? input : null,
+            // },
+        };
+            console.log(searchVo);
+
+        const serachData = {
+            method : 'post',
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(searchVo)
+        }
+
+        fetch("http://127.0.0.1:8888/app/notice/search", 
+            serachData
+            )
+            .then( (resp) => {resp.json();} )
+            .then( (data) => {
+                console.log(voList);
+                setVoList(voList);
+                // setPageTotal(data.pageTotal);
+                // console.log(setPageTotal);
+            } )
+    };
+
+    const [select, setSelect] = useState();
+    const [input, setInput] = useState();
     // 초기화 버튼 클릭 시 동작 함수
     const handleReset = () => {
         setSelect('');
         setInput('');
-    };
-
-     // 검색버튼 동작 함수
-     const handleSearch = () => {
-        
+        handleSearch();
     };
 
     return (
@@ -134,7 +188,7 @@ const NoticeList = () => {
                                 return setSelect(event.target.value)
                             } }>
                                 <option value=""></option>
-                                <option value="number">번호</option>
+                                <option value="noticeNo">번호</option>
                                 <option value="title">제목</option>
                             </select>
                         </div>
@@ -167,8 +221,8 @@ const NoticeList = () => {
                     <td>작성일</td>
                 </tr>
                 {
-                    noticeVoList.map( (vo) => (
-                    <tr key={vo.noticeNo} onClick={() => {
+                    voList.map( (vo) => (
+                    <tr key={vo.no} onClick={() => {
                         detailItem(vo)}
                     }>
                         <td>{vo.noticeNo}</td>
@@ -180,6 +234,9 @@ const NoticeList = () => {
                     ))
                 }
             </table>
+            <div className="pageArea">
+                <Paging pageTotal={pageTotal} currentPage={pageVo.pageNo} handlePageChange={handlePageChange}/>
+            </div>
         </StyledNoticeListDiv>
     );
 };

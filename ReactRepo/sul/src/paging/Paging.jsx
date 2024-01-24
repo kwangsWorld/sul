@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Paging.css';
 
 const Paging = ({ currentPage, pageTotal, handlePageChange }) => {
 

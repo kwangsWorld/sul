@@ -47,6 +47,11 @@ public class AdminNoticeService {
 	public int edit(NoticeVo vo) {
 		return dao.edit(sqlSessionTemplate, vo);
 	}
+	
+	// 공지사항 검색 (번호, 제목)
+	public List<NoticeVo> search(NoticeVo vo) {
+		return dao.search(sqlSessionTemplate, vo);
+	}
 
 }
 
