@@ -47,7 +47,7 @@
 	
 	<update id="delete">
 		UPDATE COMMUNITY SET DEL_YN = 'Y' 
-		WHERE COMMUNITY_NO = #{communityNo} AND MEMBER_NO = #{memberNo}
+		WHERE COMMUNITY_NO = #{communityNo}
 	</update>
 	
 	<update id="edit">

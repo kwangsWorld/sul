@@ -95,6 +95,7 @@ const Comdetail = () => {
   const [editedTitle , setEditedTitle] = useState(communityVo.title);
   const [editedContent , setEditedContent] = useState(communityVo.content);
   const [editedImg , setEditedImg] = useState(communityVo.img);
+  const [editedDelYn , setEditedDelYn] = useState(communityVo.delYn);
   const [communitycommtVo, setCommunitycommtVo] = useState([]);
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
 
@@ -152,6 +153,36 @@ const Comdetail = () => {
     });
   };
 
+  const handleDelete = () => {
+    
+    const editedVo = {
+      ...vo,
+      delYn : editedDelYn,
+    };
+
+    fetch("http://127.0.0.1:8888/app/community/delete", {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(editedVo)
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.msg === 'good') {
+          setVo(editedVo);
+          alert('게시글 삭제가 완료되었습니다.');
+          navigate('/mypage/mycom');
+        } else {
+          alert('게시글 삭제 실패.');
+        }
+      })
+      .catch((e) => {
+        alert('게시글 삭제 중 에러 발생');
+      });
+  };
+
+ 
   const handleImgChange = (event) => {
     setEditedImg(event.target.value);
   }
@@ -196,7 +227,7 @@ const Comdetail = () => {
       <div className='btn'>
         <button onClick={handleList}>목록으로</button>
         <button onClick={handleEdit}>수정하기</button>
-        <button>삭제하기</button>
+        <button onClick={handleDelete} >삭제하기</button>
       </div>
     </StyledComdetailDiv>
   );
