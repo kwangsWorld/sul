@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { json, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -78,7 +78,6 @@ const StyledBuyListDiv = styled.div`
         border: none;
         border-radius: 10px;
     }
-
 `;
 
 
@@ -87,31 +86,74 @@ const BuyList = () => {
     const [arr, setArr] = useState(useLocation().state);
     const [isChecked, setIsChecked] = useState(false);
     const [isArrowActivated, setIsArrowActivated] = useState(false);
+    const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo"));
 
-    // function Input() {
-    //     useEffect(() => {
-        console.log("11111111111@@@@@@@@@@@@@@@@@@@@@@@@@ ");
-        const script = document.createElement("script");
-        console.log("script: ", script);
-        script.src = "https://cdn.iamport.kr/v1/iamport.js";
-        // script.async = true;
-        document.body.appendChild(script);
-    //     });
-    //     return <input />;
-    // }
+    const script = document.createElement("script");
+    // console.log("script: ", script);
+    script.src = "https://cdn.iamport.kr/v1/iamport.js";
+    document.body.appendChild(script);
 
-    const handleCheckboxToggle = () => {
+    const handleCheckboxToggle = (e) => {
+        // e.preventDefault();
         setIsChecked((prev) => !prev);
     };
 
     const handleArrowToggle = () => {
         setIsArrowActivated((prev) => !prev);
     }
-
-    
-    console.log("arr : ", arr);
-    console.log("useLocation값:", useLocation());
+    // console.log("arr : ", arr);
+    // console.log("useLocation값:", useLocation());
     const totalPrice = arr.totalPrice;
+
+    console.log("세션 값: ", loginInfo);
+
+    var IMP = window.IMP;
+
+    var today = new Date();
+    var hours = today.getHours();
+    var minutes = today.getMinutes();
+    var seconds = today.getSeconds();
+    var milliseconds = today.getMilliseconds();
+    var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
+    
+    function kakaoPay(e){
+        e.stopPropagation();
+        if (window.confirm("구매하시겠습니까?")) {
+            if(loginInfo != null){
+                IMP.init("imp87087825");
+                IMP.request_pay({
+                    pg: 'kakaopay.TC0ONETIME',
+                    pay_method: 'card',
+                    merchant_uid: "SULDAMA" + makeMerchantUid,
+                    name: '주문 총계',
+                    amount: totalPrice,
+                }, async function (rsp) {
+                    // if (rsp.success){
+                    //     console.log(rsp);
+                    //     if(rsp.status == 200){
+                    //         alert('결제 완료!')
+                    //         window.location.relaod();
+                    //     }else{
+                    //         alert(`error:[${rsp.status}]\n결제요청이 승인된 경우 관리자에게 문의바랍니다.`);
+                    //     }
+                    // }else if (rsp.success == false){
+                    //     alert(rsp.error_msg)
+                    // }
+                    if(rsp.success){
+                        alert("구매 성공!")
+                    }else if(rsp.success == false) {
+                        alert(rsp.error_msg)
+                    }
+                });
+            }
+            else{
+                alert('로그인이 필요합니다!')
+            }
+        }else{
+            return false;
+        }
+    }
+
 
     return (
         <StyledBuyListDiv>
@@ -186,8 +228,15 @@ const BuyList = () => {
                         }
                 </div>
                 <br />
-                {isChecked ? <button className='final_buy_yes'>{parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기</button>
-                : <button className='final_buy_no'>{parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기</button>}
+                {isChecked ? 
+                    <button className='final_buy_yes' onClick={(e)=>{kakaoPay(e)}}>
+                        {parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기
+                    </button>
+                : 
+                    <button className='final_buy_no'>
+                        {parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기
+                    </button>
+                }
             </div>
         </StyledBuyListDiv>
     );
