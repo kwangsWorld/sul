@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -47,7 +47,6 @@ const StyledBuyListDiv = styled.div`
         display: flex;
         justify-content: space-evenly;
         border-bottom: 1px solid lightgray;
-        
     }
 
     .line{
@@ -63,7 +62,7 @@ const StyledBuyListDiv = styled.div`
         color: gray;
     }
 
-    .final_buy{
+    .final_buy_yes{
         width: 300px;
         height: 100px;
         font-size: 30px;
@@ -82,10 +81,24 @@ const StyledBuyListDiv = styled.div`
 
 `;
 
+
 const BuyList = () => {
+
     const [arr, setArr] = useState(useLocation().state);
     const [isChecked, setIsChecked] = useState(false);
     const [isArrowActivated, setIsArrowActivated] = useState(false);
+
+    // function Input() {
+    //     useEffect(() => {
+        console.log("11111111111@@@@@@@@@@@@@@@@@@@@@@@@@ ");
+        const script = document.createElement("script");
+        console.log("script: ", script);
+        script.src = "https://cdn.iamport.kr/v1/iamport.js";
+        // script.async = true;
+        document.body.appendChild(script);
+    //     });
+    //     return <input />;
+    // }
 
     const handleCheckboxToggle = () => {
         setIsChecked((prev) => !prev);
@@ -94,6 +107,7 @@ const BuyList = () => {
     const handleArrowToggle = () => {
         setIsArrowActivated((prev) => !prev);
     }
+
     
     console.log("arr : ", arr);
     console.log("useLocation값:", useLocation());
@@ -172,7 +186,7 @@ const BuyList = () => {
                         }
                 </div>
                 <br />
-                {isChecked ? <button className='final_buy'>{parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기</button>
+                {isChecked ? <button className='final_buy_yes'>{parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기</button>
                 : <button className='final_buy_no'>{parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기</button>}
             </div>
         </StyledBuyListDiv>
