@@ -35,6 +35,11 @@ public class AdminNoticeDao {
 	public int edit(SqlSessionTemplate sqlSessionTemplate, NoticeVo vo) {
 		return sqlSessionTemplate.update("AdminNoticeMapper.edit", vo);
 	}
+	
+	// 공지사항 검색 (번호, 제목)
+	public List<NoticeVo> search(SqlSessionTemplate sqlSessionTemplate, NoticeVo vo) {
+		return sqlSessionTemplate.selectList("AdminNoticeMapper.search", vo);
+	}
 
 	
 }

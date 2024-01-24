@@ -17,6 +17,7 @@ import com.sul.app.member.vo.MemberVo;
 import com.sul.app.notice.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("adminMember")

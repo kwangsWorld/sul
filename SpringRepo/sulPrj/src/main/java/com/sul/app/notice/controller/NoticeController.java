@@ -29,21 +29,21 @@ public class NoticeController {
 	// 공지사항 목록 조회
 	@PostMapping("list")
 	public Map<String, Object> list(@RequestBody PageVo vo) {
-		log.info("들어오는값" + vo);
+		log.info("들어오는값 ::: " + vo);
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		int start = (Integer.parseInt(vo.getPageNo())-1)*Integer.parseInt(vo.getLimit());
-		
+
+		int start = (Integer.parseInt(vo.getPageNo()) - 1) * Integer.parseInt(vo.getLimit());
+
 		vo.setPageNo(Integer.toString(start));
-		
-		int pageTotal = (int)Math.ceil((double)service.listAll(vo).size()/Integer.parseInt(vo.getLimit()));
-		
+
+		int pageTotal = (int) Math.ceil((double) service.listAll(vo).size() / Integer.parseInt(vo.getLimit()));
+
 		List<NoticeVo> voList = new ArrayList<NoticeVo>();
-		
+
 		voList = service.list(vo);
 		map.put("pageTotal", pageTotal);
 		map.put("voList", voList);
-		log.info("나가는값" + map);
+		log.info("나가는값 ::: " + map);
 		return map;
 	}
 
@@ -67,5 +67,43 @@ public class NoticeController {
 		}
 		return map;
 	}
+
+	// 공지사항 검색 (번호, 제목)
+	@PostMapping("search")
+	public Map<String, Object> search(@RequestBody NoticeVo vo) {
+		log.info("들어오는 검색 값 ::: " + vo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<NoticeVo> voList = new ArrayList<NoticeVo>();
+		
+		voList = service.search(vo);
+//		map.put("pageTotal", pageTotal);
+		map.put("voList", voList);
+		log.info("나가는 검색 값 ::: " + map);
+		return map;
+	}
+	
+//	// 공지사항 검색 (번호, 제목)
+//		@PostMapping("search")
+//		public Map<String, Object> search(@RequestBody PageVo vo ,@RequestBody NoticeVo serachData) {
+//			log.info("들어오는값" + vo);
+//			log.info("들어오는값" + serachData);
+//			Map<String, Object> map = new HashMap<String, Object>();
+//
+//			int start = (Integer.parseInt(vo.getPageNo()) - 1) * Integer.parseInt(vo.getLimit());
+//
+//			vo.setPageNo(Integer.toString(start));
+//
+//			int pageTotal = (int) Math.ceil((double) service.listAll(vo).size() / Integer.parseInt(vo.getLimit()));
+//
+//			List<NoticeVo> voList = new ArrayList<NoticeVo>();
+//
+//			voList = service.search(serachData);
+//			map.put("pageTotal", pageTotal);
+//			map.put("voList", voList);
+//			log.info("나가는값" + map);
+//			return map;
+//		}
 
 }

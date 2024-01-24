@@ -87,5 +87,14 @@ public class AdminNoticeController {
 		}
 		return map;
 	}
+	
+	// 공지사항 검색 (번호, 제목)
+	@PostMapping("search")
+	public List<NoticeVo> search(@RequestBody NoticeVo vo) {
+		log.info("검색 결과 화면에서 넘어오는 값" + vo);
+		List<NoticeVo> x = service.search(vo);
+		log.info("검색 결과 서버에서 나가는 값" + x);
+		return x;
+	}
 
 }
