@@ -44,7 +44,7 @@ const StyledAdminCsBoardListDiv = styled.div`
     }
 
     .csboard_title {
-        width: 70%;
+        width: 40%;
     }
 
     .csboard_enrollDate {
@@ -54,6 +54,11 @@ const StyledAdminCsBoardListDiv = styled.div`
     .csboard_delYn {
         width: 10%;
     }
+
+    .csboard_answer {
+        width: 30%;
+    }
+    
 
     .csboard_top {
         width: 100%;
@@ -179,6 +184,7 @@ const AdminCsBoardList = () => {
                         <td className='csboard_no'>번호</td>
                         <td className='csboard_title'>제목</td>
                         <td className='csboard_enrollDate'>작성일자</td>
+                        <td className='csboard_answer'>답변내용</td>
                         <td className='csboard_delYn'>답변여부</td>
                     </tr>
                 </thead>
@@ -191,6 +197,7 @@ const AdminCsBoardList = () => {
                             <td className='csboard_no'>{vo.qNo}</td>
                             <td className='csboard_title'>{vo.qTitle}</td>
                             <td className='csboard_enrollDate'>{vo.qDate}</td>
+                            <td className='csboard_answer'>{vo.aContent}</td>
                             <td className='csboard_delYn'>{vo.aYn}</td>
                         </tr>
                         ))

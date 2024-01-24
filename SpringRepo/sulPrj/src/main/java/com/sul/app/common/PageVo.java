@@ -1,4 +1,4 @@
-package com.sul.app.notice.vo;
+package com.sul.app.common;
 
 import lombok.Data;
 
@@ -7,5 +7,7 @@ public class PageVo {
 	
 	private String pageNo;
 	private String limit;
+	private String title;
+	private String noticeNo;
 
 }

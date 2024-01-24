@@ -81,7 +81,6 @@ const AdminNoticeDetail = () => {
 
     const location = useLocation();
     const noticeVo = location.state.vo;
-    console.log(noticeVo);
 
     const [vo , setVo] = useState(noticeVo);
     const [editedTitle , setEditedTitle] = useState(noticeVo.title);

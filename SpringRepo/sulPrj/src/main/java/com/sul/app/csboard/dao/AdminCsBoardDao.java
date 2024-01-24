@@ -5,8 +5,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.sul.app.common.PageVo;
 import com.sul.app.csboard.vo.CsBoardVo;
-import com.sul.app.notice.vo.PageVo;
 
 @Repository
 public class AdminCsBoardDao {

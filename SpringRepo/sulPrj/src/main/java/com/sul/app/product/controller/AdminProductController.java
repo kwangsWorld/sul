@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sul.app.notice.vo.PageVo;
+import com.sul.app.common.PageVo;
 import com.sul.app.product.service.AdminProductService;
 import com.sul.app.product.vo.ProductVo;
 

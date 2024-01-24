@@ -54,11 +54,12 @@ const ProductWine = () => {
           }}>
                 {console.log(vo)}
                 <img className='image'
-                        src="https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/6e/5b/65/6e5b6558-90d6-5202-de76-d7b3bdc411c9/source/512x512bb.jpg" 
+                        src="http://127.0.0.1:8888/app\resources\upload\gallery\img\test.jpg" 
                         alt="이미지"
                         width='295px'
                         height='300px' />
                 <div>이름:{vo.pName}</div>
+                <div>이미지:{vo.img}</div>
                 <div>가격:{vo.price}원</div>
                 <div>평점:{vo.rating}점</div>
           </div>

@@ -5,7 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
-import com.sul.app.notice.vo.PageVo;
+import com.sul.app.common.PageVo;
 import com.sul.app.product.dao.AdminProductDao;
 import com.sul.app.product.vo.ProductVo;
 

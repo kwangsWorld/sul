@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sul.app.common.PageVo;
 import com.sul.app.csboard.service.AdminCsBoardService;
 import com.sul.app.csboard.vo.CsBoardVo;
-import com.sul.app.notice.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 

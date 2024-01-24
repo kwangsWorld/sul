@@ -5,9 +5,9 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import com.sul.app.common.PageVo;
 import com.sul.app.notice.dao.AdminNoticeDao;
 import com.sul.app.notice.vo.NoticeVo;
-import com.sul.app.notice.vo.PageVo;
 
 import lombok.RequiredArgsConstructor;
 

@@ -133,36 +133,43 @@ const NoticeList = () => {
      // 검색버튼 동작 함수
      const handleSearch = () => { 
 
-        const searchVo = {
-            // pageVo : {
-            //   pageNo : pageVo.pageNo,
-            //   limit : pageVo.limit,  
-            // },
-            // noticeVo : {
-                title : select === 'title' ? input : null,
-                noticeNo : select === 'noticeNo' ? input : null,
-            // },
-        };
-            console.log(searchVo);
+        setPageVo({
+                title: select === 'title' ? input : null,
+                noticeNo: select === 'noticeNo' ? input : null,
+                pageNo : 1,
+                limit : 10
+        })
 
-        const serachData = {
-            method : 'post',
-            headers : {
-                "Content-Type" : "application/json"
-            },
-            body : JSON.stringify(searchVo)
-        }
+        // // const searchVo = {
+        // //     vo: pageVo,
+        // //     selectVo: noticeVo,
+        // // };
 
-        fetch("http://127.0.0.1:8888/app/notice/search", 
-            serachData
-            )
-            .then( (resp) => {resp.json();} )
-            .then( (data) => {
-                console.log(voList);
-                setVoList(voList);
-                // setPageTotal(data.pageTotal);
-                // console.log(setPageTotal);
-            } )
+        // // console.log("검색 요청:", searchVo);
+        // // console.log("검색 요청:", noticeVo);
+        // console.log("검색 요청:", pageVo);
+
+        // fetch("http://127.0.0.1:8888/app/notice/search", {
+        //     method : 'post',
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(pageVo),
+        // })
+        // .then((resp) => {
+        //     if (!resp.ok) {
+        //         throw new Error(`HTTP 오류! 상태: ${resp.status}`);
+        //     }
+        //     return resp.json();
+        // })
+        // .then((data) => {
+        //     setVoList(data.voList);
+        //     setPageTotal(data.pageTotal);
+        //     console.log("검색 응답:", data);
+        // })
+        // .catch((error) => {
+        //     console.error('검색 중 오류 발생:', error);
+        // });
     };
 
     const [select, setSelect] = useState();
@@ -171,7 +178,6 @@ const NoticeList = () => {
     const handleReset = () => {
         setSelect('');
         setInput('');
-        handleSearch();
     };
 
     return (
@@ -199,10 +205,10 @@ const NoticeList = () => {
                         </div>
                     </div>
                     <div>
-                        <button class="button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleSearch}>검색</button>
+                        <button className="button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleSearch}>검색</button>
                     </div>
                     <div>
-                        <button class="button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleReset}>초기화</button>
+                        <button className="button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleReset}>초기화</button>
                     </div>
                 </div>
                 <div className='top_right'>

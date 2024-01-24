@@ -5,8 +5,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.sul.app.common.PageVo;
 import com.sul.app.notice.vo.NoticeVo;
-import com.sul.app.notice.vo.PageVo;
 
 @Repository
 public class NoticeDao {
@@ -31,12 +31,4 @@ public class NoticeDao {
 		return sqlSessionTemplate.update("NoticeMapper.increaseHit", vo);
 	}
 
-	// 공지사항 검색 (번호, 제목)
-	public List<NoticeVo> search(SqlSessionTemplate sqlSessionTemplate, NoticeVo vo) {
-		return sqlSessionTemplate.selectList("AdminNoticeMapper.search", vo);
-	}
-//	// 공지사항 검색 (번호, 제목)
-//	public List<NoticeVo> search(SqlSessionTemplate sqlSessionTemplate, NoticeVo serachData) {
-//		return sqlSessionTemplate.selectList("AdminNoticeMapper.search", serachData);
-//	}
 }

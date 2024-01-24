@@ -5,74 +5,70 @@
 <mapper namespace="NoticeMapper">
 
 	<select id="list" resultType="com.sul.app.notice.vo.NoticeVo">
-		SELECT 
-		    N.NOTICE_NO
-	    	, N.TITLE
-		    , N.CONTENT
-		    , N.INQUIRY
-		    , TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-		    , A.ADMIN_NAME
+		SELECT
+		N.NOTICE_NO
+		, N.TITLE
+		, N.CONTENT
+		, N.INQUIRY
+		, TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		, A.ADMIN_NAME
 		FROM NOTICE N
 		JOIN ADMIN A ON A.ADMIN_NO = N.ADMIN_NO
-		WHERE N.DEL_YN = 'N'
+		<where>
+			<if test="title != null">
+				AND TITLE LIKE '%' || #{title} || '%'
+			</if>
+			<if test="noticeNo != null">
+				AND NOTICE_NO LIKE '%' || #{noticeNo} || '%'
+			</if>
+			AND N.DEL_YN = 'N'
+		</where>
 		ORDER BY NOTICE_NO DESC
-		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
+		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS
+		ONLY
 	</select>
-	
+
 	<select id="listAll" resultType="com.sul.app.notice.vo.NoticeVo">
-		SELECT 
-		    N.NOTICE_NO
-	    	, N.TITLE
-		    , N.CONTENT
-		    , N.INQUIRY
-		    , TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-		    , A.ADMIN_NAME
+		SELECT
+		N.NOTICE_NO
+		, N.TITLE
+		, N.CONTENT
+		, N.INQUIRY
+		, TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		, A.ADMIN_NAME
 		FROM NOTICE N
 		JOIN ADMIN A ON A.ADMIN_NO = N.ADMIN_NO
-		WHERE N.DEL_YN = 'N'
+		<where>
+			<if test="title != null">
+				AND TITLE LIKE '%' || #{title} || '%'
+			</if>
+			<if test="noticeNo != null">
+				AND NOTICE_NO LIKE '%' || #{noticeNo} || '%'
+			</if>
+			AND N.DEL_YN = 'N'
+		</where>
 		ORDER BY NOTICE_NO DESC
 	</select>
-	
+
 	<select id="detail" resultType="com.sul.app.notice.vo.NoticeVo">
-		SELECT 
-			, N.NOTICE_NO
-	    	, N.TITLE
-		    , N.CONTENT
-		    , N.INQUIRY
-		    , TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-		    , A.ADMIN_NAME
+		SELECT
+		, N.NOTICE_NO
+		, N.TITLE
+		, N.CONTENT
+		, N.INQUIRY
+		, TO_CHAR (N.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		, A.ADMIN_NAME
 		FROM NOTICE N
 		JOIN ADMIN A ON A.ADMIN_NO = N.ADMIN_NO
 		WHERE N.DEL_YN = 'N' AND N.NOTICE_NO = #{noticeNo}
 	</select>
-	
+
 	<update id="increaseHit">
 		UPDATE NOTICE
 		SET
-			INQUIRY = INQUIRY+1
+		INQUIRY = INQUIRY+1
 		WHERE NOTICE_NO = #{noticeNo}
 		AND DEL_YN = 'N'
 	</update>
-	
-	<select id="search" resultType="com.sul.app.notice.vo.NoticeVo">
-			SELECT 
-			    NOTICE_NO
-			    , TITLE
-			    , CONTENT
-			    , INQUIRY
-			    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-			    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
-			    , DEL_YN
-			FROM NOTICE
-	<where>
-        <if test="title != null">
-            AND TITLE LIKE #{title}
-        </if>
-        <if test="noticeNo != null">
-            AND NOTICE_NO LIKE #{noticeNo}
-        </if>
-    </where>
-		    ORDER BY NOTICE_NO ASC
-	</select>
 
 </mapper>
