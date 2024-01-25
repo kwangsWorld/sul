@@ -7,7 +7,14 @@ public class PageVo {
 	
 	private String pageNo;
 	private String limit;
-	private String title;
 	private String noticeNo;
+	private String title;
+	private String qNo;
+	private String qTitle;
+	private String productNo;
+	private String name;
+	private String deliveryNo;
+	private String reviewNo;
+	private String nick;
 
 }
