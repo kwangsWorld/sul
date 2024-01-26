@@ -106,6 +106,10 @@ const ProductDetail = () => {
     
     const [vo, setVo] = useState(params.productNo);
     const [cnt, setCnt] = useState(1);
+    const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo"));
+
+    const memberNo = loginInfo.memberNo;
+    // console.log("memberNo: ", memberNo);
 
     const obj = {
         no : vo.productNo,
@@ -139,20 +143,22 @@ const ProductDetail = () => {
         setCnt(cnt+1);
     }
 
+    const addCart = () => {
 
-        const addCart = () => {
-            const productInfo = {
-                ...vo,
-                cnt : cnt
-            };
-            fetch("http://127.0.0.1:8888/app/cart/add",{
-                method: 'post' ,
-                headers: {
-                    "Content-Type" : "application/json"
-                },
-                body: JSON.stringify(productInfo)})
-                .then( (resp) => {return resp.json()})
+        const productInfo = {
+            ...vo,
+            cnt : cnt,
+            memberNo
         };
+
+        fetch("http://127.0.0.1:8888/app/cart/add",{
+            method: 'post' ,
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(productInfo)})
+            .then( (resp) => {return resp.json()})
+    };
 
 
     const totalPrice = vo.price * cnt;

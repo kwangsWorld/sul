@@ -103,20 +103,30 @@ const CartList = () => {
 
     const navigate = useNavigate();
     const [arr, setArr] = useState([]);
-    const [totalPrice, setTotalPrice] = useState()
+    const [totalPrice, setTotalPrice] = useState();
+
+    const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo"));
+    const memberNo = loginInfo.memberNo;
+    console.log("memberNo: ", memberNo);
+    
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8888/app/cart/list",
-            {method : 'get'})
+        fetch("http://127.0.0.1:8888/app/cart/list" ,{
+            method : 'post',
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({memberNo})})
             .then( (resp) => {return resp.json()})
             .then( (voList) => {
                 // console.log("voList값: " ,voList);
                 setArr(voList); 
+                console.log(arr);
                 setTotalPrice(
                     ()=>{
-                        for(let x of voList){
-                            console.log(x.price);
-                            t += parseInt(x.price);
+                        for(let sendBuyPageObj of voList){
+                            // console.log(sendBuyPageObj.price);
+                            t += parseInt(sendBuyPageObj.price);
                         }
                         return t;
                     }
@@ -154,14 +164,12 @@ const CartList = () => {
         console.log("cnt값: " + arr[idx].cnt)
     };
 
-    const x = {
+    const sendBuyPageObj = {
         arr:arr,
         totalPrice : totalPrice
     }
 
-    console.log("x : ", x);
-    
-
+    // console.log("sendBuyPageObj : ", sendBuyPageObj);
 
     return (
         <StyledCartListDiv>
@@ -229,7 +237,7 @@ const CartList = () => {
                     <br />
                     총 결제 금액: {parseInt(totalPrice).toLocaleString('ko-KR')} 원
                     <br />
-                    <button className='buy_btn' onClick={()=>{navigate("/cart/buyList" , {state: x});}}>구매하기</button>
+                    <button className='buy_btn' onClick={()=>{navigate("/cart/buyList" , {state: sendBuyPageObj});}}>구매하기</button>
                 </div>
             
             </div> {/*cart_wrap*/}
@@ -239,8 +247,4 @@ const CartList = () => {
 };
 
 export default CartList;
-
-const number = 1234567.89;
-
-const formattedNumber = number.toLocaleString('ko-KR');
 

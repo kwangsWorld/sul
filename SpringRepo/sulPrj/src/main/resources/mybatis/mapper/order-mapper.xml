@@ -4,6 +4,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="OrderMapper">
 
+
+
 	<select id="list" resultType="com.sul.app.order.vo.OrderVo">
 	        
         SELECT TO_CHAR(O.ORDER_DATE , 'YYYY"년"MM"월"DD"일"') AS ORDER_DATE , O.QUANTITY , O.MEMBER_NO, P.NAME,  S.DELIVERY_STATUS , O.DEL_YN, P.IMAGE

@@ -86,15 +86,41 @@ const BuyList = () => {
     const [arr, setArr] = useState(useLocation().state);
     const [isChecked, setIsChecked] = useState(false);
     const [isArrowActivated, setIsArrowActivated] = useState(false);
-    const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo"));
+    const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo")); //세션스토리지에서 객체 얻어오기
 
+    // const addOrder = () => {
+    //     fetch("http://127.0.0.1:8888/app/")
+    // }
+
+    const memberNo = loginInfo.memberNo;
+
+    const productInfo = {
+        ...arr,
+        memberNo : memberNo,
+    }
+
+    console.log("productInfo : ", productInfo);
+
+    const addOrderList = () => {
+
+        fetch("http://127.0.0.1:8888/app/orderList/add", {
+            method: 'post' ,
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body:JSON.stringify(productInfo)})
+            .then( (resp) => {return resp.json()})
+    };
+
+
+    //iamport라이브러리 추가 (index.html에 하면 모든 component에 적용되기 때문에 별도로 수정)
     const script = document.createElement("script");
     // console.log("script: ", script);
     script.src = "https://cdn.iamport.kr/v1/iamport.js";
     document.body.appendChild(script);
 
     const handleCheckboxToggle = (e) => {
-        // e.preventDefault();
+        // e.preventDefault(); 기본 동작 막기
         setIsChecked((prev) => !prev);
     };
 
@@ -105,8 +131,9 @@ const BuyList = () => {
     // console.log("useLocation값:", useLocation());
     const totalPrice = arr.totalPrice;
 
-    console.log("세션 값: ", loginInfo);
+    // console.log("세션 값: ", loginInfo);
 
+    //카카오페이 시작
     var IMP = window.IMP;
 
     var today = new Date();
@@ -117,7 +144,7 @@ const BuyList = () => {
     var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
     
     function kakaoPay(e){
-        e.stopPropagation();
+        e.stopPropagation(); // 이벤트 전파 방지
         if (window.confirm("구매하시겠습니까?")) {
             if(loginInfo != null){
                 IMP.init("imp87087825");
@@ -153,6 +180,7 @@ const BuyList = () => {
             return false;
         }
     }
+    //카카오페이 끝
 
 
     return (
