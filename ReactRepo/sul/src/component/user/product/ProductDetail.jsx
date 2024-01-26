@@ -83,7 +83,6 @@ const StyledDetailDiv = styled.div`
         height: 100%;
     }
 
-
     /* .cnt_name, .total_price_name{
         display: flex;
         font-size: 20px;

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,20 +22,23 @@ public class OrderController {
 
 	private final OrderService service;
 	
-	//구매목록 추가
-//	@PostMapping("add")
-//	public Map<String, String> add(@RequestBody OrderVo vo){
-//		int result = service.add(vo);
-//		Map<String, String> map = new HashMap<String, String>();
-//		
-//		if(result == 1) {
-//			map.put("msg", "good");
-//		}else {
-//			map.put("msg", "bad");
-//		}
-//		
-//		return map;
-//	}
+//	구매목록 추가
+	@PostMapping("add")
+	public Map<String, String> add(@RequestBody OrderVo vo){
+		
+		System.out.println("컨트롤러 아예 안오지?");
+		System.out.println("vo : " + vo);
+		int result = service.add(vo);
+		Map<String, String> map = new HashMap<String, String>();
+		
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");
+		}
+		
+		return map;
+	}
 	
 	//내가 주문한 목록
 	@PostMapping("list")
