@@ -12,7 +12,9 @@
 	</insert>
 	
 	<update id="selectBasicAdrress">
-	
+		UPDATE MEMBER
+			SET ADDRESS_NO = #{addressNo}
+			WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
 	<update id="delete">

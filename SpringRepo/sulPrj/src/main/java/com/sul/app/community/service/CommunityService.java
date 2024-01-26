@@ -1,12 +1,15 @@
 package com.sul.app.community.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import com.sul.app.common.PageVo;
 import com.sul.app.community.dao.CommunityDao;
 import com.sul.app.community.vo.CommunityVo;
+import com.sul.app.notice.vo.NoticeVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,8 +29,8 @@ public class CommunityService {
 	}
 
 	//목록
-	public List<CommunityVo> list() {
-		return dao.list(sst);
+	public List<CommunityVo> list(PageVo vo) {
+		return dao.list(sst, vo);
 	}
 
 	//상세조회
@@ -48,6 +51,10 @@ public class CommunityService {
 	//내가 작성한 글보기
 	public List<CommunityVo> my(CommunityVo vo) {
 		return dao.my(sst, vo);
+	}
+
+	public List<CommunityVo> listAll(PageVo vo) {
+		return dao.listAll(sst, vo);
 	}
 
 	

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Myheader from './Myheader';
 import { Link, useNavigate } from 'react-router-dom';
 
+
 const StyledMyaddressDiv = styled.div`
 width: 100%;
 height: 100%;
@@ -68,6 +69,12 @@ const Myaddress = () => {
   const [vo, setVo] = useState(addressVo);
   const [editedDelYn, setEditedDelYn] = useState(addressVo.delYn);
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
+  const memberNo = loginInfo&&loginInfo.memberNo;
+  const addressNo = loginInfo&&loginInfo.addressNo;
+
+  console.log("addressNo",addressNo);
+
+
   const loadMemberVoList = () => {
 
     fetch("http://127.0.0.1:8888/app/address/list",{
@@ -127,6 +134,33 @@ const Myaddress = () => {
     });
   };
 
+  const handleSelectAddress = (no) => {
+    const editedVo = {
+      ...vo,
+      memberNo : memberNo,
+      addressNo: no,
+    };
+
+    fetch("http://127.0.0.1:8888/app/member/selectBasicAdrress", {
+      method:'post',
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify(editedVo)
+    })
+    .then((resp) => resp.json())
+    .then((data) => {
+      if(data.msg === 'good') {
+        alert('기본 배송지로 설정되었습니다.');
+      }else{
+        alert('기본 배송지 설정 실패.');
+      }
+    })
+    .catch((e) => {
+      alert('기본배송지 설정 중 에러');
+    });
+  };
+
   useEffect( ()=>{
     console.log("useEffect호출");
     loadMemberVoList();
@@ -156,7 +190,11 @@ const Myaddress = () => {
                   <td>
                     <button onClick={ ()=>{handleDelete(vo.addressNo);} }>삭제</button>
                   </td>
+                  <td>
+                      <button onClick={() => { handleSelectAddress(vo.addressNo); }}>기본 배송지로 설정</button>
+                    </td>
                 </div>
+                
             </tr>
               )
             )
@@ -164,6 +202,7 @@ const Myaddress = () => {
           }
         </tbody>
       </table>
+        
     </StyledMyaddressDiv>
   );
 };

@@ -36,4 +36,8 @@ public class MemberDao {
 		return sst.selectOne("MemberMapper.detail");
 	}
 
+	public int selectBasicAdrress(SqlSessionTemplate sst, MemberVo vo) {
+		return sst.update("MemberMapper.selectBasicAdrress", vo);
+	}
+
 }

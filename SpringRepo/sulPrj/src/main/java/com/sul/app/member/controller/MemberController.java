@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sul.app.address.vo.AddressVo;
 import com.sul.app.community.vo.CommunityVo;
 import com.sul.app.member.service.MailSendService;
 import com.sul.app.member.service.MemberService;
@@ -104,5 +105,21 @@ public class MemberController {
 	public List<MemberVo>detail() {
 		return service.detail();
  	}
+	
+	//기본배송지 설정
+	@PostMapping("selectBasicAdrress")
+	public Map<String, Object> selectBasicAdrress(@RequestBody MemberVo vo) throws Exception {
+		System.out.println("membervo" + vo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int result = service.selectBasicAdrress(vo);
+		System.out.println("result" + result);
+		if(result == 1) {
+			map.put("msg","good");
+		}else {
+			map.put("msg", "bad");
+		}
+		return map;
+		
+	}
 	
 }

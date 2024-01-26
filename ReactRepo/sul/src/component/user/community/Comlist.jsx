@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Paging from '../../../paging/Paging';
 
 const StyledComlistDiv = styled.div`
 width: 100%;
@@ -9,10 +10,11 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-direction: column;
+margin-top: 3%;
    table{
     width: 60%;
     border-collapse: collapse;
-    margin-bottom: 20%;
+    margin-bottom: 3%;
     margin-top: 15%;
    }
    a{
@@ -60,7 +62,9 @@ flex-direction: column;
         border: 6px solid #ffe23dfb;
         border-radius: 10px;
     }
-   
+   .page{
+    
+   }
    
 `;
 
@@ -70,27 +74,68 @@ const Comlist = () => {
 
     const [communityVoList , setCommunityVoList] = useState([]);
     const [select, setSelect] = useState();
+    const [input, setInput] = useState();
+    const names = communityVoList.map(vo => vo.name);
+    console.log("name",names);
+    
 
+    
+      // 페이징
+        const [pageTotal , setPageTotal] = useState([]);
+        const [pageVo , setPageVo] = useState({
+            pageNo : 1,
+            limit : 10,
+        });
+
+        // 페이지 클릭 시 동작 함수
+        const handlePageChange = (pageNo) => {
+            setPageVo( (pageVo) => ({
+                ...pageVo ,
+                pageNo: pageNo,
+            }));
+        };
+    const [voList , setVoList] = useState([]);
     const loadCommunityVoList = () => {
-        fetch("http://127.0.0.1:8888/app/community/list")
-        .then(resp => resp.json())
-        .then((x)=> {setCommunityVoList(x);})
-        ;
-    }
+        fetch("http://127.0.0.1:8888/app/community/list",{
+            method: 'post',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify(pageVo)
+        })
+        .then(resp => {return resp.json()})
+        .then((data)=> {
+            setCommunityVoList(data.voList);
+            setPageTotal(data.pageTotal);
+        })
+        .catch(error => console.error("Error fetching data:" , error));
+    };
 
     useEffect( () => {
         console.log("useEffect 호출");
         loadCommunityVoList();
-    }, []);
+    }, [pageVo]);
 
 
     const handleDetail = (vo) => {
         navigate('/community/comdetail', {state: {vo}});
     };
 
+    
     const handleSearch = () => {
-
+        
+        const requestData = { 
+            name: input,
+            pageNo: 1, 
+            limit: 10 
+        };
+    
+        console.log('Request Data:', requestData);
+    
+        setPageVo(requestData);
+        
     };
+    console.log();
 
     return (
 
@@ -100,13 +145,9 @@ const Comlist = () => {
                     <td className='font'>커뮤니티 게시판</td>
                     <td>
                         <div className='option'>
-                            <select  onChange={(event) => {
-                                    return setSelect(event.target.value)
-                            }}>
-                                <option value=""></option>
-                                <option value="1">술</option>
-                                <option value="2">안주</option>
-                            </select>
+                            <input type="text"  name="searchInput" id="searchInput" value={input} onChange={ (event) => {
+                                return setInput(event.target.value);
+                            } }></input>
                             <div className='btn'>
                                 <button class="button" style={{backgroundColor: '#ffe23dfb'}} onClick={handleSearch} >검색</button>
                             </div>
@@ -136,6 +177,9 @@ const Comlist = () => {
                 }
                 
             </table>
+            <div id="pageArea" className='page'>
+                <Paging pageTotal={pageTotal} currentPage={pageVo.pageNo} handlePageChange={handlePageChange} />
+            </div>
         </StyledComlistDiv>
     );
 };

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sul.app.address.service.AddressService;
 import com.sul.app.address.vo.AddressVo;
+import com.sul.app.member.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,10 +40,19 @@ public class AddressController {
 	}
 	
 	//기본배송지 설정
-	@PostMapping("selectBasicAdrress")
-	public int selectBasicAdrress() {
-		return 0;
-	}
+		@PostMapping("selectBasicAdrress")
+		public Map<String, Object> selectBasicAdrress(@RequestBody AddressVo vo) throws Exception {
+			Map<String, Object> map = new HashMap<String, Object>();
+			int result = service.selectBasicAdrress(vo);
+			System.out.println("result" + result);
+			if(result == 1) {
+				map.put("msg","good");
+			}else {
+				map.put("msg", "bad");
+			}
+			return map;
+			
+		}
 	
 	//주소삭제
 	@PostMapping("delete")

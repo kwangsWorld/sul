@@ -16,8 +16,8 @@ public class AddressDao {
 	}
 
 	// 기본배송지 설정
-	public int selectBasicAdrress() {
-		return 0;
+	public int selectBasicAdrress(SqlSessionTemplate sst, AddressVo vo) {
+		return sst.update("AddressMapper.selectBasicAdrress", vo);
 	}
 
 	// 삭제

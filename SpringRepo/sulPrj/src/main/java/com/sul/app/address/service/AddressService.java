@@ -23,8 +23,8 @@ public class AddressService {
 	}
 	
 	//기본배송지 설정
-	public int selectBasicAdrress() {
-		return 0;
+	public int selectBasicAdrress(AddressVo vo) {
+		return dao.selectBasicAdrress(sst, vo);
 	}
 
 	//주소삭제
