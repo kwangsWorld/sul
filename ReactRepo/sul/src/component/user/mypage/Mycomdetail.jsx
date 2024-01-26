@@ -177,7 +177,7 @@ const Comdetail = () => {
           alert('게시글 삭제 실패.');
         }
       })
-      .catch((e) => {
+      .catch((e) => { 
         alert('게시글 삭제 중 에러 발생');
       });
   };

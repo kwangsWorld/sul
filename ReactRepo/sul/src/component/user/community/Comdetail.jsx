@@ -32,7 +32,10 @@ const StyledComdetailDiv = styled.div`
   }
   tr:nth-child(2){
     border-bottom: 2px solid gray;
-    height: 40%;
+    height: 50%;
+  }
+  tr:nth-child(3){
+    height: 100px;
   }
   tr > td:first-child {
     padding-left: 10%;
@@ -129,7 +132,6 @@ const Comdetail = () => {
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
 
-    // communitycommtVo를 배열 요소로 업데이트
     setCommunitycommtVo((prevCommunitycommtVo) => [...prevCommunitycommtVo, { [name]: value }]);
   };
 
@@ -146,7 +148,7 @@ const Comdetail = () => {
               <td>{communityVo.nick}</td>
             </tr> 
             <tr>
-              <td className='img'>{communityVo.img}이미지</td>
+              <td className='img'><img src={communityVo.img} alt='사진' width='200px' height='200px' /></td>
               <td className='img'>{communityVo.content}</td>
             </tr>
             {communitycommtVo.map((vo) => (

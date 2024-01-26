@@ -7,11 +7,15 @@ import org.springframework.stereotype.Repository;
 
 import com.sul.app.community.vo.CommunityVo;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Repository
+@Slf4j
 public class CommunityDao {
 
 	//게시글 작성
 	public int insert(SqlSessionTemplate sst, CommunityVo vo) {
+		System.out.println(vo);
 		return sst.insert("CommunityMapper.insert", vo);
 	}
 

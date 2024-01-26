@@ -6,9 +6,23 @@
 
 	<insert id="insert">
 		INSERT INTO COMMUNITY 
-		(COMMUNITY_NO, TITLE, CONTENT, ENROLL_DATE, DEL_YN, IMG, MEMBER_NO, COMMUNITY_CATEGORY_NO) 
-		VALUES 
-		(SEQ_COMMUNITY_NO.NEXTVAL, #{title}, #{content}, #{enrollDate}, 'N', #{img}, #{memberNo}, #{communityCategoryNo})
+		(
+			COMMUNITY_NO
+			, TITLE
+			, CONTENT
+			, IMG
+			, MEMBER_NO
+			, COMMUNITY_CATEGORY_NO
+		) 
+		VALUES
+		(
+			SEQ_COMMUNITY_NO.NEXTVAL
+			, #{title}
+			, #{content}
+			, #{img}
+			, #{memberNo}
+			, #{communityCategoryNo}
+		)
 	</insert>
 	
 	<select id="list" resultType="com.sul.app.community.vo.CommunityVo">

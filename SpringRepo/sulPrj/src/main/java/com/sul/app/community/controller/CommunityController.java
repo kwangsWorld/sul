@@ -32,13 +32,14 @@ public class CommunityController {
 	
 	//게시글작성
 	@PostMapping("insert")
-	public Map<String, String> insert(CommunityVo vo, HttpSession session, MultipartFile file) throws Exception {
+	public Map<String, String> insert(CommunityVo vo, MultipartFile file) throws Exception {
+		System.out.println(vo);
 		String fullPath = saveFile(file);
 		vo.setImg(fullPath);
+
+		int result = service.insert(vo);
 		
 		Map<String, String> map = new HashMap<String, String>();
-		
-		int result = service.insert(vo);
 		
 		if(result == 1) {
 			map.put("msg", "good");
