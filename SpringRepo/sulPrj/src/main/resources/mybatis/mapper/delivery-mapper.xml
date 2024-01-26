@@ -23,6 +23,17 @@
 		JOIN ORDERS O ON O.ORDER_NO = D.ORDER_NO
 		JOIN MEMBER M ON M.MEMBER_NO = O.MEMBER_NO
 		JOIN ADDRESS A ON A.MEMBER_NO = M.MEMBER_NO
+		<where>
+			<if test="deliveryNo != null">
+				AND D.DELIVERY_NO LIKE '%' || #{deliveryNo} || '%'
+			</if>
+			<if test="name != null">
+				AND M.NAME LIKE '%' || #{name} || '%'
+			</if>
+			<if test="deliveryStatus != null">
+				AND S.DELIVERY_STATUS LIKE '%' || #{deliveryStatus} || '%'
+			</if>
+		</where>
 		ORDER BY DELIVERY_NO DESC
 		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
 	</select>
@@ -46,6 +57,17 @@
 		JOIN ORDERS O ON O.ORDER_NO = D.ORDER_NO
 		JOIN MEMBER M ON M.MEMBER_NO = O.MEMBER_NO
 		JOIN ADDRESS A ON A.MEMBER_NO = M.MEMBER_NO
+		<where>
+			<if test="deliveryNo != null">
+				AND D.DELIVERY_NO LIKE '%' || #{deliveryNo} || '%'
+			</if>
+			<if test="name != null">
+				AND M.NAME LIKE '%' || #{name} || '%'
+			</if>
+			<if test="deliveryStatus != null">
+				AND S.DELIVERY_STATUS LIKE '%' || #{deliveryStatus} || '%'
+			</if>
+		</where>
 		ORDER BY DELIVERY_NO DESC
 	</select>
 	

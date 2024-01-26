@@ -22,6 +22,17 @@
 		    , P.DEL_YN
 		FROM PRODUCT P
 		JOIN TYPE T ON T.TYPE_NO = P.TYPE_NO
+		<where>
+			<if test="productNo != null">
+				AND P.PRODUCT_NO LIKE '%' || #{productNo} || '%'
+			</if>
+			<if test="tName != null">
+				AND T.NAME LIKE '%' || #{tName} || '%'
+			</if>
+			<if test="pName != null">
+				AND P.NAME LIKE '%' || #{pName} || '%'
+			</if>
+		</where>
 		ORDER BY PRODUCT_NO DESC
 		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
 	</select>
@@ -44,6 +55,17 @@
 		    , P.DEL_YN
 		FROM PRODUCT P
 		JOIN TYPE T ON T.TYPE_NO = P.TYPE_NO
+		<where>
+			<if test="productNo != null">
+				AND P.PRODUCT_NO LIKE '%' || #{productNo} || '%'
+			</if>
+			<if test="tName != null">
+				AND T.NAME LIKE '%' || #{tName} || '%'
+			</if>
+			<if test="pName != null">
+				AND P.NAME LIKE '%' || #{pName} || '%'
+			</if>
+		</where>
 		ORDER BY PRODUCT_NO DESC
 	</select>
 	

@@ -12,9 +12,14 @@ public class PageVo {
 	private String qNo;
 	private String qTitle;
 	private String productNo;
-	private String name;
+	private String pName;
+	private String tName;
 	private String deliveryNo;
+	private String deliveryStatus;
 	private String reviewNo;
+	private String id;
 	private String nick;
+	private String name;
+	private String aYn;
 
 }

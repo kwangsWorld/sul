@@ -13,13 +13,12 @@ const StyledAdminDeliveryListDiv = styled.div`
 
     & > table {
         width: 100%;
-        height: 80%;
         border: solid 1px;
         border-collapse: collapse;
     }
 
-    & > table > tbody {
-        height: 10vh;
+    .list {
+        height: 50px;
     }
 
     td {
@@ -63,10 +62,6 @@ const StyledAdminDeliveryListDiv = styled.div`
     }
 
     .delivery_select {
-        display: flex;
-    }
-
-    .delivery_write {
         display: flex;
     }
 
@@ -133,6 +128,17 @@ const AdminDeliveryList = () => {
     const detailItem = (vo) => {
         navigate('/admin/delivery/detail', { state:  {vo}  });
     };
+    
+    // 검색버튼 동작 함수
+    const handleSearch = () => {
+       setPageVo({
+            deliveryNo : select === 'deliveryNo' ? input : null,
+            name : select === 'name' ? input : null,
+            deliveryStatus : select === 'status' ? input : null,
+            pageNo : 1,
+            limit : 10
+       })
+   };
 
     const [select, setSelect] = useState();
     const [input, setInput] = useState();
@@ -140,11 +146,6 @@ const AdminDeliveryList = () => {
     const handleReset = () => {
         setSelect('');
         setInput('');
-    };
-
-     // 검색버튼 동작 함수
-     const handleSearch = () => {
-        
     };
 
     return (
@@ -159,8 +160,9 @@ const AdminDeliveryList = () => {
                             return setSelect(event.target.value)
                         } }>
                             <option value=""></option>
-                            <option value="number">번호</option>
+                            <option value="deliveryNo">번호</option>
                             <option value="name">이름</option>
+                            <option value="status">배송상태</option>
                         </select>
                     </div>
                     <div>
@@ -190,7 +192,7 @@ const AdminDeliveryList = () => {
                 <tbody>
                     {
                         voList.map( (vo) => (
-                        <tr key={vo.no} onClick={() => {
+                        <tr className='list' key={vo.no} onClick={() => {
                             detailItem(vo)}
                             }>
                             <td className='delivery_no'>{vo.deliveryNo}</td>

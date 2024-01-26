@@ -13,13 +13,12 @@ const StyledAdminNoticeListDiv = styled.div`
 
     & > table {
         width: 100%;
-        height: 80%;
         border: solid 1px;
         border-collapse: collapse;
     }
 
-    & > table > tbody {
-        height: 10vh;
+    .list {
+        height: 50px;
     }
 
     td {
@@ -135,6 +134,16 @@ const AdminNoticeList = () => {
     const detailItem = (vo) => {
         navigate('/admin/notice/detail/', { state:  {vo}  });
     };
+
+    // 검색버튼 동작 함수
+    const handleSearch = () => {
+       setPageVo( {
+           noticeNo : select === 'no' ? input : null,
+           title : select === 'title' ? input : null,
+           pageNo : 1,
+           limit : 10
+       })
+   };
    
     const [select, setSelect] = useState();
     const [input, setInput] = useState();
@@ -142,11 +151,6 @@ const AdminNoticeList = () => {
     const handleReset = () => {
         setSelect('');
         setInput('');
-    };
-
-     // 검색버튼 동작 함수
-     const handleSearch = () => {
-        
     };
 
     // 작성하기 버튼 클릭 시 동작 함수
@@ -166,7 +170,7 @@ const AdminNoticeList = () => {
                             return setSelect(event.target.value)
                         } }>
                             <option value=""></option>
-                            <option value="number">번호</option>
+                            <option value="no">번호</option>
                             <option value="title">제목</option>
                         </select>
                     </div>
@@ -198,7 +202,7 @@ const AdminNoticeList = () => {
                 <tbody>
                     {
                         voList.map( (vo) => (
-                        <tr key={vo.no} onClick={() => {
+                        <tr className='list' key={vo.no} onClick={() => {
                             detailItem(vo)}
                             }>
                             <td className='notice_no'>{vo.noticeNo}</td>

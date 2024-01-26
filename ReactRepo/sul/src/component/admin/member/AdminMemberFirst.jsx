@@ -18,7 +18,7 @@ const StyledAdminMemberFirst = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-right: 200px;
+        margin-right: 250px;
     }
     
     thead {

@@ -29,7 +29,7 @@ public class AdminNoticeController {
 	// 공지사항 목록 조회
 	@PostMapping("list")
 	public Map<String, Object> list(@RequestBody PageVo vo) {
-		log.info("화면에서 오는 값 " + vo);
+		
 		Map<String,Object> map = new HashMap<String, Object>();
 		 //pageNo의 값 바꿔주기 페이지 1에 리스트 10를 불러올거면 (페이지와 리미트를 가지고 조회하는 매퍼 하나)
 	      //1페이지 : pageNo = 0, limit = 10
@@ -49,7 +49,7 @@ public class AdminNoticeController {
 		voList = service.list(vo);
 		map.put("pageTotal", pageTotal);
 		map.put("voList", voList);
-		log.info("서버에서 나가는 map" + map);
+		
 		return map;
 	}
 

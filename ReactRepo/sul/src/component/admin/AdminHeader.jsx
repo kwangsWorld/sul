@@ -16,9 +16,8 @@ const StyledAdminHeaderDiv = styled.div`
         font-size: 25px;
         font-style: italic;
         font-weight: bolder;
-
-    
     }
+
     .header_left{
         margin-left: 6%;
     }
@@ -46,6 +45,16 @@ const StyledAdminHeaderDiv = styled.div`
         border-radius: 10px;
         border: 1px solid gray;
         font-weight: bold;
+    }
+
+    .btn {
+        height: 30px;
+        font-weight: bold;
+        border-radius: 10px;
+        border: 1px solid gray;
+        font-weight: bold;
+        margin-top: 17px;
+        background-color: #ffe23dfb;
     }
 `;
 

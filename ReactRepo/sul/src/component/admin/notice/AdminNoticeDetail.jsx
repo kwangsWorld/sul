@@ -16,10 +16,10 @@ const StyledAdminNoticeDetailDiv = styled.div`
         border-collapse: collapse;
     }
     
-    & > table > thead > tr > td {
+    td {
         height: 50px;
-        border-bottom: solid 1px;
         text-align: center;
+        border-bottom: solid 1px;
     }
 
     select {

@@ -131,17 +131,24 @@ const CsBoardList = () => {
         navigate('/csboard/detail', { state:  {vo}  });
     };
 
+    // 검색버튼 동작 함수
+    const handleSearch = () => {
+
+       setPageVo({
+            qNo : select === 'no' ? input : null,
+            qTitle : select === 'title' ? input : null,
+            nick : select === 'nick' ? input : null,
+            pageNo : 1,
+            limit : 10
+       })
+   };
+
     const [select, setSelect] = useState();
     const [input, setInput] = useState();
     // 초기화 버튼 클릭 시 동작 함수
     const handleReset = () => {
         setSelect('');
         setInput('');
-    };
-
-     // 검색버튼 동작 함수
-     const handleSearch = () => {
-        
     };
 
     // 질문하기 버튼 클릭 시 동작 함수
@@ -163,8 +170,9 @@ const CsBoardList = () => {
                                 return setSelect(event.target.value)
                             } }>
                                 <option value=""></option>
-                                <option value="number">번호</option>
+                                <option value="no">번호</option>
                                 <option value="title">제목</option>
+                                <option value="nick">닉네임</option>
                             </select>
                         </div>
                         <div>

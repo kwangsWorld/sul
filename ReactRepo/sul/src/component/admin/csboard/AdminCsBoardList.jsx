@@ -13,13 +13,12 @@ const StyledAdminCsBoardListDiv = styled.div`
 
     & > table {
         width: 100%;
-        height: 80%;
         border: solid 1px;
         border-collapse: collapse;
     }
 
-    & > table > tbody {
-        height: 10vh;
+    .list {
+        height: 50px;
     }
 
     td {
@@ -100,7 +99,7 @@ const AdminCsBoardList = () => {
 
     // 페이지 클릭 시 동작 함수
     const handlePageChange = (pageNo) => {
-        setPageVo( () => ({
+        setPageVo( (pageVo) => ({
             ...pageVo , 
             pageNo : pageNo,
         } ));
@@ -118,10 +117,8 @@ const AdminCsBoardList = () => {
         })
         .then( (resp) => {return resp.json()} )
         .then( (data) => { 
-            return(
-            setVoList(data.voList),
-            setPageTotal(data.pageTotal)
-        );
+            setVoList(data.voList);
+            setPageTotal(data.pageTotal);
         } )
         ;
     }
@@ -136,6 +133,18 @@ const AdminCsBoardList = () => {
         navigate('/admin/csboard/detail', { state:  {vo}  });
     };
 
+    // 검색버튼 동작 함수
+    const handleSearch = () => {
+        
+        setPageVo ({
+            qNo : select === 'no' ? input : null,
+            qTitle : select === 'title' ? input : null,
+            // aYn : select = 'delYn' ? input : null,
+            pageNo : 1,
+            limit : 10,
+        })
+    };
+
     const [select, setSelect] = useState();
     const [input, setInput] = useState();
     // 초기화 버튼 클릭 시 동작 함수
@@ -144,12 +153,8 @@ const AdminCsBoardList = () => {
         setInput('');
     };
 
-     // 검색버튼 동작 함수
-     const handleSearch = () => {
-        
-    };
-
     return (
+     
         <StyledAdminCsBoardListDiv>
             <div className='list_header'>
                 <h1>고객센터</h1>
@@ -161,8 +166,9 @@ const AdminCsBoardList = () => {
                             return setSelect(event.target.value)
                         } }>
                             <option value=""></option>
-                            <option value="number">번호</option>
+                            <option value="no">번호</option>
                             <option value="title">제목</option>
+                            <option value="delYn">답변여부</option>
                         </select>
                     </div>
                     <div>
@@ -191,7 +197,7 @@ const AdminCsBoardList = () => {
                 <tbody>
                     {
                         voList.map( (vo) => (
-                        <tr key={vo.no} onClick={() => {
+                        <tr className='list' key={vo.no} onClick={() => {
                             detailItem(vo)}
                             }>
                             <td className='csboard_no'>{vo.qNo}</td>
