@@ -23,14 +23,17 @@ public class ProductController {
 	@GetMapping("listByEnrollDate")
 	public List<ProductVo> listByEnrollDate(ProductVo vo){
 		List<ProductVo> voList = service.listByEnrollDate(vo);
+//		System.out.println("전체조회 오나?");
 //		System.out.println(voList);
 		return voList;
 	}
 	
+	//제품 별점별 조회
 	@GetMapping("listByRating")
 	public List<ProductVo> listByRating(ProductVo vo){
-//		System.out.println("컨트롤러 오나?");
 		List<ProductVo> voList = service.listByRating(vo);
+//		System.out.println("별점별 조회 컨트롤러 오나?");
+//		System.out.println(voList);
 		return voList;
 	}
 	

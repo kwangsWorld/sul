@@ -7,6 +7,7 @@
 	<insert id="add">
 		INSERT INTO CART(
 			CART_NO
+			, MEMBER_NO
 			, PRODUCT_NO
 			, NAME
 			, PRICE
@@ -15,6 +16,7 @@
 		)
 		VALUES(
 			SEQ_CART_NO.NEXTVAL
+			, #{memberNo}
 			, #{productNo}
 			, #{pName}
 			, #{price}
@@ -32,7 +34,8 @@
 			, PRICE
 			, CAPACITY
 			, CNT
-		FROM CART 
+		FROM CART
+		WHERE MEMBER_NO = #{memberNo}
 
 	</select>
 

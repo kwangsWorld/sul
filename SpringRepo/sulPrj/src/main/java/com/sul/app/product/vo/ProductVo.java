@@ -6,6 +6,7 @@ import lombok.Data;
 public class ProductVo {
 	
 	private String productNo;
+	private String memberNo;
 	private String typeNo;
 	private String pName;
 	private String tName;

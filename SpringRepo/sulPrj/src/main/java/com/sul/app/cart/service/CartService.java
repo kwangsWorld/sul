@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sul.app.cart.dao.CartDao;
+import com.sul.app.cart.vo.CartVo;
 import com.sul.app.product.vo.ProductVo;
 
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,8 @@ public class CartService {
 	}
 
 	//장바구니 조회
-	public List<ProductVo> list() {
+	public List<ProductVo> list(CartVo vo) {
 		
-		return dao.list(sst);
+		return dao.list(sst, vo);
 	}
 }
