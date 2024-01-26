@@ -29,6 +29,16 @@ public class MemberService {
 		if("admin".equalsIgnoreCase(id)) {
 			throw new Exception("사용 불가한 아이디 입니다.");
 		}
+		 // 비밀번호 체크
+	    String password = vo.getPwd();
+	    if (password.length() < 5) {
+	        throw new Exception("비밀번호는 5글자 이상이어야 합니다.");
+	    }
+
+	    // 비밀번호에 특수문자가 최소 1개 이상 포함되었는지 체크
+	    if (!password.matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
+	        throw new Exception("비밀번호는 특수문자를 최소 1개 이상 포함해야 합니다.");
+	    }
 		return dao.join(sst, vo);
 	}
 

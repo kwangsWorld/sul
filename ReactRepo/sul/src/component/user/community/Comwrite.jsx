@@ -59,41 +59,55 @@ const Comwrite = () => {
 
   const navigate = useNavigate();
 
-  const [inputCommunityVo, setInputCommunityVo] = useState({
-   
-  });
-  const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
-  
-  console.log(inputCommunityVo);
-  console.log(loginInfo);
+  const [inputCommunityVo, setInputCommunityVo] = useState({});
+  const loginInfo = sessionStorage.getItem('loginMemberVo');
+
+  const loginInfoVo = JSON.parse(loginInfo);
+  const memberNo = loginInfoVo&&loginInfoVo.memberNo;
+  console.log(memberNo);
+
+
+  const handleChangeInput = (event) => {
+    const { name, value, files } = event.target;
+
+    setInputCommunityVo({
+      ...inputCommunityVo,
+      [name]: files ? files[0] : value,
+    })
+  }
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-  const obj = {
-    ...inputCommunityVo ,
-    ...loginInfo
-  };
+    const formData = new FormData();
+    formData.append("communityCategoryNo", inputCommunityVo.communityCategoryNo);
+    formData.append("title", inputCommunityVo.title);
+    formData.append("content", inputCommunityVo.content);
+    formData.append("file", inputCommunityVo.file);
+    formData.append("memberNo", memberNo);
 
-    console.log("inputCommunityVo ::: " , inputCommunityVo);
-    console.log("loginInfo ::: " , loginInfo);
-    console.log("obj ::: " , obj);
+    const obj = {
+      ...inputCommunityVo,
+      ...loginInfo
+    };
+
+    formData.forEach( (value, key) => {
+      obj[key] = value;
+    })
 
     fetch("http://127.0.0.1:8888/app/community/insert", {
       method: 'post',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(obj),
+      body: formData
     })
-      .then(resp => resp.json())
+      .then(resp => {return resp.json();})
       .then((data) => {
         if (data.msg === "good") {
           alert("게시글 작성 성공")
           navigate("/community/comlist")
         } else {
           alert("게시글 작성 실패")
-          navigate("/")
+          navigate("/community/comlist")
         }
       })
       .catch(() => {
@@ -101,15 +115,7 @@ const Comwrite = () => {
       });
   };
 
-  const handleChangeInput = (event) => {
-    const { name, value } = event.target;
-
-    setInputCommunityVo({
-      ...inputCommunityVo,
-      [name]: value,
-    })
-  }
-
+ 
    
 
 
@@ -153,7 +159,7 @@ const Comwrite = () => {
                 <td>
                   <input
                     type="file"
-                    name="f"
+                    name="file"
                     onChange={handleChangeInput}
                   />
                 </td>

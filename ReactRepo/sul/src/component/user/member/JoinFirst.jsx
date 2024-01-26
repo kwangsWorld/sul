@@ -55,6 +55,9 @@ const JoinFirst = () => {
     const handlejoin = () => {
         navigate("/member/joinEmail")
     };
+    const handleKakao = () => {
+        navigate("/member/kakao")
+    };
 
     return (
         <StyledLoginFont>
@@ -66,7 +69,7 @@ const JoinFirst = () => {
             <table>
                 <tbody>
                     <tr>
-                        <td><button className='btn1' style={{backgroundColor: '#ffeb34fa'}}>💬 카카오로 시작하기</button></td>
+                        <td><button className='btn1'  onClick={handleKakao} style={{backgroundColor: '#ffeb34fa'}}>💬 카카오로 시작하기</button></td>
                     </tr>
                     <tr className='email'>
                         <td><button className='btn' onClick={handlejoin} style={{backgroundColor: '#6eb7fbfa', color: 'white'}}>✉️ 이메일로 시작하기</button></td>

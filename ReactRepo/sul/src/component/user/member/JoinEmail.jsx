@@ -16,7 +16,6 @@ const StyledJoinEmailDiv = styled.div`
         margin-top: 8%;
         padding-right: 5%;
         padding-bottom: 3%;
-
     }
     & > form > table > tr > td {
         padding-top: 4%;
@@ -30,14 +29,18 @@ const StyledJoinEmailDiv = styled.div`
         width: 100%;
         height: 40px;
     }
-    .join{
+    .join {
         border: none;
         border-radius: 10px;
+    }
+    .error-message {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
     }
 `;
 
 const JoinEmail = () => {
-
     const navigate = useNavigate();
     let isFetching = false;
 
@@ -51,6 +54,10 @@ const JoinEmail = () => {
         nick: ""
     });
 
+    const [idErrorMessage, setIdErrorMessage] = useState("");
+    const [pwdErrorMessage, setPwdErrorMessage] = useState("");
+    const [helperText, setHelperText] = useState("5글자 이상 입력해주세요.");
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
 
@@ -58,12 +65,38 @@ const JoinEmail = () => {
             ...vo,
             [name]: value
         });
+
+        if (name === 'id') {
+            if (value.length < 5) {
+                setIdErrorMessage("5글자 이상 입력해주세요.");
+                setHelperText("");
+            } else {
+                setIdErrorMessage("");
+                setHelperText("사용 가능한 아이디입니다.");
+            }
+        } else if (name === 'pwd') {
+            if (!/[\W_]/.test(value)) {
+                setPwdErrorMessage("특수문자를 최소 1개 이상 포함해주세요.");
+            } else {
+                setPwdErrorMessage("");
+            }
+        }
+    }
+
+    const handleInputClick = () => {
+        if (vo.id.length < 5) {
+            setIdErrorMessage("5글자 이상 입력해주세요.");
+            setHelperText("");
+        } else {
+            setIdErrorMessage("");
+            setHelperText("사용 가능한 아이디입니다.");
+        }
     }
 
     const handleJoinEmailSubmit = async (event) => {
         event.preventDefault();
 
-        if (isFetching) {
+        if (isFetching || vo.pwd !== vo.pwd2 || vo.id.length < 5 || !/[\W_]/.test(vo.pwd)) {
             return;
         }
 
@@ -112,15 +145,33 @@ const JoinEmail = () => {
                     </tr>
                     <tr>
                         <td>생년월일</td>
-                        <td><input type='text' name='age' placeholder=' 생년월일 8자리를 입력해 주세요' onChange={handleInputChange} /></td>
+                        <td><input type='text' name='age' placeholder='생년월일 8자리를 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
                         <td>아이디</td>
-                        <td><input type='text' name='id' placeholder='아이디를 입력해 주세요' onChange={handleInputChange} /></td>
+                        <td>
+                            <input
+                                type='text'
+                                name='id'
+                                placeholder='아이디를 입력해 주세요'
+                                onChange={handleInputChange}
+                                onClick={handleInputClick}
+                            />
+                            <div className='error-message'>{idErrorMessage}</div>
+                        </td>
                     </tr>
                     <tr>
                         <td>비밀번호</td>
-                        <td><input type='password' name='pwd' placeholder='비밀번호를 입력해 주세요' onChange={handleInputChange} /></td>
+                        <td>
+                            <input
+                                type='password'
+                                name='pwd'
+                                placeholder='비밀번호를 입력해 주세요'
+                                onChange={handleInputChange}
+                                onClick={() => setPwdErrorMessage("특수문자를 최소 1개 이상 포함해주세요.")}
+                            />
+                            <div className='error-message'>{pwdErrorMessage}</div>
+                        </td>
                     </tr>
                     <tr>
                         <td>비밀번호 확인</td>
@@ -128,7 +179,7 @@ const JoinEmail = () => {
                     </tr>
                     <tr>
                         <td>이메일</td>
-                        <td><input type='email' name='email' placeholder='이메일 입력해 주세요' onChange={handleInputChange} /></td>
+                        <td><input type='email' name='email' placeholder='이메일을 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
                         <td>닉네임</td>
@@ -136,7 +187,7 @@ const JoinEmail = () => {
                     </tr>
                     <tr>
                         <td></td>
-                        <td><input className='join' type='submit' value='회원가입' style={{backgroundColor: '#ffe23dfb'}}/></td>
+                        <td><input className='join' type='submit' value='회원가입' style={{ backgroundColor: '#ffe23dfb' }} /></td>
                     </tr>
                 </table>
             </form>
