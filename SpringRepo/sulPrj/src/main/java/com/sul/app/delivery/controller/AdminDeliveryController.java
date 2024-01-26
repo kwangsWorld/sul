@@ -16,10 +16,12 @@ import com.sul.app.delivery.service.DeliveryService;
 import com.sul.app.delivery.vo.DeliveryVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("adminDelivery")
+@Slf4j
 public class AdminDeliveryController {
 
 	private final DeliveryService service;
@@ -27,7 +29,7 @@ public class AdminDeliveryController {
 	// 배송목록 조회
 	@PostMapping("list")
 	public Map<String,Object> list(@RequestBody PageVo vo) {
-		
+		log.info("들어오는 vo :::" + vo);
 		Map<String,Object> map = new HashMap<String, Object>();
 		
 		int start = (Integer.parseInt(vo.getPageNo())-1)*Integer.parseInt(vo.getLimit());
@@ -41,6 +43,7 @@ public class AdminDeliveryController {
 		voList = service.list(vo);
 		map.put("pageTotal", pageTotal);
 		map.put("voList", voList);
+		log.info("나가는 vo :::" + map);
 		
 		return map;
 	}

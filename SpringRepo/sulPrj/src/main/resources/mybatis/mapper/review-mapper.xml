@@ -23,11 +23,16 @@
 		, R.DEL_YN
 		FROM REVIEW R
 		JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
-		JOIN
-		ORDERS_LIST L ON L.ORDER_LIST_NO = R.ORDER_LIST_NO
-		JOIN ORDERS O ON
-		O.ORDER_NO = L.ORDER_NO
-		JOIN PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
+		JOIN ORDERS_LIST L ON L.ORDER_LIST_NO = R.ORDER_LIST_NO
+		JOIN PRODUCT P ON P.PRODUCT_NO = L.PRODUCT_NO
+		<where>
+			<if test="reviewNo != null">
+				AND R.REVIEW_NO LIKE '%' || #{reviewNo} || '%'
+			</if>
+			<if test="nick != null">
+				AND M.NICK LIKE '%' || #{nick} || '%'
+			</if>
+		</where>
 		ORDER BY REVIEW_NO DESC
 		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
 	</select>
@@ -45,11 +50,16 @@
 		, R.DEL_YN
 		FROM REVIEW R
 		JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
-		JOIN
-		ORDERS_LIST L ON L.ORDER_LIST_NO = R.ORDER_LIST_NO
-		JOIN ORDERS O ON
-		O.ORDER_NO = L.ORDER_NO
-		JOIN PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
+		JOIN ORDERS_LIST L ON L.ORDER_LIST_NO = R.ORDER_LIST_NO
+		JOIN PRODUCT P ON P.PRODUCT_NO = L.PRODUCT_NO
+		<where>
+			<if test="reviewNo != null">
+				AND R.REVIEW_NO LIKE '%' || #{reviewNo} || '%'
+			</if>
+			<if test="nick != null">
+				AND M.NICK LIKE '%' || #{nick} || '%'
+			</if>
+		</where>
 		ORDER BY REVIEW_NO DESC
 	</select>
 

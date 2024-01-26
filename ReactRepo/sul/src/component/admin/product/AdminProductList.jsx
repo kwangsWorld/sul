@@ -13,13 +13,12 @@ const StyledAdminProductListDiv = styled.div`
 
     & > table {
         width: 100%;
-        height: 80%;
         border: solid 1px;
         border-collapse: collapse;
     }
 
-    & > table > tbody {
-        height: 10vh;
+    .list {
+        height: 50px;
     }
 
     td {
@@ -133,6 +132,17 @@ const AdminProductList = () => {
     const detailItem = (vo) => {
         navigate('/admin/product/detail', { state:  {vo}  });
     };
+    
+    // 검색버튼 동작 함수
+    const handleSearch = () => {
+        setPageVo ( {
+            productNo : select === 'no' ? input : null,
+            tName : select === 'type' ? input : null,
+            pName : select === 'name' ? input : null,
+            pageNo : 1,
+            limit : 10,
+        })
+    };
 
     const [select, setSelect] = useState();
     const [input, setInput] = useState();
@@ -141,12 +151,7 @@ const AdminProductList = () => {
         setSelect('');
         setInput('');
     };
-
-     // 검색버튼 동작 함수
-     const handleSearch = () => {
-        
-    };
-
+     
     // 작성하기 버튼 클릭 시 동작 함수
     const handleInsert = () => {
         navigate("/admin/product/insert")
@@ -164,7 +169,8 @@ const AdminProductList = () => {
                             return setSelect(event.target.value)
                         } }>
                             <option value=""></option>
-                            <option value="number">번호</option>
+                            <option value="no">번호</option>
+                            <option value="type">종류</option>
                             <option value="name">상품명</option>
                         </select>
                     </div>
@@ -198,7 +204,7 @@ const AdminProductList = () => {
                 <tbody>
                     {
                         voList.map( (vo) => (
-                        <tr key={vo.no} onClick={() => {
+                        <tr className='list' key={vo.no} onClick={() => {
                             detailItem(vo)}
                             }>
                             <td className='product_no'>{vo.productNo}</td>

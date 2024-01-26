@@ -18,10 +18,12 @@ import com.sul.app.csboard.service.CsBoardService;
 import com.sul.app.csboard.vo.CsBoardVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("csboard")
+@Slf4j
 public class CsBoardController {
 	
 	private final CsBoardService service;
@@ -29,7 +31,7 @@ public class CsBoardController {
 	// 고객센터 목록 조회
 	@PostMapping("list")
 	public Map<String, Object> list(@RequestBody PageVo vo) {
-		
+		log.info("들어오는값 ::: " + vo);
 		Map<String,Object> map = new HashMap<String, Object>();
 		
 		int start = (Integer.parseInt(vo.getPageNo())-1)*Integer.parseInt(vo.getLimit());
@@ -43,7 +45,7 @@ public class CsBoardController {
 		voList = service.list(vo);
 		map.put("pageTotal", pageTotal);
 		map.put("voList", voList);
-		
+		log.info("나가는값 ::: " + map);
 		return map;
 	}
 	

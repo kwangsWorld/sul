@@ -19,6 +19,17 @@
 		    , TO_CHAR (C.A_DATE, 'YYYY-MM-DD') AS ANSWER_DATE
 		FROM CUSTOMER_CENTER C
 		JOIN MEMBER M ON C.MEMBER_NO = M.MEMBER_NO
+		<where>
+			<if test="qTitle != null">
+				AND C.Q_TITLE LIKE '%' || #{qTitle} || '%'
+			</if>
+			<if test="qNo != null">
+				AND C.Q_NO LIKE '%' || #{qNo} || '%'
+			</if>
+			<if test="nick != null">
+				AND M.NICK LIKE '%' || #{nick} || '%'
+			</if>
+		</where>
 		ORDER BY Q_NO DESC
 		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
 	</select>
@@ -38,6 +49,17 @@
 		    , TO_CHAR (C.A_DATE, 'YYYY-MM-DD') AS ANSWER_DATE
 		FROM CUSTOMER_CENTER C
 		JOIN MEMBER M ON C.MEMBER_NO = M.MEMBER_NO
+		<where>
+			<if test="qTitle != null">
+				AND C.Q_TITLE LIKE '%' || #{qTitle} || '%'
+			</if>
+			<if test="qNo != null">
+				AND C.Q_NO LIKE '%' || #{qNo} || '%'
+			</if>
+			<if test="nick != null">
+				AND M.NICK LIKE '%' || #{nick} || '%'
+			</if>
+		</where>
 		ORDER BY Q_NO DESC
 	</select>
 	

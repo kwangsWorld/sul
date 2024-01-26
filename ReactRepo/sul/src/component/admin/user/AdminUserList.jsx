@@ -13,13 +13,12 @@ const StyledAdminUserListDiv = styled.div`
 
     & > table {
         width: 100%;
-        height: 80%;
         border: solid 1px;
         border-collapse: collapse;
     }
 
-    & > table > tbody {
-        height: 10vh;
+    .list {
+        height: 50px;
     }
 
     td {
@@ -123,17 +122,23 @@ const AdminUserList = () => {
         navigate('/admin/User/detail', { state:  {vo}  });
     };
 
+    // 검색버튼 동작 함수
+    const handleSearch = () => {
+        setPageVo({
+            id : select === 'id' ? input : null,
+            name : select === 'name' ? input : null,
+            nick : select === 'nick' ? input : null,
+            pageNo : 1,
+            limit : 10,
+        })
+    };
+
     const [select, setSelect] = useState();
     const [input, setInput] = useState();
     // 초기화 버튼 클릭 시 동작 함수
     const handleReset = () => {
         setSelect('');
         setInput('');
-    };
-
-     // 검색버튼 동작 함수
-     const handleSearch = () => {
-        
     };
 
     return (
@@ -148,8 +153,9 @@ const AdminUserList = () => {
                             return setSelect(event.target.value)
                         } }>
                             <option value=""></option>
-                            <option value="number">이름</option>
-                            <option value="name">닉네임</option>
+                            <option value="id">아이디</option>
+                            <option value="name">이름</option>
+                            <option value="nick">닉네임</option>
                         </select>
                     </div>
                     <div>
@@ -179,7 +185,7 @@ const AdminUserList = () => {
                 <tbody>
                     {
                         voList.map( (vo) => (
-                        <tr key={vo.no} onClick={() => {
+                        <tr className='list' key={vo.no} onClick={() => {
                             detailItem(vo)}
                             }>
                             <td className='user_no'>{vo.memberNo}</td>

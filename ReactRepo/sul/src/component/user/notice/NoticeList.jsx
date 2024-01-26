@@ -134,10 +134,10 @@ const NoticeList = () => {
      const handleSearch = () => { 
 
         setPageVo({
-                title: select === 'title' ? input : null,
-                noticeNo: select === 'noticeNo' ? input : null,
-                pageNo : 1,
-                limit : 10
+            noticeNo: select === 'no' ? input : null,
+            title: select === 'title' ? input : null,
+            pageNo : 1,
+            limit : 10
         })
 
         // // const searchVo = {
@@ -194,7 +194,7 @@ const NoticeList = () => {
                                 return setSelect(event.target.value)
                             } }>
                                 <option value=""></option>
-                                <option value="noticeNo">번호</option>
+                                <option value="no">번호</option>
                                 <option value="title">제목</option>
                             </select>
                         </div>

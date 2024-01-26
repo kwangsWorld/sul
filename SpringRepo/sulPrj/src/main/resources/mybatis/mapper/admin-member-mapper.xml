@@ -18,7 +18,18 @@
 		    , A.ADDRESS
 		FROM MEMBER M
 		JOIN ADDRESS A ON A.MEMBER_NO = M.MEMBER_NO
-		ORDER BY M.MEMBER_NO ASC
+		<where>
+			<if test="id != null">
+				AND M.ID LIKE '%' || #{id} || '%'
+			</if>
+			<if test="name != null">
+				AND M.NAME LIKE '%' || #{name} || '%'
+			</if>
+			<if test="nick != null">
+				AND M.NICK LIKE '%' || #{nick} || '%'
+			</if>
+		</where>
+		ORDER BY M.MEMBER_NO DESC
 		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
 	</select>
 	
@@ -36,7 +47,18 @@
 		    , A.ADDRESS
 		FROM MEMBER M
 		JOIN ADDRESS A ON A.MEMBER_NO = M.MEMBER_NO
-		ORDER BY M.MEMBER_NO ASC
+		<where>
+			<if test="id != null">
+				AND M.ID LIKE '%' || #{id} || '%'
+			</if>
+			<if test="name != null">
+				AND M.NAME LIKE '%' || #{name} || '%'
+			</if>
+			<if test="nick != null">
+				AND M.NICK LIKE '%' || #{nick} || '%'
+			</if>
+		</where>
+		ORDER BY M.MEMBER_NO DESC
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.member.vo.MemberVo">
