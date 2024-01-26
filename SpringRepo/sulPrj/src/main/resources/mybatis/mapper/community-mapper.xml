@@ -30,6 +30,7 @@
     C.COMMUNITY_NO
     , C.TITLE
     , C.CONTENT
+    , C.IMG
     ,  TO_CHAR (C.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
     , C.DEL_YN
     , M.NICK
@@ -37,7 +38,36 @@
 		FROM COMMUNITY C
 		JOIN MEMBER M ON C.MEMBER_NO = M.MEMBER_NO
 		JOIN COMMUNITY_CATEGORY T ON C.COMMUNITY_CATEGORY_NO = T.COMMUNITY_CATEGORY_NO
-		WHERE C.DEL_YN = 'N'
+		<where>
+			<if  test="name != null and name != ''">
+				AND T.NAME = #{name}
+			</if>
+		</where>
+		AND C.DEL_YN = 'N'
+		ORDER BY COMMUNITY_NO DESC
+		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+	
+	<select id="listAll" resultType="com.sul.app.community.vo.CommunityVo">
+		SELECT 
+		    C.COMMUNITY_NO
+		    , C.TITLE
+		    , C.CONTENT
+		    , C.IMG
+		    ,  TO_CHAR (C.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+		    , C.DEL_YN
+		    , M.NICK
+		    , T.NAME
+				FROM COMMUNITY C
+				JOIN MEMBER M ON C.MEMBER_NO = M.MEMBER_NO
+				JOIN COMMUNITY_CATEGORY T ON C.COMMUNITY_CATEGORY_NO = T.COMMUNITY_CATEGORY_NO
+				<where>
+					<if  test="name != null and name != ''">
+						AND T.NAME = #{name}
+					</if>
+				</where>
+				AND C.DEL_YN = 'N'
+				ORDER BY COMMUNITY_NO DESC
 	</select>
 	
 	<select id="detail" resultType="com.sul.app.community.vo.CommunityVo">

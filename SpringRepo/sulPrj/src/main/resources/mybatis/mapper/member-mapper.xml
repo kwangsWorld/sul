@@ -45,5 +45,9 @@
 		JOIN ADDRESS A ON A.MEMBER_NO=M.MEMBER_NO
 		WHERE M.MEMBER_NO = #{memberNo}
 	</select>
-	
+	<update id="selectBasicAdrress">
+		UPDATE MEMBER
+			SET ADDRESS_NO = #{addressNo}
+			WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>

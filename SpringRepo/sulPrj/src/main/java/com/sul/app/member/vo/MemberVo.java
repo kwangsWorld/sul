@@ -16,5 +16,5 @@ public class MemberVo {
 	private String enrollDate;
 	private String modifyDate;
 	private String delYn;
-	private String address;
+	private String addressNo;
 }

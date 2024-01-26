@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sul.app.address.vo.AddressVo;
 import com.sul.app.member.dao.MemberDao;
 import com.sul.app.member.vo.MemberVo;
 
@@ -62,6 +63,10 @@ public class MemberService {
 	//회원상세조회
 	public List<MemberVo> detail() {
 		return dao.detail(sst);
+	}
+
+	public int selectBasicAdrress(MemberVo vo) {
+		return dao.selectBasicAdrress(sst, vo);
 	}
 
 }

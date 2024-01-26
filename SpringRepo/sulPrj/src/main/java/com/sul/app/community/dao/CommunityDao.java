@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.sul.app.common.PageVo;
 import com.sul.app.community.vo.CommunityVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +21,8 @@ public class CommunityDao {
 	}
 
 	//목록
-	public List<CommunityVo> list(SqlSessionTemplate sst) {
-		return sst.selectList("CommunityMapper.list");
+	public List<CommunityVo> list(SqlSessionTemplate sst, PageVo vo) {
+		return sst.selectList("CommunityMapper.list", vo);
 	}
 
 	//상세조회
@@ -42,6 +43,10 @@ public class CommunityDao {
 	//내가 작성한 글 보기
 	public List<CommunityVo> my(SqlSessionTemplate sst, CommunityVo vo) {
 		return sst.selectList("CommunityMapper.my", vo);
+	}
+
+	public List<CommunityVo> listAll(SqlSessionTemplate sst, PageVo vo) {
+		return sst.selectList("CommunityMapper.listAll", vo);
 	}
 	
 	
