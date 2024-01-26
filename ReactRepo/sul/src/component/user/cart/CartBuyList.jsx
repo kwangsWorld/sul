@@ -153,7 +153,7 @@ const BuyList = () => {
                     pay_method: 'card',
                     merchant_uid: "SULDAMA" + makeMerchantUid,
                     name: '주문 총계',
-                    amount: totalPrice,
+                    amount: totalPrice
                 }, async function (rsp) {
                     // if (rsp.success){
                     //     console.log(rsp);

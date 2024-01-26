@@ -18,10 +18,10 @@ public class OrderService {
 	private final OrderDao dao;
 	private final SqlSessionTemplate sst;
 	
-	//구매목록 추가
-//	public int add(OrderVo vo) {
-//		return dao.add(sst, vo);
-//	}
+//	구매목록 추가
+	public int add(OrderVo vo) {
+		return dao.add(sst, vo);
+	}
 	
 	//내가 주문한 목록
 	public List<OrderVo> list(OrderVo vo) {

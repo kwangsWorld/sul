@@ -83,6 +83,9 @@ const StyledBuyListDiv = styled.div`
 const BuyList = () => {
     const [isChecked, setIsChecked] = useState(false);
     const [isArrowActivated, setIsArrowActivated] = useState(false);
+    const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo")); //세션스토리지에서 객체 읽어오기
+
+    const memberNo = loginInfo.memberNo;
 
     const handleCheckboxToggle = () => {
         setIsChecked((prev) => !prev);
@@ -94,10 +97,79 @@ const BuyList = () => {
     
     const buyObj = useLocation();
     console.log("buyObj : " , buyObj);
+    
     // console.log("buyObj.피네임 : " , buyObj.state.pname);
     // console.log("buyObj.카운트 : " , buyObj.state.cnt);
 
     const totalPrice = buyObj.state.price * buyObj.state.cnt;
+
+    const orderObj = {
+        ...buyObj.state,
+        memberNo,
+        totalPrice
+    }
+    console.log("orderObj : ", orderObj);
+
+    //iamport 라이브러리 추가
+    const script = document.createElement("script");
+    // console.log("script: ", script);
+    script.src = "https://cdn.iamport.kr/v1/iamport.js";
+    document.body.appendChild(script);
+
+    //카카오페이 시작
+    var IMP = window.IMP;
+
+    var today = new Date();
+    var hours = today.getHours();
+    var minutes = today.getMinutes();
+    var seconds = today.getSeconds();
+    var milliseconds = today.getMilliseconds;
+    var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
+
+    function kakaoPay(e){
+        e.stopPropagation(); //이벤트 전파 방지
+        if (window.confirm("구매하시겠습니까?")) {
+            if(loginInfo != null){
+                IMP.init("imp87087825");
+                IMP.request_pay({
+                    pg: 'kakaopay.TC0ONETIME',
+                    pay_method: 'card',
+                    merchant_uid: "SULDAMA" + makeMerchantUid,
+                    name: '주문 총계',
+                    amount: totalPrice
+                }, async function (rsp){
+                    if(rsp.success){
+                        alert("구매 성공!")
+                        {addOrderList();}
+                    }else if(rsp.success == false) {
+                        alert(rsp.error_msg)
+                    }
+                });
+            }
+            else{
+                alert("로그인이 필요합니다!")
+            }
+        }else{
+            return false;
+        }
+    }
+    //카카오페이 끝
+
+    const addOrderList = () => {
+        console.log("FUNCTION RUN");
+        fetch("http://127.0.0.1:8888/app/order/add",{
+            method: 'post' ,
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(orderObj)
+        })
+        .then((resp) => {return resp.json()})
+        .then((data) => {
+            console.log("백엔드 작업 결과: ", data);
+        })
+    };
+
 
     return (
         <StyledBuyListDiv>
@@ -166,7 +238,12 @@ const BuyList = () => {
                         }
                 </div>
                 <br />
-                {isChecked ? <button className='final_buy'>{parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기</button>
+                {isChecked ? 
+                <button className='final_buy' onClick={(e) => {
+                    kakaoPay(e);
+                     addOrderList();}}>
+                    {parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기
+                </button>
                 : <button className='final_buy_no'>{parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기</button>}
             </div>
         </StyledBuyListDiv>
