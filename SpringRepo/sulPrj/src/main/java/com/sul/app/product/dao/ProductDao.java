@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.sul.app.common.PageVo;
 import com.sul.app.product.vo.ProductVo;
 
 @Repository
@@ -36,9 +37,13 @@ public class ProductDao {
 		return sst.selectOne("ProductMapper.detail", vo);
 	}
 
-	//제품 검색
-	public List<ProductVo> searchByName(SqlSessionTemplate sst, ProductVo vo) {
+	// 제품 검색
+	public List<ProductVo> search(SqlSessionTemplate sst, PageVo vo) {
 		return sst.selectList("ProductMapper.search", vo);
 	}
-
+	// 제품 전체 목록
+	public List<ProductVo> searchAll(SqlSessionTemplate sst, PageVo vo) {
+		return sst.selectList("ProductMapper.searchAll", vo);
+	}
+	
 }

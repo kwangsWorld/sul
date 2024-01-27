@@ -83,18 +83,41 @@
 	
 	<select id="search" resultType="com.sul.app.product.vo.ProductVo">
 	SELECT 
-		P.NAME
+		P.PRODUCT_NO
+		, P.NAME AS P_NAME
 		, P.PRICE
 		, P.IMAGE
 		, P.DEL_YN
 		, R.RATING
 	FROM PRODUCT P
-	JOIN ORDERS O ON P.PRODUCT_NO = O.PRODUCT_NO
-	JOIN ORDERS_LIST OL ON O.ORDER_NO = OL.ORDER_NO
+	JOIN ORDERS_LIST OL ON P.PRODUCT_NO = OL.PRODUCT_NO
 	JOIN REVIEW R ON OL.ORDER_LIST_NO = R.ORDER_LIST_NO
-	WHERE P.DEL_YN = 'N'
-	AND P.NAME LIKE '%(검색데이터 받아야할 값..?)%'
-	ORDER BY P.ENROLL_DATE DESC
+	<where>
+		<if test="pName != null">
+			AND P.NAME LIKE '%' || #{pName} || '%'
+		</if>
+	</where>
+	ORDER BY PRODUCT_NO DESC
+	OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+	
+	<select id="searchAll" resultType="com.sul.app.product.vo.ProductVo">
+	SELECT 
+		P.PRODUCT_NO
+		, P.NAME AS P_NAME
+		, P.PRICE
+		, P.IMAGE
+		, P.DEL_YN
+		, R.RATING
+	FROM PRODUCT P
+	JOIN ORDERS_LIST OL ON P.PRODUCT_NO = OL.PRODUCT_NO
+	JOIN REVIEW R ON OL.ORDER_LIST_NO = R.ORDER_LIST_NO
+	<where>
+		<if test="pName != null">
+			AND P.NAME LIKE '%' || #{pName} || '%'
+		</if>
+	</where>
+	ORDER BY PRODUCT_NO DESC
 	</select>
 	
 </mapper>

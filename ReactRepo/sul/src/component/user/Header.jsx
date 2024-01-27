@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { MemberContext } from '../../context/MemberContext';
@@ -49,6 +49,7 @@ const StyledHeaderDiv = styled.div`
         justify-content: center;
         align-items: center;
     }
+
     .nick{
         width: 30%;
         margin-right: 20px;
@@ -63,16 +64,33 @@ const StyledHeaderDiv = styled.div`
         border-radius: 10px;
         border: 1px solid gray;
     }
+
+    .header_center {
+        display: flex;
+        height: 30px;
+    }
+
+    .header_button {
+        width: 70px;
+        margin-top: 5px;
+        margin-left: 10px;
+        border-radius: 10px;
+        border: 1px solid gray;
+    }
+
     .cart{
         margin-top: 16%;
     }
+
     .out{
         margin-top: 2%;
         padding-left: 25%;
     }
+
     .log{
         font-size: 14px;
     }
+
     button{
         border: none;
         background-color: white;
@@ -85,6 +103,7 @@ const Header = () => {
     const {loginMember, setLoginMember} = useContext(MemberContext);
  
     const navigate = useNavigate();
+
 
       // 페이지 로드 시 세션 스토리지에서 로그인 정보 가져오기
       const [loginInfo, setLoginInfo] = useState(() => {
@@ -102,6 +121,22 @@ const Header = () => {
         navigate("/product/list")
     };
 
+    const [input, setInput] = useState("");
+    const [vo , setVo] = useState({});
+
+    // 검색버튼 동작 함수
+    const handleSearch = () => {
+        console.log("handleSearch called...............");
+        console.log("줘야해222222" , vo);
+        navigate('/product/search', { state: {pName : input} });
+    };
+
+    console.log("줘야해" , vo);
+
+    // useEffect( () => {
+    //     handleSearch();
+    // }, [pageVo])
+
     return (
         <StyledHeaderDiv>
             <div className='header_wrap'>
@@ -112,7 +147,14 @@ const Header = () => {
                     </div>
                 </div>
                 <div className='header_center'>
-                    <input className='header_search' type="text" placeholder='지우야, 또 술먹게? 어떤술 찾아줘?' />
+                    <div>
+                        <input className='header_search' type="text" value={input} onChange={ (event) => {
+                            return setInput(event.target.value);
+                        }} placeholder='지우야, 또 술먹게? 어떤술 찾아줘?' />
+                    </div>
+                    <div>
+                        <button class="header_button" onClick={handleSearch}>검색</button>
+                    </div>
                 </div>
                 <div className='header_right'>
                     <div className='join_login'>
