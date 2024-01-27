@@ -7,6 +7,7 @@ public class OrderVo {
 
 	private String orderNo;
 	private String memberNo;
+	private String productNo;
 	private String name;
 	private String price;
 	private String cnt;

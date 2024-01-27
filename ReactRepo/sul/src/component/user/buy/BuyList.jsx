@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -81,6 +81,7 @@ const StyledBuyListDiv = styled.div`
 `;
 
 const BuyList = () => {
+    const navigate = useNavigate();
     const [isChecked, setIsChecked] = useState(false);
     const [isArrowActivated, setIsArrowActivated] = useState(false);
     const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo")); //세션스토리지에서 객체 읽어오기
@@ -139,8 +140,9 @@ const BuyList = () => {
                     amount: totalPrice
                 }, async function (rsp){
                     if(rsp.success){
-                        alert("구매 성공!")
-                        {addOrderList();}
+                        alert("구매 성공!");
+                        addOrder();
+                        navigate("/mypage/myorder", {state:orderObj});
                     }else if(rsp.success == false) {
                         alert(rsp.error_msg)
                     }
@@ -155,8 +157,7 @@ const BuyList = () => {
     }
     //카카오페이 끝
 
-    const addOrderList = () => {
-        console.log("FUNCTION RUN");
+    const addOrder = () => {
         fetch("http://127.0.0.1:8888/app/order/add",{
             method: 'post' ,
             headers: {
@@ -166,9 +167,24 @@ const BuyList = () => {
         })
         .then((resp) => {return resp.json()})
         .then((data) => {
-            console.log("백엔드 작업 결과: ", data);
+            console.log("백엔드 작업 결과 : ", data);
         })
     };
+    
+    const addOrderList = () => {
+        fetch("http://127.0.0.1:8888/app/order/listAdd", {
+            method: 'post' , 
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(orderObj)
+        })
+        .then((resp) => {return resp.json()})
+        .then((data) => {
+            console.log("백엔드 작업 결과 : ", data);
+        })
+    }
+
 
 
     return (
@@ -240,8 +256,7 @@ const BuyList = () => {
                 <br />
                 {isChecked ? 
                 <button className='final_buy' onClick={(e) => {
-                    kakaoPay(e);
-                     addOrderList();}}>
+                    kakaoPay(e);}}>
                     {parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기
                 </button>
                 : <button className='final_buy_no'>{parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기</button>}
