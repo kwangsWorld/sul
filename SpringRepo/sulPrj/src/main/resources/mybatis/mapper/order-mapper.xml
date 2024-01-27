@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="OrderMapper">
 
-	<insert id ="add">
+	<insert id="add">
 		INSERT INTO ORDERS(
 		    ORDER_NO
 		    ,MEMBER_NO
@@ -13,6 +13,24 @@
 		    SEQ_ORDER_NO.NEXTVAL
 		    ,#{memberNo}
 		)
+	</insert>
+	
+	<insert id="addList">
+		INSERT INTO ORDERS_LIST(
+			ORDER_LIST_NO
+			,ORDER_NO
+			,PRODUCT_NO
+			,MEMBER_NO
+			,QUANTITY
+		)VALUES(
+			SEQ_ORDER_LIST_NO.NEXTVAL
+			,#{orderNo}
+			,#{productNo}
+			,#{memberNo}
+			,#{cnt}
+		)
+		
+	
 	</insert>
 
 	<select id="list" resultType="com.sul.app.order.vo.OrderVo">

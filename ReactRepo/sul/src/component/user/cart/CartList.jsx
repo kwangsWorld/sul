@@ -98,6 +98,8 @@ const StyledCartListDiv = styled.div`
 `;
 
 const CartList = () => {
+
+    console.log("card list 컴포넌트 ~~~");
     
     let t = 0;
 
@@ -136,7 +138,7 @@ const CartList = () => {
         ;
     } , [] );
 
-    // console.log("arr : " , arr);
+    console.log("arr : " , arr);
 
     const changeMinusCnt = (event, idx) => {
         if(arr[idx].cnt <= 1){
@@ -192,9 +194,9 @@ const CartList = () => {
                 <div className='bottom_left_wrap'>
                     <hr className='line'/>
                     {
-                         arr.map((vo,idx) => (
+                         arr.map((productVo, idx) => (
                     
-                    <div key = {vo.cartNo} className='cart_list'>
+                    <div key = {productVo.cartNo} className='cart_list'>
                         <div className='select'>
                             <input type="checkbox" />
                         </div>
@@ -209,13 +211,13 @@ const CartList = () => {
                             
                                 <div>
                                     <div>이름:
-                                        {vo.name}
+                                        {productVo.name}
                                         </div>
                                     <div>용량:  
-                                        {vo.capacity}
+                                        {productVo.capacity}
                                         ml</div>
                                     <div>가격: 
-                                        {parseInt(vo.price).toLocaleString('ko-KR')}
+                                        {parseInt(productVo.price).toLocaleString('ko-KR')}
                                         원</div>
                                 </div>
                              
@@ -224,13 +226,14 @@ const CartList = () => {
                             <div className='detail'>
                             <div className='cnt_box'>
                                 <div className='minus' onClick={(e)=>changeMinusCnt(e,idx)}>-</div>
-                                <div className='cnt'> {vo.cnt} </div>
+                                <div className='cnt'> {productVo.cnt} </div>
                                 <div className='plus' onClick={(e)=>{changePlusCnt(e,idx); }}>+</div>
                             </div>
                             <div className='price'></div>
                         </div>
                     </div>
-                    ))} 
+                    ))
+                    } 
                 </div>
 
                 <div className='bottom_right'>

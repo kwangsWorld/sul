@@ -143,6 +143,7 @@ const ProductDetail = () => {
     }
 
     const addCart = () => {
+        console.log("add carttttttttttttttttttttttttttt");
 
         const productInfo = {
             ...vo,
@@ -156,7 +157,10 @@ const ProductDetail = () => {
                 "Content-Type" : "application/json"
             },
             body: JSON.stringify(productInfo)})
-            .then( (resp) => {return resp.json()})
+            .then( (resp) => {
+                console.log("디비에 가서 addCart 완료 ~~~");
+                navigate("/cart/list");
+                return resp.json()})
     };
 
 
@@ -238,7 +242,7 @@ const ProductDetail = () => {
                         <tr>
                             <td colSpan={2}>
                                 <button className='go_cart' 
-                                    onClick={()=> {navigate("/cart/list", {state:cnt}); addCart(); }}>🛒장바구니</button>
+                                    onClick={()=> { addCart(); }}>🛒장바구니</button>
                             </td>
                             <td colSpan={2}>
                                 <button className='go_buy' onClick={()=> {navigate("/buy/list" , {state:obj});}}>💰구매하기</button>
