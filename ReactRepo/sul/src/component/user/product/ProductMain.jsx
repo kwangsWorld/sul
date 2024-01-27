@@ -6,6 +6,7 @@ import ProductWine from './ProductWine';
 import ProductSoju from './ProductSoju';
 import ProductDetail from './ProductDetail';
 import ProductList from './ProductList';
+import ProductSearch from './ProductSearch';
 
 
 const ProductMain = () => {
@@ -16,6 +17,7 @@ const ProductMain = () => {
             <Route path='list/2' element={<ProductChungju/>}/>
             <Route path='list/3' element={<ProductWine/>}/>
             <Route path='list/4' element={<ProductSoju/>}/>
+            <Route path='search' element={<ProductSearch/>}/>
             <Route path='detail/:productNo' element={<ProductDetail/>}/>
             <Route path='/' element={<ProductList/>}/>
         </Routes>

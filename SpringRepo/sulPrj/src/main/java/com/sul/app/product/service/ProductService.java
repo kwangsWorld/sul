@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import com.sul.app.common.PageVo;
 import com.sul.app.product.dao.ProductDao;
 import com.sul.app.product.vo.ProductVo;
 
@@ -39,9 +40,15 @@ public class ProductService {
 		return dao.detail(sst, vo);
 	}
 
-	//제품 검색
-	public List<ProductVo> searchByName(ProductVo vo) {
-		return dao.searchByName(sst, vo);
+	// 제품 검색
+	public List<ProductVo> search(PageVo vo) {
+		return dao.search(sst, vo);
 	}
 
+	// 제품 전체 목록
+	public List<ProductVo> searchAll(PageVo vo) {
+		return dao.searchAll(sst, vo);
+	}
+
+	
 }

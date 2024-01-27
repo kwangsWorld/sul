@@ -88,9 +88,6 @@ const AdminHeader = () => {
             <div className='header_left'>
                 <div className='icon'>SULDAMA</div>
             </div>
-            <div className='header_center'>
-                <input className='header_search' type="text" placeholder='지우야, 또 술먹게? 어떤술 찾아줘?' />
-            </div>
             <div className='header_right'>
                 <div className='join_login'>
                     {adminLoginMember === null
