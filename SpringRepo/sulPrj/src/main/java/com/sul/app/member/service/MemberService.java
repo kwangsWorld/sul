@@ -51,7 +51,7 @@ public class MemberService {
 	        int year = Integer.parseInt(age.substring(0, 4));
 
 	        // 앞자리 4자리가 2005 이하인지 체크
-	        if (year <= 2005) {
+	        if (year >= 2005) {
 	            throw new Exception("2005년 이전 출생자만 가입 가능합니다.");
 	        }
 	    } catch (NumberFormatException e) {

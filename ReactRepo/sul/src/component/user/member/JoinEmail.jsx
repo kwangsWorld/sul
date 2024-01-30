@@ -57,7 +57,7 @@ const JoinEmail = () => {
     const [idErrorMessage, setIdErrorMessage] = useState("");
     const [pwdErrorMessage, setPwdErrorMessage] = useState("");
     const [helperText, setHelperText] = useState("5글자 이상 입력해주세요.");
-
+    const [emailAuth, setEmailAuth] = useState(0);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -177,6 +177,18 @@ const JoinEmail = () => {
         }
     }, [vo.email], [vo.emailCode]);
     
+    const handleVerifyEmail = () => {
+        // 이메일 인증 코드 검증
+        const userAuthCodeInput = document.getElementById("userAuthCodeInput").value;
+        if (vo.emailCode === userAuthCodeInput) {
+            alert('이메일이 성공적으로 인증되었습니다.');
+            setEmailAuth(prevEmailAuth => prevEmailAuth + 1);
+        } else {
+            alert('이메일 인증에 실패했습니다. 다시 시도해주세요.');
+            setEmailAuth(0);
+        }
+    };
+
     return (
         <StyledJoinEmailDiv>
             <form onSubmit={handleJoinEmailSubmit}>
@@ -226,6 +238,14 @@ const JoinEmail = () => {
                     <tr>
                         <td>이메일</td>
                         <td><input type='email' id='email' name='email' placeholder='이메일을 입력해 주세요' onChange={handleInputChange} /><button onClick={handleMail}>인증하기</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <input type="text" id="userAuthCodeInput" placeholder='인증번호'/>
+                                <button id='emailAuthCode' type='button' onClick={handleVerifyEmail}>입력</button>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>닉네임</td>
