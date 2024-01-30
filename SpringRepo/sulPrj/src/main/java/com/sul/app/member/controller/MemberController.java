@@ -54,7 +54,7 @@ public class MemberController {
 	            MimeMessage message = javaMailSender.createMimeMessage();
 	            MimeMessageHelper helper = new MimeMessageHelper(message, true);
 	            helper.setTo(vo.getEmail());
-	            helper.setSubject("퀘스트립 회원가입 인증 코드");
+	            helper.setSubject("회원가입 인증 코드");
 	            helper.setText("회원가입 이메일 인증 코드: " + verificationCode);
 
 	            javaMailSender.send(message);
