@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Myheader from './Myheader';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const StyledMyorderDiv = styled.div`
   h3{
@@ -52,11 +52,14 @@ const StyledMyorderDiv = styled.div`
 const Myorder = () => {
   
   const navigate = useNavigate();
+  const tt = useLocation().state;
   const [orderVoList, setOrderVoList] = useState([]);
   const[vo, setVo] = useState(orderVoList);
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
   const orderNo = orderVoList.map(order => order.orderNo );
-  console.log("order",orderVoList);
+  console.log("@@@@@@@@@@@@@tt값: ", tt);
+
+  // console.log("order",orderVoList);
   const loadOrderVoList = () => {
     fetch("http://127.0.0.1:8888/app/order/list",{
       method : 'post',

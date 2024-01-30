@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { json, useLocation } from 'react-router-dom';
+import { json, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -50,7 +50,8 @@ const StyledBuyListDiv = styled.div`
     }
 
     .line{
-        border: 1px solid #ffe23dfb;
+        border-bottom: 1px solid #ffe23dfb;
+        margin: 0px;
     }
 
     .checkbox_agree{
@@ -78,11 +79,18 @@ const StyledBuyListDiv = styled.div`
         border: none;
         border-radius: 10px;
     }
+
+    .address_header, .order_head{
+        background-color: #ffe23dfb;
+
+    }
+
+
 `;
 
 
 const BuyList = () => {
-
+    const navigate = useNavigate();
     const [arr, setArr] = useState(useLocation().state);
     const [isChecked, setIsChecked] = useState(false);
     const [isArrowActivated, setIsArrowActivated] = useState(false);
@@ -90,7 +98,7 @@ const BuyList = () => {
     const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo")); //세션스토리지에서 객체 얻어오기
 
 
-    console.log("arr.arr: ", arr.arr);
+    // console.log("arr.arr: ", arr.arr);
 
     const memberNo = loginInfo.memberNo;
 
@@ -135,6 +143,9 @@ const BuyList = () => {
         .then((data) => {
             console.log("백엔드 작업 결과 : ", data);
             addOrderList();
+
+            console.log("마이페이지로 보내기전의 totalPrice값: ", totalPrice);
+            navigate("/mypage/myorder", {state:totalPrice});
         })
     };
 
@@ -225,9 +236,8 @@ const BuyList = () => {
                 <div className='address'>
                     <div className='address_header'>
                         <div>배송지</div>
-                        <div>변경</div>
                     </div>
-                    <hr />
+                    <hr className='line'/>
                     {
                         <div className='address_main'>
                             <div>{addressArr.name}</div>
@@ -242,7 +252,7 @@ const BuyList = () => {
                     <div className='order_head'>
                         주문 예정 상품
                     </div>
-                    <hr />
+                    <hr className='line'/>
                     {
                         arr.arr.map((vo) => (
                         <div key = {vo.cartNo}  className='order_list'>

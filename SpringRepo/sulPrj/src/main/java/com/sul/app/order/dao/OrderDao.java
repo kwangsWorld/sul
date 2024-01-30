@@ -15,14 +15,15 @@ public class OrderDao {
 	public int add(SqlSessionTemplate sst, OrderVo vo) {
 		return sst.insert("OrderMapper.add", vo);
 	}
+	
 
-	//주문 목록 추가
-	public int addList(SqlSessionTemplate sst, OrderVo vo) {
+	//주문 목록 추가 (단품)
+	public int addOneList(SqlSessionTemplate sst, OrderVo vo) {
 		
-		return sst.insert("OrderMapper.addList", vo);
+		return sst.insert("OrderMapper.addOneList", vo);
 	}
 	
-	//장바구니 주문 목록 추가
+	//주문 목록 추가 (장바구니)
 	public int addCartList(SqlSessionTemplate sst, List<CartVo> vo) {
 		int cnt = vo.size();
 		

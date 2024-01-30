@@ -15,7 +15,7 @@
 		)
 	</insert>
 	
-   <insert id="addList">
+   <insert id="addOneList">
       INSERT INTO ORDERS_LIST(
          ORDER_LIST_NO
          ,ORDER_NO
