@@ -109,19 +109,20 @@
 	
     <select id="memberList" resultType="com.sul.app.review.vo.ReviewVo">
        SELECT 
-           R.REVIEW_NO
-           ,R.CONTENT
-           ,TO_CHAR(R.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-           ,R.IMG
-           ,R.MEMBER_NO
-           ,R.RATING
-           ,R.ORDER_LIST_NO
-           ,R.DEL_YN
-           ,M.NAME AS NAME
-       FROM REVIEW R
-       JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
-       JOIN ORDERS_LIST OL ON R.ORDER_LIST_NO = OL.ORDER_LIST_NO
-       WHERE M.MEMBER_NO = #{memberNo}
+		    R.REVIEW_NO
+		    ,R.CONTENT
+		    ,TO_CHAR(R.ENROLL_DATE, 'YYYY-MM-DD')
+		    ,R.IMG
+		    ,R.MEMBER_NO
+		    ,R.RATING
+		    ,R.ORDER_LIST_NO
+		    ,R.DEL_YN
+		    ,M.NAME
+		    ,OL.PRODUCT_NO
+		FROM REVIEW R
+		JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+		JOIN ORDERS_LIST OL ON R.ORDER_LIST_NO = OL.ORDER_LIST_NO
+		WHERE OL.PRODUCT_NO = #{productNo}
     </select>
 	
 </mapper>

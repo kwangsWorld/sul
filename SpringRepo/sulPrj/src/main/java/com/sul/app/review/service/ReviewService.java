@@ -47,8 +47,8 @@ public class ReviewService {
 	}
 	
 	// 리뷰 조회 (유저)
-    public List<ReviewVo> memberList(String memberNo) {
-        return dao.memberList(sst, memberNo);
+    public List<ReviewVo> memberList(ReviewVo vo) {
+        return dao.memberList(sst, vo);
     }
 
 }

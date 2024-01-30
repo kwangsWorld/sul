@@ -60,16 +60,15 @@ public class ReviewController {
 	
 	   // 리뷰 조회 (회원)
 	   @PostMapping("list")
-	   public List<ReviewVo> write(@RequestBody String memberNo){
+	   public List<ReviewVo> write(@RequestBody ReviewVo vo){
 	      
-	      System.out.println("num : " + memberNo);
+	      System.out.println("num : " + vo);
 	      
-	      List<ReviewVo> voList = service.memberList(memberNo);
+	      List<ReviewVo> voList = service.memberList(vo);
 	      
 	      System.out.println("쿼리갔다온 voList값?" + voList);
 	      
 	      return voList;
 	   }
-	   
 	
 }

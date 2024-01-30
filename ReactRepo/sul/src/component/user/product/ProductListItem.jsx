@@ -21,7 +21,7 @@ const StyledItemDiv = styled.div`
     }
 `
 
-const ProductListItem = ({name, price, rating, productNo, image}) => {
+const ProductListItem = ({name, price, productNo, image}) => {
 
     const navigate =  useNavigate();
     return (
@@ -33,7 +33,7 @@ const ProductListItem = ({name, price, rating, productNo, image}) => {
                 <img src={image} alt="사진" width='295px' height='300px'/>
                 <div>이름 : {name}</div>
                 <div>가격 : {price}원</div>
-                <div>평점 : {rating}점</div>
+                {/* <div>평점 : {rating}점</div> */}
             </div>
 
             

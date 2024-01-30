@@ -84,18 +84,14 @@ const ProductSearch = () => {
     const box = () => {
         return voList.map((vo) => (
         <div className='detail_box' key={vo.no} onClick={()=>{
-            navigate("/product/detail/${vo.productNo}");
+            navigate("/product/detail/" + vo.productNo);
         }}
         >
               {console.log(vo)}
-              <img className='image'
-                      src="https://stickershop.line-scdn.net/stickershop/v1/product/6079228/LINEStorePC/main.png?v=1" 
-                      alt="이미지"
-                      width='295px'
-                      height='300px' />
+              <img src={vo.image} alt="사진" width='300px' height='300px'/>
               <div>이름:{vo.pName}</div>
               <div>가격:{vo.price}원</div>
-              <div>평점:{vo.rating}점</div>
+              {/* <div>평점:{vo.rating}점</div> */}
         </div>
       ));
     };
@@ -103,7 +99,7 @@ const ProductSearch = () => {
     return (
         <StyledProductSearchDiv>
             <div className='first_line'> 
-            🍾소주도 취향 타는 거 알고 계셨어요?🍾
+            🍾어떤 술 찾으세요?🍾
             </div>
             <div className='second_line'>
                 {box()}

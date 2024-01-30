@@ -36,7 +36,7 @@ public class ReviewDao {
 		return sst.update("ReviewMapper.delete" , vo);
 	}
 	 //리뷰 목록 조회(유저)
-    public List<ReviewVo> memberList(SqlSessionTemplate sst, String memberNo) {
-        return sst.selectList("ReviewMapper.memberList", memberNo);
+    public List<ReviewVo> memberList(SqlSessionTemplate sst, ReviewVo vo) {
+        return sst.selectList("ReviewMapper.memberList", vo);
     }
 }
