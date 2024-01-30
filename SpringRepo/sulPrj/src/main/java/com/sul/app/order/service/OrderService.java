@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import com.sul.app.cart.vo.CartVo;
 import com.sul.app.order.dao.OrderDao;
 import com.sul.app.order.vo.OrderVo;
 
@@ -23,8 +24,8 @@ public class OrderService {
 	   }
 	   
 	   //주문 목록 추가
-	   public int addList(OrderVo vo) {
-	      return dao.addList(sst, vo);
+	   public int addCartList(List<CartVo> vo) {
+	      return dao.addCartList(sst, vo);
 	   }
 
 	//내가 주문한 목록

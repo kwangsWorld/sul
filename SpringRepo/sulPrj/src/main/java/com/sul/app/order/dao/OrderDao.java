@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.sul.app.cart.vo.CartVo;
 import com.sul.app.order.vo.OrderVo;
 
 @Repository
@@ -17,7 +18,20 @@ public class OrderDao {
 
 	//주문 목록 추가
 	public int addList(SqlSessionTemplate sst, OrderVo vo) {
+		
 		return sst.insert("OrderMapper.addList", vo);
+	}
+	
+	//장바구니 주문 목록 추가
+	public int addCartList(SqlSessionTemplate sst, List<CartVo> vo) {
+		int cnt = vo.size();
+		
+		int tempCnt =0;
+		for (CartVo cartVo : vo) {
+		tempCnt += sst.insert("OrderMapper.addCartList",cartVo);
+		}
+		
+		return 1;
 	}
 
 	//내가 주문한 목록
