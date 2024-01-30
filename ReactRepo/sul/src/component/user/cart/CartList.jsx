@@ -174,28 +174,38 @@ const CartList = () => {
 
     console.log("@@@@@@@@@@@@22222222222: ", cartArr);
 
-    const deleteCartList =  () => {
-
-        console.log(cartArr)
-
-        fetch("http://127.0.0.1:8888/app/cart/deleteList" ,{
-            method : 'post',
+    const deleteCartList = () => {
+        console.log(cartArr);
+    
+        fetch("http://127.0.0.1:8888/app/cart/deleteList", {
+            method: 'post',
             headers: {
-                "Content-Type" : "application/json"
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify( cartArr)})
-            // body: JSON.stringify( {deleteList : cartArr})})
-            .then( (resp) => {return resp.json()})
-            .then( (data) => {
-                 console.log("delete 실행 결과 : " , data);
-
-                 // 데이터 삭제 후 상태 업데이트
-                 setArr((prevArr) => prevArr.filter((item) => !cartArr.includes(item.productNo)));
-                 
-                 
-                 
-             })
-    }
+            body: JSON.stringify(cartArr)
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log("delete 실행 결과 : ", data);
+    
+                // 선택된 상품 배열 초기화
+                setCartArr([]);
+    
+                // 데이터 삭제 후 상태 업데이트
+                setArr((prevArr) => prevArr.filter((item) => !cartArr.includes(item.productNo)));
+    
+                // 선택된 상품의 총 결제 금액 갱신
+                setTotalPrice((prevTotalPrice) => {
+                    const deletedTotalPrice = data?.totalPrice || 0;
+                    return prevTotalPrice - deletedTotalPrice;
+                });
+            })
+            .catch((error) => {
+                console.error("delete 실행 에러:", error);
+                // 에러 처리를 원하는 대로 추가할 수 있습니다.
+            });
+    };
+    
 
 
     
@@ -218,15 +228,6 @@ const CartList = () => {
                 // console.log("voList값: " ,voList);
                 setArr(voList); 
                 console.log(arr);
-                // setTotalPrice(
-                //     ()=>{
-                //         for(let sendBuyPageObj of voList){
-                //             // console.log(sendBuyPageObj.price);
-                //             t += parseInt(sendBuyPageObj.price);
-                //         }
-                //         return t;
-                //     }
-                // )
             }
         )
         ;

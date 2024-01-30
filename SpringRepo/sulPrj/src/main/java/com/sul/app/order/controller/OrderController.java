@@ -24,7 +24,7 @@ public class OrderController {
 
 	private final OrderService service;
 	
-//  주문 추가
+//  주문 추가 
   @PostMapping("add")
   public Map<String, String> add(@RequestBody OrderVo vo){
      
@@ -41,7 +41,30 @@ public class OrderController {
      return map;
   }
   
-//   주문 목록 추가
+  
+  //주문 목록 추가 (상세페이	지 단품)
+	@PostMapping("addOneList")
+	public Map<String, String> addOneList(@RequestBody OrderVo vo){
+  
+	  System.out.println("2222서버 들어옴");
+	  System.out.println("주문목록 추가 voList : "+ vo);
+	  
+	  int result = service.addOneList(vo);
+	  
+	  Map<String, String> map = new HashMap<String, String>();
+	  
+	  if(result == 1) {
+	     map.put("msg", "addOneList 완료");
+	  }else {
+	     map.put("msg", "addOneList 실패");
+	  }
+	  
+	  System.out.println("2222서버 나감");
+	  return map;
+}
+
+  
+//   주문 목록 추가 (장바구니)
   @PostMapping("addList")
   public Map<String, String> addList(@RequestBody List<CartVo> vo){
      

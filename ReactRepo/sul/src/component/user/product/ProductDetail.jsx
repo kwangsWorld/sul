@@ -149,7 +149,7 @@ const ProductDetail = () => {
     const obj = {
         no : vo.productNo,
         name : vo.pName ,
-        price : totalPrice,
+        price : vo.price,
         capacity : vo.capacity,
         cnt : cnt /* 키값과 벨류가 같으면 cnt만 써도됨*/
     };
@@ -286,7 +286,7 @@ const ProductDetail = () => {
                 
             </div>
             <div className='right_side'>
-                <table className='right_table' border="1px">
+                <table className='right_table'>
                     <tbody>
                         <tr className='cnt_name'>
                             <td colSpan={4}>수량</td>

@@ -49,7 +49,8 @@ const StyledBuyListDiv = styled.div`
     }
 
     .line{
-        border: 1px solid #ffe23dfb;
+        margin: 0px;
+        border-bottom: 1px solid #ffe23dfb;
     }
 
     .checkbox_agree{
@@ -76,6 +77,10 @@ const StyledBuyListDiv = styled.div`
         background-color: gray;
         border: none;
         border-radius: 10px;
+    }
+
+    .address_header, .order_head{
+        background-color: #ffe23dfb;
     }
 
 `;
@@ -143,7 +148,6 @@ const BuyList = () => {
                     if(rsp.success){
                         alert("구매 성공!");
                         addOrder();
-                        navigate("/mypage/myorder", {state:orderObj});
                     }else if(rsp.success == false) {
                         alert(rsp.error_msg)
                     }
@@ -169,12 +173,14 @@ const BuyList = () => {
         .then((resp) => {return resp.json()})
         .then((data) => {
             console.log("백엔드 작업 결과 : ", data);
-            addOrderList();
+            addOrderOneList();
+            console.log("마이페이지로 보내기전의 orderObj.totalPrice값: ", orderObj.totalPrice);
+            navigate("/mypage/myorder", {state:orderObj.totalPrice});
         })
     };
     
-    const addOrderList = () => {
-        fetch("http://127.0.0.1:8888/app/order/addList", {
+    const addOrderOneList = () => {
+        fetch("http://127.0.0.1:8888/app/order/addOneList", {
             method: 'post' , 
             headers:{
                 "Content-Type" : "application/json"
@@ -219,9 +225,8 @@ const BuyList = () => {
                 <div className='address'>
                     <div className='address_header'>
                         <div> 배송지</div>
-                        <div>변경</div>
                     </div>
-                    <hr />
+                    <hr className='line'/>
                     {
                         <div className='address_main'>
                             <div>{addressArr.name}</div>
@@ -236,7 +241,7 @@ const BuyList = () => {
                     <div className='order_head'>
                         주문 예정 상품
                     </div>
-                    <hr />
+                    <hr className='line'/>
                     <div className='order_list'>
                         <div className='product_img'>
                             <img 
