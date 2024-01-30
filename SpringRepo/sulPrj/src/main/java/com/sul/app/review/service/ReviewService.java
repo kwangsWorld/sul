@@ -20,6 +20,9 @@ public class ReviewService {
 	
 	// 작성하기 (회원)
 	public int write(ReviewVo vo) {
+		String str = vo.getImg().replace("C:\\sulRepo\\SpringRepo\\sulPrj\\src\\main\\webapp", "http://127.0.0.1:8888/app");
+		vo.setImg(str);
+		
 		return dao.write(sst, vo);
 	}
 	
@@ -42,5 +45,10 @@ public class ReviewService {
 	public int delete(ReviewVo vo) {
 		return dao.delete(sst, vo);
 	}
+	
+	// 리뷰 조회 (유저)
+    public List<ReviewVo> memberList(String memberNo) {
+        return dao.memberList(sst, memberNo);
+    }
 
 }

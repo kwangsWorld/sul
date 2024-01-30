@@ -3,8 +3,14 @@ package com.sul.app.member.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,8 +35,50 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
 	private final MemberService service;
+	private final JavaMailSender javaMailSender;
 	
-	 
+	//이메일 인증
+	   @PostMapping("join/emailCheck")
+	    public Map<String, Object> sendEmail(@RequestBody MemberVo vo) {
+	        Map<String, Object> map = new HashMap<>();
+	        
+	        // 이메일 인증 코드 생성
+	        String verificationCode = emailCode();
+	        vo.setEmailCode(verificationCode);
+	        // 클라이언트로 인증 코드 전송
+	        map.put("verificationCode", vo.getEmailCode());
+	        
+
+	        try {
+	            // JavaMailSender를 사용하여 이메일 전송
+	            MimeMessage message = javaMailSender.createMimeMessage();
+	            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+	            helper.setTo(vo.getEmail());
+	            helper.setSubject("퀘스트립 회원가입 인증 코드");
+	            helper.setText("회원가입 이메일 인증 코드: " + verificationCode);
+
+	            javaMailSender.send(message);
+
+	            System.out.println("이메일이 성공적으로 전송되었습니다.");
+	            System.out.println("vo 이메일 코드"+vo.getEmailCode());
+	            map.put("msg", "이메일이 성공적으로 전송되었습니다.");
+	        } catch (MessagingException e) {
+	            e.printStackTrace();
+	            System.err.println("이메일 전송 중 오류가 발생했습니다.");
+
+	            map.put("msg", "이메일 전송 중 오류가 발생했습니다.");
+	        }
+
+	        return map;
+	    }
+	   
+	   //이메일 인증 난수 생성
+	   private String emailCode() {
+	      Random random = new Random();
+	      int code = 100000 + random.nextInt(900000);
+	      return String.valueOf(code);
+	   }
+ 
 	
 	//회원가입
 	@PostMapping("join")
@@ -56,11 +104,8 @@ public class MemberController {
 	@PostMapping("login")
 	public Map<String, Object> login(@RequestBody MemberVo vo) throws Exception {
 		
-		System.out.println(vo);
-		
 		MemberVo loginMember = service.login(vo);
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("asdsad"+loginMember);
 		map.put("msg", "good");
 		map.put("loginMemberVo", loginMember);
 		if(loginMember == null) {
@@ -75,9 +120,7 @@ public class MemberController {
 	@PostMapping("edit")
 	public Map<String, Object> edit(@RequestBody MemberVo vo) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println(vo);
 		int result = service.edit(vo);
-		System.out.println("dd" + result);
 		if(result == 1) {
 			map.put("msg", "good");
 		}else {
@@ -109,7 +152,6 @@ public class MemberController {
 	//기본배송지 설정
 	@PostMapping("selectBasicAdrress")
 	public Map<String, Object> selectBasicAdrress(@RequestBody MemberVo vo) throws Exception {
-		System.out.println("membervo" + vo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		int result = service.selectBasicAdrress(vo);
 		System.out.println("result" + result);

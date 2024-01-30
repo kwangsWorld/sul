@@ -80,13 +80,6 @@ const Myorder = () => {
     loadOrderVoList();
   },[]);
 
-  const handleReviewClick = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
 
   return (
     <StyledMyorderDiv showModal={showModal}>
@@ -101,11 +94,9 @@ const Myorder = () => {
               <h3>취소내역이 없습니다.</h3>
               :
               orderVoList.map( vo  => <tr key={vo.orderNo}>
-                  <td>{loginInfo.name}<div className='tel'>{loginInfo.tel}</div></td>
-                  <td className='child'>주문날짜 : {vo.orderDate}</td>
-                  <td className='child'>{vo.image}</td>
-                  <td className='child'>품명 : {vo.name}</td>
-                  <td className='child'>수량 : {vo.quantity}</td>
+                  <td className='child'>주문번호 : {vo.orderNo}</td>
+                  <td className='child'>주문날짜 : {vo.enrollDate}</td>
+                  <td className='child'>총가격 : {vo.totalPrice}</td>
                 </tr> )   
             }
           </tbody>

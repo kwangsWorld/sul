@@ -44,7 +44,6 @@ public class AddressController {
 		public Map<String, Object> selectBasicAdrress(@RequestBody AddressVo vo) throws Exception {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int result = service.selectBasicAdrress(vo);
-			System.out.println("result" + result);
 			if(result == 1) {
 				map.put("msg","good");
 			}else {
@@ -57,7 +56,6 @@ public class AddressController {
 	//주소삭제
 	@PostMapping("delete")
 	public Map<String, Object> delete(@RequestBody AddressVo vo) throws Exception {
-		System.out.println("del vo : " + vo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		int result = service.delete(vo);
 		if(result == 1) {
@@ -73,4 +71,12 @@ public class AddressController {
 	public List<AddressVo> list(@RequestBody AddressVo vo){
 		return service.list(vo);
 	}
+	
+    //기본배송지 조회
+    @PostMapping("loadBasic")
+    public MemberVo loadBasic(@RequestBody MemberVo vo){
+        MemberVo vovo =  service.loadBasic(vo);
+        System.out.println("vo : " + vovo);
+        return vovo;
+    }
 }

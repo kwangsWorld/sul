@@ -15,43 +15,68 @@
 		)
 	</insert>
 	
-	<insert id="addList">
-		INSERT INTO ORDERS_LIST(
-			ORDER_LIST_NO
-			,ORDER_NO
-			,PRODUCT_NO
-			,MEMBER_NO
-			,QUANTITY
-		)VALUES(
-			SEQ_ORDER_LIST_NO.NEXTVAL
-			,#{orderNo}
-			,#{productNo}
-			,#{memberNo}
-			,#{cnt}
-		)
-		
-	
-	</insert>
+   <insert id="addList">
+      INSERT INTO ORDERS_LIST(
+         ORDER_LIST_NO
+         ,ORDER_NO
+         ,PRODUCT_NO
+         ,QUANTITY
+      )VALUES(
+         SEQ_ORDER_LIST_NO.NEXTVAL
+         ,SEQ_ORDER_NO.CURRVAL
+         ,#{no}
+         ,#{cnt}
+      )
+   </insert>
 
 	<select id="list" resultType="com.sul.app.order.vo.OrderVo">
-	        
-        SELECT TO_CHAR(O.ORDER_DATE , 'YYYY"년"MM"월"DD"일"') AS ORDER_DATE , O.QUANTITY , O.MEMBER_NO, P.NAME,  S.DELIVERY_STATUS , O.DEL_YN, P.IMAGE
-        FROM ORDERS O
-        JOIN PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
-        JOIN DELIVERY D ON D.ORDER_NO = O.ORDER_NO
-        JOIN DELIVERY_STATUS S ON S.DELIVERY_STATUS_NO = D.DELIVERY_STATUS_NO
-        WHERE O.MEMBER_NO = #{memberNo}
-        AND O.DEL_YN = 'N'
+	   SELECT 
+		    O.ORDER_NO, 
+		    O.MEMBER_NO,
+		    (SELECT S.DELIVERY_STATUS 
+		     FROM DELIVERY D 
+		     JOIN DELIVERY_STATUS S ON D.DELIVERY_STATUS_NO = S.DELIVERY_STATUS_NO
+		     WHERE D.ORDER_NO = O.ORDER_NO) AS DELIVERY_STATUS,
+		    TO_CHAR(O.ENROLL_DATE, 'YYYY"년"MM"월"DD"일"') AS ENROLL_DATE,
+		    (SELECT SUM(P.PRICE * L.QUANTITY) 
+		     FROM ORDERS_LIST L 
+		     JOIN PRODUCT P ON L.PRODUCT_NO = P.PRODUCT_NO
+		     WHERE L.ORDER_NO = O.ORDER_NO) AS TOTAL_PRICE
+		FROM ORDERS O
+		WHERE O.MEMBER_NO = #{memberNo}
+		AND O.CANCLE_DATE IS NULL
+
 	</select>
 	
 	<select id="delete" resultType="com.sul.app.order.vo.OrderVo">
-	        
-        SELECT TO_CHAR(O.ORDER_DATE , 'YYYY"년"MM"월"DD"일"') AS ORDER_DATE , O.QUANTITY , O.MEMBER_NO, P.NAME,  S.DELIVERY_STATUS , O.DEL_YN, P.IMAGE
-        FROM ORDERS O
-        JOIN PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
-        JOIN DELIVERY D ON D.ORDER_NO = O.ORDER_NO
-        JOIN DELIVERY_STATUS S ON S.DELIVERY_STATUS_NO = D.DELIVERY_STATUS_NO
-        WHERE O.MEMBER_NO = #{memberNo}
-        AND O.DEL_YN = 'Y'
+	     SELECT 
+		    O.ORDER_NO, 
+		    O.MEMBER_NO,
+            O.CANCLE_DATE,
+		    (SELECT S.DELIVERY_STATUS 
+		     FROM DELIVERY D 
+		     JOIN DELIVERY_STATUS S ON D.DELIVERY_STATUS_NO = S.DELIVERY_STATUS_NO
+		     WHERE D.ORDER_NO = O.ORDER_NO) AS DELIVERY_STATUS,
+		    TO_CHAR(O.ENROLL_DATE, 'YYYY"년"MM"월"DD"일"') AS ENROLL_DATE,
+		    (SELECT SUM(P.PRICE * L.QUANTITY) 
+		     FROM ORDERS_LIST L 
+		     JOIN PRODUCT P ON L.PRODUCT_NO = P.PRODUCT_NO
+		     WHERE L.ORDER_NO = O.ORDER_NO) AS TOTAL_PRICE
+		FROM ORDERS O
+		WHERE O.MEMBER_NO = #{memberNo}
+        AND O.CANCLE_DATE IS NOT NULL
+	</select>
+	
+	<update id="cancel">
+		UPDATE ORDERS
+		SET CANCLE_DATE = CURRENT_TIMESTAMP
+		WHERE ORDER_NO = #{orderNo}
+	</update>
+	
+	<select id="detail" resultType="com.sul.app.order.vo.OrderVo">
+		SELECT L.ORDER_NO, P.NAME,P.PRICE, L.QUANTITY
+			FROM ORDERS_LIST L
+			JOIN PRODUCT P ON L.PRODUCT_NO = P.PRODUCT_NO
+			WHERE L.ORDER_NO = #{orderNo}
 	</select>
 </mapper>

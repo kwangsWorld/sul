@@ -16,5 +16,6 @@ public class ReviewVo {
 	private String productNo;
 	private String pName;
 	private String memberNo;
+	private String name;
 	private String orderNo;
 }
