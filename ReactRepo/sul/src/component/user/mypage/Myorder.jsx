@@ -75,7 +75,6 @@ const Myorder = () => {
     loadOrderVoList();
   },[]);
 
-
   const detailItem = (vo) => {
     navigate('/mypage/myorderdetail', {state: {vo}});
   };

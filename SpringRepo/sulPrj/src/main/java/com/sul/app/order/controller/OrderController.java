@@ -14,10 +14,12 @@ import com.sul.app.order.service.OrderService;
 import com.sul.app.order.vo.OrderVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("order")
 @RequiredArgsConstructor
+@Slf4j
 public class OrderController {
 
 	private final OrderService service;

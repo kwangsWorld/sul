@@ -54,12 +54,7 @@ const ProductSoju = () => {
             navigate("/product/detail/" + vo.productNo);
           }}
           >
-                {console.log(vo)}
-                <img className='image'
-                        src="https://stickershop.line-scdn.net/stickershop/v1/product/6079228/LINEStorePC/main.png?v=1" 
-                        alt="이미지"
-                        width='295px'
-                        height='300px' />
+                <img src={vo.image} alt="사진" width='295px' height='300px'/>
                 <div>이름:{vo.pName}</div>
                 <div>가격:{vo.price}원</div>
                 <div>평점:{vo.rating}점</div>

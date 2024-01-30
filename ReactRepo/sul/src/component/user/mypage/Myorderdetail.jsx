@@ -118,34 +118,13 @@ const Myorderdetail = () => {
     const location = useLocation();
     const orderVo = location.state.vo;
     const [vo, setVo] = useState(orderVo);
-    const [reviewVo, setReviewVo] =useState([]);
     const [showModal, setShowModal] = useState(false);
     const [detailVoList, setDetailVoList] = useState([]);
-    const [inputReviewVo, setInputReviewVo] = useState({});
-    const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
-
-  
-    console.log("orderVo", orderVo);
-
-    const handleReviewClick = (detailItem) => {
-
-      setInputReviewVo({
-        ...inputReviewVo,
-        name: detailItem.name,
-        
-    });
-        setShowModal(true);
-      };
-
+   
     const handleList = () => {
         navigate('/mypage/myorder')
     };
-
-
-    useEffect(()=>{
-      loadDetailVoList();
-    },[])
-
+    
     const loadDetailVoList= () => {
       fetch("http://127.0.0.1:8888/app/order/detail", {
         method : 'post',
@@ -158,16 +137,35 @@ const Myorderdetail = () => {
      })
      .then( (resp) => resp.json())
      .then((data) => {
+      console.log(data);
       setDetailVoList(data);
      });
   
     };
 
+    useEffect(()=>{
+      loadDetailVoList();
+    },[])
+    
+    const [inputReviewVo, setInputReviewVo] = useState({});
+    const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
+    
+    const handleReviewClick = (detailItem) => {
+      console.log(detailItem);
+
+      setInputReviewVo({
+        ...inputReviewVo,
+        name: detailItem.name,
+        orderListNo: detailItem.orderListNo
+    });
+        setShowModal(true);
+      };
+
     const handleChangeInput = (event) => {
       const {name, value, files} = event.target;
       
-      setReviewVo({
-        ...reviewVo,
+      setInputReviewVo({
+        ...inputReviewVo,
         [name] : files ? files[0] : value,
       })
     }
@@ -180,16 +178,18 @@ const Myorderdetail = () => {
         formData.append("content", inputReviewVo.content);
         formData.append("file", inputReviewVo.file);
         formData.append("orderListNo", inputReviewVo.orderListNo);
-        formData.append("memberNo", inputReviewVo.memberNo);
+        formData.append("memberNo", loginInfo.memberNo);
 
         const obj = {
-         ...inputReviewVo,
-         ...loginInfo,
+          ...inputReviewVo,
+          ...loginInfo,
         };
 
         formData.forEach( (value, key) => {
           obj[key] = value;
         })
+
+        console.log("전체 :::" , obj);
    
         fetch("http://127.0.0.1:8888/app/review/write", {
            method : 'post',
@@ -267,8 +267,11 @@ const Myorderdetail = () => {
                         <td><input className='file' type='file' name='file' onChange={handleChangeInput} /></td>
                     </tr>
                 </tbody>
+                <tr>
+                      <td className='btn' colSpan={2}><input className='write' type='submit' value="작성하기" /></td>
+                  </tr>
             </table>
-            <input className='write' type='submit' value="작성하기" />
+            {/* <input className='write' type='submit' value="작성하기" /> */}
           </form>
         </div>
       </div>

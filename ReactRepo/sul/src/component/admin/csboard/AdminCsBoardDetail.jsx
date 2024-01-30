@@ -202,7 +202,7 @@ const AdminCsBoardDetail = () => {
                     </tr>
                     <tr className='detail_second'>
                         <td className='detail_qImg' name='qImg'>
-                        <img src={csboardVo.qImg} alt="사진" width='100px' height='100px'/>
+                        <img src={csboardVo.qImg} alt="사진" width='300px' height='300px'/>
                         </td>
                         <td className='detail_qContent' name='qContent'>
                             {csboardVo.qContent}

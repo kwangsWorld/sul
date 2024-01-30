@@ -52,12 +52,7 @@ const ProductChungju = () => {
           <div className='detail_box' key={index} onClick={()=>{
             navigate("/product/detail/" + vo.productNo);
           }}>
-                {console.log(vo)}
-                <img className='image'
-                        src="https://cogulmars.cafe24.com/img/04about_img04.png" 
-                        alt="이미지"
-                        width='295px'
-                        height='300px' />
+                <img src={vo.image} alt="사진" width='295px' height='300px'/>
                 <div>이름:{vo.pName}</div>
                 <div>가격:{vo.price}원</div>
                 <div>평점:{vo.rating}점</div>

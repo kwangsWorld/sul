@@ -44,13 +44,13 @@ const ProductList = () => {
 
     const box1 = () => {
         return arr.map( (vo) => {
-            return <ProductListItem key={vo.productNo} name={vo.pName} price={vo.price} rating={vo.rating} productNo={vo.productNo}/>;
+            return <ProductListItem key={vo.productNo} name={vo.pName} price={vo.price} rating={vo.rating} productNo={vo.productNo} image={vo.image}/>;
         } )
     }
 
     const box2 = () => {
         return arr2.map( (vo) => {
-            return <ProductListItem key={vo.productNo} name={vo.pName} price={vo.price} rating={vo.rating} productNo={vo.productNo}/>;
+            return <ProductListItem key={vo.productNo} name={vo.pName} price={vo.price} rating={vo.rating} productNo={vo.productNo} image={vo.image}/>;
         } )
     }
 

@@ -16,17 +16,14 @@ const MemberContextProvider = ( {children} ) => {
 
     if(loginMember === null){
         const jsonStr = sessionStorage.getItem("loginMemberVo");
-        console.log("jsonStr" , jsonStr);
         if(jsonStr !== null){
             const vo = JSON.parse(jsonStr);
             setLoginMember(vo);
         }
     }
 
-    console.log("adminLoginMember" , adminLoginMember);
     if(adminLoginMember === null){
         const jsonStr = sessionStorage.getItem("loginAdminVo");
-        console.log("jsonStr" , jsonStr);
         if(jsonStr !== null){
             const vo = JSON.parse(jsonStr);
             setAdminLoginMember(vo);

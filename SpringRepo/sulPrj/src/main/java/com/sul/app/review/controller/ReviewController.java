@@ -18,10 +18,12 @@ import com.sul.app.review.service.ReviewService;
 import com.sul.app.review.vo.ReviewVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("review")
 @RequiredArgsConstructor
+@Slf4j
 public class ReviewController {
 
 	private final ReviewService service;
@@ -29,13 +31,12 @@ public class ReviewController {
 	// 작성하기 (회원)
 	@PostMapping("write")
 	public Map<String, String> write( ReviewVo vo, MultipartFile file) throws Exception {
-		System.out.println("review"+vo);
+		
 		String fullPath = saveFile(file);
 		vo.setImg(fullPath);
 
 		int result = service.write(vo);
 		Map<String, String> map = new HashMap<String, String>();
-		
 		
 		if(result == 1) {
 			map.put("msg", "good");

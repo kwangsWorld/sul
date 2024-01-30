@@ -28,7 +28,7 @@ public class ProductDao {
 //		System.out.println("dao에서 str:" + str);
 		List<ProductVo> voList = sst.selectList("ProductMapper.listByCategory", str);
 //		System.out.println("여길안오네?");
-		System.out.println(voList);
+//		System.out.println(voList);
 		return voList;
 	}
 	

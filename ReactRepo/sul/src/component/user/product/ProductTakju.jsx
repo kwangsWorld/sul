@@ -42,22 +42,21 @@ const ProductTakju = () => {
         {method : 'get'})
         .then( (resp) => {return resp.json()})
         .then( (voList) => {return setArr(voList)
-        ;})
-        ;
-    } , [] );
+            ;})
+            ;
+        } , [] );
 
     const box = () => {
-        console.log(arr);
         return arr.map((vo, index) => (
           <div className='detail_box' key={index} onClick={()=>{
             navigate("/product/detail/" + vo.productNo);
           }}>
-                {console.log(vo)}
-                <img className='image'
+                <img src={vo.image} alt="사진" width='295px' height='300px'/>
+                {/* <img className='image'
                         src="https://cogulmars.cafe24.com/img/04about_img01.png" 
                         alt="이미지"
                         width='295px'
-                        height='300px' />
+                        height='300px' /> */}
                 <div>이름:{vo.pName}</div>
                 <div>가격:{vo.price}원</div>
                 <div>평점:{vo.rating}점</div>
