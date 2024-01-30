@@ -153,7 +153,7 @@ const Header = () => {
                         }} placeholder='지우야, 또 술먹게? 어떤술 찾아줘?' />
                     </div>
                     <div>
-                        <button class="header_button" onClick={handleSearch}>검색</button>
+                        <button className="header_button" onClick={handleSearch}>검색</button>
                     </div>
                 </div>
                 <div className='header_right'>
