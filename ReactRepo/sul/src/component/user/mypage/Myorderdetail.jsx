@@ -4,20 +4,21 @@ import Myheader from './Myheader';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const StyledOrderDetaildDiv = styled.div`
-      .main {
-    width: 100%;
-    height: 100%;
+width : 100%;
+
+  .main {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-top: 5%;
+    margin-top: 5%;
   }
 
   table {
     border-collapse: collapse;
     width: 40%;
     border: 2px solid lightgray;
+
   }
   tr{
     display: flex;
@@ -222,7 +223,7 @@ const Myorderdetail = () => {
                     <tbody>
                     {detailVoList.map((detailItem, index) => (
                       <tr key={index}>
-                        <td className='child'>{detailItem.image}</td>
+                        <td className='child'><img src={detailItem.image} /></td>
                         <td className='child'>상품명 : {detailItem.name}</td>
                         <td className='child'>가격 : {detailItem.price} <div className='quantity'>수량 : {detailItem.quantity}</div></td>
                         <td>

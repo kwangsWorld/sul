@@ -12,7 +12,17 @@ const StyledHeaderDiv = styled.div`
     
     h4{
        padding-right: 5%;
+       
     }
+    ul{
+        display: flex;
+    }
+    li{
+        list-style: none;
+        margin-right: 10px; 
+    }
+   
+
     .header_wrap {
         width: 100%;
         height: 56px;
@@ -68,6 +78,7 @@ const StyledHeaderDiv = styled.div`
     .header_center {
         display: flex;
         height: 30px;
+        padding-left: 10%;
     }
 
     .header_button {
@@ -161,17 +172,16 @@ const Header = () => {
                         {loginMember === null
                         ? 
                         <>
-                            <Link to="/admin/member/first">👤</Link>
-                            <div className='join'>
-                                <Link className='log' to="/member/joinfirst">회원가입</Link>
-                            </div>
-                            <div>
-                                <Link className='log' to="/member/login">로그인</Link>
-                            </div>
+                            <ul>
+                                <li><Link to="/admin/member/first">👤</Link></li>
+                                <li><Link className='log' to="/member/joinfirst">회원가입</Link></li>
+                                <li><Link className='log' to="/member/login">로그인</Link></li>
+                            </ul>
+                            
                         </>
                          : 
                         <>
-                            <div className='nick'>
+                             <div className='nick'>
                                 <Link to="/mypage/Info">
                                     <h4>{loginMember.nick}</h4>
                                 </Link>

@@ -38,6 +38,12 @@ const StyledJoinEmailDiv = styled.div`
         font-size: 12px;
         margin-top: 5px;
     }
+    .dls{
+        margin-top: 1%;
+        border: none;
+        background-color: #ffe23dfb;
+        border-radius: 5px;
+    }
 `;
 
 const JoinEmail = () => {
@@ -100,51 +106,6 @@ const JoinEmail = () => {
         }
     }
 
-    const handleJoinEmailSubmit = async (event) => {
-        event.preventDefault();
-
-        if (isFetching || vo.pwd !== vo.pwd2 || vo.id.length < 5 || !/[\W_]/.test(vo.pwd)) {
-            return;
-        }
-
-        isFetching = true;
-
-        try {
-            const response = await fetch("http://127.0.0.1:8888/app/member/join", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(vo),
-            });
-
-            if (!response.ok) {
-                throw new Error("회원가입 실패: " + response.statusText);
-            }
-
-            const data = await response.json();
-
-            if (data.msg === "good") {
-                alert("회원가입 성공");
-                navigate("/member/login");
-            } else {
-                throw new Error("회원가입 실패: " + data.msg);
-            }
-        } catch (error) {
-            console.error(error);
-            alert("회원가입 실패: " + error.message);
-        } finally {
-            isFetching = false;
-        }
-    }
-
-    const handleMail = () => {
-        const userCode = document.getElementById("email").value;
-        setVo(prevVo => ({
-            ...prevVo,
-            email : userCode,
-        }));
-    };
 
     useEffect(()=>{
         if(vo.email){
@@ -187,6 +148,57 @@ const JoinEmail = () => {
             alert('이메일 인증에 실패했습니다. 다시 시도해주세요.');
             setEmailAuth(0);
         }
+    };
+
+    const handleJoinEmailSubmit = async (event) => {
+        event.preventDefault();
+
+        if (isFetching || vo.pwd !== vo.pwd2 || vo.id.length < 5 || !/[\W_]/.test(vo.pwd)) {
+            return;
+        }
+
+        isFetching = true;
+
+        try {
+            const response = await fetch("http://127.0.0.1:8888/app/member/join", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(vo),
+            });
+
+            if (!response.ok) {
+                throw new Error("회원가입 실패: " + response.statusText);
+            }
+
+            const data = await response.json();
+
+            if (data.msg === "good") {
+                alert("회원가입 성공");
+                navigate("/member/login");
+            } else {
+                throw new Error("회원가입 실패: " + data.msg);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("회원가입 실패: " + error.message);
+        } finally {
+            isFetching = false;
+        }
+    }
+
+    const handleMail = () => {
+         // 이 부분 수정
+    if (vo.id.length >= 5 && vo.pwd === vo.pwd2 && /[\W_]/.test(vo.pwd)) {
+        const userCode = document.getElementById("email").value;
+        setVo(prevVo => ({
+            ...prevVo,
+            email: userCode,
+        }));
+    } else {
+        alert("아이디, 비밀번호를 확인하고 올바른 값을 입력해주세요.");
+    }
     };
 
     return (
@@ -237,13 +249,10 @@ const JoinEmail = () => {
                     </tr>
                     <tr>
                         <td>이메일</td>
-                        <td><input type='email' id='email' name='email' placeholder='이메일을 입력해 주세요' onChange={handleInputChange} /><button onClick={handleMail}>인증하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>
+                        <td><input type='email' id='email' name='email' placeholder='이메일을 입력해 주세요' onChange={handleInputChange} /><button className='dls' type='button' onClick={handleMail}>인증하기</button>
                             <div>
                                 <input type="text" id="userAuthCodeInput" placeholder='인증번호'/>
-                                <button id='emailAuthCode' type='button' onClick={handleVerifyEmail}>입력</button>
+                                <button className='dls' id='emailAuthCode' type='button' onClick={handleVerifyEmail}>입력</button>
                             </div>
                         </td>
                     </tr>

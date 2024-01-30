@@ -44,13 +44,13 @@ margin-top: 5%;
     border: 3px solid #ffe23dfb;
   }
   .btn{
-    padding-left: 38%;
+    padding-left: 39%;
     padding-top: 2%;
   }
   .div {
     width: 20%;
     padding-bottom: 0.5%;
-    padding-left: 5%;
+    padding-left: 6%;
   }
   .font {
     margin-left: 25%;

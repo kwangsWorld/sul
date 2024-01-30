@@ -24,6 +24,7 @@ const StyledMyorderDiv = styled.div`
   tr{
     display: flex;
     flex-direction: column;
+    border-top: 2px solid gray;
   }
   tr:nth-child(5) {
     border-bottom: 1px solid gray;
@@ -38,6 +39,7 @@ const StyledMyorderDiv = styled.div`
    display: flex;
    justify-content: center;
    border-bottom: 2px solid gray;
+   padding-right: 15%;
   }
   .tel{
     padding-left: 7%;
