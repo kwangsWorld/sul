@@ -96,15 +96,34 @@ const StyledDetailDiv = styled.div`
         border: none;
         border-radius: 10px;
     }
+
+
+    .review_box{
+        display: grid;
+        grid-template-rows: 5fr 5fr;
+    }
+
+    .review_firstLine{
+        margin-top: 50px;
+        width: 150%;
+        height: 50px;
+        display: grid;
+        grid-template-columns: 4fr 2fr 2fr 2fr;
+        background-color: #ffe23dfb;
+        border-radius: 10px;
+        text-align: center;
+        align-items: center;
+    }
     
 `;
 
 const ProductDetail = () => {
     const params = useParams();
     const navigate = useNavigate();
-    
     const [vo, setVo] = useState(params.productNo);
+    const [totalPrice, setTotalPrice] = useState();
     const [cnt, setCnt] = useState(1);
+    const [reviewVolist, setreviewVolist] = useState([]);
     const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo"));
 
     const memberNo = loginInfo.memberNo;
@@ -113,10 +132,11 @@ const ProductDetail = () => {
     const obj = {
         no : vo.productNo,
         name : vo.pName ,
-        price : vo.price,
+        price : totalPrice,
         capacity : vo.capacity,
         cnt : cnt /* 키값과 벨류가 같으면 cnt만 써도됨*/
     };
+
 
     const loadDetailList = () => {
         // console.log(params.productNo);
@@ -124,6 +144,7 @@ const ProductDetail = () => {
         .then(resp => resp.json())
         .then(data => {
             setVo(data)
+            setTotalPrice(data.price)
         })
         ;
     }
@@ -132,14 +153,16 @@ const ProductDetail = () => {
         loadDetailList();
     } , [] );
 
-    console.log("vo : " + vo);
 
     const minus = () => {
         if(cnt>1)
         setCnt(cnt-1);
+        setTotalPrice(parseInt(vo.price) * (cnt-1));
+
     }
     const plus = () => {
         setCnt(cnt+1);
+        setTotalPrice(parseInt(vo.price) * (cnt+1));
     }
 
     const addCart = () => {
@@ -148,6 +171,7 @@ const ProductDetail = () => {
         const productInfo = {
             ...vo,
             cnt : cnt,
+            price : totalPrice,
             memberNo
         };
 
@@ -163,8 +187,27 @@ const ProductDetail = () => {
                 return resp.json()})
     };
 
+    useEffect( () => {
+        fetch("http://127.0.0.1:8888/app/review/list", {
+            method: 'post' ,
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: memberNo})
+            .then((resp) => {
+                console.log("디비에가서 리뷰리스트 가져오기 완료~~~");
+                return resp.json();
+            })
+            .then((data) => {
+                setreviewVolist(data);
+                console.log("reviewVolist : @@@@@@@@@@@@ ", data);
+            });
+    } , [] );
 
-    const totalPrice = vo.price * cnt;
+
+
+
+   
 
     return (
         <StyledDetailDiv>
@@ -212,8 +255,21 @@ const ProductDetail = () => {
                             <div className='appetizer_info'>{vo.appetizer}</div>
                         </div>
                     </div>
-                    
                 </div>
+                {
+                    reviewVolist.map((reviewVo) => (
+                        <div className='reivew_box'>
+                        <div className='review_firstLine'>
+                        <div>{reviewVo.name}</div>
+                        <div>{vo.pName}</div>
+                        <div>{reviewVo.rating}</div>
+                        <div>{reviewVo.enrollDate}</div>
+                        </div>
+                        <div className='review_secondLine'>{reviewVo.content}</div>
+                </div>
+                    ))
+                }
+                
             </div>
             <div className='right_side'>
                 <table className='right_table' border="1px">
@@ -223,7 +279,7 @@ const ProductDetail = () => {
                         </tr>
                         <tr>
                             <td onClick={minus}>-</td>
-                            {console.log("cnt : " + cnt)}
+                            {/* {console.log("cnt : " + cnt)} */}
                             <td colSpan={2}>
                                 {cnt}
                             </td>

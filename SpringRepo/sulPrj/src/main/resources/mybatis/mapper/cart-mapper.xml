@@ -36,7 +36,17 @@
 			, CNT
 		FROM CART
 		WHERE MEMBER_NO = #{memberNo}
-
 	</select>
-
+	
+	
+	<delete id="deleteList">
+	DELETE 
+	FROM CART
+	WHERE PRODUCT_NO
+	IN
+	<foreach collection="list" item="item" open="(" close=")" separator=",">
+		#{item}
+	</foreach>
+	</delete>
+	
 </mapper>

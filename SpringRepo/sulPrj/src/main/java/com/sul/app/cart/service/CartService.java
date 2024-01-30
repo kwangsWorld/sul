@@ -29,4 +29,9 @@ public class CartService {
 		
 		return dao.list(sst, vo);
 	}
+
+	public int deleteList(List<String> nums) {
+		
+		return dao.deleteList(sst, nums);
+	}
 }

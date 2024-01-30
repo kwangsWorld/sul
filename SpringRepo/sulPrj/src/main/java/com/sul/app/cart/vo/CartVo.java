@@ -12,5 +12,6 @@ public class CartVo {
 	private String price;
 	private String capacity;
 	private String cnt;
+//	private String[] deleteList;
 
 }
