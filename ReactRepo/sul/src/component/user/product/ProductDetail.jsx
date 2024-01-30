@@ -6,10 +6,14 @@ const StyledDetailDiv = styled.div`
     
     width: 100%;
     height:100%;
-    /* background-color: lightskyblue; */
+    //background-color: lightskyblue;
     padding: 30px 300px;
     display: flex;
+    margin-top: 5%;
 
+    tr > td{
+         border-bottom: 1px solid lightgray;
+    }
     .left_side{
         width:60%;
         height: 100%;
@@ -30,10 +34,12 @@ const StyledDetailDiv = styled.div`
         text-align: center;
         background-color: lightgray;
         border-radius: 10px;
+        margin-top: 20%;
     }
 
     .name, .price{
-        font-size: 30px;
+        font-size: 20px;
+        font-weight: bold;
     }
 
 
@@ -47,9 +53,11 @@ const StyledDetailDiv = styled.div`
         display: grid;
         grid-template-columns: 2fr 8fr;
         background-color: white;
-        margin-left: 50px;
+        margin-left: 10%;
         margin-bottom: 40px;
         border-radius: 20px;
+        padding-left: 3%;
+        padding-top: 2%;
     }
 
     .image{
@@ -66,22 +74,24 @@ const StyledDetailDiv = styled.div`
 
     .right_side{
         display: flex;
-        padding: 40px;
-        width: 30%;
-        height: 50%;
-        border: 1px solid gray;
-        border-radius: 10%;
+        width: 25%;
+        height: 35%;
+        //border: 1px solid gray;
+       // border-radius: 10%;
         text-align: center;
         justify-content: center;
         align-items: center;
         font-size:25px;
-        /* background-color: orange; */
+       //background-color: orange;
     }
 
     .right_table{
         width: 100%;
         height: 100%;
+        border: 1px solid lightgray;
     }
+    
+    
 
     /* .cnt_name, .total_price_name{
         display: flex;
@@ -109,7 +119,8 @@ const StyledDetailDiv = styled.div`
         height: 50px;
         display: grid;
         grid-template-columns: 4fr 2fr 2fr 2fr;
-        background-color: #ffe23dfb;
+        border-top: solid 2px gray;
+        border-bottom: solid 2px gray;
         border-radius: 10px;
         text-align: center;
         align-items: center;
@@ -117,7 +128,8 @@ const StyledDetailDiv = styled.div`
 
     .review_secondLine{
         display: grid;
-        grid-template-columns: 4fr 2fr 4fr;
+        grid-template-columns: 3fr 2fr 3fr;
+        padding-top: 5%;
     }
     
 `;
@@ -187,39 +199,33 @@ const ProductDetail = () => {
             },
             body: JSON.stringify(productInfo)})
             .then( (resp) => {
-                console.log("디비에 가서 addCart 완료 ~~~");
                 navigate("/cart/list");
                 return resp.json()})
-    };
+            };
+            
 
-    useEffect( () => {
-        fetch("http://127.0.0.1:8888/app/review/list", {
-            method: 'post' ,
-            headers: {
-                "Content-Type" : "application/json"
+        useEffect( () => { 
+            fetch("http://127.0.0.1:8888/app/review/list", {
+                method: 'post' ,
+                headers: {
+                    "Content-Type" : "application/json"
             },
-            body: memberNo})
+            body: JSON.stringify({ productNo : params.productNo })
+            })
             .then((resp) => {
-                console.log("디비에가서 리뷰리스트 가져오기 완료~~~");
                 return resp.json();
             })
             .then((data) => {
                 setreviewVolist(data);
-                console.log("reviewVolist : @@@@@@@@@@@@ ", data);
             });
-    } , [] );
-
-
-
-
-   
+        } , [] );
 
     return (
         <StyledDetailDiv>
             <div className='left_side'>
                 <div className='left_side_top'>
                     <div className='left_img'>
-                    <img src={vo.image} alt="사진" width='400px' height='400px'/>
+                    <img src={vo.image} alt="사진" width='300px' height='300px'/>
                     </div>
                     <div className='left_detail'>
                             <div className='name'>이름: {vo.pName} </div>
@@ -229,7 +235,7 @@ const ProductDetail = () => {
                             <div className='capacity'>용량: {vo.capacity}ml</div>
                             <div className='expire_date'>유통기한: {vo.expiryDate}</div>
                             <div className='sotrage'>보관방법: {vo.storage}</div>
-                            <div className='rating'>평점: {vo.rating}점</div>
+                            {/* <div className='rating'>평점: {vo.rating}점</div> */}
                             {/* <p>현재 페이지의 파라미터는 {params.productNo}입니다.</p> */}
                     </div>
                 </div>
@@ -267,7 +273,7 @@ const ProductDetail = () => {
                         </div>
                         <div className='review_secondLine'>
                             <div>
-                                <img src={reviewVo.img} alt="사진" width='300px' height='300px'/>
+                                <img src={reviewVo.img} alt="사진" width='150px' height='150px'/>
                             </div>
                             <div></div>
                             <div>

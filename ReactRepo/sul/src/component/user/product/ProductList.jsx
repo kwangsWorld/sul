@@ -44,17 +44,15 @@ const ProductList = () => {
 
     const box1 = () => {
         return arr.map( (vo) => {
-            return <ProductListItem key={vo.productNo} name={vo.pName} price={vo.price} rating={vo.rating} productNo={vo.productNo} image={vo.image}/>;
+            return <ProductListItem key={vo.productNo} name={vo.pName} price={vo.price} productNo={vo.productNo} image={vo.image}/>;
         } )
     }
 
     const box2 = () => {
         return arr2.map( (vo) => {
-            return <ProductListItem key={vo.productNo} name={vo.pName} price={vo.price} rating={vo.rating} productNo={vo.productNo} image={vo.image}/>;
+            return <ProductListItem key={vo.productNo} name={vo.pName} price={vo.price} productNo={vo.productNo} image={vo.image}/>;
         } )
     }
-
-    
 
     return (
 
@@ -63,7 +61,7 @@ const ProductList = () => {
             <div className='second_line'>
                 {box1()}
             </div>
-            <div className='first_title'>⭐평점이 증명해주는 Hot of Hot한 우리술!⭐</div>
+            <div className='first_title'>⭐돈 값하는 FLEX한 우리술!⭐</div>
             <div className='fourth_line'>
                 {box2()}
             </div>
