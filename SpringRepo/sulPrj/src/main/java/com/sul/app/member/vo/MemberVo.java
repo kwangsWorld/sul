@@ -10,6 +10,7 @@ public class MemberVo {
 	private String id;
 	private String pwd;
 	private String email;
+	private String emailCode;
 	private String nick;
 	private String tel;
 	private String age;
@@ -17,4 +18,5 @@ public class MemberVo {
 	private String modifyDate;
 	private String delYn;
 	private String addressNo;
+	private String address;
 }

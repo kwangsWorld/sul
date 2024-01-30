@@ -36,7 +36,6 @@ public class CommunityController {
 	//게시글작성
 	@PostMapping("insert")
 	public Map<String, String> insert(CommunityVo vo, MultipartFile file) throws Exception {
-		System.out.println(vo);
 		String fullPath = saveFile(file);
 		vo.setImg(fullPath);
 
@@ -67,7 +66,6 @@ public class CommunityController {
 	//게시글 목록 조회
 	@PostMapping("list")
 	public Map<String, Object> list(@RequestBody PageVo vo) {
-		System.out.println("com"+vo);
 		Map<String,Object> map = new HashMap<String, Object>();
 		int start = (Integer.parseInt(vo.getPageNo())-1)*Integer.parseInt(vo.getLimit()); // 보여줄 시작 인덱스값을 계산 ex) pageNo = 1 -> [0]
 		

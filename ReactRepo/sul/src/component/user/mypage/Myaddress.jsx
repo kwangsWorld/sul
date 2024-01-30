@@ -41,10 +41,10 @@ margin-top: 5%;
     border-radius: 20px;
     font-size: 13px;
     font-weight: bold;
-    border: 6px solid #ffe23dfb;
+    border: 3px solid #ffe23dfb;
   }
   .btn{
-    padding-left: 45%;
+    padding-left: 38%;
     padding-top: 2%;
   }
   .div {
@@ -91,14 +91,10 @@ const Myaddress = () => {
     })
     ;
   }
-  
-  
-  
-  
+   
   const handleplus = () => {
     navigate("/mypage/myaddressplus")
   };
-
 
   const handleDelete = (no) => {
 
@@ -107,10 +103,6 @@ const Myaddress = () => {
       addressNo: no,
       delYn : 'Y',
     };
-
-    console.log("addressVo",addressVo);
-    console.log("voooooooooo",vo);
-    console.log("editedVo",editedVo);
 
     fetch("http://127.0.0.1:8888/app/address/delete",{
       method : 'post',

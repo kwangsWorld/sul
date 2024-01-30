@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -58,14 +58,15 @@ const JoinEmail = () => {
     const [pwdErrorMessage, setPwdErrorMessage] = useState("");
     const [helperText, setHelperText] = useState("5글자 이상 입력해주세요.");
 
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-
+    
         setVo({
             ...vo,
             [name]: value
         });
-
+    
         if (name === 'id') {
             if (value.length < 5) {
                 setIdErrorMessage("5글자 이상 입력해주세요.");
@@ -80,8 +81,14 @@ const JoinEmail = () => {
             } else {
                 setPwdErrorMessage("");
             }
+        } else if (name === 'age') {
+            const birthYear = parseInt(value.substring(0, 4), 10);
+            if (birthYear > 2005) {
+                alert("2005년 이후 출생자는 회원가입이 불가능합니다.");
+            }
         }
     }
+    
 
     const handleInputClick = () => {
         if (vo.id.length < 5) {
@@ -131,6 +138,45 @@ const JoinEmail = () => {
         }
     }
 
+    const handleMail = () => {
+        const userCode = document.getElementById("email").value;
+        setVo(prevVo => ({
+            ...prevVo,
+            email : userCode,
+        }));
+    };
+
+    useEffect(()=>{
+        if(vo.email){
+            fetch('http://127.0.0.1:8888/app/member/join/emailCheck', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(vo),
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+                if (data.verificationCode) {
+
+                    alert('이메일 인증 코드를 전송했습니다. 확인해주세요.');
+
+                    setVo(prevVo => ({
+                        ...prevVo,
+                        emailCode : data.verificationCode,
+                    }));
+
+                } else {
+                    alert('이메일 인증 코드 전송에 실패했습니다.');
+                    
+                }
+            })
+            .catch((error) => {
+                console.error('Error sending email verification code:', error);
+            });
+        }
+    }, [vo.email], [vo.emailCode]);
+    
     return (
         <StyledJoinEmailDiv>
             <form onSubmit={handleJoinEmailSubmit}>
@@ -179,11 +225,11 @@ const JoinEmail = () => {
                     </tr>
                     <tr>
                         <td>이메일</td>
-                        <td><input type='email' name='email' placeholder='이메일을 입력해 주세요' onChange={handleInputChange} /></td>
+                        <td><input type='email' id='email' name='email' placeholder='이메일을 입력해 주세요' onChange={handleInputChange} /><button onClick={handleMail}>인증하기</button></td>
                     </tr>
                     <tr>
                         <td>닉네임</td>
-                        <td><input type='text' name='nick' placeholder='닉네임을 입력해 주세요' onChange={handleInputChange} /></td>
+                        <td><input type='text' name='nick'  placeholder='닉네임을 입력해 주세요' onChange={handleInputChange} /></td>
                     </tr>
                     <tr>
                         <td></td>

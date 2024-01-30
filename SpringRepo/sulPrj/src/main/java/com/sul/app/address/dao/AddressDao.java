@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.sul.app.address.vo.AddressVo;
+import com.sul.app.member.vo.MemberVo;
 
 @Repository
 public class AddressDao {
@@ -29,5 +30,10 @@ public class AddressDao {
 	public List<AddressVo> list(SqlSessionTemplate sst, AddressVo vo) {
 		return sst.selectList("AddressMapper.list", vo);
 	}
+	
+	//기본배송지 조회
+    public MemberVo loadBasic(SqlSessionTemplate sst, MemberVo vo) {
+        return sst.selectOne("AddressMapper.loadBasic", vo);
+    }
 
 }

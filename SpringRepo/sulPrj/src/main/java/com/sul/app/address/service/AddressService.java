@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sul.app.address.dao.AddressDao;
 import com.sul.app.address.vo.AddressVo;
+import com.sul.app.member.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,5 +37,10 @@ public class AddressService {
 	public List<AddressVo> list(AddressVo vo) {
 		return dao.list(sst, vo);
 	}
+	
+    //기본배송지 조회
+    public MemberVo loadBasic(MemberVo vo) {
+        return dao.loadBasic(sst, vo);
+    }
 
 }

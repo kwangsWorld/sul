@@ -30,4 +30,15 @@
 		WHERE A.DEL_YN = 'N'
 		AND M.MEMBER_NO = #{memberNo}
 	</select>
+	
+	<select id="loadBasic" resultType="com.sul.app.member.vo.MemberVo">
+        SELECT 
+            M.NAME
+            , M.TEL
+            , A.ADDRESS
+        FROM MEMBER M
+        JOIN ADDRESS A ON M.MEMBER_NO = A.MEMBER_NO 
+            AND A.ADDRESS_NO = M.ADDRESS_NO
+        WHERE A.ADDRESS_NO = #{memberNo}
+    </select>
 </mapper>

@@ -40,6 +40,25 @@ public class MemberService {
 	    if (!password.matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
 	        throw new Exception("비밀번호는 특수문자를 최소 1개 이상 포함해야 합니다.");
 	    }
+	 // 생년월일 유효성 검사
+	    String age = vo.getAge();
+	    if (age.length() != 8) {
+	        throw new Exception("생년월일은 8자리여야 합니다.");
+	    }
+
+	    try {
+	        // 생년월일을 해석하여 년도를 추출
+	        int year = Integer.parseInt(age.substring(0, 4));
+
+	        // 앞자리 4자리가 2005 이하인지 체크
+	        if (year <= 2005) {
+	            throw new Exception("2005년 이전 출생자만 가입 가능합니다.");
+	        }
+	    } catch (NumberFormatException e) {
+	        // 숫자로 변환할 수 없는 경우 예외 처리
+	        throw new Exception("올바른 생년월일 형식이 아닙니다.");
+	    }
+
 		return dao.join(sst, vo);
 	}
 

@@ -19,91 +19,33 @@ const StyledMyorderDiv = styled.div`
 
   table {
     border-collapse: collapse;
-    width: 40%;
+    width: 50%;
     border: 2px solid gray;
   }
   tr{
     display: flex;
     flex-direction: column;
+    border-bottom: 2px solid gray;
   }
-  tr:nth-child(5) {
-    border-bottom: 1px solid gray;
-  }
+ 
   table td {
     padding-top: 3%;
     padding-bottom: 3%;
-    text-align: left;
     font-weight: bold;
-  }
-  td:first-child{
-   display: flex;
-   justify-content: center;
+    padding-left: 15%;
   }
   .td{
     border-bottom: 2px solid gray;
   }
-  .tel{
-    padding-left: 7%;
-  }
-  .child{
-    padding-left: 18%;
-  }
-  .submit {
-    width: 70%;
-    height: 40px;
-    border-radius: 20px;
-    border: 6px solid #ffe23dfb;
-    background-color: white;
-    font-weight: bold;
-  }
-
-  /* 모달 스타일 */
-  .modal {
-    display: ${(props) => (props.showModal ? 'block' : 'none')};
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-  }
-
-  .modal-content {
-    background: white;
-    width: 50%;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  p{
-    font-weight: bold;
-  }
-  .close {
-    float: right;
-    cursor: pointer;
-  }
-  .second{
-    width: 100%;
-    height: 100%;
-    border: 2px solid lightgray;
-  }
-  .content{
-    width: 90%;
-    height: 120px;
+  .submit{
     border: none;
-  }
-  .file{
-    width: 90%;
-  }
-  .write{
-    margin-top: 3%;
-    margin-left: 23%;
-    width: 50%;
-    height: 30px;
-    border-radius: 50px;
-    border: 6px solid #ffe23dfb;
     background-color: white;
     font-weight: bold;
+    font-size: 15px;
+    padding-left: 70%;
+  }
+  .submit:hover{
+    color: blue;
   }
 `;
 
@@ -111,10 +53,10 @@ const Myorder = () => {
   
   const navigate = useNavigate();
   const [orderVoList, setOrderVoList] = useState([]);
-  const [reviewVo, setReviewVo] =useState([]);
+  const[vo, setVo] = useState(orderVoList);
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
-  const [showModal, setShowModal] = useState(false);
-
+  const orderNo = orderVoList.map(order => order.orderNo );
+  console.log("order",orderVoList);
   const loadOrderVoList = () => {
     fetch("http://127.0.0.1:8888/app/order/list",{
       method : 'post',
@@ -133,54 +75,41 @@ const Myorder = () => {
     loadOrderVoList();
   },[]);
 
-  const handleReviewClick = () => {
-    setShowModal(true);
+
+  const detailItem = (vo) => {
+    navigate('/mypage/myorderdetail', {state: {vo}});
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const handleChangeInput = (event) => {
-    const {name, value} = event.target;
-    
-    setReviewVo({
-      ...reviewVo,
-      [name] : value,
-    })
-  }
-
-  const handleSubmit = (event) =>{
-     event.preventDefault();
-
-     const obj = {
-      ...reviewVo,
+  const handleCancelChange = (orderNo) => {
+    const editedVo = {
+      ...vo,
+      orderNo:orderNo,
       ...loginInfo,
-     }
-
-     fetch("http://127.0.0.1:8888/app/review/write", {
-        method : 'post',
-        headers: {
-          'Content-Type':'application/json',
-        },
-        body: JSON.stringify(obj),
-     })
-     .then( (resp) => resp.json())
-     .then((data) => {
-      if(data.msg === "good"){
-        alert("리뷰작성이 완료되었습니다.")
-        navigate("/")
+    };
+    fetch("http://127.0.0.1:8888/app/order/cancel",{
+      method: 'post',
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify(editedVo)
+    })
+    .then((resp) => resp.json())
+    .then((data) => {
+      if(data.msg === 'good'){
+        setVo(editedVo);
+        alert('주문이 취소되었습니다.');
+        navigate('/mypage/myorder');
       }else{
-        alert("리뷰작성 실패.")
+        alert('주문 취소 실패.');
       }
-     })
-     .catch(() => {
-      alert("리뷰작성중 에러발생")
-     });
+    })
+    .catch((e)=>{
+      alert('주문 취소 중 에러발생');
+    });
   };
 
   return (
-    <StyledMyorderDiv showModal={showModal}>
+    <StyledMyorderDiv>
       <Myheader />
       <div className='main'>
         <table>
@@ -190,63 +119,23 @@ const Myorder = () => {
               ?
               <h3>주문내역이 없습니다.</h3>
               :
-              orderVoList.map( vo  => <tr key={vo.orderNo}>
-                  <td className='td'>{loginInfo.name}<div className='tel'>{loginInfo.tel}</div></td>
-                  <td className='child'>{vo.deliveryStatus}</td>
-                  <td className='child'>주문날짜 : {vo.orderDate}</td>
-                  <td className='child'>{vo.image}</td>
-                  <td className='child'>품명 : {vo.name}</td>
-                  <td className='child'>수량 : {vo.quantity}</td>
-                </tr> )   
+              orderVoList.map((vo)  => (
+              <tr key={vo.orderNo} onClick={()=>{
+                  detailItem(vo)}
+              }>
+                  <td className='child'>{vo.deliveryStatus}<input className='submit' type='submit' value="취소하기" onClick={() => {handleCancelChange(vo.orderNo);}} /></td>
+                  <td className='child'>주문번호 : {vo.orderNo}</td>
+                  <td className='child'>주문날짜 : {vo.enrollDate}</td>
+                  <td className='child'>총가격 : {vo.totalPrice}</td>
+                </tr> ))  
             }
-            <tr>
-              <td>
-                <input
-                  className='submit'
-                  type='submit'
-                  value='리뷰하기'
-                  onClick={handleReviewClick}
-                />
-              </td>
-            </tr>
+             
           </tbody>
         </table>
       </div>
 
 
-      <div className='modal'>
-        <div className='modal-content'>
-          <span className='close' onClick={handleCloseModal}>
-            &times;
-          </span>
-          <p>리뷰작성하기</p>
-          <form onSubmit={handleSubmit}>
-            <table className='second'>
-                <tbody>
-                    <tr className='tr'>
-                        <td>상품이름</td>
-                    </tr>
-                    <tr className='tr'>
-                        <td><select name="rating" id="" onChange={handleChangeInput}>
-                            <option name="rating" value="1">⭐</option>
-                            <option name="rating" value="2">⭐⭐</option>
-                            <option name="rating" value="3">⭐⭐⭐</option>
-                            <option name="rating" value="4">⭐⭐⭐⭐</option>
-                            <option name="rating" value="5">⭐⭐⭐⭐⭐</option>
-                          </select></td>
-                    </tr>
-                    <tr className='tr'>
-                        <td><input className='content' type='text' name='content' placeholder='내용을 입력해주세요' onChange={handleChangeInput} /></td>
-                    </tr>
-                    <tr className='tr'>
-                        <td><input className='file' type='file' name='file' onChange={handleChangeInput} /></td>
-                    </tr>
-                </tbody>
-            </table>
-            <input className='write' type='submit' value="작성하기" />
-          </form>
-        </div>
-      </div>
+      
     </StyledMyorderDiv>
   );
 };

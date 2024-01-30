@@ -25,9 +25,18 @@ public class OrderDao {
 		return sst.selectList("OrderMapper.list",vo);
 	}
 	
-	//내가 주문한 목록
+	//취소한 목록
 	public List<OrderVo> delete(SqlSessionTemplate sst, OrderVo vo) {
 		return sst.selectList("OrderMapper.delete",vo);
+	}
+	//상세조회
+	public List<OrderVo> detail(SqlSessionTemplate sst, OrderVo vo) {
+		return sst.selectList("OrderMapper.detail", vo);
+	}
+
+	//주문 취소
+	public int cancel(SqlSessionTemplate sst, OrderVo vo) {
+		return sst.update("OrderMapper.cancel", vo);
 	}
 
 

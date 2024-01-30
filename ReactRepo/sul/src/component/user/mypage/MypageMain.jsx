@@ -9,6 +9,8 @@ import Myaddressplus from './Myaddressplus';
 import Myorder from './Myorder';
 import Mycancel from './Mycancel';
 import Infoedit from './Infoedit';
+import Myorderdetail from './Myorderdetail';
+import Review from './Review';
 
 
 const MypageMain = () => {
@@ -23,6 +25,8 @@ const MypageMain = () => {
             <Route path='/myorder' element={<Myorder />}></Route>
             <Route path='/mycancel' element={<Mycancel />}></Route>
             <Route path='/infoedit' element={<Infoedit />}></Route>
+            <Route path='/myorderdetail' element={<Myorderdetail />}></Route>
+            <Route path='/review' element={<Review />}></Route>
         </Routes>
     );
 };
