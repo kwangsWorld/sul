@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sul.app.cart.vo.CartVo;
 import com.sul.app.order.service.OrderService;
 import com.sul.app.order.vo.OrderVo;
 
@@ -43,12 +43,12 @@ public class OrderController {
   
 //   주문 목록 추가
   @PostMapping("addList")
-  public Map<String, String> addList(@RequestBody OrderVo vo){
+  public Map<String, String> addList(@RequestBody List<CartVo> vo){
      
      System.out.println("2222서버 들어옴");
-     System.out.println("주문목록 추가 vo : "+ vo);
+     System.out.println("주문목록 추가 voList : "+ vo);
      
-     int result = service.addList(vo);
+     int result = service.addCartList(vo);
      
      
      

@@ -86,31 +86,21 @@ const BuyList = () => {
     const [arr, setArr] = useState(useLocation().state);
     const [isChecked, setIsChecked] = useState(false);
     const [isArrowActivated, setIsArrowActivated] = useState(false);
+    const [addressArr, setAddressArr] = useState([]);
     const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo")); //세션스토리지에서 객체 얻어오기
 
-    // const addOrder = () => {
-    //     fetch("http://127.0.0.1:8888/app/")
-    // }
+
+    console.log("arr.arr: ", arr.arr);
 
     const memberNo = loginInfo.memberNo;
 
     const productInfo = {
-        ...arr,
+        ...arr.arr,
         memberNo : memberNo,
     }
 
     console.log("productInfo : ", productInfo);
 
-    const addOrderList = () => {
-
-        fetch("http://127.0.0.1:8888/app/orderList/add", {
-            method: 'post' ,
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body:JSON.stringify(productInfo)})
-            .then( (resp) => {return resp.json()})
-    };
 
 
     //iamport라이브러리 추가 (index.html에 하면 모든 component에 적용되기 때문에 별도로 수정)
@@ -133,6 +123,38 @@ const BuyList = () => {
 
     // console.log("세션 값: ", loginInfo);
 
+    const addOrder = () => {
+        fetch("http://127.0.0.1:8888/app/order/add", {
+            method: 'post' ,
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(productInfo)
+        })
+        .then((resp) => {return resp.json()})
+        .then((data) => {
+            console.log("백엔드 작업 결과 : ", data);
+            addOrderList();
+        })
+    };
+
+    const addOrderList = () => {
+        fetch("http://127.0.0.1:8888/app/order/addList", {
+            method: 'post' , 
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(arr.arr)
+        })
+        .then((resp) => {return resp.json()})
+        .then((data) => {
+            console.log("백엔드 작업 결과 : ", data);
+        })
+    }
+
+    
+
+
     //카카오페이 시작
     var IMP = window.IMP;
 
@@ -142,6 +164,7 @@ const BuyList = () => {
     var seconds = today.getSeconds();
     var milliseconds = today.getMilliseconds();
     var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
+
     
     function kakaoPay(e){
         e.stopPropagation(); // 이벤트 전파 방지
@@ -155,19 +178,9 @@ const BuyList = () => {
                     name: '주문 총계',
                     amount: totalPrice,
                 }, async function (rsp) {
-                    // if (rsp.success){
-                    //     console.log(rsp);
-                    //     if(rsp.status == 200){
-                    //         alert('결제 완료!')
-                    //         window.location.relaod();
-                    //     }else{
-                    //         alert(`error:[${rsp.status}]\n결제요청이 승인된 경우 관리자에게 문의바랍니다.`);
-                    //     }
-                    // }else if (rsp.success == false){
-                    //     alert(rsp.error_msg)
-                    // }
                     if(rsp.success){
                         alert("구매 성공!")
+                        addOrder();
                     }else if(rsp.success == false) {
                         alert(rsp.error_msg)
                     }
@@ -181,6 +194,25 @@ const BuyList = () => {
         }
     }
     //카카오페이 끝
+
+    const loadAddressInfo = () => {
+        fetch("http://127.0.0.1:8888/app/address/loadBasic", {
+            method: 'post' ,
+            headers:{
+                "Content-type" : "application/json"
+            },
+            body: JSON.stringify({memberNo : memberNo})
+        })
+        .then((resp) => {return resp.json()})
+        .then((data) => {
+            setAddressArr(data);
+        } )
+    }
+    
+    useEffect(() => {
+        loadAddressInfo();
+        // console.log("AddressArr : ", addressArr);
+    }, []);
 
 
     return (
@@ -196,11 +228,14 @@ const BuyList = () => {
                         <div>변경</div>
                     </div>
                     <hr />
-                    <div className='address_main'>
-                        <div>이광포</div>
-                        <div>010-7422-9262</div>
-                        <div>서울 성동구 둘레15가길 2</div>
-                    </div>
+                    {
+                        <div className='address_main'>
+                            <div>{addressArr.name}</div>
+                            <div>{addressArr.tel}</div>
+                            <div>{addressArr.address}</div>
+                        </div>
+
+                    }
                 </div>
 
                 <div className='order'>

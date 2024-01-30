@@ -275,9 +275,6 @@ const CartList = () => {
           arr: selectedProducts,
           totalPrice: totalPrice,
         };
-    
-        // (이전 코드)
-    
         navigate("/cart/buyList", { state: sendBuyPageObj });
       };
 
