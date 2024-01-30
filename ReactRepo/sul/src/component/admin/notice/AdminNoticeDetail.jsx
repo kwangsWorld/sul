@@ -86,6 +86,7 @@ const AdminNoticeDetail = () => {
     const [editedTitle , setEditedTitle] = useState(noticeVo.title);
     const [editedContent , setEditedContent] = useState(noticeVo.content);
     const [editedDelYn , setEditedDelYn] = useState(noticeVo.delYn);
+    const [editedUpdateDate , setEditedUpdateDate] = useState(noticeVo.updateDate);
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
@@ -99,6 +100,7 @@ const AdminNoticeDetail = () => {
             title: editedTitle,
             content: editedContent,
             delYn: editedDelYn,
+            updateDate: editedUpdateDate,
     };
 
     fetch("http://127.0.0.1:8888/app/adminNotice/edit", {
@@ -143,6 +145,11 @@ const AdminNoticeDetail = () => {
     const handleTitleChange = (event) => {
         setEditedTitle(event.target.value);
     };
+    
+    // title 값이 변경될 때 동작 함수
+    const handleUpdateDateChange = (event) => {
+        setEditedUpdateDate(event.target.value);
+    };
 
     return (
         <StyledAdminNoticeDetailDiv>
@@ -165,7 +172,9 @@ const AdminNoticeDetail = () => {
                                 </td>
                         <td className=''>{noticeVo.inquiry}</td>
                         <td className=''>{noticeVo.enrollDate}</td>
-                        <td className=''>{noticeVo.updateDate}</td>
+                        <td className='updateDate'>
+                            <input type="date" name='updateDate' value={editedUpdateDate} onChange={handleUpdateDateChange}></input>
+                        </td>
                     </tr>
                 </thead>
             </table>

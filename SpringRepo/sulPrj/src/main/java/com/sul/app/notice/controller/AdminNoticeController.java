@@ -70,14 +70,13 @@ public class AdminNoticeController {
 		} else {
 			map.put("msg", "bad");
 		}
-		System.out.println(vo);
 		return map;
 	}
 
 	// 공지사항 수정
 	@PostMapping("edit")
 	public Map<String, String> edit(@RequestBody NoticeVo vo) {
-
+		
 		Map<String, String> map = new HashMap<String, String>();
 		int result = service.edit(vo);
 		if (result == 1) {
@@ -85,15 +84,14 @@ public class AdminNoticeController {
 		} else {
 			map.put("msg", "bad");
 		}
+		
 		return map;
 	}
 	
 	// 공지사항 검색 (번호, 제목)
 	@PostMapping("search")
 	public List<NoticeVo> search(@RequestBody NoticeVo vo) {
-		log.info("검색 결과 화면에서 넘어오는 값" + vo);
 		List<NoticeVo> x = service.search(vo);
-		log.info("검색 결과 서버에서 나가는 값" + x);
 		return x;
 	}
 

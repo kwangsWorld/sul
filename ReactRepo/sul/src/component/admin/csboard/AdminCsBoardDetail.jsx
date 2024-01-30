@@ -103,6 +103,8 @@ const AdminCsBoardDetail = () => {
     const [vo , setVo] = useState(csboardVo);
     const [editedAnswer , setEditedAnswer] = useState(csboardVo.aContent);
     const [editedDelYn , setEditedDelYn] = useState(csboardVo.aYn);
+    const [editAnswerDate , setEditAnswerDate] = useState(csboardVo.aDate);
+    console.log("1" , editAnswerDate);
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
@@ -115,7 +117,9 @@ const AdminCsBoardDetail = () => {
             ...vo,
             aContent: editedAnswer,
             aYn: editedDelYn,
+            answerDate : editAnswerDate,
     };
+    console.log("2" , vo);
 
     fetch("http://127.0.0.1:8888/app/adminCsboard/answer", {
       method: 'post',
@@ -128,6 +132,7 @@ const AdminCsBoardDetail = () => {
       .then((data) => {
         if (data.msg === "good") {
             setVo(editedVo);
+            console.log("3" , editedVo);
             alert("고객센터 수정 완료");
           navigate("/admin/csboard/list");
         } else {
@@ -138,6 +143,8 @@ const AdminCsBoardDetail = () => {
         alert("고객센터 수정 중 에러 발생");
       });
     };
+
+    
 
     // select 값이 변경될 때 동작 함수
     const handleSelectChange = (event) => {
@@ -154,9 +161,12 @@ const AdminCsBoardDetail = () => {
     const handleAnswerChange = (event) => {
         setEditedAnswer(event.target.value);
     };
-    
-    
 
+    // AnswerDate 값이 변경될 때 동작 함수
+    const handleAnswerDateChange = (event) => {
+        setEditAnswerDate(event.target.value);
+    };
+    
     return (
         <StyledAdminCsBoardDetailDiv>
             <table>
@@ -178,7 +188,9 @@ const AdminCsBoardDetail = () => {
                                 </td>
                         <td className=''>{csboardVo.nick}</td>
                         <td className=''>{csboardVo.enrollDate}</td>
-                        <td className=''>{csboardVo.answerDate}</td>
+                        <td className='answerDate'>
+                            <input type="date" name='answerDate' value={editAnswerDate} onChange={handleAnswerDateChange}></input>
+                        </td>
                     </tr>
                 </thead>
             </table>

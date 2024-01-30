@@ -18,39 +18,37 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/adminMember")
 public class AdminController {
-	
+
 	private final AdminService service;
-	
+
 	// 회원가입
 	@PostMapping("join")
-	public Map<String,String> join(@RequestBody AdminVo vo) throws Exception {
-		
-		
+	public Map<String, String> join(@RequestBody AdminVo vo) throws Exception {
+
 		int result = service.join(vo);
-		
-		Map<String,String> map = new HashMap<String, String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("msg", "good");
-		if(result != 1) {
+		if (result != 1) {
 			map.put("msg", "bad");
 		}
 		return map;
 	}
-		
-	
+
 	// 로그인
 	@PostMapping("login")
-	public Map<String,Object> login(@RequestBody AdminVo vo) {
+	public Map<String, Object> login(@RequestBody AdminVo vo) {
 		AdminVo loginAdmin = service.login(vo);
-		
-		Map<String,Object> map = new HashMap<String, Object>();
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("msg", "good");
 		map.put("loginAdminVo", loginAdmin);
-		
-		if(loginAdmin == null) {
+
+		if (loginAdmin == null) {
 			map.put("msg", "bad");
 		}
 		return map;
-		
+
 	}
 
 }// class

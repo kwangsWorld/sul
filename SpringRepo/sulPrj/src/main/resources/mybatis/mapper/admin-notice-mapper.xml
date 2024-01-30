@@ -11,7 +11,7 @@
 		    , CONTENT
 		    , INQUIRY
 		    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-		    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
+		    , UPDATE_DATE
 		    , DEL_YN
 		FROM NOTICE
 		<where>
@@ -33,7 +33,7 @@
 		    , CONTENT
 		    , INQUIRY
 		    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-		    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
+		    , UPDATE_DATE
 		    , DEL_YN
 		FROM NOTICE
 		<where>
@@ -54,7 +54,7 @@
 		    , CONTENT
 		    , INQUIRY
 		    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-		    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
+		    , UPDATE_DATE
 		    , DEL_YN
 		FROM NOTICE
 		WHERE NOTICE_NO = #{noticeNo}
@@ -66,7 +66,7 @@
 	</insert>
 	
 	<update id="edit">
-		UPDATE NOTICE SET TITLE = #{title} , CONTENT = #{content} , DEL_YN = #{delYn}
+		UPDATE NOTICE SET TITLE = #{title} , CONTENT = #{content} , DEL_YN = #{delYn} , UPDATE_DATE = #{updateDate}
 		WHERE NOTICE_NO = #{noticeNo}
 	</update>
 	
@@ -77,7 +77,7 @@
 			    , CONTENT
 			    , INQUIRY
 			    , TO_CHAR (ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
-			    , TO_CHAR (UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE
+			    , UPDATE_DATE
 			    , DEL_YN
 			FROM NOTICE
 	<where>

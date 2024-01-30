@@ -43,10 +43,14 @@ const StyledAdminNoticeListDiv = styled.div`
     }
 
     .notice_title {
-        width: 70%;
+        width: 40%;
     }
 
     .notice_enrollDate {
+        width: 15%;
+    }
+
+    .notice_updateDate {
         width: 15%;
     }
 
@@ -196,6 +200,7 @@ const AdminNoticeList = () => {
                         <td className='notice_no'>번호</td>
                         <td className='notice_title'>제목</td>
                         <td className='notice_enrollDate'>작성일자</td>
+                        <td className='notice_updateDate'>수정일자</td>
                         <td className='notice_delYn'>공개여부</td>
                     </tr>
                 </thead>
@@ -208,6 +213,7 @@ const AdminNoticeList = () => {
                             <td className='notice_no'>{vo.noticeNo}</td>
                             <td className='notice_title'>{vo.title}</td>
                             <td className='notice_enrollDate'>{vo.enrollDate}</td>
+                            <td className='notice_updateDate'>{vo.updateDate}</td>
                             <td className='notice_delYn'>{vo.delYn}</td>
                         </tr>
                         ))
