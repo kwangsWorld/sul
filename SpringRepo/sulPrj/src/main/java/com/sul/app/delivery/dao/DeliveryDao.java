@@ -31,4 +31,9 @@ public class DeliveryDao {
 		return sqlSessionTemplate.update("DeliveryMapper.status", vo);
 	}
 
+	// 배송추가
+	public int add(SqlSessionTemplate sqlSessionTemplate, DeliveryVo vo) {
+		return sqlSessionTemplate.insert("DeliveryMapper.add", vo);
+	}
+
 }

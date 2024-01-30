@@ -85,7 +85,6 @@ const AdminMemberJoin = () => {
         if(isFetching) {
             return;
         }
-        console.log(vo);
         isFetching = true;
 
         fetch("http://127.0.0.1:8888/app/adminMember/join" , {
@@ -106,7 +105,7 @@ const AdminMemberJoin = () => {
             }
         } )
         .catch( (error) => {
-            alert("에러발생")
+            alert("회원가입 에러발생")
         } )
         .finally( () => {
             isFetching = false;

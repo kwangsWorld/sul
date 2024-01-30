@@ -37,5 +37,10 @@ public class DeliveryService {
 	public int status(DeliveryVo vo) {
 		return dao.status(sqlSessionTemplate, vo);
 	}
+
+	// 배송추가
+	public int add(DeliveryVo vo) {
+		return dao.add(sqlSessionTemplate, vo);
+	}
 	
 }

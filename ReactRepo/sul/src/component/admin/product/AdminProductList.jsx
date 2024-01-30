@@ -120,7 +120,12 @@ const AdminProductList = () => {
                 setVoList(data.voList),
                 setPageTotal(data.pageTotal)
                 );
-            } );
+                
+            } )
+            .catch((error) => {
+                console.error("에러 발생:", error);
+                alert("에러 발생. 콘솔을 확인하세요.");
+            })
     };
     
     // 렌더링
@@ -198,7 +203,7 @@ const AdminProductList = () => {
                         <td className='product_name'>상품명</td>
                         <td className='product_degree'>도수</td>
                         <td className='product_capacity'>용량</td>
-                        <td className='product_delYn'>판매여부</td>
+                        <td className='product_delYn'>삭제여부</td>
                     </tr>
                 </thead>
                 <tbody>

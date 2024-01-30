@@ -60,7 +60,6 @@ const AdminDeliveryDetail = () => {
 
     const location = useLocation();
     const deliveryVo = location.state.vo;
-    console.log(deliveryVo);
 
     const [vo , setVo] = useState(deliveryVo);
     const [editedDeliveryFinishDate , setEditedDeliveryFinishDate] = useState(deliveryVo.deliveryFinishDate);

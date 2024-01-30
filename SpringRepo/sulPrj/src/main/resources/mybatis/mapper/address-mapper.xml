@@ -36,6 +36,7 @@
             M.NAME
             , M.TEL
             , A.ADDRESS
+            , A.ADDRESS_NO
         FROM MEMBER M
         JOIN ADDRESS A ON M.MEMBER_NO = A.MEMBER_NO 
             AND A.ADDRESS_NO = M.ADDRESS_NO

@@ -123,7 +123,10 @@ const AdminNoticeList = () => {
             setVoList(data.voList);
             setPageTotal(data.pageTotal); 
         })
-        .catch(error => console.error("Error fetching data:" , error));
+        .catch((error) => {
+            console.error("에러 발생:", error);
+            alert("에러 발생. 콘솔을 확인하세요.");
+        })
     };
 
     // 렌더링 이후 내용실행
@@ -201,7 +204,7 @@ const AdminNoticeList = () => {
                         <td className='notice_title'>제목</td>
                         <td className='notice_enrollDate'>작성일자</td>
                         <td className='notice_updateDate'>수정일자</td>
-                        <td className='notice_delYn'>공개여부</td>
+                        <td className='notice_delYn'>삭제여부</td>
                     </tr>
                 </thead>
                 <tbody>

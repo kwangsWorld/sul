@@ -61,7 +61,6 @@ const AdminReviewDetail = () => {
 
     const location = useLocation();
     const reviewVo = location.state.vo;
-    console.log(reviewVo);
 
     const [vo , setVo] = useState(reviewVo);
     const [editedDelYn , setEditedDelYn] = useState(reviewVo.delYn);
@@ -138,15 +137,15 @@ const AdminReviewDetail = () => {
                     </tr>
                     <tr>
                         <td className=''>이미지</td>
-                        <td className=''>별점</td>
                         <td className=''>내용</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr className='detail_content'>
-                        <td className=''><img src={reviewVo.img} alt="사진" width='300px' height='300px'/></td>
-                        <td className=''>{reviewVo.rating}</td>
+                        <td className=''><img src={reviewVo.img} alt="사진" width='200px' height='200px'/></td>
                         <td className=''>{reviewVo.content}</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>

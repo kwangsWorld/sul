@@ -16,10 +16,12 @@ import com.sul.app.delivery.service.DeliveryService;
 import com.sul.app.delivery.vo.DeliveryVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("delivery")
+@Slf4j
 public class DeliveryController {
 
 	private final DeliveryService service;
@@ -49,6 +51,23 @@ public class DeliveryController {
 	@GetMapping("detail")
 	public DeliveryVo detail(DeliveryVo vo) {
 		return service.detail(vo);
+	}
+	
+	// 배송추가
+	@PostMapping("add")
+	public Map<String , String> add(@RequestBody DeliveryVo vo){
+		log.info("들어오는값" + vo);
+		int result = service.add(vo);
+		Map<String,String> map = new HashMap<String, String>();
+		
+		if(result == 1) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");
+		}
+		
+		log.info("나가는값" + map);
+		return map;
 	}
 
 }

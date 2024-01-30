@@ -120,6 +120,10 @@ const AdminCsBoardList = () => {
             setVoList(data.voList);
             setPageTotal(data.pageTotal);
         } )
+        .catch((error) => {
+            console.error("에러 발생:", error);
+            alert("에러 발생. 콘솔을 확인하세요.");
+        })
         ;
     }
     
@@ -139,7 +143,7 @@ const AdminCsBoardList = () => {
         setPageVo ({
             qNo : select === 'no' ? input : null,
             qTitle : select === 'title' ? input : null,
-            // aYn : select = 'delYn' ? input : null,
+            aYn : select === 'delYn' ? input : null,
             pageNo : 1,
             limit : 10,
         })
