@@ -116,7 +116,7 @@ const CartList = () => {
 
     const navigate = useNavigate();
     const [arr, setArr] = useState([]);
-    const [totalPrice, setTotalPrice] = useState();
+    const [totalPrice, setTotalPrice] = useState(0);
     const [isChecked, setIsChecked] = useState(false);
     const [cartArr, setCartArr] =  useState([]);
     const [selectAll, setSelectAll] = useState(false);
@@ -130,6 +130,35 @@ const CartList = () => {
 
     const handleCheckboxToggle = (e, productNo) => {
         const checked = e.target.checked;
+        console.log("checked:",checked);
+        if(checked){
+            setTotalPrice((prevTotalPrice) => {
+                // 삭제된 상품들의 가격 합 구하기
+                
+                let presentPrice = 0;
+                for(const item of arr){
+                    if(item.productNo===productNo){
+                        presentPrice = parseInt(item.price);
+                    }
+                }
+
+                return prevTotalPrice + presentPrice;
+            });
+        }else{
+            setTotalPrice((prevTotalPrice) => {
+                // 삭제된 상품들의 가격 합 구하기
+                
+                let presentPrice = 0;
+                for(const item of arr){
+                    if(item.productNo===productNo){
+                        presentPrice = parseInt(item.price);
+                    }
+                }
+
+                return prevTotalPrice - presentPrice;
+            });
+        }
+
         setCartArr((prevArr) => {
             if (checked) {
                 return [...prevArr, productNo]; // 선택된 상품 번호 추가
@@ -163,14 +192,7 @@ const CartList = () => {
                  // 데이터 삭제 후 상태 업데이트
                  setArr((prevArr) => prevArr.filter((item) => !cartArr.includes(item.productNo)));
                  
-                 setTotalPrice((prevTotalPrice) => {
-                    // 삭제된 상품들의 가격 합 구하기
-                    const deletedTotalPrice = arr
-                        .filter((item) => cartArr.includes(item.productNo))
-                        .reduce((sum, item) => sum + parseInt(item.price), 0);
-    
-                    return prevTotalPrice - deletedTotalPrice >= 0 ? prevTotalPrice - deletedTotalPrice : 0;
-                });
+                 
                  
              })
     }
@@ -196,15 +218,15 @@ const CartList = () => {
                 // console.log("voList값: " ,voList);
                 setArr(voList); 
                 console.log(arr);
-                setTotalPrice(
-                    ()=>{
-                        for(let sendBuyPageObj of voList){
-                            // console.log(sendBuyPageObj.price);
-                            t += parseInt(sendBuyPageObj.price);
-                        }
-                        return t;
-                    }
-                )
+                // setTotalPrice(
+                //     ()=>{
+                //         for(let sendBuyPageObj of voList){
+                //             // console.log(sendBuyPageObj.price);
+                //             t += parseInt(sendBuyPageObj.price);
+                //         }
+                //         return t;
+                //     }
+                // )
             }
         )
         ;
@@ -228,7 +250,11 @@ const CartList = () => {
         console.log("cnt값: " + arr[idx].cnt) 
     };
 
-    const changePlusCnt = (event, idx) => {
+    const changePlusCnt = (event, idx,productNo) => {
+        const checkedStatus =  document.querySelector("#checkbox"+productNo).checked;
+        console.log("checkedStatus",checkedStatus);
+        console.log("productNo",productNo);
+        if(checkedStatus){
         setArr((prevState) => {
             return produce(prevState, (draft) => {
                 draft[idx].cnt = parseInt(draft[idx].cnt) + 1;
@@ -236,13 +262,24 @@ const CartList = () => {
                 setTotalPrice(totalPrice + parseInt(arr[idx].price)/(parseInt(arr[idx].cnt)));
             });
         });
+        }
         console.log("cnt값: " + arr[idx].cnt)
     };
 
-    const sendBuyPageObj = {
-        arr:arr,
-        totalPrice : totalPrice
-    }
+    const handleBuyButtonClick = () => {
+        const selectedProducts = arr.filter(
+          (productVo) => selectAll || cartArr.includes(productVo.productNo)
+        );
+    
+        const sendBuyPageObj = {
+          arr: selectedProducts,
+          totalPrice: totalPrice,
+        };
+    
+        // (이전 코드)
+    
+        navigate("/cart/buyList", { state: sendBuyPageObj });
+      };
 
     // console.log("sendBuyPageObj : ", sendBuyPageObj);
 
@@ -254,8 +291,8 @@ const CartList = () => {
                 <div className='top_left_wrap'>
                     <div className='all_select'>
                         <div>
-                            <input type="checkbox" checked={selectAll} onChange={handleSelectAllTogle}/>
-                            모두 선택
+                            {/* <input type="checkbox" checked={selectAll} onChange={handleSelectAllTogle}/>
+                            모두 선택 */}
                         </div>
                         <div>
                             <button className='delete_box' type='button' onClick={deleteCartList}>선택 삭제</button>
@@ -275,6 +312,7 @@ const CartList = () => {
                         <div className='select'>
                             <input 
                                 type="checkbox" 
+                                id={"checkbox"+productVo.productNo}
                                 value={productVo.productNo} 
                                 checked={selectAll || cartArr.includes(productVo.productNo)} 
                                 onChange={(e) => handleCheckboxToggle(e, productVo.productNo)}
@@ -305,9 +343,9 @@ const CartList = () => {
                         <div><span></span></div>
                             <div className='detail'>
                             <div className='cnt_box'>
-                                <div className='minus' onClick={(e)=>changeMinusCnt(e,idx)}>-</div>
+                                <div className='minus' onClick={(e)=>changeMinusCnt(e,idx,productVo.productNo)}>-</div>
                                 <div className='cnt'> {productVo.cnt} </div>
-                                <div className='plus' onClick={(e)=>{changePlusCnt(e,idx); }}>+</div>
+                                <div className='plus' onClick={(e)=>{changePlusCnt(e,idx,productVo.productNo); }}>+</div>
                             </div>
                             <div className='price'></div>
                         </div>
@@ -322,7 +360,7 @@ const CartList = () => {
                     <br />
                     <button className='buy_btn' 
                     onClick={()=>{
-                        navigate("/cart/buyList" , {state: sendBuyPageObj});
+                        handleBuyButtonClick();
                         }}>구매하기</button>
                 </div>
             
