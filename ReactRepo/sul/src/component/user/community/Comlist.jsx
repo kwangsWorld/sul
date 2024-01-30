@@ -145,7 +145,7 @@ const Comlist = () => {
                     <td className='font'>커뮤니티 게시판</td>
                     <td>
                         <div className='option'>
-                            <input type="text"  name="searchInput" id="searchInput" value={input} onChange={ (event) => {
+                            <input type="text" placeholder='술 또는 안주 검색해주세요.'  name="searchInput" id="searchInput" value={input} onChange={ (event) => {
                                 return setInput(event.target.value);
                             } }></input>
                             <div className='btn'>
