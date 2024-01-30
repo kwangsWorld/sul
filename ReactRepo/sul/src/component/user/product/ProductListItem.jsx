@@ -21,7 +21,7 @@ const StyledItemDiv = styled.div`
     }
 `
 
-const ProductListItem = ({name, price, rating, productNo}) => {
+const ProductListItem = ({name, price, rating, productNo, image}) => {
 
     const navigate =  useNavigate();
     return (
@@ -30,12 +30,7 @@ const ProductListItem = ({name, price, rating, productNo}) => {
                 onClick={() =>{
                     navigate("/product/detail/"+ productNo);
                 }}>
-            <img    className='image'
-                    src= "https://cogulmars.cafe24.com/img/04about_img03.png"
-                    alt="이미지ㅋㅋ"
-                    width='295px'
-                    height='300px'
-            />
+                <img src={image} alt="사진" width='295px' height='300px'/>
                 <div>이름 : {name}</div>
                 <div>가격 : {price}원</div>
                 <div>평점 : {rating}점</div>

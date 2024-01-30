@@ -144,7 +144,7 @@ const AdminReviewDetail = () => {
                         <td></td>
                     </tr>
                     <tr className='detail_content'>
-                        <td className=''>{reviewVo.img}</td>
+                        <td className=''><img src={reviewVo.img} alt="사진" width='300px' height='300px'/></td>
                         <td className=''>{reviewVo.rating}</td>
                         <td className=''>{reviewVo.content}</td>
                         <td></td>

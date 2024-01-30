@@ -158,7 +158,7 @@ const AdminProductDetail = () => {
                     </tr>
                     <tr className='detail_content'>
                         <td className=''>{productVo.rating}</td>
-                        <td className=''><img src={productVo.image} alt="사진" width='100px' height='100px'/></td>
+                        <td className=''><img src={productVo.image} alt="사진" width='200px' height='200px'/></td>
                         <td className=''>{productVo.taste}</td>
                         <td className=''>{productVo.appetizer}</td>
                         <td></td>

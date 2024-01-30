@@ -47,7 +47,9 @@ public class ProductController {
 	//제품 카테고리 별 전체 조회
 	@GetMapping("list/{str}")
 	public List<ProductVo> listByCategory(@PathVariable (name = "str") String str){
+		System.out.println("들오온다 :::" + str);
 		List<ProductVo> voList = service.listByCategory(str);
+		System.out.println("나간다 :::" + voList);
 		return voList;
 	}
 	

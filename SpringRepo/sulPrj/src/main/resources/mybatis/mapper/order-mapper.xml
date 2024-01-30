@@ -29,24 +29,29 @@
       )
    </insert>
 
-	<select id="list" resultType="com.sul.app.order.vo.OrderVo">
-	   SELECT 
-		    O.ORDER_NO, 
-		    O.MEMBER_NO,
-		    (SELECT S.DELIVERY_STATUS 
-		     FROM DELIVERY D 
-		     JOIN DELIVERY_STATUS S ON D.DELIVERY_STATUS_NO = S.DELIVERY_STATUS_NO
-		     WHERE D.ORDER_NO = O.ORDER_NO) AS DELIVERY_STATUS,
-		    TO_CHAR(O.ENROLL_DATE, 'YYYY"년"MM"월"DD"일"') AS ENROLL_DATE,
-		    (SELECT SUM(P.PRICE * L.QUANTITY) 
-		     FROM ORDERS_LIST L 
-		     JOIN PRODUCT P ON L.PRODUCT_NO = P.PRODUCT_NO
-		     WHERE L.ORDER_NO = O.ORDER_NO) AS TOTAL_PRICE
-		FROM ORDERS O
-		WHERE O.MEMBER_NO = #{memberNo}
-		AND O.CANCLE_DATE IS NULL
+   <select id="list" resultType="com.sul.app.order.vo.OrderVo">
+     	SELECT 
+          O.ORDER_NO, 
+          O.MEMBER_NO,
+          (SELECT S.DELIVERY_STATUS 
+           FROM DELIVERY D 
+           FULL OUTER JOIN DELIVERY_STATUS S ON D.DELIVERY_STATUS_NO = S.DELIVERY_STATUS_NO
+           WHERE D.ORDER_NO = O.ORDER_NO) AS DELIVERY_STATUS,
+          TO_CHAR(O.ENROLL_DATE, 'YYYY"년"MM"월"DD"일"') AS ENROLL_DATE,
+          L.ORDER_LIST_NO,
+          L.PRODUCT_NO,
+          L.QUANTITY,
+          P.PRICE,
+          (L.QUANTITY * P.PRICE) AS TOTAL_PRODUCT_PRICE
+      FROM ORDERS O
+      FULL OUTER JOIN DELIVERY D ON O.ORDER_NO = D.ORDER_NO
+      FULL OUTER JOIN DELIVERY_STATUS S ON D.DELIVERY_STATUS_NO = S.DELIVERY_STATUS_NO
+      FULL OUTER JOIN ORDERS_LIST L ON O.ORDER_NO = L.ORDER_NO
+      FULL OUTER JOIN PRODUCT P ON L.PRODUCT_NO = P.PRODUCT_NO
+      WHERE O.MEMBER_NO = #{memberNo}
+      AND O.CANCLE_DATE IS NULL
 
-	</select>
+   </select>
 	
 	<select id="delete" resultType="com.sul.app.order.vo.OrderVo">
 	     SELECT 
@@ -74,7 +79,12 @@
 	</update>
 	
 	<select id="detail" resultType="com.sul.app.order.vo.OrderVo">
-		SELECT L.ORDER_NO, P.NAME,P.PRICE, L.QUANTITY
+		SELECT
+		L.ORDER_LIST_NO 
+		, L.ORDER_NO
+		, P.NAME
+		, P.PRICE
+		, L.QUANTITY
 			FROM ORDERS_LIST L
 			JOIN PRODUCT P ON L.PRODUCT_NO = P.PRODUCT_NO
 			WHERE L.ORDER_NO = #{orderNo}

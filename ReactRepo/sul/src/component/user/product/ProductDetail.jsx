@@ -114,6 +114,11 @@ const StyledDetailDiv = styled.div`
         text-align: center;
         align-items: center;
     }
+
+    .review_secondLine{
+        display: grid;
+        grid-template-columns: 4fr 2fr 4fr;
+    }
     
 `;
 
@@ -214,12 +219,7 @@ const ProductDetail = () => {
             <div className='left_side'>
                 <div className='left_side_top'>
                     <div className='left_img'>
-                        <img 
-                            width= '400px' 
-                            height= '400px' 
-                            src="https://m.soollove.com/web/product/big/202312/57fda681ed7628e049055c3f0df77ba9.jpg" 
-                            alt="bottle" 
-                        />
+                    <img src={vo.image} alt="사진" width='400px' height='400px'/>
                     </div>
                     <div className='left_detail'>
                             <div className='name'>이름: {vo.pName} </div>
@@ -265,7 +265,15 @@ const ProductDetail = () => {
                         <div>{reviewVo.rating}</div>
                         <div>{reviewVo.enrollDate}</div>
                         </div>
-                        <div className='review_secondLine'>{reviewVo.content}</div>
+                        <div className='review_secondLine'>
+                            <div>
+                                <img src={reviewVo.img} alt="사진" width='300px' height='300px'/>
+                            </div>
+                            <div></div>
+                            <div>
+                                {reviewVo.content}
+                            </div>
+                        </div>
                 </div>
                     ))
                 }
