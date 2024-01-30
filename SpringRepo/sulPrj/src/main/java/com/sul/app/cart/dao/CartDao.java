@@ -23,4 +23,9 @@ public class CartDao {
 		return sst.selectList("CartMapper.list", vo);
 	}
 
+	public int deleteList(SqlSessionTemplate sst, List<String> nums) {
+		
+		return sst.delete("CartMapper.deleteList", nums);
+	}
+
 }

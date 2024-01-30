@@ -95,9 +95,20 @@ const StyledCartListDiv = styled.div`
         cursor: pointer;
     }
 
+    .delete_box{
+        width: 100px;
+        height: 50px;
+        background-color: #ffe23dfb;
+        border:none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
 `;
 
 const CartList = () => {
+
 
     console.log("card list 컴포넌트 ~~~");
     
@@ -106,10 +117,71 @@ const CartList = () => {
     const navigate = useNavigate();
     const [arr, setArr] = useState([]);
     const [totalPrice, setTotalPrice] = useState();
+    const [isChecked, setIsChecked] = useState(false);
+    const [cartArr, setCartArr] =  useState([]);
+    const [selectAll, setSelectAll] = useState(false);
+
+    const handleSelectAllTogle = (e) => {
+        const checked = e.target.checked;
+        setSelectAll(checked);
+        setCartArr(checked ? arr.map((productVo) => productVo.productNo) : []);
+        // 전체 선택일 경우 상품 번호 배열에 추가, 아닐 경우 빈 배열로 설정
+    };
+
+    const handleCheckboxToggle = (e, productNo) => {
+        const checked = e.target.checked;
+        setCartArr((prevArr) => {
+            if (checked) {
+                return [...prevArr, productNo]; // 선택된 상품 번호 추가
+            } else {
+                return prevArr.filter((item) => item !== productNo); // 선택 취소된 상품 번호 제거
+            }
+        });
+         // 모두 선택 체크박스의 해제 처리
+         if (selectAll) {
+            setSelectAll(false);
+        }
+    };
+
+    console.log("@@@@@@@@@@@@22222222222: ", cartArr);
+
+    const deleteCartList =  () => {
+
+        console.log(cartArr)
+
+        fetch("http://127.0.0.1:8888/app/cart/deleteList" ,{
+            method : 'post',
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify( cartArr)})
+            // body: JSON.stringify( {deleteList : cartArr})})
+            .then( (resp) => {return resp.json()})
+            .then( (data) => {
+                 console.log("delete 실행 결과 : " , data);
+
+                 // 데이터 삭제 후 상태 업데이트
+                 setArr((prevArr) => prevArr.filter((item) => !cartArr.includes(item.productNo)));
+                 
+                 setTotalPrice((prevTotalPrice) => {
+                    // 삭제된 상품들의 가격 합 구하기
+                    const deletedTotalPrice = arr
+                        .filter((item) => cartArr.includes(item.productNo))
+                        .reduce((sum, item) => sum + parseInt(item.price), 0);
+    
+                    return prevTotalPrice - deletedTotalPrice >= 0 ? prevTotalPrice - deletedTotalPrice : 0;
+                });
+                 
+             })
+    }
+
+
+    
+
 
     const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo"));
     const memberNo = loginInfo.memberNo;
-    console.log("memberNo: ", memberNo);
+    // console.log("memberNo: ", memberNo);
     
 
     useEffect(() => {
@@ -136,9 +208,10 @@ const CartList = () => {
             }
         )
         ;
+
     } , [] );
 
-    console.log("arr : " , arr);
+    // console.log("arr : " , arr);
 
     const changeMinusCnt = (event, idx) => {
         if(arr[idx].cnt <= 1){
@@ -173,22 +246,24 @@ const CartList = () => {
 
     // console.log("sendBuyPageObj : ", sendBuyPageObj);
 
+    console.log("isChecked : ",isChecked );
+
     return (
         <StyledCartListDiv>
             <div className='cart_wrap'>
                 <div className='top_left_wrap'>
                     <div className='all_select'>
                         <div>
-                            <input type="checkbox" />
-                            모두선택(0/3)
+                            <input type="checkbox" checked={selectAll} onChange={handleSelectAllTogle}/>
+                            모두 선택
                         </div>
                         <div>
-                            <button type='button'>선택 삭제</button>
+                            <button className='delete_box' type='button' onClick={deleteCartList}>선택 삭제</button>
                         </div>
                     </div>
                 </div>
                 
-                <div><span>계산서</span></div>
+                <div><span>  </span></div>
 
 
                 <div className='bottom_left_wrap'>
@@ -198,7 +273,12 @@ const CartList = () => {
                     
                     <div key = {productVo.cartNo} className='cart_list'>
                         <div className='select'>
-                            <input type="checkbox" />
+                            <input 
+                                type="checkbox" 
+                                value={productVo.productNo} 
+                                checked={selectAll || cartArr.includes(productVo.productNo)} 
+                                onChange={(e) => handleCheckboxToggle(e, productVo.productNo)}
+                            />
                         </div>
                         
                         <div className='total_list'>
@@ -240,7 +320,10 @@ const CartList = () => {
                     <br />
                     총 결제 금액: {parseInt(totalPrice).toLocaleString('ko-KR')} 원
                     <br />
-                    <button className='buy_btn' onClick={()=>{navigate("/cart/buyList" , {state: sendBuyPageObj});}}>구매하기</button>
+                    <button className='buy_btn' 
+                    onClick={()=>{
+                        navigate("/cart/buyList" , {state: sendBuyPageObj});
+                        }}>구매하기</button>
                 </div>
             
             </div> {/*cart_wrap*/}

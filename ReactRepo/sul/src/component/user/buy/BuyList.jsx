@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -84,6 +84,7 @@ const BuyList = () => {
     const navigate = useNavigate();
     const [isChecked, setIsChecked] = useState(false);
     const [isArrowActivated, setIsArrowActivated] = useState(false);
+    const [addressArr, setAddressArr] = useState([]);
     const loginInfo = JSON.parse(sessionStorage.getItem("loginMemberVo")); //세션스토리지에서 객체 읽어오기
 
     const memberNo = loginInfo.memberNo;
@@ -168,11 +169,12 @@ const BuyList = () => {
         .then((resp) => {return resp.json()})
         .then((data) => {
             console.log("백엔드 작업 결과 : ", data);
+            addOrderList();
         })
     };
     
     const addOrderList = () => {
-        fetch("http://127.0.0.1:8888/app/order/listAdd", {
+        fetch("http://127.0.0.1:8888/app/order/addList", {
             method: 'post' , 
             headers:{
                 "Content-Type" : "application/json"
@@ -185,7 +187,27 @@ const BuyList = () => {
         })
     }
 
-
+    const loadAddressInfo = () => {
+        fetch("http://127.0.0.1:8888/app/address/loadBasic", {
+            method: 'post' ,
+            headers:{
+                "Content-type" : "application/json"
+            },
+            body: JSON.stringify({memberNo : memberNo})
+        })
+        .then((resp) => {return resp.json()})
+        .then((data) => {
+            setAddressArr(data);
+        } )
+    }
+    
+    useEffect(() => {
+        loadAddressInfo();
+        // console.log("AddressArr : ", addressArr);
+    }, []);
+    
+    
+    console.log("loadAddressInfo data@@@@@@@@@@@@@@@: ", addressArr);
 
     return (
         <StyledBuyListDiv>
@@ -196,15 +218,19 @@ const BuyList = () => {
             <div className='buy_wrap'>
                 <div className='address'>
                     <div className='address_header'>
-                        <div>배송지</div>
+                        <div> 배송지</div>
                         <div>변경</div>
                     </div>
                     <hr />
-                    <div className='address_main'>
-                        <div>이광포</div>
-                        <div>010-7422-9262</div>
-                        <div>서울 성동구 둘레15가길 2</div>
-                    </div>
+                    {
+                        <div className='address_main'>
+                            <div>{addressArr.name}</div>
+                            <div>{addressArr.tel}</div>
+                            <div>{addressArr.address}</div>
+                        </div>
+
+                    }
+                    
                 </div>
                 <div className='order'>
                     <div className='order_head'>
@@ -255,8 +281,10 @@ const BuyList = () => {
                 </div>
                 <br />
                 {isChecked ? 
-                <button className='final_buy' onClick={(e) => {
-                    kakaoPay(e);}}>
+                <button className='final_buy' 
+                    onClick={(e) => {
+                                        kakaoPay(e);
+                                        }}>
                     {parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기
                 </button>
                 : <button className='final_buy_no'>{parseInt(totalPrice).toLocaleString('ko-KR')}원 결제하기</button>}

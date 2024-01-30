@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +29,7 @@ public class CartController {
 	@PostMapping("add")
 	public Map<String, String> add(@RequestBody ProductVo vo){
 //		log.info("method called...");
-		System.out.println("리액트에서 받아온 장바구니 추가 vo : " + vo);
+//		System.out.println("리액트에서 받아온 장바구니 추가 vo : " + vo);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		int result = service.add(vo);
@@ -47,14 +47,33 @@ public class CartController {
 	@PostMapping("list")
 	public List<ProductVo> list(@RequestBody CartVo vo){
 		
-		System.out.println("vo: " + vo);
+//		System.out.println("vo: " + vo);
 		
 		List<ProductVo> voList = service.list(vo);
 		
-		System.out.println("쿼리문 이후 voList: " + voList);
+//		System.out.println("쿼리문 이후 voList: " + voList);
 		
 		return voList;
 	}
+	
+	//장바구니 선택삭제
+	@PostMapping("deleteList")
+	public Map<String, String> deleteList(@RequestBody List<String> nums) {
+		
+		System.out.println(nums);
+		int result = service.deleteList(nums);
+		Map<String, String> map = new HashMap<String,String>();
+		
+		System.out.println("결과값 : " + result);
+		if(result == nums.size()) {
+			map.put("msg", "good");
+		}else {
+			map.put("msg", "bad");
+		}
+		
+		return map;
+	}
+	
 	
 	
 }
