@@ -50,6 +50,7 @@ const StyledDetailDiv = styled.div`
     .point{
         font-size: 30px;
         margin-top: 10px;
+        font-weight: bold;
     }
 
     .first_line, .second_line{
@@ -69,7 +70,8 @@ const StyledDetailDiv = styled.div`
     }
 
     .taste > div, .appetizer > div{
-        margin-top: 10px;
+        margin-top: 1%;
+        padding-right: 10%;
     }
     .left_detail{
         margin-left: 5%;
@@ -119,10 +121,11 @@ const StyledDetailDiv = styled.div`
     .review_box{
         display: grid;
         grid-template-rows: 5fr 5fr;
+
     }
 
     .review_firstLine{
-        margin-top: 40%;
+        margin-top: 5%;
         width: 150%;
         height: 50px;
         display: grid;
@@ -139,6 +142,13 @@ const StyledDetailDiv = styled.div`
         grid-template-columns: 3fr 2fr 3fr;
         padding-top: 5%;
     }
+    .flqb{
+        margin-top: 40%;
+    }
+    .cnt{
+        padding-right: 15%;
+    }
+    
     
 `;
 
@@ -180,9 +190,10 @@ const ProductDetail = () => {
 
 
     const minus = () => {
-        if(cnt>1)
+        if(cnt>1){
         setCnt(cnt-1);
         setTotalPrice(parseInt(vo.price) * (cnt-1));
+    }
 
     }
     const plus = () => {
@@ -270,13 +281,14 @@ const ProductDetail = () => {
                         </div>
                     </div>
                 </div>
+                <div className='flqb'>⭐⭐리뷰⭐⭐</div>
                 {
                     reviewVolist.map((reviewVo) => (
                         <div className='reivew_box'>
                         <div className='review_firstLine'>
                         <div>{reviewVo.name}</div>
                         <div>{vo.pName}</div>
-                        <div>{reviewVo.rating}</div>
+                        <div>{reviewVo.rating}점</div>
                         <div>{reviewVo.enrollDate}</div>
                         </div>
                         <div className='review_secondLine'>
@@ -302,7 +314,7 @@ const ProductDetail = () => {
                         <tr>
                             <td onClick={minus}>-</td>
                             {/* {console.log("cnt : " + cnt)} */}
-                            <td colSpan={2}>
+                            <td className='cnt' colSpan={2}>
                                 {cnt}
                             </td>
                             <td onClick={plus}>+</td>
