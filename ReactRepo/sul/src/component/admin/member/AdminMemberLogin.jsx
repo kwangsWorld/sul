@@ -109,9 +109,6 @@ const AdminMemberLogin = () => {
                 console.error("에러 발생:", error);
                 alert("에러 발생. 콘솔을 확인하세요.");
             })
-            .finally((error) => {
-                console.log("로그인 fetch 끝");
-            });
     };
 
     return (

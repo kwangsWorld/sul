@@ -99,4 +99,19 @@
 		WHERE DELIVERY_NO = #{deliveryNo}
 	</update>
 	
+	<insert id="add">
+	INSERT INTO DELIVERY
+		( 
+		DELIVERY_NO
+		, ORDER_NO
+		, ADDRESS_NO
+		)
+	VALUES
+		(
+		SEQ_DELIVERY_NO.NEXTVAL
+		, SEQ_ORDER_NO.CURRVAL
+		, #{addressNo}
+		)
+	</insert>
+	
 </mapper>

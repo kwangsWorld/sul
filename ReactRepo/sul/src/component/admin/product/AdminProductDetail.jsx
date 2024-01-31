@@ -119,7 +119,7 @@ const AdminProductDetail = () => {
                         <td className=''>상품종류</td>
                         <td className=''>상품이름</td>
                         <td className=''>등록일자</td>
-                        <td className=''>등록여부</td>
+                        <td className=''>삭제여부</td>
 
                     </tr>
                     <tr className='detail_content'>
@@ -150,16 +150,16 @@ const AdminProductDetail = () => {
                         <td className=''>{productVo.price}</td>
                     </tr>
                     <tr>
-                        <td className=''>별점</td>
                         <td className=''>이미지</td>
                         <td className=''>맛</td>
+                        <td></td>
                         <td className=''>안주</td>
                         <td></td>
                     </tr>
                     <tr className='detail_content'>
-                        <td className=''>{productVo.rating}</td>
                         <td className=''><img src={productVo.image} alt="사진" width='200px' height='200px'/></td>
                         <td className=''>{productVo.taste}</td>
+                        <td></td>
                         <td className=''>{productVo.appetizer}</td>
                         <td></td>
                     </tr>

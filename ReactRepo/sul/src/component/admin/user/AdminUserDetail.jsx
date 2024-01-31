@@ -61,7 +61,6 @@ const AdminUserDetail = () => {
 
     const location = useLocation();
     const memberVo = location.state.vo;
-    console.log(memberVo);
 
     const [vo , setVo] = useState(memberVo);
     const [editedDelYn , setEditedDelYn] = useState(memberVo.delYn);
@@ -87,7 +86,6 @@ const AdminUserDetail = () => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         if (data.msg === "good") {
             setVo(editedVo);
             alert("회원 수정 완료");

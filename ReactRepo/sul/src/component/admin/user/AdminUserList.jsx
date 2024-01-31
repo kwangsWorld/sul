@@ -109,7 +109,11 @@ const AdminUserList = () => {
                 setVoList(data.voList),
                 setPageTotal(data.pageTotal)
             );
-        } );
+        } )
+        .catch((error) => {
+            console.error("에러 발생:", error);
+            alert("에러 발생. 콘솔을 확인하세요.");
+        })
     };
     
     // 렌더링

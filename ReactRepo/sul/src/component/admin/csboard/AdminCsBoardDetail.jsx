@@ -34,8 +34,8 @@ const StyledAdminCsBoardDetailDiv = styled.div`
     .detail_qTitle {
         display: flex;
         align-items: center;
-        width: 100%;
-        height: 50px;
+        justify-content: center;
+        width: 50%;
     }
 
     .detail_second {
@@ -44,12 +44,16 @@ const StyledAdminCsBoardDetailDiv = styled.div`
     }
 
     .detail_qContent {
-        width: 50%;
-        height: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
     }
     .detail_qImg {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 50%;
-        height: 250px;
     }
 
     .detail_wrap {
@@ -98,13 +102,11 @@ const AdminCsBoardDetail = () => {
 
     const location = useLocation();
     const csboardVo = location.state.vo;
-    console.log(csboardVo);
 
     const [vo , setVo] = useState(csboardVo);
     const [editedAnswer , setEditedAnswer] = useState(csboardVo.aContent);
     const [editedDelYn , setEditedDelYn] = useState(csboardVo.aYn);
     const [editAnswerDate , setEditAnswerDate] = useState(csboardVo.aDate);
-    console.log("1" , editAnswerDate);
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
@@ -119,7 +121,6 @@ const AdminCsBoardDetail = () => {
             aYn: editedDelYn,
             answerDate : editAnswerDate,
     };
-    console.log("2" , vo);
 
     fetch("http://127.0.0.1:8888/app/adminCsboard/answer", {
       method: 'post',
@@ -132,7 +133,6 @@ const AdminCsBoardDetail = () => {
       .then((data) => {
         if (data.msg === "good") {
             setVo(editedVo);
-            console.log("3" , editedVo);
             alert("고객센터 수정 완료");
           navigate("/admin/csboard/list");
         } else {
@@ -195,14 +195,12 @@ const AdminCsBoardDetail = () => {
                 </thead>
             </table>
                 <tbody>
-                    <tr>
-                        <td className='detail_qTitle' name='qTitle'>
-                            {csboardVo.qTitle}
-                        </td>
-                    </tr>
                     <tr className='detail_second'>
                         <td className='detail_qImg' name='qImg'>
-                        <img src={csboardVo.qImg} alt="사진" width='300px' height='300px'/>
+                            <img src={csboardVo.qImg} alt="사진" width='200px' height='200px'/>
+                        </td>
+                        <td className='detail_qTitle' name='qTitle'>
+                            {csboardVo.qTitle}
                         </td>
                         <td className='detail_qContent' name='qContent'>
                             {csboardVo.qContent}
