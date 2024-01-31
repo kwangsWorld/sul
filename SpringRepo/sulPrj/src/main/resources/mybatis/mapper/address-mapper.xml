@@ -40,6 +40,6 @@
         FROM MEMBER M
         JOIN ADDRESS A ON M.MEMBER_NO = A.MEMBER_NO 
             AND A.ADDRESS_NO = M.ADDRESS_NO
-        WHERE A.ADDRESS_NO = #{memberNo}
+        WHERE M.MEMBER_NO = #{memberNo}
     </select>
 </mapper>
