@@ -172,9 +172,10 @@ const BuyList = () => {
         })
         .then((resp) => {return resp.json()})
         .then((data) => {
-            console.log("백엔드 작업 결과 : ", data);
+            console.log("deliveryAdd2 :::" , data);
             addOrderOneList();
-            console.log("마이페이지로 보내기전의 orderObj.totalPrice값: ", orderObj.totalPrice);
+            addDelivery();
+            // console.log("마이페이지로 보내기전의 orderObj.totalPrice값: ", orderObj.totalPrice);
             navigate("/mypage/myorder", {state:orderObj.totalPrice});
         })
     };
@@ -189,9 +190,23 @@ const BuyList = () => {
         })
         .then((resp) => {return resp.json()})
         .then((data) => {
-            console.log("백엔드 작업 결과 : ", data);
+            console.log("addList2 :::" , data);
         })
     }
+
+    const addDelivery = () => {
+        fetch("http://127.0.0.1:8888/app/delivery/add", {
+            method : 'post',
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(addressArr)
+        })
+        .then((resp) => {return resp.json()})
+        .then((data) => {
+            console.log("deliveryAdd1 :::" , data);
+        })
+    };
 
     const loadAddressInfo = () => {
         fetch("http://127.0.0.1:8888/app/address/loadBasic", {
