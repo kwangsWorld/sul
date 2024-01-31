@@ -9,6 +9,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-direction: column;
+margin-top: 3%;
     table{
         border: 3px solid gray;
         border-radius: 30px;

@@ -8,6 +8,7 @@ const StyledItemDiv = styled.div`
     align-items: center;
     text-align: center;
 
+
     .detail_box{
         cursor: pointer;
     }
@@ -15,9 +16,10 @@ const StyledItemDiv = styled.div`
     .detail_box >div{
     }
 
+
     .image{
-        border-radius: 10px;
         margin-bottom: 10px;
+        border-radius: 20%;
     }
 `
 
@@ -30,8 +32,8 @@ const ProductListItem = ({name, price, productNo, image}) => {
                 onClick={() =>{
                     navigate("/product/detail/"+ productNo);
                 }}>
-                <img src={image} alt="사진" width='295px' height='300px'/>
-                <div>이름 : {name}</div>
+                <img className='im' src={image} alt="사진" width='295px' height='300px'/>
+                <div>상품명 : {name}</div>
                 <div>가격 : {price}원</div>
                 {/* <div>평점 : {rating}점</div> */}
             </div>

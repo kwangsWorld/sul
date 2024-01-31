@@ -16,6 +16,9 @@ flex-direction: column;
     margin-bottom: 20%;
     margin-top: 7%;
    }
+   .font{
+    background-color: white;
+   }
    tr:hover{
     background-color: lightgray;
    }
