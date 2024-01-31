@@ -151,7 +151,7 @@ const Header = () => {
                     <div>
                         <input className='header_search' type="text" value={input} onChange={ (event) => {
                             return setInput(event.target.value);
-                        }} placeholder='지우야, 또 술먹게? 어떤술 찾아줘?' />
+                        }} placeholder='🍾무엇을 찾고 계신가요?' />
                     </div>
                     <div>
                         <button className="header_button" onClick={handleSearch}>검색</button>
