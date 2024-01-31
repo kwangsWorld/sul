@@ -109,8 +109,6 @@ const BuyList = () => {
 
     console.log("productInfo : ", productInfo);
 
-
-
     //iamport라이브러리 추가 (index.html에 하면 모든 component에 적용되기 때문에 별도로 수정)
     const script = document.createElement("script");
     // console.log("script: ", script);
@@ -130,41 +128,6 @@ const BuyList = () => {
     const totalPrice = arr.totalPrice;
 
     // console.log("세션 값: ", loginInfo);
-
-    const addOrder = () => {
-        fetch("http://127.0.0.1:8888/app/order/add", {
-            method: 'post' ,
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify(productInfo)
-        })
-        .then((resp) => {return resp.json()})
-        .then((data) => {
-            console.log("백엔드 작업 결과 : ", data);
-            addOrderList();
-
-            console.log("마이페이지로 보내기전의 totalPrice값: ", totalPrice);
-            navigate("/mypage/myorder", {state:totalPrice});
-        })
-    };
-
-    const addOrderList = () => {
-        fetch("http://127.0.0.1:8888/app/order/addList", {
-            method: 'post' , 
-            headers:{
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify(arr.arr)
-        })
-        .then((resp) => {return resp.json()})
-        .then((data) => {
-            console.log("백엔드 작업 결과 : ", data);
-        })
-    }
-
-    
-
 
     //카카오페이 시작
     var IMP = window.IMP;
@@ -205,6 +168,53 @@ const BuyList = () => {
         }
     }
     //카카오페이 끝
+
+    const addOrder = () => {
+        fetch("http://127.0.0.1:8888/app/order/add", {
+            method: 'post' ,
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(productInfo)
+        })
+        .then((resp) => {return resp.json()})
+        .then((data) => {
+            console.log("add1 :::" , data);
+            addOrderList();
+            addDelivery();
+            console.log("마이페이지로 보내기전의 totalPrice값: ", totalPrice);
+            navigate("/mypage/myorder", {state:totalPrice});
+        })
+    };
+
+    const addOrderList = () => {
+        fetch("http://127.0.0.1:8888/app/order/addList", {
+            method: 'post' , 
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(arr.arr)
+        })
+        .then((resp) => {return resp.json()})
+        .then((data) => {
+            console.log("addList1 :::" , data);
+        })
+    }
+
+    const addDelivery = () => {
+        fetch("http://127.0.0.1:8888/app/delivery/add", {
+            method : 'post',
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(addressArr)
+        })
+        .then((resp) => {return resp.json()})
+        .then((data) => {
+            console.log("deliveryAdd1 :::" , data);
+        })
+    };
+
 
     const loadAddressInfo = () => {
         fetch("http://127.0.0.1:8888/app/address/loadBasic", {
