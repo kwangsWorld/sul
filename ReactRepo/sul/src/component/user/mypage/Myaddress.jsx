@@ -60,6 +60,12 @@ margin-top: 5%;
   .font:hover {
     color: gray;
   }
+  .basic{
+    font-size: 13px;
+    padding-left: 2%;
+    font-weight: bold;
+    color: gray;
+  }
 `;
 
 const Myaddress = () => {
@@ -67,134 +73,122 @@ const Myaddress = () => {
   const navigate = useNavigate();
   const [addressVo, setAddressVo] = useState([]);
   const [vo, setVo] = useState(addressVo);
-  const [editedDelYn, setEditedDelYn] = useState(addressVo.delYn);
+  const [basicAddressNo, setBasicAddressNo] = useState(null); // 기본 배송지 주소 번호
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
-  const memberNo = loginInfo&&loginInfo.memberNo;
-  const addressNo = loginInfo&&loginInfo.addressNo;
-
-  console.log("addressNo",addressNo);
-
+  const memberNo = loginInfo && loginInfo.memberNo;
 
   const loadMemberVoList = () => {
-
-    fetch("http://127.0.0.1:8888/app/address/list",{
-      method : 'post',
-      headers:{
-        "Content-Type" : "application/json"
+    fetch("http://127.0.0.1:8888/app/address/list", {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(loginInfo)
     })
-    .then( resp => resp.json())
-    .then((x)=> {
-      setAddressVo(x);
-      console.log("x : " , x);
-    })
-    ;
+      .then(resp => resp.json())
+      .then((x) => {
+        setAddressVo(x);
+      });
   }
-   
+
   const handleplus = () => {
-    navigate("/mypage/myaddressplus")
+    navigate("/mypage/myaddressplus");
   };
 
   const handleDelete = (no) => {
-
     const editedVo = {
       ...vo,
       addressNo: no,
-      delYn : 'Y',
+      delYn: 'Y',
     };
 
-    fetch("http://127.0.0.1:8888/app/address/delete",{
-      method : 'post',
-      headers : {
-        "Content-Type":"application/json"
+    fetch("http://127.0.0.1:8888/app/address/delete", {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(editedVo)
     })
-    .then( (resp) => resp.json())
-    .then( (data) => {
-      if(data.msg === 'good') {
-        setVo(editedVo);
-        alert('배송지가 삭제되었습니다.');
-        navigate('/mypage/info');
-      }else{
-        alert('배송지 삭제 실패.');
-      }
-    })
-    .catch( (e) => {
-      alert('배송지 삭제 중 에러 발생');
-    });
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.msg === 'good') {
+          setVo(editedVo);
+          alert('배송지가 삭제되었습니다.');
+          navigate('/mypage/info');
+        } else {
+          alert('배송지 삭제 실패.');
+        }
+      })
+      .catch((e) => {
+        alert('배송지 삭제 중 에러 발생');
+      });
   };
 
   const handleSelectAddress = (no) => {
     const editedVo = {
       ...vo,
-      memberNo : memberNo,
+      memberNo: memberNo,
       addressNo: no,
     };
 
     fetch("http://127.0.0.1:8888/app/member/selectBasicAdrress", {
-      method:'post',
-      headers : {
-        "Content-Type" : "application/json"
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(editedVo)
     })
-    .then((resp) => resp.json())
-    .then((data) => {
-      if(data.msg === 'good') {
-        alert('기본 배송지로 설정되었습니다.');
-      }else{
-        alert('기본 배송지 설정 실패.');
-      }
-    })
-    .catch((e) => {
-      alert('기본배송지 설정 중 에러');
-    });
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.msg === 'good') {
+          setBasicAddressNo(no); // 기본 배송지가 설정된 경우 해당 주소의 번호를 상태에 저장
+          alert('기본 배송지로 설정되었습니다.');
+        } else {
+          alert('기본 배송지 설정 실패.');
+        }
+      })
+      .catch((e) => {
+        alert('기본 배송지 설정 중 에러');
+      });
   };
 
-  useEffect( ()=>{
-    console.log("useEffect호출");
+  useEffect(() => {
     loadMemberVoList();
   }, []);
 
   return (
     <StyledMyaddressDiv>
-     
-        <Myheader />
+      <Myheader />
       <h1>배송지</h1>
       <div className="div">
         <button onClick={handleplus}>새 배송지 추가하기 +</button>
       </div>
       <table>
         <tbody>
-          {
-            addressVo.length === 0 
-            ?
-            <h1>배송지를 추가해주세요.</h1>
-            : 
-              addressVo.map((vo) => (
-              <tr key={vo.addressNo}>     
+          {addressVo.length === 0
+            ? <h1>배송지를 추가해주세요.</h1>
+            : addressVo.map((vo) => (
+              <tr key={vo.addressNo}>
                 <td>{vo.name}</td>
                 <td>{vo.tel}</td>
                 <td>{vo.address}</td>
                 <div className='btn'>
                   <td>
-                    <button onClick={ ()=>{handleDelete(vo.addressNo);} }>삭제</button>
+                    <button onClick={() => { handleDelete(vo.addressNo); }}>삭제</button>
                   </td>
                   <td>
-                      <button onClick={() => { handleSelectAddress(vo.addressNo); }}>기본 배송지로 설정</button>
-                    </td>
+                    <button onClick={() => { handleSelectAddress(vo.addressNo); }}>기본 배송지로 설정</button>
+                  </td>
                 </div>
-                
-            </tr>
-              )
-            )
-              
+                {/* 기본 배송지 표시 */}
+                {vo.addressNo === basicAddressNo && (
+                  <td className='basic'>기본 배송지</td>
+                )}
+              </tr>
+            ))
           }
         </tbody>
       </table>
-        
     </StyledMyaddressDiv>
   );
 };

@@ -175,7 +175,7 @@ const JoinEmail = () => {
             const data = await response.json();
 
             if (data.msg === "good") {
-                alert("회원가입 성공");
+                alert("회원가입이 완료되었습니다. 로그인 후 배송지를 등록해주세요.");
                 navigate("/member/login");
             } else {
                 throw new Error("회원가입 실패: " + data.msg);
