@@ -9,24 +9,26 @@ const StyledHeaderDiv = styled.div`
     top: 0;
     z-index: 999;
     background-color: white;
-    
-    h4{
-       padding-right: 5%;
-       
-    }
+    height: 100px;
+
     ul{
         display: flex;
+        width: 100%;
     }
     li{
         list-style: none;
         margin-right: 10px; 
     }
-   
+    .lili{
+        margin-top: 8%;
+    }
 
+    .nick{
+        display: flex;
+    }
     .header_wrap {
         width: 100%;
-        height: 56px;
-        padding: 0px 69px;
+        height: 90px;
         display: flex;
         align-items: center;
         justify-content: space-around;
@@ -36,20 +38,17 @@ const StyledHeaderDiv = styled.div`
 
     .icon {
         font-size: 25px;
-        font-style: italic;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-weight: bolder;
     }
 
     
     .header_right {
-        display: flex;
-        flex-direction: row;
+
     }
 
     .join_login {
         display: flex;
-        flex-direction: row;
-        margin-right: 20px;
         font-size: 20px;
     }
 
@@ -57,14 +56,6 @@ const StyledHeaderDiv = styled.div`
         margin-right: 20px;
         display: flex;
         justify-content: center;
-        align-items: center;
-    }
-
-    .nick{
-        width: 30%;
-        margin-right: 20px;
-        display: flex;
-        justify-content: space-between;
         align-items: center;
     }
 
@@ -77,8 +68,7 @@ const StyledHeaderDiv = styled.div`
 
     .header_center {
         display: flex;
-        height: 30px;
-        padding-left: 10%;
+
     }
 
     .header_button {
@@ -181,25 +171,34 @@ const Header = () => {
                         </>
                          : 
                         <>
-                             <div className='nick'>
-                                <Link to="/mypage/Info">
-                                    <h4>{loginMember.nick}</h4>
-                                </Link>
-                                <Link className='com' to="/community/comlist">community</Link>
-                            </div>
-                            <div className='out'>
-                                <button className='btn' onClick={handleLogout}>로그아웃</button>
-                                <img
-                                    className='cart'
-                                    width="30px"
-                                    height="30px"
-                                    src="https://artfeel.co.kr/web/product/big/o_Icon_011.jpg"
-                                    alt="장바구니"
-                                    onClick={() => {
-                                        navigate("/cart/list");
-                                }}
-                            />
-                            </div>
+                            
+                             <ul>
+                                <li> 
+                                    <Link to="/mypage/Info">
+                                        <h4>{loginMember.nick}</h4>
+                                    </Link>
+                                </li>
+                                <li className='lili'>
+                                     <Link className='com' to="/community/comlist">community</Link>
+                                </li>
+                                <li className='lili'>
+                                    <button className='btn' onClick={handleLogout}>로그아웃</button>
+                                </li>
+                                <li className='lili'>
+                                    <img
+                                        className='cart'
+                                        width="30px"
+                                        height="30px"
+                                        src="https://artfeel.co.kr/web/product/big/o_Icon_011.jpg"
+                                        alt="장바구니"
+                                        onClick={() => {
+                                            navigate("/cart/list");
+                                    }}
+                                    />
+
+                                </li>
+                             </ul>
+                           
                             
                         </>
                         }

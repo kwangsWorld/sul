@@ -17,7 +17,7 @@ const StyledComwriteDiv = styled.div`
     padding-right: 20%;
   }
   table {
-    border: 3px solid gray;
+    border: 1px solid lightgray;
     width: 80%;
     padding-top: 5%;
     padding-bottom: 5%;

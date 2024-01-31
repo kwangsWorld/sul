@@ -8,14 +8,23 @@ const StyledListDiv = styled.div`
     /* background-color: lightcoral; */
     display: grid;
     grid-template-rows: 0.5fr 4fr 0.5fr 4fr;
+    img{
+        border-radius: 5%;
+    }
+    img:hover{
+        transform: scale(1.1);
+    }
 
     .second_line, .fourth_line{
         display: grid;
         grid-template-columns: 2.5fr 2.5fr 2.5fr 2.5fr 2.5fr;
+        margin-top: 3%;
     }
 
     .first_title, .second_title{
         font-size: 25px;
+        margin-top: 3%;
+        margin-left: 3%;
     }
 `;
 

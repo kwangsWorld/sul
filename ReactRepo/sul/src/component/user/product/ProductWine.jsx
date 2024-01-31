@@ -9,9 +9,16 @@ const StyledWineListDiv = styled.div`
     display: grid;
     grid-template-rows: 0.5fr 3fr 3fr;
 
+    img{
+        border-radius: 5%;
+    }
+    img:hover{
+        transform: scale(1.1);
+    }
     .second_line, .three_line{
         display: grid;
         grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+        margin-top: 3%;
     }
 
     .detail_box{
@@ -30,6 +37,8 @@ const StyledWineListDiv = styled.div`
 
     .first_line{
         font-size: 25px;
+        margin-top: 3%;
+        margin-left: 3%;
     }
 `;
 
@@ -53,9 +62,8 @@ const ProductWine = () => {
             navigate("/product/detail/" + vo.productNo);
           }}>
                 <img src={vo.image} alt="사진" width='295px' height='300px'/>
-                <div>이름:{vo.pName}</div>
-                <div>이미지:{vo.img}</div>
-                <div>가격:{vo.price}원</div>
+                <div>상품명 : {vo.pName}</div>
+                <div>가격 : {vo.price}원</div>
                 {/* <div>평점:{vo.rating}점</div> */}
           </div>
         ));

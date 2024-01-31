@@ -10,7 +10,11 @@ const StyledDetailDiv = styled.div`
     padding: 30px 300px;
     display: flex;
     margin-top: 5%;
+    margin-left: 3%;
 
+    img{
+        border-radius: 5%;
+    }
     tr > td{
          border-bottom: 1px solid lightgray;
     }
@@ -67,6 +71,10 @@ const StyledDetailDiv = styled.div`
     .taste > div, .appetizer > div{
         margin-top: 10px;
     }
+    .left_detail{
+        margin-left: 5%;
+        margin-top: 5%;
+    }
 
     .left_detail>div{
         margin-bottom: 10px;
@@ -114,7 +122,7 @@ const StyledDetailDiv = styled.div`
     }
 
     .review_firstLine{
-        margin-top: 50px;
+        margin-top: 40%;
         width: 150%;
         height: 50px;
         display: grid;

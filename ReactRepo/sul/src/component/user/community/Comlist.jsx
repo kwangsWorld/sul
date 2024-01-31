@@ -25,6 +25,7 @@ margin-top: 3%;
     background-color: white;
     border-radius: 20px;
    }
+
    .font{
         font-size: 30px;
         font-weight: bold;
@@ -48,6 +49,12 @@ margin-top: 3%;
         text-align: right;
         padding-right: 2%;
     }
+    .head:hover{
+        background-color: white;
+    }
+    tr:hover{
+        background-color: lightgray;
+    }
     .option{
         display: flex;
         justify-content: space-between;
@@ -56,14 +63,14 @@ margin-top: 3%;
         padding-left: 30%;
     }
     .btn{
-        padding-right: 10%;
+        margin-right: 40%;
     }
     button{
         border: 6px solid #ffe23dfb;
         border-radius: 10px;
     }
    .page{
-    
+        margin-left: 8%;
    }
    
 `;
@@ -141,7 +148,7 @@ const Comlist = () => {
 
         <StyledComlistDiv>
             <table>
-                <tr>
+                <tr className='head'>
                     <td className='font'>커뮤니티 게시판</td>
                     <td>
                         <div className='option'>

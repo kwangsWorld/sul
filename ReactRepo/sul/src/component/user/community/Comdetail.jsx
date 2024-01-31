@@ -9,6 +9,7 @@ const StyledComdetailDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 6%;
   form {
     width: 100%;
     height: 100%;
@@ -16,55 +17,67 @@ const StyledComdetailDiv = styled.div`
 
   .table {
     width: 60%;
-    height: 150%;
+    height: 100%;
     margin-left: 20%;
     font-size: 16px;
+    padding-top: 10%;
     border-collapse: collapse;
-    border: 2px solid gray;
+    border: 2px solid lightgray;
   }
   h1 {
     padding-bottom: 3%;
     padding-top: 5%;
   }
   tr:first-child{
-    border-bottom: 2px solid gray;
-    height: 10%;
+    border-bottom: 2px solid lightgray;
+    height: 60px;
+  }
+  tr:first-child > td:first-child{
+    width: 15%;
+    padding-left: 3%;
   }
   tr:nth-child(2){
-    border-bottom: 2px solid gray;
-    height: 50%;
+    height : 50vh;
   }
   tr:nth-child(3){
-    height: 100px;
+    border-bottom: 2px solid lightgray;
   }
-  tr > td:first-child {
-    padding-left: 10%;
-    font-weight: bold;
-  }
-
   input {
     border: 2px solid lightgray;
-    height: 40%;
+    height: 50px;
   }
 
   a {
     font-weight: bold;
-    padding-top: 13%;
+    margin-top: 5%;
   }
-
+  .second{
+    padding-left: 7%;
+    font-weight: bold;
+  }
+  .content{
+    padding-bottom: 3%;
+    padding-left: 10%;
+  }
   .comment {
     width: 90%;
   }
-
+  .ccmt{
+    height: 70px;
+  }
   .img {
-    padding-bottom: 5%;
+    padding-bottom: 3%;
+    padding-left: 10%;
   }
 
   .insert {
     background-color: #ffe23dfb;
-    width: 40%;
+    width: 20%;
     border-radius: 20px;
     border: none;
+  }
+  .eotrmf{
+    display: flex;
   }
 `;
 
@@ -76,25 +89,32 @@ const Comdetail = () => {
   const loginInfo = JSON.parse(sessionStorage.getItem('loginMemberVo'));
 
   useEffect(() => {
-    const obj = {
-      ...communityVo,
-      ...loginInfo,
+    const fetchData = async () => {
+      try {
+        const obj = {
+          ...communityVo,
+          ...loginInfo,
+        };
+
+        const response = await fetch("http://127.0.0.1:8888/app/ccommt/list", {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(obj),
+        });
+
+        const data = await response.json();
+        setCommunitycommtVo(data);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
     };
 
-    fetch("http://127.0.0.1:8888/app/ccommt/list", {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(obj),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        setCommunitycommtVo(data);
-      });
-  }, []);
+    fetchData();
+  }, [communityVo, loginInfo]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const commentData = {
@@ -104,37 +124,43 @@ const Comdetail = () => {
       memberNo: loginInfo.memberNo,
     };
 
-    fetch("http://127.0.0.1:8888/app/ccommt/insert", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json" ,
-      }, 
-      body: JSON.stringify(commentData),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        if (data.msg === 'good') {
-          alert("댓글 등록이 완료되었습니다.");
-
-          // Update the state with the new comment data
-          setCommunitycommtVo([...communitycommtVo, data]);
-
-          navigate('/community/comlist', { state: { vo: {...communityVo, communitycommtVo: [...communitycommtVo, data]} } });
-        } else {
-          alert("댓글 작성에 실패했습니다.");
-        }
-      })
-      .catch(() => {
-        alert("댓글 작성 중 에러");
+    try {
+      const response = await fetch("http://127.0.0.1:8888/app/ccommt/insert", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(commentData),
       });
+
+      const data = await response.json();
+
+      if (data.msg === 'good') {
+        alert("댓글 등록이 완료되었습니다.");
+
+        // Fetch the updated comment list
+        const updatedCommentsResponse = await fetch("http://127.0.0.1:8888/app/ccommt/list", {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(commentData),
+        });
+
+        const updatedComments = await updatedCommentsResponse.json();
+
+        // Update the state with the new comment data
+        setCommunitycommtVo(updatedComments);
+
+        navigate('/community/comlist', { state: { vo: {...communityVo, communitycommtVo: updatedComments} } });
+      } else {
+        alert("댓글 작성에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+      alert("댓글 작성 중 에러");
+    }
   };
-
-  const handleChangeInput = (event) => {
-    const { name, value } = event.target;
-
-    setCommunitycommtVo((prevCommunitycommtVo) => [...prevCommunitycommtVo, { [name]: value }]);
-  };
-
 
   return (
     <StyledComdetailDiv>
@@ -148,32 +174,31 @@ const Comdetail = () => {
               <td>{communityVo.nick}</td>
             </tr> 
             <tr>
-              <td className='img'><img src={communityVo.img} alt='사진' width='200px' height='200px' /></td>
-              <td className='img'>{communityVo.content}</td>
+              <td className='img' colSpan={3}><img src={communityVo.img} alt='사진' width='380px' height='300px' /></td>
+            </tr>
+            <tr>
+              <td className='content' colSpan={3}>{communityVo.content}</td>
             </tr>
             {communitycommtVo.map((vo) => (
-              <tr key={vo.communitycommtNo}>
+              <tr className='ccmt' key={vo.communitycommtNo}>
                 <td className='second'>{vo.nick}</td>
-                <td className='second'>{vo.content}</td>
-                <td className='second'>{vo.enrollDate}</td>
+                <td colSpan={2}>{vo.content}</td>
               </tr>
             ))}
-            <tr>
-              <td>{loginInfo.nick}</td>
-              <td>
-                <input className='comment' type='text' name='comment' placeholder='댓글을 작성하세요.' onChange={handleChangeInput} />
-              </td>
-              <td>
+            <tr className='ccmt'>
+              <td className='second'>{loginInfo.nick}</td>
+              <td className='eotrmf' colSpan={2}>
+                <input className='comment' type='text' name='comment' placeholder='댓글을 작성하세요.' />
                 <input className='insert' type='submit' value='등록' />
               </td>
             </tr>
           </tbody>
         </table>
       </form>
-
       <Link to='/community/comlist'>목록으로</Link>
     </StyledComdetailDiv>
   );
 };
+
 
 export default Comdetail;

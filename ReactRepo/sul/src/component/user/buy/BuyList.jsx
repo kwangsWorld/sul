@@ -14,6 +14,7 @@ const StyledBuyListDiv = styled.div`
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        margin-top: 3%;
         /* background-color: lightpink; */
     }
 
@@ -24,37 +25,43 @@ const StyledBuyListDiv = styled.div`
 
     .address{
         width:30%;
-        height: 30%;
+        height: 170px;
         justify-content: center;
         border: 1px solid black;
         text-align: center;
+        border: 1px solid gray;
     }
     .address_header{
         display: flex;
         justify-content: space-around;
     }
+    .total{
+        height: 40px;
+    }
 
     .order{
-        margin-top:30px;
+        margin-top:5%;
         width:30%;
         height: 30%;
         justify-content: center;
         border: 1px solid black;
         text-align: center;
+        border: 1px solid gray;
     }
 
     .order_list{
         display: flex;
         justify-content: space-evenly;
+        padding-top: 8%;
     }
 
     .line{
         margin: 0px;
-        border-bottom: 1px solid #ffe23dfb;
+        border-bottom: 1px solid gray;
     }
 
-    .checkbox_agree{
-        
+    .address_main{
+        padding-top: 3%;
     }
 
     .checkbox_info{
@@ -81,6 +88,14 @@ const StyledBuyListDiv = styled.div`
 
     .address_header, .order_head{
         background-color: #ffe23dfb;
+        height: 50px;
+        padding-top: 3%;
+        font-weight: bold;
+        font-size: 18px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .agree_user_info{
+        margin-top: 3%;
     }
 
 `;
@@ -233,7 +248,7 @@ const BuyList = () => {
     return (
         <StyledBuyListDiv>
             <div className='buy_header'>
-                <div>주문/결제</div>
+                <div className='font'><h3>주문/결제</h3></div>
                 <hr className='line'/>
             </div>
             <div className='buy_wrap'>
@@ -273,7 +288,7 @@ const BuyList = () => {
                         </div>
                     </div>
                     <hr />  
-                    <div>총 결제 금액: {parseInt(totalPrice).toLocaleString('ko-KR')}원</div>
+                    <div className='total'>총 결제 금액: {parseInt(totalPrice).toLocaleString('ko-KR')}원</div>
                 </div>
 
                 <div className='agree_user_info'>
