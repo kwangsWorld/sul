@@ -50,7 +50,7 @@ const Navi = () => {
                     <Link to = "/product/list/3">과실주</Link>
                 </div>
                 <div>
-                    <Link to = "/product/list/4">증류수</Link>
+                    <Link to = "/product/list/4">증류주</Link>
                 </div>
             </div>
         </StyledNaviDiv>

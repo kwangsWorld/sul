@@ -56,7 +56,7 @@ public class DeliveryController {
 	// 배송추가
 	@PostMapping("add")
 	public Map<String , String> add(@RequestBody DeliveryVo vo){
-		log.info("들어오는값" + vo);
+		log.info("배송 정보 들어오는값" + vo);
 		int result = service.add(vo);
 		Map<String,String> map = new HashMap<String, String>();
 		
@@ -66,7 +66,7 @@ public class DeliveryController {
 			map.put("msg", "bad");
 		}
 		
-		log.info("나가는값" + map);
+		log.info("배송 정보 나가는값" + map);
 		return map;
 	}
 
