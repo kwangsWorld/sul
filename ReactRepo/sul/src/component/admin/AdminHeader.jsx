@@ -14,7 +14,7 @@ const StyledAdminHeaderDiv = styled.div`
 
     .icon{
         font-size: 25px;
-        font-style: italic;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-weight: bolder;
     }
 

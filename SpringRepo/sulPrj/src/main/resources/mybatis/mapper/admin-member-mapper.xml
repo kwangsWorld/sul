@@ -29,6 +29,7 @@
 				AND M.NICK LIKE '%' || #{nick} || '%'
 			</if>
 		</where>
+		AND M.MEMBER_NO = A.ADDRESS_NO
 		ORDER BY M.MEMBER_NO DESC
 		OFFSET #{pageNo} ROWS FETCH NEXT #{limit} ROWS ONLY
 	</select>
@@ -58,6 +59,7 @@
 				AND M.NICK LIKE '%' || #{nick} || '%'
 			</if>
 		</where>
+		AND M.MEMBER_NO = A.ADDRESS_NO
 		ORDER BY M.MEMBER_NO DESC
 	</select>
 	
