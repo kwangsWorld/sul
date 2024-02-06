@@ -118,7 +118,7 @@ const AdminNoticeWrite = () => {
 
     // 뒤로가기 버튼 클릭 시 동작 함수
     const handleBack = () => {
-        navigate("/admin/adminNotice/list")
+        navigate("/admin/notice/list")
 };
 
     return (
