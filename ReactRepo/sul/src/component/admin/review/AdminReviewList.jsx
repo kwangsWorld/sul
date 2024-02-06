@@ -181,7 +181,7 @@ const AdminReviewList = () => {
                         <td className='review_content'>내용</td>
                         <td className='review_rating'>별점</td>
                         <td className='review_enrollDate'>등록일자</td>
-                        <td className='review_delYn'>공개여부</td>
+                        <td className='review_delYn'>삭제여부</td>
                     </tr>
                 </thead>
                 <tbody>

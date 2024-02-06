@@ -119,7 +119,7 @@ const AdminReviewDetail = () => {
                         <td className=''>닉네임</td>
                         <td className=''>상품이름</td>
                         <td className=''>등록일자</td>
-                        <td className=''>등록여부</td>
+                        <td className=''>삭제여부</td>
 
                     </tr>
                     <tr className='detail_content'>
